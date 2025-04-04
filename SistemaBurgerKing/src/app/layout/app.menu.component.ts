@@ -23,11 +23,11 @@ export class AppMenuComponent implements OnInit {
                 ]
             },
             {
-                label: 'General',
+                label: 'Apps',
                 icon: 'pi pi-th-large',
                 items: [
                     {
-                        label: 'Departamentos',
+                        label: 'Blog',
                         icon: 'pi pi-fw pi-comment',
                         items: [
                             {
@@ -48,14 +48,14 @@ export class AppMenuComponent implements OnInit {
                         ]
                     },
                     {
-                        label: 'Municipios',
+                        label: 'Calendar',
                         icon: 'pi pi-fw pi-calendar',
                         routerLink: ['/apps/calendar']
                     },
                     {
-                        label: 'Estados Civiles',
+                        label: 'Chat',
                         icon: 'pi pi-fw pi-comments',
-                        routerLink: ['/estadoCivil']
+                        routerLink: ['/apps/chat']
                     },
                     {
                         label: 'Files',

@@ -1,9 +1,6 @@
 import { NgModule } from '@angular/core';
 import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 import { AppLayoutComponent } from './layout/app.layout.component';
-import {ListComponent} from './estadosCiviles/list/list.component'
-import {CreateComponent} from './estadosCiviles/create/create.component'
-
 
 const routerOptions: ExtraOptions = {
     anchorScrolling: 'enabled'
@@ -13,10 +10,7 @@ const routes: Routes = [
     {
         path: '', component: AppLayoutComponent,
         children: [
-            {path: 'estadoCivil', component: ListComponent,},
-            {path: 'estadoCivil/crear', component: CreateComponent,},
             { path: '', loadChildren: () => import('./demo/components/dashboards/dashboards.module').then(m => m.DashboardsModule) },
-            // { path: 'General', data: { breadcrumb: 'General' }, loadChildren: () => import('./demo/components/general/general.module').then(m => m.GeneralModule) },
             { path: 'uikit', data: { breadcrumb: 'UI Kit' }, loadChildren: () => import('./demo/components/uikit/uikit.module').then(m => m.UIkitModule) },
             { path: 'utilities', data: { breadcrumb: 'Utilities' }, loadChildren: () => import('./demo/components/utilities/utilities.module').then(m => m.UtilitiesModule) },
             { path: 'pages', data: { breadcrumb: 'Pages' }, loadChildren: () => import('./demo/components/pages/pages.module').then(m => m.PagesModule) },
