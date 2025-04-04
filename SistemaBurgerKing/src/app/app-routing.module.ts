@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 import { AppLayoutComponent } from './layout/app.layout.component';
+import { ListComponent} from './departamentos/list/list.component'; 
+import { CreateComponent } from './departamento/create/create.component'; //ruta para el componente de crear departamento
 
 const routerOptions: ExtraOptions = {
     anchorScrolling: 'enabled'
@@ -10,6 +12,8 @@ const routes: Routes = [
     {
         path: '', component: AppLayoutComponent,
         children: [
+            { path: '', component: ListComponent}, //ruta para el componente de departamentos
+            { path: 'crear', component: CreateComponent}, //ruta para el componente de crear departamento
             { path: '', loadChildren: () => import('./demo/components/dashboards/dashboards.module').then(m => m.DashboardsModule) },
             { path: 'uikit', data: { breadcrumb: 'UI Kit' }, loadChildren: () => import('./demo/components/uikit/uikit.module').then(m => m.UIkitModule) },
             { path: 'utilities', data: { breadcrumb: 'Utilities' }, loadChildren: () => import('./demo/components/utilities/utilities.module').then(m => m.UtilitiesModule) },

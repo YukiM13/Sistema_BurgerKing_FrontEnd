@@ -1,0 +1,25 @@
+<h2> Lista de Departamentos </h2>
+
+<a class="btn btn-primary" routerLink="/crear">
+  Nuevo
+</a>
+
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Departamento</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let departamento of departamentos">
+      <td>{{ departamento.depa_Codigo }}</td>
+      <td>{{ departamento.depa_Descripcion }}</td>
+      <td>
+        
+      </td>
+    </tr>
+  </tbody>
+</table>
