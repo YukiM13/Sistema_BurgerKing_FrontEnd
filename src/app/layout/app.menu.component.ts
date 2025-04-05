@@ -30,19 +30,19 @@ export class AppMenuComponent implements OnInit {
                         icon: 'pi pi-fw pi-globe',
                         items: [
                             {
-                                label: 'List',
+                                label: 'Departamentos',
                                 icon: 'pi pi-fw pi-image',
-                                routerLink: ['/apps/blog/list']
+                                routerLink: ['/departamento']
                             },
                             {
-                                label: 'Detail',
+                                label: 'Municipios',
                                 icon: 'pi pi-fw pi-list',
                                 routerLink: ['/apps/blog/detail']
                             },
                             {
-                                label: 'Edit',
+                                label: 'EstadosCiviles',
                                 icon: 'pi pi-fw pi-pencil',
-                                routerLink: ['/apps/blog/edit']
+                                routerLink: ['/estadoCivil']
                             }
                         ]
                     },
