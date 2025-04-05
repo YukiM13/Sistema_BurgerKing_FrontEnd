@@ -3,6 +3,8 @@ import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 import { AppLayoutComponent } from './layout/app.layout.component';
 import { ListComponent } from './departamentos/list/list.component';
 import { CreateComponent } from './departamentos/create/create.component';
+import {EsCiListComponent} from './estadosCiviles/list/list.component';
+import {EsCiCreateComponent} from './estadosCiviles/create/create.component';
 
 const routerOptions: ExtraOptions = {
     anchorScrolling: 'enabled'
@@ -13,7 +15,9 @@ const routes: Routes = [
         path: '', component: AppLayoutComponent,
         children: [
             {path: 'departamento', component: ListComponent},
-            {path: 'departamentoCrear', component: CreateComponent}
+            {path: 'departamento/crear', component: CreateComponent},
+            {path: 'estadoCivil', component: EsCiListComponent,},
+            {path: 'estadoCivil/crear', component: EsCiCreateComponent,},
             
         ]
     },

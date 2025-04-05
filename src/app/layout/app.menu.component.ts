@@ -18,45 +18,40 @@ export class AppMenuComponent implements OnInit {
                     {
                         label: 'E-Commerce',
                         icon: 'pi pi-fw pi-home',
-                        routerLink: ['/departamento']
+                        routerLink: ['/']
                     }
                 ]
             },
             {
-                label: 'Apps',
-                icon: 'pi pi-th-large',
+                label: '',
                 items: [
                     {
-                        label: 'Blog',
-                        icon: 'pi pi-fw pi-comment',
+                        label: 'General',
+                        icon: 'pi pi-fw pi-globe',
                         items: [
                             {
-                                label: 'List',
+                                label: 'Departamento',
                                 icon: 'pi pi-fw pi-image',
-                                routerLink: ['/apps/blog/list']
+                                routerLink: ['/departamento']
                             },
                             {
-                                label: 'Detail',
+                                label: 'Municipio',
                                 icon: 'pi pi-fw pi-list',
                                 routerLink: ['/apps/blog/detail']
                             },
                             {
-                                label: 'Edit',
-                                icon: 'pi pi-fw pi-pencil',
-                                routerLink: ['/apps/blog/edit']
+                                label: 'Estados Civiles',
+                                icon: 'pi pi-fw pi-comments',
+                                routerLink: ['/estadoCivil']
                             }
                         ]
                     },
                     {
-                        label: 'Calendar',
+                        label: 'Municipios',
                         icon: 'pi pi-fw pi-calendar',
                         routerLink: ['/apps/calendar']
                     },
-                    {
-                        label: 'Chat',
-                        icon: 'pi pi-fw pi-comments',
-                        routerLink: ['/apps/chat']
-                    },
+                   
                     {
                         label: 'Files',
                         icon: 'pi pi-fw pi-folder',

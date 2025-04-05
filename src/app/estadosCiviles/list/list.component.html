@@ -1,0 +1,28 @@
+<h2>Estados Civiles</h2>
+<div class="card">
+
+    <div class="card-body">
+        <a routerLink="/estadoCivil/crear" class="btn btn-primary"><span ng-reflect-ng-class="[object Object]" data-pc-section="icon" class="pi pi-plus-circle p-button-icon p-button-icon-left ng-star-inserted"></span> Crear</a>
+        <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Acciones</th>
+                <th>Id</th>
+                <th>Estado Civil</th>
+                
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let estadoCivil of estadosCivil">
+                <td>
+                    <a (click)="ObtenerEstadoCivil(estadoCivil.esCi_Id)" class="btn btn-warning">Editar</a>
+   
+                  </td>
+                <td>{{ estadoCivil.esCi_Id }}</td>
+                <td>{{ estadoCivil.esci_Descripcion }}</td>
+                
+              </tr>
+            </tbody>
+        </table>
+    </div>
+  </div>
