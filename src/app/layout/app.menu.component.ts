@@ -23,26 +23,27 @@ export class AppMenuComponent implements OnInit {
                 ]
             },
             {
-                label: '',
+                label: 'General',
+                icon: 'pi pi-th-large',
                 items: [
                     {
-                        label: 'General',
-                        icon: 'pi pi-fw pi-globe',
+                        label: 'Departamentos',
+                        icon: 'pi pi-fw pi-comment',
                         items: [
                             {
-                                label: 'Departamento',
+                                label: 'List',
                                 icon: 'pi pi-fw pi-image',
-                                routerLink: ['/departamento']
+                                routerLink: ['/apps/blog/list']
                             },
                             {
-                                label: 'Municipio',
+                                label: 'Detail',
                                 icon: 'pi pi-fw pi-list',
                                 routerLink: ['/apps/blog/detail']
                             },
                             {
-                                label: 'Estados Civiles',
-                                icon: 'pi pi-fw pi-comments',
-                                routerLink: ['/estadoCivil']
+                                label: 'Edit',
+                                icon: 'pi pi-fw pi-pencil',
+                                routerLink: ['/apps/blog/edit']
                             }
                         ]
                     },
@@ -51,7 +52,11 @@ export class AppMenuComponent implements OnInit {
                         icon: 'pi pi-fw pi-calendar',
                         routerLink: ['/apps/calendar']
                     },
-                   
+                    {
+                        label: 'Estados Civiles',
+                        icon: 'pi pi-fw pi-comments',
+                        routerLink: ['/estadoCivil']
+                    },
                     {
                         label: 'Files',
                         icon: 'pi pi-fw pi-folder',
