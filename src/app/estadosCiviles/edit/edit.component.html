@@ -2,14 +2,21 @@
 <div class="card">
  
     <div class="card-body">
-     <form (submit)="EditarEstadoCivil()">
-        <div class="row" *ngFor="let estadoCivil of estadocivil">
-            <input type="text" value="{{ estadoCivil.esCi_Id }}" hidden>
+     <form (submit)="EditarEstadoCivil()" >
+        <input type="text"  hidden>
+        <div class="row" >
+            
             <div class="col-md-12" >
                 <label for="" class="label-control">Estado Civil</label>
-                <input type="text" name="esci_Descripcion" [(ngModel)] = "estadosCivil.esci_Descripcion" class="form-control" value="{{ estadoCivil.esci_Descripcion }}"/>
+                <input type="text" name="esci_Descripcion" [value]="estadosCivil.esci_Descripcion" class="form-control" />
                 <br>
+              
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-right">
                 <input type="submit" class="btn btn-primary" value="Guardar" />
+                <button type="button" class="btn btn-secondary" (click)="cancelarFormulario()" class="btn btn-secondary">Cancelar</button>
             </div>
         </div>
      </form>
