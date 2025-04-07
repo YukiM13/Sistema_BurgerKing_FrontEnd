@@ -13,6 +13,7 @@ import { environment } from 'src/enviroments/enviroment';
   templateUrl: './create.component.html',
   styleUrl: './create.component.scss'
 })
+
 export class EsCiCreateComponent {
   private apiUrl = environment.apiUrl; 
   estadosCivil2: any[] = [];

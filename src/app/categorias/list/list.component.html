@@ -1,0 +1,73 @@
+<ng-container *ngIf="!showCreate  && !showEdit" @collapse>
+    <h2>Categorias</h2>
+  <div class="card">
+  
+      <div class="card-body">
+          <a (click)="toggleCreate()" class="btn btn-primary"><span ng-reflect-ng-class="[object Object]" data-pc-section="icon" class="pi pi-plus-circle p-button-icon p-button-icon-left ng-star-inserted"></span> Nuevo</a>
+          <p-table #dt dataKey="id" [rows]="10" [rowHover]="true" [paginator]="true" [value]="categorias" [globalFilterFields]="['cate_Descripcion']">
+            <ng-template pTemplate="caption">
+                <div class="flex justify-content-end flex-column sm:flex-row">
+                    <span class="p-input-icon-left mb-2">
+                        <i class="pi pi-search"></i>
+                        <input #filter pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Buscar"/>
+                    </span>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width: 10px;">
+                        Acciones
+                    </th>
+                   
+                    <th>
+                        <div class="flex justify-content-between align-items-center" pSortableColumn="cate_Descripcion">
+                            Categorio
+                            <p-sortIcon field="cate_Descripcion"></p-sortIcon>
+                        </div>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-cate>
+                <tr>
+                    <td>
+                      <p-splitButton label="Acciones" icon="pi pi-cog" [model]="cate.acciones" styleClass="p-button-info"></p-splitButton>
+                    </td>
+                   
+                    <td>
+                        <div class="flex justify-content-between align-items-center">
+                            {{cate.cate_Descripcion}}
+                        </div>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="8">Sin registros</td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="loadingbody">
+                <tr>
+                    <td colspan="8">Loading customers data. Please wait.</td>
+                </tr>
+            </ng-template>
+        </p-table>
+
+  
+  
+      </div>
+    </div>
+   
+  </ng-container>
+
+   <p-confirmDialog></p-confirmDialog>
+  <p-toast></p-toast> 
+    <div *ngIf="showCreate" @collapse>
+    <!-- <app-create (creado)="registroCreado()" (cancelar)="cancelCreate()" ></app-create> -->
+    </div>
+  
+    <div *ngIf="showEdit" @collapse>
+     <!-- <app-edit [estadoCivil]="estadoCivilSeleccionado" (cancelar)="cancelEdit()" ></app-edit> --> 
+    </div>
+ 
+ 
+  

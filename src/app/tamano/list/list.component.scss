@@ -1,0 +1,8 @@
+.p-tieredmenusub
+{
+    position:absolute; z-index:1000;
+    display: flex;
+}
+table tbody{
+    overflow: visible !important;
+}

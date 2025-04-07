@@ -43,13 +43,8 @@ export class AppMenuComponent implements OnInit {
                                 routerLink: ['/rol']
                             }
                         ]
-                    }
-                ]
-            },
-            {
-                
-                label: '',
-                items: [
+                        
+                    },
                     {
                         
 
@@ -57,35 +52,45 @@ export class AppMenuComponent implements OnInit {
                         icon: 'pi pi-fw pi-globe',
                         items: [
                             {
-                                label: 'Departamento',
+                                label: 'Departamentos',
                                 icon: 'pi pi-fw pi-image',
                                 routerLink: ['/departamento']
                             },
                             {
-                                label: 'Municipio',
+                                label: 'Municipios',
                                 icon: 'pi pi-fw pi-list',
                                 routerLink: ['/municipio']
                             },
                             {
                                 label: 'Estados Civiles',
-                                icon: 'pi pi-fw pi-comments',
+                                icon: 'pi pi-fw pi-pencil',
                                 routerLink: ['/estadoCivil']
-
                             },
                             {
                                 label: 'Empleados',
                                 icon: 'pi pi-fw pi-list',
                                 routerLink: ['/empleado']
-                            }
+                            },
+                            {
+                                label: 'Cargos',
+                                icon: 'pi pi-fw pi-pencil',
+                                routerLink: ['/cargo']
+                            },
+                            {
+                                label: 'Sucursales',
+                                icon: 'pi pi-fw pi-pencil',
+                                routerLink: ['/sucursal']
+                            },
+                            {
+                                label: 'Clientes',
+                                icon: 'pi pi-fw pi-pencil',
+                                routerLink: ['/cliente']
+                            },
+                           
+                           
                          
                         ]
-                    }
-                ]
-            },
-            {
-                
-                label: '',
-                items: [
+                    },
                     {
                         
 
@@ -98,9 +103,9 @@ export class AppMenuComponent implements OnInit {
                                 routerLink: ['/tamano']
                             },
                             {
-                                label: 'Categoria',
-                                icon: 'pi pi-fw pi-image',
-                                routerLink: ['/']
+                                label: 'Categorias',
+                                icon: 'pi pi-fw pi-pencil',
+                                routerLink: ['/categoria']
                             },
                             {
                                 label: 'Productos',
@@ -110,13 +115,13 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Combos',
                                 icon: 'pi pi-fw pi-comments',
-                                routerLink: ['/']
+                                routerLink: ['/combo']
 
                             },
                             {
                                 label: 'Ventas',
                                 icon: 'pi pi-fw pi-list',
-                                routerLink: ['/']
+                                routerLink: ['/venta']
                             }
                          
                         ]
