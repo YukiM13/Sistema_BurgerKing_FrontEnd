@@ -91,11 +91,7 @@ export class AppMenuComponent implements OnInit {
                                 icon: 'pi pi-fw pi-pencil',
                                 routerLink: ['/cliente']
                             },
-                            {
-                                label: 'Categorias',
-                                icon: 'pi pi-fw pi-pencil',
-                                routerLink: ['/categoria']
-                            },
+                           
                            
                          
                         ]
@@ -118,9 +114,9 @@ export class AppMenuComponent implements OnInit {
                                 routerLink: ['/tamano']
                             },
                             {
-                                label: 'Categoria',
-                                icon: 'pi pi-fw pi-image',
-                                routerLink: ['/']
+                                label: 'Categorias',
+                                icon: 'pi pi-fw pi-pencil',
+                                routerLink: ['/categoria']
                             },
                             {
                                 label: 'Productos',
