@@ -4,33 +4,74 @@
   
       <div class="card-body">
           <a (click)="toggleCreate()" class="btn btn-primary"><span ng-reflect-ng-class="[object Object]" data-pc-section="icon" class="pi pi-plus-circle p-button-icon p-button-icon-left ng-star-inserted"></span> Nuevo</a>
-          <table class="table table-striped">
-              <thead>
+      
+          <p-table #dt dataKey="id" [rows]="10" [rowHover]="true" [paginator]="true" [value]="municipios" [globalFilterFields]="['muni_Codigo','muni_Descripcion','depa_Descripcion']">
+            <ng-template pTemplate="caption">
+                <div class="flex justify-content-end flex-column sm:flex-row">
+                    <span class="p-input-icon-left mb-2">
+                        <i class="pi pi-search"></i>
+                        <input #filter pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Buscar"/>
+                    </span>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
                 <tr>
-                  <th >Acciones</th>
-                 
-                  <th>Municipio</th>
-                  <th>Departamento</th>
-
-                  
+                    <th style="width: 10px;">
+                        Acciones
+                    </th>
+                   
+                    <th>
+                        <div class="flex justify-content-between align-items-center" pSortableColumn="muni_Codigo">
+                            Codigo
+                            <p-sortIcon field="muni_Codigo"></p-sortIcon>
+                        </div>
+                    </th>
+                    <th>
+                      <div class="flex justify-content-between align-items-center" pSortableColumn="muni_Descripcion">
+                          Municipio
+                          <p-sortIcon field="muni_Descripcion"></p-sortIcon>
+                      </div>
+                  </th><th>
+                    <div class="flex justify-content-between align-items-center" pSortableColumn="depa_Descripcion">
+                        Departamento
+                        <p-sortIcon field="depa_Descripcion"></p-sortIcon>
+                    </div>
+                </th>
                 </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let municipio of municipios">
-                  <td >
-                    <p-splitButton label="Acciones" icon="pi pi-cog" [model]="municipio.acciones" styleClass="p-button-info"></p-splitButton>
-                      <!-- <a (click)="ObtenerEstadoCivil(estadoCivil.esCi_Id)" class="btn btn-warning">Editar</a> -->
-     
+            </ng-template>
+            <ng-template pTemplate="body" let-muni>
+                <tr>
+                    <td>
+                      <p-splitButton label="Acciones" icon="pi pi-cog" [model]="muni.acciones" styleClass="p-button-info"></p-splitButton>
                     </td>
-                  
-                  <td>{{ municipio.muni_Descripcion }}</td>
-                  <td>{{ municipio.depa_Descripcion }}</td>
-
-                  
+                   
+                    <td>
+                        <div class="flex justify-content-between align-items-center">
+                            {{muni.muni_Codigo}}
+                        </div>
+                    </td>
+                    <td>
+                      <div class="flex justify-content-between align-items-center">
+                          {{muni.muni_Descripcion}}
+                      </div>
+                  </td><td>
+                    <div class="flex justify-content-between align-items-center">
+                        {{muni.depa_Descripcion}}
+                    </div>
+                </td>
                 </tr>
-              </tbody>
-          </table>
-  
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="8">Sin registros</td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="loadingbody">
+                <tr>
+                    <td colspan="8">Loading customers data. Please wait.</td>
+                </tr>
+            </ng-template>
+        </p-table>
   
       </div>
     </div>

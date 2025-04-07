@@ -12,6 +12,8 @@ import { ButtonModule } from 'primeng/button';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
+import { Table, TableModule } from 'primeng/table';
+import { InputTextModule } from 'primeng/inputtext';
 
 
 
@@ -26,7 +28,7 @@ import { MenuItem } from 'primeng/api';
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [CommonModule, RouterModule, SplitButtonModule, ButtonModule,ConfirmDialogModule,ToastModule],
+  imports: [CommonModule, RouterModule, SplitButtonModule, ButtonModule,ConfirmDialogModule,ToastModule, TableModule, InputTextModule],
   providers:[MessageService, ConfirmationService],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss',
@@ -103,6 +105,7 @@ export class MuniListComponent  implements OnInit {
   
     ObtenerMunicipio(id: string): void {
       this.municipio.muni_Codigo = id;
+      
       this.http.post<Municipios>(`${this.apiUrl}/Municipio/Find`, this.municipio)
         .subscribe(data => {
           this.municipioSeleccionado = data;
@@ -168,5 +171,7 @@ export class MuniListComponent  implements OnInit {
         });
       }, 100);
     }
-
+    onGlobalFilter(table: Table, event: Event) {
+      table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
+    }
 }

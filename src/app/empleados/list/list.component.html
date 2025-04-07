@@ -4,40 +4,121 @@
   
       <div class="card-body">
           <a (click)="toggleCreate()" class="btn btn-primary"><span ng-reflect-ng-class="[object Object]" data-pc-section="icon" class="pi pi-plus-circle p-button-icon p-button-icon-left ng-star-inserted"></span> Nuevo</a>
-          <table class="table table-striped">
-              <thead>
+        
+                 
+          <p-table #dt dataKey="id" [rows]="10" [rowHover]="true" [paginator]="true" [value]="empleados" [globalFilterFields]="['empl_Identidad','empl_Nombre','empl_Apellido','esCi_Descripcion','carg_Descripcion','sucu_Descripcion']">
+            <ng-template pTemplate="caption">
+                <div class="flex justify-content-end flex-column sm:flex-row">
+                    <span class="p-input-icon-left mb-2">
+                        <i class="pi pi-search"></i>
+                        <input #filter pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Buscar"/>
+                    </span>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
                 <tr>
-                  <th >Acciones</th>
-                    <th>Identidad</th>
-                  <th>Nombre</th>
-                  <th>Fecha Nacimiento</th>
-                  <th>Sexo</th>
-                    <th>Estado Civil</th>
-                    <th>Cargo</th>
-                    <th>Sucursal</th>
-                  
+                    <th style="width: 10px;">
+                        Acciones
+                    </th>
+                   
+                    <th>
+                        <div class="flex justify-content-between align-items-center" pSortableColumn="empl_Identidad">
+                          Identidad
+                            <p-sortIcon field="empl_Identidad"></p-sortIcon>
+                        </div>
+                    </th>
+                    <th>
+                      <div class="flex justify-content-between align-items-center" pSortableColumn="empl_Nombre">
+                        Nombre
+                          <p-sortIcon field="empl_Nombre"></p-sortIcon>
+                      </div>
+                  </th>
+                  <th>
+                    <div class="flex justify-content-between align-items-center" pSortableColumn="empl_FechaNacimiento">
+                      Fecha Nacimiento
+                        <p-sortIcon field="empl_FechaNacimiento"></p-sortIcon>
+                    </div>
+                </th>
+                  <th>
+                    <div class="flex justify-content-between align-items-center" pSortableColumn="empl_Sexo">
+                      Sexo
+                        <p-sortIcon field="empl_Sexo"></p-sortIcon>
+                    </div>
+                </th>
+                <th>
+                  <div class="flex justify-content-between align-items-center" pSortableColumn="esCi_Descripcion">
+                    Estado Civil
+                      <p-sortIcon field="esCi_Descripcion"></p-sortIcon>
+                  </div>
+              </th>
+              <th>
+                <div class="flex justify-content-between align-items-center" pSortableColumn="carg_Descripcion">
+                  Cargo
+                    <p-sortIcon field="carg_Descripcion"></p-sortIcon>
+                </div>
+            </th>
+            <th>
+              <div class="flex justify-content-between align-items-center" pSortableColumn="sucu_Descripcion">
+                Sucursal
+                  <p-sortIcon field="sucu_Descripcion"></p-sortIcon>
+              </div>
+          </th>
                 </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let empleado of empleados">
-                  <td >
-                    <p-splitButton label="Acciones" icon="pi pi-cog" [model]="empleado.acciones" styleClass="p-button-info"></p-splitButton>
-                      <!-- <a (click)="ObtenerEstadoCivil(estadoCivil.esCi_Id)" class="btn btn-warning">Editar</a> -->
-     
+            </ng-template>
+            <ng-template pTemplate="body" let-empl>
+                <tr>
+                    <td>
+                      <p-splitButton label="Acciones" icon="pi pi-cog" [model]="empl.acciones" styleClass="p-button-info"></p-splitButton>
                     </td>
-                    <td>{{ empleado.empl_Identidad }}</td>
-                  <td>{{ empleado.empl_Nombre }} {{ empleado.empl_Apellido }}</td>
-                  <td>{{ empleado.empl_FechaNacimiento }}</td>
-                    <td>{{ empleado.empl_Sexo }}</td>
-                    <td>{{ empleado.esCi_Descripcion }}</td>
-                    <td>{{ empleado.carg_Descripcion }}</td>
-                    <td>{{ empleado.sucu_Descripcion }}</td>
-
-                  
+                   
+                    <td>
+                        <div class="flex justify-content-between align-items-center">
+                            {{empl.empl_Identidad}}
+                        </div>
+                    </td>
+                    <td>
+                      <div class="flex justify-content-between align-items-center">
+                          {{empl.empl_Nombre}} {{empl.empl_Apellido}}
+                      </div>
+                  </td>
+                  <td>
+                    <div class="flex justify-content-between align-items-center">
+                        {{empl.empl_FechaNacimiento}}
+                    </div>
+                </td>
+                  <td>
+                    <div class="flex justify-content-between align-items-center">
+                        {{empl.empl_Sexo}}
+                    </div>
+                </td>
+                <td>
+                  <div class="flex justify-content-between align-items-center">
+                      {{empl.esCi_Descripcion}}
+                  </div>
+              </td>
+              <td>
+                <div class="flex justify-content-between align-items-center">
+                    {{empl.carg_Descripcion}}
+                </div>
+            </td>
+            <td>
+              <div class="flex justify-content-between align-items-center">
+                  {{empl.sucu_Descripcion}}
+              </div>
+          </td>
                 </tr>
-              </tbody>
-          </table>
-  
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="8">Sin registros</td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="loadingbody">
+                <tr>
+                    <td colspan="8">Loading customers data. Please wait.</td>
+                </tr>
+            </ng-template>
+        </p-table>
   
       </div>
     </div>

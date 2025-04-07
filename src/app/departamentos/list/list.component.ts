@@ -12,6 +12,8 @@ import { ButtonModule } from 'primeng/button';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
+import { Table, TableModule } from 'primeng/table';
+import { InputTextModule } from 'primeng/inputtext';
 
 
 
@@ -29,7 +31,7 @@ import { MenuItem } from 'primeng/api';
   standalone: true,
   //Falta el componente de editar
   //import {DepaEditComponent} from '../edit/edit.component';
-  imports: [CommonModule, RouterModule, DepaCreateComponent, SplitButtonModule, ButtonModule,ConfirmDialogModule,ToastModule],
+  imports: [CommonModule, RouterModule, DepaCreateComponent, SplitButtonModule, ButtonModule,ConfirmDialogModule,ToastModule, TableModule, InputTextModule],
   providers:[MessageService, ConfirmationService],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss',
@@ -166,6 +168,9 @@ export class DepaListComponent implements OnInit {
           detail: 'Departamento creado exitosamente'
         });
       }, 100);
+    }
+    onGlobalFilter(table: Table, event: Event) {
+      table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
     }
 
  

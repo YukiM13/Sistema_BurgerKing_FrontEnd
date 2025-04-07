@@ -43,13 +43,8 @@ export class AppMenuComponent implements OnInit {
                                 routerLink: ['/rol']
                             }
                         ]
-                    }
-                ]
-            },
-            {
-                
-                label: '',
-                items: [
+                        
+                    },
                     {
                         
 
@@ -95,13 +90,7 @@ export class AppMenuComponent implements OnInit {
                            
                          
                         ]
-                    }
-                ]
-            },
-            {
-                
-                label: '',
-                items: [
+                    },
                     {
                         
 

@@ -4,39 +4,78 @@
   
       <div class="card-body">
           <a (click)="toggleCreate()" class="btn btn-primary"><span ng-reflect-ng-class="[object Object]" data-pc-section="icon" class="pi pi-plus-circle p-button-icon p-button-icon-left ng-star-inserted"></span> Nuevo</a>
-          <table class="table table-striped">
-              <thead>
+         
+               
+          <p-table #dt dataKey="id" [rows]="10" [rowHover]="true" [paginator]="true" [value]="clientes" [globalFilterFields]="['clie_Identidad_Rtn','clie_Nombre','clie_Apellido']">
+            <ng-template pTemplate="caption">
+                <div class="flex justify-content-end flex-column sm:flex-row">
+                    <span class="p-input-icon-left mb-2">
+                        <i class="pi pi-search"></i>
+                        <input #filter pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Buscar"/>
+                    </span>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
                 <tr>
-                  <th >Acciones</th>
-                 
-                    <th>RTN/Identidad</th>
-
-                    <th>Nombre</th>
-
-                    <th>Apellido</th>
-
-                    <th>Sexo</th>
-                  
+                    <th style="width: 10px;">
+                        Acciones
+                    </th>
+                   
+                    <th>
+                        <div class="flex justify-content-between align-items-center" pSortableColumn="clie_Identidad_Rtn">
+                          RTN/Identidad
+                            <p-sortIcon field="clie_Identidad_Rtn"></p-sortIcon>
+                        </div>
+                    </th>
+                    <th>
+                      <div class="flex justify-content-between align-items-center" pSortableColumn="clie_Nombre">
+                        Nombre
+                          <p-sortIcon field="clie_Nombre"></p-sortIcon>
+                      </div>
+                  </th>
+                  <th>
+                    <div class="flex justify-content-between align-items-center" pSortableColumn="clie_Sexo">
+                      Sexo
+                        <p-sortIcon field="clie_Sexo"></p-sortIcon>
+                    </div>
+                </th>
                 </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let cliente of clientes">
-                  <td >
-                    <p-splitButton label="Acciones" icon="pi pi-cog" [model]="cliente.acciones" styleClass="p-button-info"></p-splitButton>
-                      <!-- <a (click)="ObtenerEstadoCivil(estadoCivil.esCi_Id)" class="btn btn-warning">Editar</a> -->
-     
+            </ng-template>
+            <ng-template pTemplate="body" let-cli>
+                <tr>
+                    <td>
+                      <p-splitButton label="Acciones" icon="pi pi-cog" [model]="cli.acciones" styleClass="p-button-info"></p-splitButton>
                     </td>
-                  
-                  <td>{{ cliente.clie_Identidad_Rtn }}</td>
-                    <td>{{ cliente.clie_Nombre }}</td>
-                    <td>{{ cliente.clie_Apellido }}</td>
-                    <td>{{ cliente.clie_Sexo }}</td>
-                  
-                  
+                   
+                    <td>
+                        <div class="flex justify-content-between align-items-center">
+                            {{cli.clie_Identidad_Rtn}}
+                        </div>
+                    </td>
+                    <td>
+                      <div class="flex justify-content-between align-items-center">
+                          {{cli.clie_Nombre}} {{cli.clie_Apellido}}
+                      </div>
+                  </td>
+                  <td>
+                    <div class="flex justify-content-between align-items-center">
+                        {{cli.clie_Sexo}}
+                    </div>
+                </td>
                 </tr>
-              </tbody>
-          </table>
-  
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="8">Sin registros</td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="loadingbody">
+                <tr>
+                    <td colspan="8">Loading customers data. Please wait.</td>
+                </tr>
+            </ng-template>
+        </p-table>
+
   
       </div>
     </div>

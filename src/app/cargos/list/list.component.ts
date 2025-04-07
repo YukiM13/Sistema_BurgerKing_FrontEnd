@@ -12,6 +12,8 @@ import { ButtonModule } from 'primeng/button';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
+import { Table, TableModule } from 'primeng/table';
+
 
 
 import {
@@ -23,11 +25,12 @@ import {
 } from '@angular/animations';
 
 import { MenuItem } from 'primeng/api';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [CommonModule, RouterModule, CargoCreateComponent, SplitButtonModule, ButtonModule,ConfirmDialogModule,ToastModule],
+  imports: [CommonModule, RouterModule, CargoCreateComponent, SplitButtonModule, ButtonModule,ConfirmDialogModule,ToastModule, TableModule,InputTextModule],
   providers:[MessageService, ConfirmationService],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss',
@@ -171,5 +174,7 @@ export class CargosListComponent implements OnInit {
         });
       }, 100);
     }
-
+    onGlobalFilter(table: Table, event: Event) {
+        table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
+      }
 }
