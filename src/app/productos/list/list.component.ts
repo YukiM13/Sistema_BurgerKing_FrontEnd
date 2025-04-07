@@ -4,7 +4,7 @@ import {RouterModule} from '@angular/router'
 import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http'
 import {Productos} from '../../models/producto.model'
-// import {MuniCreateComponent} from '../../Productos/create/create.component';
+import {ProduCreateComponent} from '../../productos/create/create.component';
 // import {MuniEditComponent} from '../../Productos/edit/edit.component';
 import { environment } from '../../../enviroments/enviroment'; 
 import { SplitButtonModule } from 'primeng/splitbutton';
@@ -26,7 +26,7 @@ import { MenuItem } from 'primeng/api';
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [CommonModule, RouterModule, SplitButtonModule, ButtonModule,ConfirmDialogModule,ToastModule],
+  imports: [CommonModule, RouterModule,ProduCreateComponent, SplitButtonModule, ButtonModule,ConfirmDialogModule,ToastModule],
   providers:[MessageService, ConfirmationService],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss',

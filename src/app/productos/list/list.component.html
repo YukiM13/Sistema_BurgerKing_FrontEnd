@@ -10,10 +10,10 @@
             <div class="shadow-2 p-4 surface-card border-round">
                 <div class="relative mb-3 imagen-container">
                     <span class="surface-card text-900 shadow-2 px-3 py-2 absolute" style="border-radius: 1.5rem; left: 1rem; top: 1rem">{{producto.cate_Descripcion}}</span>
-                    <img [src]="producto.prod_ImgUrl" class="w-full" height="180px"/>
+                    <img [src]="producto.prod_ImgUrl" class="w-full" height="200px"/>
                     <div class="acciones-hover">
-                        <button pButton icon="pi pi-pencil" class="p-button-rounded p-button-info p-button-sm" ></button>
-                        <button pButton icon="pi pi-eye" class="p-button-rounded p-button-help p-button-sm"></button>
+                        <button pButton icon="pi pi-pencil" class="p-button-rounded p-button-warning p-button-sm" ></button>
+                        <button pButton icon="pi pi-eye" class="p-button-rounded p-button-info p-button-sm"></button>
                         <button pButton icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-sm" (click)="confirmarEliminacion(producto.prod_Id)"></button>
                    
                     </div>
@@ -35,4 +35,6 @@
 </ng-container>
 <p-confirmDialog></p-confirmDialog>
 <p-toast></p-toast> 
-
+<div *ngIf="showCreate" @collapse>
+    <app-create (creado)="registroCreado()" (cancelar)="cancelCreate()" ></app-create>
+  </div>
