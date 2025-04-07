@@ -5,6 +5,13 @@ import { ListComponent } from './departamentos/list/list.component';
 import { CreateComponent } from './departamentos/create/create.component';
 import {EsCiListComponent} from './estadosCiviles/list/list.component';
 import {EsCiCreateComponent} from './estadosCiviles/create/create.component';
+import {UsuaListComponent} from './usuarios/list/list.component';
+import {RoleListComponent} from './roles/list/list.component';
+import {MuniListComponent} from './municipios/list/list.component';
+import { EmpleListComponent } from './empleados/list/list.component';
+import { TamaListComponent } from './tamano/list/list.component';
+
+
 
 const routerOptions: ExtraOptions = {
     anchorScrolling: 'enabled'
@@ -18,6 +25,15 @@ const routes: Routes = [
             {path: 'departamento/crear', component: CreateComponent},
             {path: 'estadoCivil', component: EsCiListComponent,},
             {path: 'estadoCivil/crear', component: EsCiCreateComponent,},
+            {path: 'usuario', component: UsuaListComponent,},
+            {path: 'rol', component: RoleListComponent,},
+            {path: 'municipio', component: MuniListComponent,},
+            {path: 'empleado', component: EmpleListComponent,},
+            {path: 'tamano', component: TamaListComponent,},
+
+
+
+
             
         ]
     },

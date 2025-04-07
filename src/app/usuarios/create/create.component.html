@@ -1,0 +1,63 @@
+<h2 >Crear Usuario</h2>
+
+<div class="card">
+    <div class="card-body">
+     <form (submit)="crearUsuario()">
+        <div class="row">
+            <div class="col-md-6">
+                <label for="" class="label-control">Usuario</label>
+                <input type="text" name="usua_Usuario" [(ngModel)] = "usuario.usua_Usuario" class="form-control"/>
+             
+                
+            </div>
+            <div class="col-md-6">
+                <label for="" class="label-control">Contraseña</label>
+                <input type="text" name="usua_Clave" [(ngModel)] = "usuario.usua_Clave" class="form-control"/>
+             
+                
+            </div>
+            
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <label for="" class="label-control">Correo</label>
+                <input type="text" name="usua_Correo" [(ngModel)] = "usuario.usua_Correo" class="form-control"/>
+             
+                
+            </div>
+            <div class="col-md-6">
+                <label for="" class="label-control">Empleado</label>
+                <input type="text" name="empl_Id" [(ngModel)] = "usuario.empl_Id" class="form-control"/>
+             
+                
+            </div>
+            
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <label for="" class="label-control">Rol</label>
+                <input type="text" name="role_Id" [(ngModel)] = "usuario.role_Id" class="form-control"/>
+             
+                
+            </div>
+            <div class="col-md-6">
+                <label for="" class="label-control">Es admin?</label>
+                <input type="text" name="usua_Admin" [(ngModel)] = "usuario.usua_Admin" class="form-control"/>
+             
+                
+            </div>
+            
+        </div>
+        <br>
+        <div class="row">
+            <div>
+                <div class="col-md-12 text-right">
+                    <input type="submit" class="btn btn-primary" value="Guardar" />
+                    <button type="button" class="btn btn-danger" (click)="cancelarFormulario()" class="btn btn-secondary">Cancelar</button>
+                </div>
+                
+            </div>
+        </div>
+     </form>
+    </div>
+  </div>

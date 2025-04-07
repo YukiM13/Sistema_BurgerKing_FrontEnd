@@ -23,9 +23,36 @@ export class AppMenuComponent implements OnInit {
                 ]
             },
             {
+                
                 label: '',
                 items: [
                     {
+                        
+
+                        label: 'Acceso',
+                        icon: 'pi pi-fw pi-globe',
+                        items: [
+                            {
+                                label: 'Usuarios',
+                                icon: 'pi pi-fw pi-image',
+                                routerLink: ['/usuario']
+                            },
+                            {
+                                label: 'Roles',
+                                icon: 'pi pi-fw pi-list',
+                                routerLink: ['/rol']
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                
+                label: '',
+                items: [
+                    {
+                        
+
                         label: 'General',
                         icon: 'pi pi-fw pi-globe',
                         items: [
@@ -37,56 +64,62 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Municipio',
                                 icon: 'pi pi-fw pi-list',
-                                routerLink: ['/apps/blog/detail']
+                                routerLink: ['/municipio']
                             },
                             {
                                 label: 'Estados Civiles',
                                 icon: 'pi pi-fw pi-comments',
                                 routerLink: ['/estadoCivil']
+
+                            },
+                            {
+                                label: 'Empleados',
+                                icon: 'pi pi-fw pi-list',
+                                routerLink: ['/empleado']
                             }
+                         
                         ]
-                    },
+                    }
+                ]
+            },
+            {
+                
+                label: '',
+                items: [
                     {
-                        label: 'Municipios',
-                        icon: 'pi pi-fw pi-calendar',
-                        routerLink: ['/apps/calendar']
-                    },
-                   
-                    {
-                        label: 'Files',
-                        icon: 'pi pi-fw pi-folder',
-                        routerLink: ['/apps/files']
-                    },
-                    {
-                        label: 'Kanban',
-                        icon: 'pi pi-fw pi-sliders-v',
-                        routerLink: ['/apps/kanban']
-                    },
-                    {
-                        label: 'Mail',
-                        icon: 'pi pi-fw pi-envelope',
+                        
+
+                        label: 'Ventas',
+                        icon: 'pi pi-fw pi-globe',
                         items: [
                             {
-                                label: 'Inbox',
-                                icon: 'pi pi-fw pi-inbox',
-                                routerLink: ['/apps/mail/inbox']
+                                label: 'Tamaño',
+                                icon: 'pi pi-fw pi-image',
+                                routerLink: ['/tamano']
                             },
                             {
-                                label: 'Compose',
-                                icon: 'pi pi-fw pi-pencil',
-                                routerLink: ['/apps/mail/compose']
+                                label: 'Categoria',
+                                icon: 'pi pi-fw pi-image',
+                                routerLink: ['/departamento']
                             },
                             {
-                                label: 'Detail',
-                                icon: 'pi pi-fw pi-comment',
-                                routerLink: ['/apps/mail/detail/1000']
+                                label: 'Productos',
+                                icon: 'pi pi-fw pi-list',
+                                routerLink: ['/municipio']
+                            },
+                            {
+                                label: 'Combos',
+                                icon: 'pi pi-fw pi-comments',
+                                routerLink: ['/estadoCivil']
+
+                            },
+                            {
+                                label: 'Ventas',
+                                icon: 'pi pi-fw pi-list',
+                                routerLink: ['/empleado']
                             }
+                         
                         ]
-                    },
-                    {
-                        label: 'Task List',
-                        icon: 'pi pi-fw pi-check-square',
-                        routerLink: ['/apps/tasklist']
                     }
                 ]
             },
