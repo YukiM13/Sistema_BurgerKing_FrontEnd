@@ -2,11 +2,11 @@
     <div class="sidebar-header">
         <a [routerLink]="['/']" class="app-logo">
             <div class="app-logo-small h-2rem" >
-                <img  [src]="'assets/layout/images/logo-'+ (layoutService.config().colorScheme === 'light' ? 'dark' : 'light') + '.png'">
+
             </div>
             <div class="app-logo-normal ">
-                <img class="h-2rem" [src]="'assets/layout/images/logo-'+ (layoutService.config().colorScheme === 'light' ? 'dark' : 'light') + '.png'">
-                <img  class="h-2rem ml-3" [src]="'assets/layout/images/appname-'+ (layoutService.config().colorScheme === 'light' ? 'dark' : 'light') + '.png'"/>
+                <img class="h-3rem" [src]="'assets/layout/images/logo-lc.png'">
+                <img  class="h-6rem ml-3" [src]="'assets/layout/images/bk-name.png'" />
             </div>
         </a>
         <button class="layout-sidebar-anchor p-link z-2 " type="button" (click)="anchor()"></button>

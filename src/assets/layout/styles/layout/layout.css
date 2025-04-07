@@ -83,13 +83,13 @@
 }
 
 .layout-dark {
-  --sidebar-shadow: none;
-  --sidebar-border: 1px solid var(--surface-border);
-  --card-shadow: none;
-  --body-bg:linear-gradient(180deg, #2E323F 0%, #0A061A 100%) ;
-  --body-image: url("/assets/layout/images/effect-ondark.png");
-  --root-menu-item-hover-bg:rgba(255, 255, 255, 0.05);
-  --exception-pages-image: url("/assets/layout/images/pages/exception-ondark.png");
+  --sidebar-shadow: 0px 4px 50px #D9DDFC;
+  --sidebar-border: 1px solid transparent;
+  --card-shadow: 0px 4px 30px rgba(221, 224, 255, 0.54);
+  --body-bg:linear-gradient(180deg, #F6F9FC 0%, #ECECF9 100%);
+  --body-image: url("/assets/layout/images/effect-onlight.png");
+  --root-menu-item-hover-bg:rgba(68, 72, 109, 0.07);
+  --exception-pages-image: url("/assets/layout/images/pages/exception-onlight.png");
 }
 
 * {
