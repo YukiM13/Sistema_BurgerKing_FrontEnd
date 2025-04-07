@@ -100,23 +100,23 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Categoria',
                                 icon: 'pi pi-fw pi-image',
-                                routerLink: ['/departamento']
+                                routerLink: ['/']
                             },
                             {
                                 label: 'Productos',
                                 icon: 'pi pi-fw pi-list',
-                                routerLink: ['/municipio']
+                                routerLink: ['/producto']
                             },
                             {
                                 label: 'Combos',
                                 icon: 'pi pi-fw pi-comments',
-                                routerLink: ['/estadoCivil']
+                                routerLink: ['/']
 
                             },
                             {
                                 label: 'Ventas',
                                 icon: 'pi pi-fw pi-list',
-                                routerLink: ['/empleado']
+                                routerLink: ['/']
                             }
                          
                         ]

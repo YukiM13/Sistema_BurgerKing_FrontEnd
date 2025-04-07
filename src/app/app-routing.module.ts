@@ -10,6 +10,7 @@ import {RoleListComponent} from './roles/list/list.component';
 import {MuniListComponent} from './municipios/list/list.component';
 import { EmpleListComponent } from './empleados/list/list.component';
 import { TamaListComponent } from './tamano/list/list.component';
+import { ProduListComponent } from './productos/list/list.component';
 
 
 
@@ -30,6 +31,7 @@ const routes: Routes = [
             {path: 'municipio', component: MuniListComponent,},
             {path: 'empleado', component: EmpleListComponent,},
             {path: 'tamano', component: TamaListComponent,},
+            {path: 'producto', component: ProduListComponent,},
 
 
 
