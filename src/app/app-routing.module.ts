@@ -9,6 +9,9 @@ import {CargosListComponent} from './cargos/list/list.component';
 import {CargoCreateComponent} from './cargos/create/create.component';
 import { SucursalListComponent } from './sucursales/list/list.component';
 import { ClienteListComponent } from './clientes/list/list.component';
+import { CategoriasListComponent } from './categorias/list/list.component';
+import { VentasListComponent } from './ventas/list/list.component';
+import { CombosListComponent } from './combos/list/list.component';
 
 const routerOptions: ExtraOptions = {
     anchorScrolling: 'enabled'
@@ -27,6 +30,14 @@ const routes: Routes = [
             {path: 'sucursal', component: SucursalListComponent,},
             //crear sucursal
             {path: 'cliente', component: ClienteListComponent,},
+            //crear cliente
+            {path: 'categoria' , component: CategoriasListComponent},
+            //crear categoria
+            {path: 'venta', component: VentasListComponent,},
+            //crear venta
+            {path: 'combo', component: CombosListComponent,},
+
+
             
             
         ]

@@ -59,7 +59,21 @@ export class AppMenuComponent implements OnInit {
                                 icon: 'pi pi-fw pi-pencil',
                                 routerLink: ['/cliente']
                             },
-                       
+                            {
+                                label: 'Categorias',
+                                icon: 'pi pi-fw pi-pencil',
+                                routerLink: ['/categoria']
+                            },
+                            {
+                                label: 'Ventas',
+                                icon: 'pi pi-fw pi-pencil',
+                                routerLink: ['/venta']
+                            },
+                            {
+                                label: 'Combos',
+                                icon: 'pi pi-fw pi-pencil',
+                                routerLink: ['/combo']
+                            },
                         ]
                     },
                     {
