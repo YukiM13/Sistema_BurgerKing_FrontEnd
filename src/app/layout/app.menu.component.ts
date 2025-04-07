@@ -67,16 +67,36 @@ export class AppMenuComponent implements OnInit {
                                 routerLink: ['/municipio']
                             },
                             {
-                                label: 'EstadosCiviles',
+                                label: 'Estados Civiles',
                                 icon: 'pi pi-fw pi-pencil',
                                 routerLink: ['/estadoCivil']
-
                             },
                             {
                                 label: 'Empleados',
                                 icon: 'pi pi-fw pi-list',
                                 routerLink: ['/empleado']
-                            }
+                            },
+                            {
+                                label: 'Cargos',
+                                icon: 'pi pi-fw pi-pencil',
+                                routerLink: ['/cargo']
+                            },
+                            {
+                                label: 'Sucursales',
+                                icon: 'pi pi-fw pi-pencil',
+                                routerLink: ['/sucursal']
+                            },
+                            {
+                                label: 'Clientes',
+                                icon: 'pi pi-fw pi-pencil',
+                                routerLink: ['/cliente']
+                            },
+                            {
+                                label: 'Categorias',
+                                icon: 'pi pi-fw pi-pencil',
+                                routerLink: ['/categoria']
+                            },
+                           
                          
                         ]
                     }
@@ -110,13 +130,13 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Combos',
                                 icon: 'pi pi-fw pi-comments',
-                                routerLink: ['/']
+                                routerLink: ['/combo']
 
                             },
                             {
                                 label: 'Ventas',
                                 icon: 'pi pi-fw pi-list',
-                                routerLink: ['/']
+                                routerLink: ['/venta']
                             }
                          
                         ]

@@ -1,0 +1,50 @@
+<ng-container *ngIf="!showCreate  && !showEdit" @collapse>
+    <h2>Cargos</h2>
+  <div class="card">
+  
+      <div class="card-body">
+          <a (click)="toggleCreate()" class="btn btn-primary"><span ng-reflect-ng-class="[object Object]" data-pc-section="icon" class="pi pi-plus-circle p-button-icon p-button-icon-left ng-star-inserted"></span> Nuevo</a>
+          <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th >Acciones</th>
+                 
+                  <th>Combo</th>
+                   
+                    <th>Precio</th>
+
+                  
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let combo of combos">
+                  <td >
+                    <p-splitButton label="Acciones" icon="pi pi-cog" [model]="combo.acciones" styleClass="p-button-info"></p-splitButton>
+                      <!-- <a (click)="ObtenerEstadoCivil(estadoCivil.esCi_Id)" class="btn btn-warning">Editar</a> -->
+     
+                    </td>
+                  
+                  <td>{{ combo.comb_Descripcion }}</td>
+                  <td>{{ combo.comb_Precio }}</td>
+                </tr>
+              </tbody>
+          </table>
+  
+  
+      </div>
+    </div>
+   
+  </ng-container>
+
+   <p-confirmDialog></p-confirmDialog>
+  <p-toast></p-toast> 
+    <div *ngIf="showCreate" @collapse>
+    <!-- <app-create (creado)="registroCreado()" (cancelar)="cancelCreate()" ></app-create> -->
+    </div>
+  
+    <div *ngIf="showEdit" @collapse>
+     <!-- <app-edit [estadoCivil]="estadoCivilSeleccionado" (cancelar)="cancelEdit()" ></app-edit> --> 
+    </div>
+ 
+ 
+  

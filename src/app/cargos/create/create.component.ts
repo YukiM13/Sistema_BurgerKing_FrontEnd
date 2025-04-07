@@ -3,7 +3,7 @@ import {CommonModule, NgFor} from '@angular/common';
 import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {FormsModule} from '@angular/forms'
-import {EstadoCivil} from '../../models/estadosCiviles.model'
+import { Cargo } from '../../models/cargos.model'
 import { environment } from 'src/enviroments/enviroment';
 
 @Component({
@@ -14,7 +14,7 @@ import { environment } from 'src/enviroments/enviroment';
   styleUrl: './create.component.scss'
 })
 
-export class EsCiCreateComponent {
+export class CargoCreateComponent {
   private apiUrl = environment.apiUrl; 
   estadosCivil2: any[] = [];
   http = inject(HttpClient);
@@ -25,13 +25,15 @@ export class EsCiCreateComponent {
   cancelarFormulario() {
     this.cancelar.emit();  
   }
+
   router = inject(Router)
-  estadosCivil = new EstadoCivil();
-  crearEstadoCivil()  {
-    this.estadosCivil.usua_Creacion = 2;
+  cargos = new Cargo();
+
+  crearCargo()  {
+    this.cargos.usua_Creacion= 2;
     const fecha = new Date();
-    this.estadosCivil.esCi_FechaCreacion = fecha;  
-    this.http.post(`${this.apiUrl}/EstadoCivil/Insertar`, this.estadosCivil)
+    this.cargos.carg_FechaCreacion = fecha;  
+    this.http.post(`${this.apiUrl}/Cargo/Insertar`, this.cargos)
     .subscribe(() => {
       this.creado.emit();
     }
@@ -41,7 +43,4 @@ export class EsCiCreateComponent {
     
     
   }
-
 }
-  
-

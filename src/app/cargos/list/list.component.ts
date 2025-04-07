@@ -1,10 +1,10 @@
-import { Component, inject, OnInit } from '@angular/core'; 
-import {CommonModule, NgFor} from '@angular/common'; //trae operdaores de angular
-import { RouterModule } from '@angular/router'; //Trae los link de las rutas del endpoint
+import { Component,inject,OnInit } from '@angular/core';
+import {CommonModule, NgFor} from '@angular/common'
+import {RouterModule} from '@angular/router'
 import {Router} from '@angular/router';
-import { HttpClient } from '@angular/common/http'; //Trae el cliente http
-import {Departamento } from '../../models/departamento.model'
-import {DepaCreateComponent} from '../create/create.component';
+import {HttpClient} from '@angular/common/http'
+import { Cargo } from '../../models/cargos.model'
+import {CargoCreateComponent } from '../create/create.component';
 //import {EsCiEditComponent} from '../edit/edit.component';
 import { environment } from '../../../enviroments/enviroment'; 
 import { SplitButtonModule } from 'primeng/splitbutton';
@@ -14,7 +14,6 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 
 
-
 import {
   trigger,
   state,
@@ -22,14 +21,13 @@ import {
   animate,
   transition
 } from '@angular/animations';
+
 import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-list',
   standalone: true,
-  //Falta el componente de editar
-  //import {DepaEditComponent} from '../edit/edit.component';
-  imports: [CommonModule, RouterModule, DepaCreateComponent, SplitButtonModule, ButtonModule,ConfirmDialogModule,ToastModule],
+  imports: [CommonModule, RouterModule, CargoCreateComponent, SplitButtonModule, ButtonModule,ConfirmDialogModule,ToastModule],
   providers:[MessageService, ConfirmationService],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss',
@@ -48,8 +46,7 @@ import { MenuItem } from 'primeng/api';
   ]
 })
 
-export class DepaListComponent implements OnInit {
-  
+export class CargosListComponent implements OnInit {
 
   private apiUrl = environment.apiUrl;
 
@@ -57,9 +54,10 @@ export class DepaListComponent implements OnInit {
   showCreate = false;
   showEdit = false;
   loading = [false, false, false, false];
-  departamentoSeleccionado: any;
-  departamentos: any[] = []; //inicializa el array de departamentos
-  departamento = new Departamento();
+  cargoSeleccionado: any;
+  cargos: any[] = [];
+  cargo = new Cargo();
+
 
   private http = inject(HttpClient);
   private router = inject(Router);
@@ -69,25 +67,26 @@ export class DepaListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.listardepartamentos();
+    this.listarCargos();
   }
 
-  listardepartamentos(): void {
-    this.http.get(`${this.apiUrl}/Departamento/Listar`)
+  listarCargos(): void {
+    this.http.get(`${this.apiUrl}/Cargo/Listar`)
       .subscribe((res: any) => {
-        this.departamentos = res.map((estado: any) => ({
+        this.cargos = res.map((estado: any) => ({
           ...estado,
           acciones: this.crearAcciones(estado)
         }));
       });
   }
 
-  crearAcciones(departamento: any): MenuItem[] {
+
+  crearAcciones(cargo: any): MenuItem[] {
     return [
       {
         label: 'Editar',
         icon: 'pi pi-pencil',
-        command: () => this.ObtenerDepartamento(departamento.depa_Codigo)
+        //command: () => this.ObtenerEstadoCivil(cargo.car)
       },
       {
         label: 'Detalles',
@@ -97,28 +96,30 @@ export class DepaListComponent implements OnInit {
       {
         label: 'Eliminar',
         icon: 'pi pi-trash',
-        command: () => this.confirmarEliminacion(departamento.depa_Codigo)
+        //command: () => this.confirmarEliminacion(estadoCivil.esCi_Id)
       }
     ];
   }
 
-   ObtenerDepartamento(id: string): void {
-      this.departamento.depa_Codigo = id;
-      this.http.post<Departamento>(`${this.apiUrl}/Departamento/Find`, this.departamento)
+  /*
+   ObtenerEstadoCivil(id: number): void {
+      this.estadoCivil.esCi_Id = id;
+      this.http.post<EstadoCivil>(`${this.apiUrl}/EstadoCivil/Find`, this.estadoCivil)
         .subscribe(data => {
-          this.departamentoSeleccionado = data;
+          this.estadoCivilSeleccionado = data;
           this.showEdit = true;
         });
     }
   
-    confirmarEliminacion(id: string): void {
+  
+    confirmarEliminacion(id: number): void {
       this.confirmationService.confirm({
-        message: '¿Estás seguro que deseas eliminar este Departamento?',
+        message: '¿Estás seguro que deseas eliminar este estado civil?',
         header: 'Confirmar eliminación',
         icon: 'pi pi-exclamation-triangle',
         acceptLabel: 'Sí',
         rejectLabel: 'No',
-        accept: () => this.EliminarDepartamento(id),
+        accept: () => this.EliminarEstadoCivil(id),
         reject: () => {
           this.messageService.add({
             severity: 'info',
@@ -128,19 +129,22 @@ export class DepaListComponent implements OnInit {
         }
       });
     }
-
-    EliminarDepartamento(id: string): void {
-      this.departamento.depa_Codigo = id;
-      this.http.post(`${this.apiUrl}/Departamento/Eliminar`, this.departamento)
+  
+  
+    EliminarEstadoCivil(id: number): void {
+      this.estadoCivil.esCi_Id = id;
+      this.http.post(`${this.apiUrl}/EstadoCivil/Eliminar`, this.estadoCivil)
         .subscribe(() => {
           this.messageService.add({
             severity: 'success',
             summary: 'Eliminado',
-            detail: 'Departamento eliminado'
+            detail: 'Estado civil eliminado'
           });
-          this.listardepartamentos();
+          this.listarEstadosCiviles();
         });
     }
+  
+*/
 
     toggleCreate(): void {
       this.showCreate = !this.showCreate;
@@ -148,25 +152,24 @@ export class DepaListComponent implements OnInit {
   
     cancelCreate(): void {
       this.showCreate = false;
-      this.listardepartamentos();
+      this.listarCargos();
     }
   
     cancelEdit(): void {
       this.showEdit = false;
-      this.listardepartamentos();
+      this.listarCargos();
     }
   
     registroCreado(): void {
       this.showCreate = false;
-      this.listardepartamentos();
+      this.listarCargos();
       setTimeout(() => {
         this.messageService.add({
           severity: 'success',
           summary: 'Exito',
-          detail: 'Departamento creado exitosamente'
+          detail: 'Cargo creado exitosamente'
         });
       }, 100);
     }
 
- 
 }
