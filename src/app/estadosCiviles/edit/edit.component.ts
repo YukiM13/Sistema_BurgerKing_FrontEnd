@@ -43,7 +43,8 @@ export class EsCiEditComponent implements OnInit{
       .subscribe(data => {
         this.estadoCivilAuxiliar = new EstadoCivil().fromJson(data);
        
-        // this.estadoCivilAuxiliar = data;
+        this.estadoCivilAuxiliar.esci_Descripcion = data.esci_Descripcion;
+        console.log(this.estadoCivilAuxiliar.esci_Descripcion);
       });
   }
 
