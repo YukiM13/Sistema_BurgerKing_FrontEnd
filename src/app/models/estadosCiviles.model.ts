@@ -14,4 +14,12 @@ export class EstadoCivil {
         Object.assign(this, init);
 
     }
+    fromJson(json: any): EstadoCivil {
+        const estado = new EstadoCivil();
+        estado.esCi_Id = json.esCi_Id;
+        estado.esci_Descripcion = json.esci_Descripcion;
+        estado.usua_Modificacion = json.usua_Modificacion;
+        estado.esCi_FechaModificacion = json.esCi_FechaModificacion;
+        return estado;
+      }
 }
