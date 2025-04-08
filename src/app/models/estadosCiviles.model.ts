@@ -9,6 +9,7 @@ export class EstadoCivil {
     esCi_FechaModificacion: Date = new Date();
 
 
+
     constructor(init?: Partial<EstadoCivil>){
         Object.assign(this, init);
 

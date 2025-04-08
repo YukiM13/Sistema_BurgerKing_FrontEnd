@@ -22,24 +22,34 @@ export class EsCiEditComponent implements OnInit{
   }
   http = inject(HttpClient);
   router = inject(Router);
-  estadoCivilEntries: [string, any][] = [];
+  estadoCivilEntries:  any[] = [];
   estadosCivil = new EstadoCivil();
   estadoCivilAuxiliar = new EstadoCivil();
-
+  descripcion = "";
 
   obtenerEstadoCivil(id: number) {
     this.estadosCivil.esCi_Id = id;
     this.http.post<EstadoCivil>(`${this.apiUrl}/EstadoCivil/Find`, this.estadosCivil)
       .subscribe(data => {
-        this.estadoCivilAuxiliar = data;
+        this.estadoCivilAuxiliar = { ...data };
+        console.log('Estado Civil actualizado:', this.estadoCivilAuxiliar);
        
       });
   }
 
   ngOnInit(): void {
-    this.obtenerEstadoCivil(this.estadoCivilId);
-    this.estadoCivilEntries = Object.entries(this.estadoCivilAuxiliar);
-    console.log(this.estadoCivilEntries);
+    this.estadosCivil.esCi_Id = this.estadoCivilId;
+    this.http.post<EstadoCivil>(`${this.apiUrl}/EstadoCivil/Find`, this.estadosCivil)
+      .subscribe(data => {
+        const usuariosDeserializados = data.map(u => this.estadoCivilAuxiliar.fromJson(u));
+        this.estadoCivilAuxiliar.set(usuariosDeserializados);
+        // this.estadoCivilAuxiliar = { ...data };
+        // console.log('Estado Civil:', this.estadoCivilAuxiliar);
+        // this.estadoCivilEntries = Object.entries(this.estadoCivilAuxiliar);
+        // console.log(this.estadoCivilEntries);
+      });
+   
+  
   }
   EditarEstadoCivil()  {
     this.estadosCivil.usua_Modificacion = 2;
