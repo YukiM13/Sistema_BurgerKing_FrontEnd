@@ -18,12 +18,17 @@
                 
             </div>
 
-            <div class="col-md-6">
-                <label for="" class="label-control">Municipio:</label>
-                <input type="text" name="muni_Codigo" [(ngModel)] = "sucursal.muni_Codigo" class="form-control"/>
-                <br>
-                
-            </div>
+            
+
+
+
+
+        </div>
+        
+        <div class="col-lg-12">
+            <label htmlFor="categorias">Categorias <span class="text-red-200">*</span></label>
+            <p-dropdown [filter]="true" [options]="municipios" optionLabel="muni_Descripcion" [(ngModel)]="sucursal.muni_Codigo" 
+            placeholder="Municipios" [showClear]="true" optionValue="muni_Codigo" name="muni_Codigo"></p-dropdown>
         </div>
         <div class="row">
             <div>

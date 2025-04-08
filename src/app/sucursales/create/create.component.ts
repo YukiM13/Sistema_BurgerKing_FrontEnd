@@ -7,11 +7,12 @@ import {Sucursal} from '../../models/sucursales.model'
 import { environment } from 'src/enviroments/enviroment';
 import {Municipios} from '../../models/municipio.model'
 import { DropdownModule } from 'primeng/dropdown';
+import { SelectItem } from 'primeng/api';
 
 @Component({
   selector: 'app-create',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, DropdownModule],
   templateUrl: './create.component.html',
   styleUrl: './create.component.scss'
 })
@@ -31,13 +32,23 @@ export class SucursalCreateComponent {
     this.listarMunicipios();
   }
   
+ 
+  selectedDrop: SelectItem = { value: '' };
+
+  municipios: any[] = [];
+  //municipos = new Municipios();
+
   listarMunicipios(): void {
-    this.http.get(`${this.apiUrl}/Municipio/Listar`)
-      .subscribe((res: any) => {
-        this.municipios = res.map((municipio: any) => ({
-          label: municipio.muni_Descripcion, // Texto que se mostrará en el dropdown
-          value: municipio.muni_Codigo      // Valor que se enviará al backend
-        }));
+    this.http.get<any[]>(`${this.apiUrl}/Municipio/Listar`)
+      .subscribe({
+        next: (response) => {
+          console.log('Respuesta del backend:', response); 
+          this.municipios = response; 
+        },
+        error: (error) => {
+          console.error('Error al cargar municipios:', error);
+          this.municipios = [];
+        }
       });
   }
 
@@ -47,8 +58,7 @@ export class SucursalCreateComponent {
   router = inject(Router)
   sucursal = new Sucursal();
 
-  municipios: any[] = [];
-  municipos = new Municipios();
+
 
   
 
