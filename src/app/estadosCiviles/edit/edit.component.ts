@@ -41,12 +41,11 @@ export class EsCiEditComponent implements OnInit{
     this.estadosCivil.esCi_Id = this.estadoCivilId;
     this.http.post<EstadoCivil>(`${this.apiUrl}/EstadoCivil/Find`, this.estadosCivil)
       .subscribe(data => {
-        const usuariosDeserializados = data.map(u => this.estadoCivilAuxiliar.fromJson(u));
-        this.estadoCivilAuxiliar.set(usuariosDeserializados);
-        // this.estadoCivilAuxiliar = { ...data };
-        // console.log('Estado Civil:', this.estadoCivilAuxiliar);
-        // this.estadoCivilEntries = Object.entries(this.estadoCivilAuxiliar);
-        // console.log(this.estadoCivilEntries);
+         this.estadoCivilAuxiliar = { ...data };
+        console.log('Estado Civil:', this.estadoCivilAuxiliar);
+        this.estadoCivilEntries = Object.entries(this.estadoCivilAuxiliar);
+         console.log(this.estadoCivilEntries);
+         
       });
    
   
