@@ -3,7 +3,7 @@
  
     <div class="card-body">
      <form (submit)="EditarEstadoCivil()"  >
-        <input type="text"  hidden  name="esci_Id" [(ngModel)] = "estadoCivilAuxiliar.esCi_Id"  class="form-control"  />
+        <input type="text"  hidden  name="esci_Id" [(ngModel)]= "estadoCivilAuxiliar.esCi_Id"  class="form-control"  />
         <div class="row" >
             
             <div class="col-md-12" >
@@ -15,7 +15,7 @@
         </div>
         <div class="row">
             <div class="col-md-12 text-right">
-                <input type="submit" class="btn btn-primary" value="Guardar" />
+                <input type="submit"  class="btn btn-primary" value="Guardar" />
                 <button type="button" class="btn btn-secondary" (click)="cancelarFormulario()" class="btn btn-secondary">Cancelar</button>
             </div>
         </div>

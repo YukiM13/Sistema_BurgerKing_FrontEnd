@@ -1,4 +1,4 @@
-<ng-container *ngIf="!showCreate  && !showEdit" @collapse>
+<ng-container *ngIf="!showCreate  && !showEdit && !showDetails" @collapse>
   <h2>Estados Civiles</h2>
 <div class="card">
 
@@ -61,9 +61,13 @@
 <p-confirmDialog></p-confirmDialog>
 <p-toast></p-toast> <!-- Si querés mostrar los mensajes -->
   <div *ngIf="showCreate" @collapse>
-    <app-create (creado)="registroCreado()" (cancelar)="cancelCreate()" ></app-create>
+    <app-create (creado)="registroCreado()"(errorCrear)="crearError()"  (cancelar)="cancelCreate()" ></app-create>
   </div>
 
   <div *ngIf="showEdit" @collapse>
-    <app-edit [estadoCivilId]="estadoCivilSeleccionado" (cancelar)="cancelEdit()" ></app-edit>
+    <app-edit [estadoCivilId]="estadoCivilSeleccionado"(actualizado)="registroActualizado()"  (cancelar)="cancelEdit()" ></app-edit>
+  </div>
+
+  <div *ngIf="showDetails" @collapse>
+    <app-details [estadoCivilId]="estadoCivilSeleccionado"  (cancelar)="cancelDetails()" ></app-details>
   </div>

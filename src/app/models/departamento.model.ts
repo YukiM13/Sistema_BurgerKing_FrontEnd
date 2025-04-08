@@ -7,7 +7,7 @@ export class Departamento{
     depa_FechaCreacion: Date = new Date() ;
     usua_Modificacion: number = 0 ;
     depa_FechaModificacion: Date = new Date() ;
-
+    codeStatus: number = 0;
 
     constructor(init?: Partial<Departamento>) {
         Object.assign(this, init);

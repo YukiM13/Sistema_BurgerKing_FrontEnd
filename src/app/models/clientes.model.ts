@@ -9,7 +9,7 @@ export class Cliente{
     clie_FechaCreacion: Date = new Date() ;
     usua_Modificacion: number = 0 ;
     clie_FechaModificacion: Date = new Date() ;
-
+    codeStatus: number = 0;
 
     constructor(init?: Partial<Cliente>) {
         Object.assign(this, init);

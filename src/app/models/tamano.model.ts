@@ -7,6 +7,8 @@ export  class Tamano{
     tama_FechaModificacion: Date = new Date;
     usuaC_Nombre: string = ''; 
     usuaM_Nombre: string = '';
+    codeStatus: number = 0;
+
     constructor(init?: Partial<Tamano>){
         Object.assign(this, init);
     } 

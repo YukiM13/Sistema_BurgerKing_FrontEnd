@@ -8,6 +8,7 @@ export class Roles{
     role_Estado: boolean = true;
     pant_Id: number = 0;
     pant_Descripcion: string = '';
+    codeStatus: number = 0;
     constructor(init?: Partial<Roles>){
         Object.assign(this, init);
 

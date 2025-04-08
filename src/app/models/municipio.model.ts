@@ -9,7 +9,7 @@ export class Municipios{
     usuaC_Nombre: string= '';
     usuaM_Nombre: string= '';
     depa_Descripcion: string= '';
-
+    codeStatus: number = 0;
     constructor(init?: Partial<Municipios>){
         Object.assign(this, init);
 

@@ -5,19 +5,19 @@ import {HttpClient} from '@angular/common/http';
 import {FormsModule} from '@angular/forms'
 import {EstadoCivil} from '../../models/estadosCiviles.model'
 import { environment } from 'src/enviroments/enviroment';
+import { Table, TableModule } from 'primeng/table';
 
 @Component({
-  selector: 'app-edit',
+  selector: 'app-details',
   standalone: true,
-  imports: [CommonModule, FormsModule],
-  templateUrl: './edit.component.html',
-  styleUrl: './edit.component.scss'
+  imports: [CommonModule, FormsModule, TableModule],
+  templateUrl: './details.component.html',
+  styleUrl: './details.component.scss'
 })
-export class EsCiEditComponent {
+export class EsCiDetailsComponent {
   private apiUrl = environment.apiUrl; 
   @Input() estadoCivilId: number = 0;
   @Output() cancelar = new EventEmitter<void>();  
-  @Output() actualizado = new EventEmitter<void>();
   cancelarFormulario() {
     this.cancelar.emit();  
   }
@@ -28,15 +28,6 @@ export class EsCiEditComponent {
   estadoCivilAuxiliar = new EstadoCivil();
   descripcion = "";
 
-  EditarEstadoCivil()  {
-    this.estadoCivilAuxiliar.usua_Modificacion = 2;
-    this.estadoCivilAuxiliar.esCi_FechaModificacion = new Date;
-    this.http.put(`${this.apiUrl}/EstadoCivil/Editar`, this.estadoCivilAuxiliar)
-    .subscribe(() => {
-      this.actualizado.emit();
-    });
-   
-  }
  // obtenerEstadoCivil(id: number) {
    // this.estadosCivil.esCi_Id = id;
     //this.http.post<EstadoCivil>(`${this.apiUrl}/EstadoCivil/Find`, this.estadosCivil)
@@ -53,6 +44,8 @@ export class EsCiEditComponent {
       .subscribe(data => {
         if (data && data.length > 0) {
           this.estadoCivilAuxiliar = data[0];
+          this.estadoCivilEntries = Object.entries(this.estadoCivilAuxiliar);
+          console.log("Entrada",this.estadoCivilEntries);
           console.log("Respuesta API:", data); 
           console.log("estadoCivilAuxiliar:", this.estadoCivilAuxiliar); 
         } else {
@@ -62,10 +55,4 @@ export class EsCiEditComponent {
         console.error("Error al cargar datos:", error);
       });
   }
-  
-  
-
-  
-  
-  
 }

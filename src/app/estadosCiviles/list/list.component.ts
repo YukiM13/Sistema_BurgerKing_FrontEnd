@@ -14,7 +14,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { Table, TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
-
+import { EsCiDetailsComponent } from '../details/details.component';
 
 import {
   trigger,
@@ -28,7 +28,7 @@ import { MenuItem } from 'primeng/api';
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [CommonModule, RouterModule, EsCiCreateComponent, EsCiEditComponent, SplitButtonModule, ButtonModule,ConfirmDialogModule,ToastModule,TableModule,InputTextModule],
+  imports: [CommonModule, RouterModule, EsCiCreateComponent, EsCiEditComponent, EsCiDetailsComponent ,SplitButtonModule, ButtonModule,ConfirmDialogModule,ToastModule,TableModule,InputTextModule],
   providers:[MessageService, ConfirmationService],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss',
@@ -50,7 +50,7 @@ export class EsCiListComponent implements OnInit {
 
   private apiUrl = environment.apiUrl;
 
-
+  showDetails = false;
   showCreate = false;
   showEdit = false;
   loading = [false, false, false, false];
@@ -87,12 +87,12 @@ export class EsCiListComponent implements OnInit {
       {
         label: 'Editar',
         icon: 'pi pi-pencil',
-        command: () => this.ObtenerEstadoCivil(estadoCivil.esCi_Id)
+        command: () => this.ObtenerEstadoCivil(estadoCivil.esCi_Id, 1)
       },
       {
         label: 'Detalles',
         icon: 'pi pi-eye',
-        // Puedes añadir lógica si se desea
+        command: () => this.ObtenerEstadoCivil(estadoCivil.esCi_Id,2)
       },
       {
         label: 'Eliminar',
@@ -103,10 +103,18 @@ export class EsCiListComponent implements OnInit {
   }
 
 
-  ObtenerEstadoCivil(id: number): void {
+  ObtenerEstadoCivil(id: number, accion:number): void {
     
       this.estadoCivilSeleccionado = id; // solo el ID
-      this.showEdit = true;
+      if(accion == 1)
+      {
+        this.showEdit = true;
+      }
+      else
+      {
+        this.showDetails = true;
+      }
+      
   }
 
 
@@ -155,7 +163,10 @@ export class EsCiListComponent implements OnInit {
     this.showEdit = false;
     this.listarEstadosCiviles();
   }
-
+  cancelDetails(): void {
+    this.showDetails = false;
+    this.listarEstadosCiviles();
+  }
   registroCreado(): void {
     this.showCreate = false;
     this.listarEstadosCiviles();
@@ -164,6 +175,29 @@ export class EsCiListComponent implements OnInit {
         severity: 'success',
         summary: 'Exito',
         detail: 'Estado civil creado exitosamente'
+      });
+    }, 100);
+  }
+  crearError(): void {
+    this.showCreate = false;
+    this.listarEstadosCiviles();
+    setTimeout(() => {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'El estado civil no se pudo crear'
+      });
+    }, 100);
+  }
+
+  registroActualizado(): void {
+    this.showEdit = false;
+    this.listarEstadosCiviles();
+    setTimeout(() => {
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Exito',
+        detail: 'Estado civil actualizado exitosamente'
       });
     }, 100);
   }

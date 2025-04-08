@@ -5,6 +5,7 @@ import {HttpClient} from '@angular/common/http';
 import {FormsModule} from '@angular/forms'
 import {EstadoCivil} from '../../models/estadosCiviles.model'
 import { environment } from 'src/enviroments/enviroment';
+import { Respuesta } from 'src/app/models/respuesta.model';
 
 @Component({
   selector: 'app-create',
@@ -20,7 +21,8 @@ export class EsCiCreateComponent {
   http = inject(HttpClient);
   @Output() cancelar = new EventEmitter<void>();  
   @Output() creado = new EventEmitter<void>();
- 
+  @Output() errorCrear = new EventEmitter<void>();
+
 
   cancelarFormulario() {
     this.cancelar.emit();  
@@ -31,12 +33,17 @@ export class EsCiCreateComponent {
     this.estadosCivil.usua_Creacion = 2;
     const fecha = new Date();
     this.estadosCivil.esCi_FechaCreacion = fecha;  
-    this.http.post(`${this.apiUrl}/EstadoCivil/Insertar`, this.estadosCivil)
-    .subscribe(() => {
-      this.creado.emit();
+    this.http.post<Respuesta<EstadoCivil>>(`${this.apiUrl}/EstadoCivil/Insertar`, this.estadosCivil)
+    .subscribe({
+      next: (response) => {
+      if (response && response.data.codeStatus >0) {
+        console.log(response)
+        this.creado.emit();
+      } else {
+        this.errorCrear.emit();
+      }
     }
-
-    );
+    });
     
     
     
@@ -44,4 +51,6 @@ export class EsCiCreateComponent {
 
 }
   
+
+
 

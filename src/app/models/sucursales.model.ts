@@ -8,6 +8,7 @@ export class Sucursal{
     sucu_FechaCreacion: Date = new Date() ;
     usua_Modificacion: number = 0 ;
     sucu_FechaModificacion: Date = new Date() ;
+    codeStatus: number = 0;
 
 
     constructor(init?: Partial<Sucursal>) {

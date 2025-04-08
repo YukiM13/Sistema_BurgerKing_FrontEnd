@@ -11,4 +11,9 @@ export class Productos {
     prod_ImgUrl: string = '';
     usuaC_Nombre: string = '';
     usuaM_Nombre: string = '';
+    codeStatus: number = 0;
+    constructor(init?: Partial<Productos>){
+        Object.assign(this, init);
+
+    }
 }
