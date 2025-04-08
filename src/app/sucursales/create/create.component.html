@@ -1,0 +1,39 @@
+<h2 >Crear nueva Sucursal</h2>
+
+<div class="card">
+    <div class="card-body">
+     <form (submit)="crearSucursal()">
+        <div class="row">
+            <div class="col-md-6">
+                <label for="" class="label-control">Sucursal:</label>
+                <input type="text" name="sucu_Descripcion" [(ngModel)] = "sucursal.sucu_Descripcion" class="form-control"/>
+                <br>
+                
+            </div>
+            
+            <div class="col-md-6">
+                <label for="" class="label-control">Direccion:</label>
+                <input type="text" name="sucu_Direccion" [(ngModel)] = "sucursal.sucu_Direccion" class="form-control"/>
+                <br>
+                
+            </div>
+
+            <div class="col-md-6">
+                <label for="" class="label-control">Municipio:</label>
+                <input type="text" name="muni_Codigo" [(ngModel)] = "sucursal.muni_Codigo" class="form-control"/>
+                <br>
+                
+            </div>
+        </div>
+        <div class="row">
+            <div>
+                <div class="col-md-12 text-right">
+                    <input type="submit" class="btn btn-primary m-2" value="Guardar" />
+                    <button type="button" class="btn btn-danger  m-2" (click)="cancelarFormulario()" class="btn btn-secondary">Cancelar</button>
+                </div>
+                
+            </div>
+        </div>
+     </form>
+    </div>
+  </div>

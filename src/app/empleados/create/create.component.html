@@ -1,1 +1,81 @@
-<p>create works!</p>
+<h2 >Crear Usuario</h2>
+
+<div class="card">
+    <div class="card-body">
+     <form (submit)="crearEmpleado()">
+        <div class="row">
+            <div class="col-md-6">
+                <label for="" class="label-control">DNI</label>
+                <input type="text" name="empl_Identidad" [(ngModel)] = "empleado.empl_Identidad" class="form-control"/>
+             
+                
+            </div>
+            <div class="col-md-6">
+                <label for="" class="label-control">Nombres</label>
+                <input type="text" name="empl_Nombre" [(ngModel)] = "empleado.empl_Nombre" class="form-control"/>
+             
+                
+            </div>
+            
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <label for="" class="label-control">Apellidos</label>
+                <input type="text" name="empl_Apellido" [(ngModel)] = "empleado.empl_Apellido" class="form-control"/>
+             
+                
+            </div>
+            <div class="col-md-6">
+                <label for="" class="label-control">Birth</label>
+                <input type="text" name="empl_FechaNacimiento" [(ngModel)] = "empleado.empl_FechaNacimiento" class="form-control"/>
+             
+                
+            </div>
+            
+        </div>
+        
+        <div class="row">
+            <div class="col-md-6">
+                <label for="" class="label-control">Sexo</label>
+                <input type="text" name="empl_Sexo" [(ngModel)] = "empleado.empl_Sexo" class="form-control"/>
+             
+                
+            </div>
+            <div class="col-md-6">
+                <label for="" class="label-control">EsCi</label>
+                <input type="text" name="esCi_Id" [(ngModel)] = "empleado.esCi_Id" class="form-control"/>
+             
+                
+            </div>
+            
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <label for="" class="label-control">Cargo</label>
+                <input type="text" name="carg_Id" [(ngModel)] = "empleado.carg_Id" class="form-control"/>
+             
+                
+            </div>
+            <div class="col-md-6">
+                <label for="" class="label-control">Sucursal</label>
+                <input type="text" name="sucu_Id" [(ngModel)] = "empleado.sucu_Id" class="form-control"/>
+             
+                
+            </div>
+            
+        </div>
+
+        <br>
+        <div class="row">
+            <div>
+                <div class="col-md-12 text-right">
+                    <input type="submit" class="btn btn-primary m-2" value="Guardar" />
+                    <button type="button" class="btn btn-danger m-2" (click)="cancelarFormulario()" class="btn btn-secondary">Cancelar</button>
+                </div>
+                
+            </div>
+        </div>
+     </form>
+    </div>
+  </div>

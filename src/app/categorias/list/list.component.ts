@@ -4,7 +4,7 @@ import {RouterModule} from '@angular/router'
 import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http'
 import { Categoria } from '../../models/categorias.model'
-//import {CargoCreateComponent } from '../create/create.component';
+import {CategoriaCreateComponent } from '../create/create.component';
 //import {EsCiEditComponent} from '../edit/edit.component';
 import { environment } from '../../../enviroments/enviroment'; 
 import { SplitButtonModule } from 'primeng/splitbutton';
@@ -29,7 +29,7 @@ import {
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [CommonModule, RouterModule, SplitButtonModule, ButtonModule,ConfirmDialogModule,ToastModule,TableModule,InputTextModule],
+  imports: [CommonModule, CategoriaCreateComponent,RouterModule, SplitButtonModule, ButtonModule,ConfirmDialogModule,ToastModule,TableModule,InputTextModule],
   providers:[MessageService, ConfirmationService],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss',

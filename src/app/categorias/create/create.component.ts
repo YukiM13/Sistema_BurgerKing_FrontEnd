@@ -3,10 +3,8 @@ import {CommonModule, NgFor} from '@angular/common';
 import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {FormsModule} from '@angular/forms'
-import {Tamano} from '../../models/tamano.model'
+import {Categoria} from '../../models/categorias.model'
 import { environment } from 'src/enviroments/enviroment';
-
-
 
 @Component({
   selector: 'app-create',
@@ -17,9 +15,8 @@ import { environment } from 'src/enviroments/enviroment';
 })
 
 
-
-export class TamanoCreateComponent {
- private apiUrl = environment.apiUrl; 
+export class CategoriaCreateComponent {
+  private apiUrl = environment.apiUrl; 
   //estadosCivil2: any[] = [];
   
   http = inject(HttpClient);
@@ -31,19 +28,18 @@ export class TamanoCreateComponent {
     this.cancelar.emit();  
   }
   router = inject(Router)
-  tamano = new Tamano();
-
-  crearTamano()  {
-   
-    this.tamano.usua_Creacion = 2;
+  categoria = new Categoria();
+  crearCategoria()  {
+    this.categoria.usua_Creacion = 2;
     const fecha = new Date();
-    this.tamano.tama_FechaCreacion = fecha;  
-    this.http.post(`${this.apiUrl}/Tamano/Insertar`, this.tamano)
+    this.categoria.cate_FechaCreacion = fecha;  
+    this.http.post(`${this.apiUrl}/Categoria/Insertar`, this.categoria)
     .subscribe(() => {
       this.creado.emit();
     }
 
     );
+    
     
     
   }

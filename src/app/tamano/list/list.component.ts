@@ -4,7 +4,7 @@ import {RouterModule} from '@angular/router'
 import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http'
 import {Tamano} from '../../models/tamano.model'
-// import {TamaCreateComponent} from '../../tamano/create/create.component';
+ import {TamanoCreateComponent} from '../../tamano/create/create.component';
 // import {TamaEditComponent} from '../../tamano/edit/edit.component';
 import { environment } from '../../../enviroments/enviroment'; 
 import { SplitButtonModule } from 'primeng/splitbutton';
@@ -27,7 +27,8 @@ import { MenuItem } from 'primeng/api';
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [CommonModule, RouterModule, SplitButtonModule, ButtonModule,ConfirmDialogModule,ToastModule, TableModule, InputTextModule],
+  imports: [CommonModule, RouterModule, TamanoCreateComponent,
+     SplitButtonModule, ButtonModule,ConfirmDialogModule,ToastModule, TableModule, InputTextModule],
   providers:[MessageService, ConfirmationService],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss',

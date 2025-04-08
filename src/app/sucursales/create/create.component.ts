@@ -3,10 +3,10 @@ import {CommonModule, NgFor} from '@angular/common';
 import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {FormsModule} from '@angular/forms'
-import {Tamano} from '../../models/tamano.model'
+import {Sucursal} from '../../models/sucursales.model'
 import { environment } from 'src/enviroments/enviroment';
-
-
+import {Municipios} from '../../models/municipio.model'
+import { DropdownModule } from 'primeng/dropdown';
 
 @Component({
   selector: 'app-create',
@@ -18,7 +18,8 @@ import { environment } from 'src/enviroments/enviroment';
 
 
 
-export class TamanoCreateComponent {
+
+export class SucursalCreateComponent {
  private apiUrl = environment.apiUrl; 
   //estadosCivil2: any[] = [];
   
@@ -26,24 +27,43 @@ export class TamanoCreateComponent {
   @Output() cancelar = new EventEmitter<void>();  
   @Output() creado = new EventEmitter<void>();
  
+  ngOnInit(): void {
+    this.listarMunicipios();
+  }
+  
+  listarMunicipios(): void {
+    this.http.get(`${this.apiUrl}/Municipio/Listar`)
+      .subscribe((res: any) => {
+        this.municipios = res.map((municipio: any) => ({
+          label: municipio.muni_Descripcion, // Texto que se mostrará en el dropdown
+          value: municipio.muni_Codigo      // Valor que se enviará al backend
+        }));
+      });
+  }
 
   cancelarFormulario() {
     this.cancelar.emit();  
   }
   router = inject(Router)
-  tamano = new Tamano();
+  sucursal = new Sucursal();
 
-  crearTamano()  {
+  municipios: any[] = [];
+  municipos = new Municipios();
+
+  
+
+  crearSucursal()  {
    
-    this.tamano.usua_Creacion = 2;
+    this.sucursal.usua_Creacion = 2;
     const fecha = new Date();
-    this.tamano.tama_FechaCreacion = fecha;  
-    this.http.post(`${this.apiUrl}/Tamano/Insertar`, this.tamano)
+    this.sucursal.sucu_FechaCreacion = fecha;  
+    this.http.post(`${this.apiUrl}/Sucursal/Insertar`, this.sucursal)
     .subscribe(() => {
       this.creado.emit();
     }
 
     );
+    
     
     
   }
