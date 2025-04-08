@@ -50,10 +50,7 @@ export class MunicipioCreateComponent {
       .subscribe({
         next: (response) => {
           
-          this.departamentos = response.map(departamento => ({
-            label: departamento.depa_Descripcion,
-            value: departamento.depa_Codigo
-          }));
+         this.departamentos = response;
           
           console.log(this.departamentos);
           
