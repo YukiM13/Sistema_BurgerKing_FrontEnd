@@ -1,44 +1,47 @@
 <h2 >Crear nueva Sucursal</h2>
+<div class="grid p-fluid">
+    <div class="col-12"> 
+        <div class="card">
+            <div class="card-body">
+            <form (submit)="crearSucursal()">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="" class="label-control">Sucursal:</label>
+                        <input type="text" name="sucu_Descripcion" [(ngModel)] = "sucursal.sucu_Descripcion" class="form-control"/>
+                        <br>
+                        
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <label for="" class="label-control">Direccion:</label>
+                        <input type="text" name="sucu_Direccion" [(ngModel)] = "sucursal.sucu_Direccion" class="form-control"/>
+                        
+                        
+                    </div>
 
-<div class="card">
-    <div class="card-body">
-     <form (submit)="crearSucursal()">
-        <div class="row">
-            <div class="col-md-6">
-                <label for="" class="label-control">Sucursal:</label>
-                <input type="text" name="sucu_Descripcion" [(ngModel)] = "sucursal.sucu_Descripcion" class="form-control"/>
-                <br>
-                
-            </div>
-            
-            <div class="col-md-6">
-                <label for="" class="label-control">Direccion:</label>
-                <input type="text" name="sucu_Direccion" [(ngModel)] = "sucursal.sucu_Direccion" class="form-control"/>
-                <br>
-                
-            </div>
-
-            
+                    <div class="col-md-6">
+                        <label>Municipios:</label>
+                        <p-dropdown [filter]="true"  [options]="municipios" optionLabel="muni_Descripcion" [(ngModel)]="sucursal.muni_Codigo" 
+                        placeholder="Municipios" [showClear]="true" optionValue="muni_Codigo" name="muni_Codigo"></p-dropdown>
+                    </div>
 
 
 
 
-        </div>
-        
-        <div class="col-lg-12">
-            <label htmlFor="categorias">Categorias <span class="text-red-200">*</span></label>
-            <p-dropdown [filter]="true" [options]="municipios" optionLabel="muni_Descripcion" [(ngModel)]="sucursal.muni_Codigo" 
-            placeholder="Municipios" [showClear]="true" optionValue="muni_Codigo" name="muni_Codigo"></p-dropdown>
-        </div>
-        <div class="row">
-            <div>
-                <div class="col-md-12 text-right">
-                    <input type="submit" class="btn btn-primary m-2" value="Guardar" />
-                    <button type="button" class="btn btn-danger  m-2" (click)="cancelarFormulario()" class="btn btn-secondary">Cancelar</button>
                 </div>
                 
+            
+                <div class="row">
+                    <div>
+                        <div class="col-md-12 text-right">
+                            <input type="submit" class="btn btn-primary m-2" value="Guardar" />
+                            <button type="button" class="btn btn-danger  m-2" (click)="cancelarFormulario()" class="btn btn-secondary">Cancelar</button>
+                        </div>
+                        
+                    </div>
+                </div>
+            </form>
             </div>
         </div>
-     </form>
     </div>
-  </div>
+</div>

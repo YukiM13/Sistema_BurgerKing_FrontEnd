@@ -5,7 +5,6 @@ import {HttpClient} from '@angular/common/http';
 import {FormsModule} from '@angular/forms'
 import {Sucursal} from '../../models/sucursales.model'
 import { environment } from 'src/enviroments/enviroment';
-import {Municipios} from '../../models/municipio.model'
 import { DropdownModule } from 'primeng/dropdown';
 import { SelectItem } from 'primeng/api';
 
@@ -33,7 +32,7 @@ export class SucursalCreateComponent {
   }
   
  
-  selectedDrop: SelectItem = { value: '' };
+  
 
   municipios: any[] = [];
   //municipos = new Municipios();
@@ -42,11 +41,12 @@ export class SucursalCreateComponent {
     this.http.get<any[]>(`${this.apiUrl}/Municipio/Listar`)
       .subscribe({
         next: (response) => {
-          console.log('Respuesta del backend:', response); 
+          
           this.municipios = response; 
+          
         },
         error: (error) => {
-          console.error('Error al cargar municipios:', error);
+         
           this.municipios = [];
         }
       });
