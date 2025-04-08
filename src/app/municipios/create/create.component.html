@@ -1,40 +1,35 @@
-<h2 >Crear Departamento</h2>
 
-<div class="card">
-    <div class="card-body">
-     <form (submit)="crearMunicipio()">
-        <div class="row">
-            <div class="col-md-6">
-                <label for="" class="label-control">Codigo:</label>
-                <input type="text" name="muni_Codigo" [(ngModel)] = "municipio.muni_Codigo" class="form-control"/>
-                <br>
-                
-            </div>
-
-            <div class="col-md-6">
-              <label for="" class="label-control">Municipio:</label>
-              <input type="text" name="muni_Descripcion" [(ngModel)] = "municipio.muni_Descripcion" class="form-control"/>
-              <br>
-              
-          </div>
-
-          <div class="col-md-6">
-            <label for="" class="label-control">Departamento:</label>
-            <input type="text" name="depa_Codigo" [(ngModel)] = "municipio.depa_Codigo" class="form-control"/>
-            <br>
-            
-        </div>
-            
-        </div>
-        <div class="row">
-            <div>
-                <div class="col-md-12 text-right">
-                    <input type="submit" class="btn btn-primary m-2" value="Guardar"  />
-                    <button type="button" class="btn btn-danger m-2" (click)="cancelarFormulario()" class="btn btn-secondary">Cancelar</button>
+<form (submit)="crearMunicipio()">
+    <div class="col-12 align-items-center">
+        <div class="card p-fluid col-8 mx-auto">
+            <h5>Nueva Municipip</h5>
+            <div class="p-formgrid grid">
+                <div class="field col">
+                    <label htmlFor="cod">Codigo <span class="text-red-200">*</span></label>
+                    <input pInputText id="cod" type="text" [(ngModel)] = "municipio.muni_Codigo" name="muni_Codigo"/>
                 </div>
                 
+                <div class="field col">
+                    <label htmlFor="muni">Municipio <span class="text-red-200">*</span></label>
+                    <input pInputText id="muni" type="text" [(ngModel)] = "municipio.muni_Descripcion" name="muni_Descripcion"/>
+                </div>
+
+                <div class="field col">
+                    <label htmlFor="categorias">Depa <span class="text-red-200">*</span></label>
+                    <p-dropdown [filter]="true"  [options]="departamentos"  [(ngModel)]="municipio.depa_Codigo" 
+                placeholder="Seleccionar Departamento" [showClear]="true"  name="depa_Codigo" ></p-dropdown>
+                </div>
+            </div>
+            <div class="field">
+                <button type="submit" value="Guardar" label="Guardar" class="p-button-outlined p-button-primary"></button>
             </div>
         </div>
-     </form>
     </div>
-  </div>
+</form>
+
+
+
+
+
+
+
