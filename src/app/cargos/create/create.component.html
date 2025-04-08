@@ -1,0 +1,26 @@
+<h2 >Crear Cargo</h2>
+
+<div class="card">
+    <div class="card-body">
+     <form (submit)="crearCargo()">
+        <div class="row">
+            <div class="col-md-12">
+                <label for="" class="label-control">Cargo</label>
+                <input type="text" name="carg_Descripcion" [(ngModel)] = "cargos.carg_Descripcion" class="form-control"/>
+                <br>
+                
+            </div>
+            
+        </div>
+        <div class="row">
+            <div>
+                <div class="col-md-12 text-right">
+                    <input type="submit" class="btn btn-primary m-2" value="Guardar" />
+                    <button type="button" class="btn btn-danger  m-2" (click)="cancelarFormulario()" class="btn btn-secondary">Cancelar</button>
+                </div>
+                
+            </div>
+        </div>
+     </form>
+    </div>
+  </div>

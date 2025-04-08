@@ -4,7 +4,7 @@ import {RouterModule} from '@angular/router'
 import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http'
 import { Sucursal } from '../../models/sucursales.model'
-//import {CargoCreateComponent } from '../create/create.component';
+import {SucursalCreateComponent } from '../create/create.component';
 //import {EsCiEditComponent} from '../edit/edit.component';
 import { environment } from '../../../enviroments/enviroment'; 
 import { SplitButtonModule } from 'primeng/splitbutton';
@@ -14,6 +14,8 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { Table, TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
+import { DropdownModule } from 'primeng/dropdown';
+import { Municipios  } from '../../models/municipio.model'
 
 import {
   trigger,
@@ -24,11 +26,13 @@ import {
 } from '@angular/animations';
 
 import { MenuItem } from 'primeng/api';
+import { an } from '@fullcalendar/core/internal-common';
 
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [CommonModule, RouterModule, SplitButtonModule, ButtonModule,ConfirmDialogModule,ToastModule, TableModule, InputTextModule],
+  imports: [CommonModule, RouterModule, SplitButtonModule,
+     SucursalCreateComponent ,ButtonModule,ConfirmDialogModule,ToastModule, TableModule, InputTextModule,  DropdownModule,],
   providers:[MessageService, ConfirmationService],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss',
@@ -60,6 +64,7 @@ export class SucursalListComponent implements OnInit {
   sucursal = new Sucursal();
 
 
+
   private http = inject(HttpClient);
   private router = inject(Router);
   constructor(
@@ -69,6 +74,7 @@ export class SucursalListComponent implements OnInit {
 
   ngOnInit(): void {
     this.listarSucursales();
+    
   }
 
   listarSucursales(): void {
@@ -81,6 +87,7 @@ export class SucursalListComponent implements OnInit {
       });
   }
 
+  
 
   crearAcciones(sucursal: any): MenuItem[] {
     return [

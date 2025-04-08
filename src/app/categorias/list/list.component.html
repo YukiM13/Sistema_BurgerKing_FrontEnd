@@ -21,7 +21,7 @@
                    
                     <th>
                         <div class="flex justify-content-between align-items-center" pSortableColumn="cate_Descripcion">
-                            Categorio
+                            Categoria
                             <p-sortIcon field="cate_Descripcion"></p-sortIcon>
                         </div>
                     </th>
@@ -62,7 +62,7 @@
    <p-confirmDialog></p-confirmDialog>
   <p-toast></p-toast> 
     <div *ngIf="showCreate" @collapse>
-    <!-- <app-create (creado)="registroCreado()" (cancelar)="cancelCreate()" ></app-create> -->
+        <app-create (creado)="registroCreado()" (cancelar)="cancelCreate()" ></app-create> 
     </div>
   
     <div *ngIf="showEdit" @collapse>

@@ -16,6 +16,7 @@ import { ProduListComponent } from './productos/list/list.component';
 import {CargosListComponent} from './cargos/list/list.component';
 import {CargoCreateComponent} from './cargos/create/create.component';
 import { SucursalListComponent } from './sucursales/list/list.component';
+import { SucursalCreateComponent } from './sucursales/create/create.component';
 import { ClienteListComponent } from './clientes/list/list.component';
 import { CategoriasListComponent } from './categorias/list/list.component';
 import { VentasListComponent } from './ventas/list/list.component';
@@ -44,7 +45,7 @@ const routes: Routes = [
             {path: 'cargo', component: CargosListComponent,},
             {path: 'cargo/crear', component: CargoCreateComponent,},
             {path: 'sucursal', component: SucursalListComponent,},
-            //crear sucursal
+            {path: 'sucursal/crear', component: SucursalCreateComponent,},
             {path: 'cliente', component: ClienteListComponent,},
             //crear cliente
             {path: 'categoria' , component: CategoriasListComponent},
