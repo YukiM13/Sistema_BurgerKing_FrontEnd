@@ -27,29 +27,36 @@ export class EsCiEditComponent implements OnInit{
   estadoCivilAuxiliar = new EstadoCivil();
   descripcion = "";
 
-  obtenerEstadoCivil(id: number) {
-    this.estadosCivil.esCi_Id = id;
-    this.http.post<EstadoCivil>(`${this.apiUrl}/EstadoCivil/Find`, this.estadosCivil)
-      .subscribe(data => {
-        this.estadoCivilAuxiliar = { ...data };
-        console.log('Estado Civil actualizado:', this.estadoCivilAuxiliar);
+ // obtenerEstadoCivil(id: number) {
+   // this.estadosCivil.esCi_Id = id;
+    //this.http.post<EstadoCivil>(`${this.apiUrl}/EstadoCivil/Find`, this.estadosCivil)
+      //.subscribe(data => {
+        //this.estadoCivilAuxiliar = { ...data };
+        //console.log('Estado Civil actualizado:', this.estadoCivilAuxiliar);
        
-      });
-  }
-
+      //});
+  //}
   ngOnInit(): void {
     this.estadosCivil.esCi_Id = this.estadoCivilId;
-    this.http.post<EstadoCivil>(`${this.apiUrl}/EstadoCivil/Find`, this.estadosCivil)
-      .subscribe(data => {
-         this.estadoCivilAuxiliar = { ...data };
-        console.log('Estado Civil:', this.estadoCivilAuxiliar);
-        this.estadoCivilEntries = Object.entries(this.estadoCivilAuxiliar);
-         console.log(this.estadoCivilEntries);
-         
-      });
-   
   
+    this.http.post<EstadoCivil[]>(`${this.apiUrl}/EstadoCivil/Find`, this.estadosCivil)
+      .subscribe(data => {
+        if (data && data.length > 0) {
+          this.estadoCivilAuxiliar = new EstadoCivil().fromJson(data[0]);
+          console.log("Respuesta API:", data); 
+          console.log("estadoCivilAuxiliar:", this.estadoCivilAuxiliar); 
+        } else {
+          console.error("No se recibió una respuesta válida de la API");
+        }
+      }, error => {
+        console.error("Error al cargar datos:", error);
+      });
   }
+  
+  
+
+  
+  
   EditarEstadoCivil()  {
     this.estadosCivil.usua_Modificacion = 2;
     this.estadosCivil.esCi_FechaModificacion = new Date;
