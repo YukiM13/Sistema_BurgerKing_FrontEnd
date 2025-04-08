@@ -104,12 +104,9 @@ export class EsCiListComponent implements OnInit {
 
 
   ObtenerEstadoCivil(id: number): void {
-    this.estadoCivil.esCi_Id = id;
-    this.http.post<EstadoCivil>(`${this.apiUrl}/EstadoCivil/Find`, this.estadoCivil)
-      .subscribe(data => {
-        this.estadoCivilSeleccionado = data;
-        this.showEdit = true;
-      });
+    
+      this.estadoCivilSeleccionado = id; // solo el ID
+      this.showEdit = true;
   }
 
 

@@ -3,12 +3,12 @@
  
     <div class="card-body">
      <form (submit)="EditarEstadoCivil()" >
-        <input type="text"  hidden>
+        <input type="text"  hidden  name="esci_Id" class="form-control"  />
         <div class="row" >
             
             <div class="col-md-12" >
                 <label for="" class="label-control">Estado Civil</label>
-                <input type="text" name="esci_Descripcion" [value]="estadosCivil.esci_Descripcion" class="form-control" />
+                <input type="text" name="esci_Descripcion"  class="form-control" />
                 <br>
               
             </div>

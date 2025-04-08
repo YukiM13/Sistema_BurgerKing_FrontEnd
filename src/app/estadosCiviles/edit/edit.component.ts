@@ -13,23 +13,34 @@ import { environment } from 'src/enviroments/enviroment';
   templateUrl: './edit.component.html',
   styleUrl: './edit.component.scss'
 })
-export class EsCiEditComponent implements OnChanges{
+export class EsCiEditComponent implements OnInit{
   private apiUrl = environment.apiUrl; 
-  @Input() estadoCivil: any;
+  @Input() estadoCivilId: number = 0;
   @Output() cancelar = new EventEmitter<void>();  
   cancelarFormulario() {
     this.cancelar.emit();  
   }
   http = inject(HttpClient);
   router = inject(Router);
-  estadocivil: any[] = [];
+  estadoCivilEntries: [string, any][] = [];
   estadosCivil = new EstadoCivil();
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['estadoCivil'] && this.estadoCivil) {
-      this.estadosCivil = { ...this.estadoCivil };
-    }
+  estadoCivilAuxiliar = new EstadoCivil();
+
+
+  obtenerEstadoCivil(id: number) {
+    this.estadosCivil.esCi_Id = id;
+    this.http.post<EstadoCivil>(`${this.apiUrl}/EstadoCivil/Find`, this.estadosCivil)
+      .subscribe(data => {
+        this.estadoCivilAuxiliar = data;
+       
+      });
   }
 
+  ngOnInit(): void {
+    this.obtenerEstadoCivil(this.estadoCivilId);
+    this.estadoCivilEntries = Object.entries(this.estadoCivilAuxiliar);
+    console.log(this.estadoCivilEntries);
+  }
   EditarEstadoCivil()  {
     this.estadosCivil.usua_Modificacion = 2;
     this.estadosCivil.esCi_FechaModificacion = new Date;
