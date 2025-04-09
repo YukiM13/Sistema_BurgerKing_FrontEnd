@@ -1,4 +1,4 @@
-<h2 >Crear Usuario</h2>
+<h2 >Crear Cliente</h2>
 
 <div class="card">
     <div class="card-body">
@@ -25,12 +25,20 @@
              
                 
             </div>
-            <div class="col-md-6">
+            
+
+              <div class="col-md-6">
                 <label for="" class="label-control">Sexo</label>
-                <input type="text" name="clie_Sexo" [(ngModel)] = "cliente.clie_Sexo" class="form-control"/>
-             
-                
-            </div>
+                <br>
+                <p-selectButton
+                name="clie_Sexo"
+                [options]="sexoOptions"
+                optionLabel="label"
+                optionValue="value"
+                [(ngModel)]="cliente.clie_Sexo">
+              </p-selectButton>
+              
+              </div>
             
         </div>
   

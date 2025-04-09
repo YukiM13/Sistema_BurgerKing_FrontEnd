@@ -104,7 +104,7 @@ export class SucursalListComponent implements OnInit {
       {
         label: 'Eliminar',
         icon: 'pi pi-trash',
-        //command: () => this.confirmarEliminacion(estadoCivil.esCi_Id)
+        command: () => this.confirmarEliminacion(sucursal.sucu_Id)
       }
     ];
   }
@@ -119,15 +119,15 @@ export class SucursalListComponent implements OnInit {
         });
     }
   
-  
+  */
     confirmarEliminacion(id: number): void {
       this.confirmationService.confirm({
-        message: '¿Estás seguro que deseas eliminar este estado civil?',
+        message: '¿Estás seguro que deseas eliminar esta Sucursal?',
         header: 'Confirmar eliminación',
         icon: 'pi pi-exclamation-triangle',
         acceptLabel: 'Sí',
         rejectLabel: 'No',
-        accept: () => this.EliminarEstadoCivil(id),
+        accept: () => this.EliminarSucursal(id),
         reject: () => {
           this.messageService.add({
             severity: 'info',
@@ -139,20 +139,20 @@ export class SucursalListComponent implements OnInit {
     }
   
   
-    EliminarEstadoCivil(id: number): void {
-      this.estadoCivil.esCi_Id = id;
-      this.http.post(`${this.apiUrl}/EstadoCivil/Eliminar`, this.estadoCivil)
+    EliminarSucursal(id: number): void {
+      this.sucursal.sucu_Id = id;
+      this.http.post(`${this.apiUrl}/Sucursal/Eliminar`, this.sucursal)
         .subscribe(() => {
           this.messageService.add({
             severity: 'success',
             summary: 'Eliminado',
-            detail: 'Estado civil eliminado'
+            detail: 'Sucursal eliminado'
           });
-          this.listarEstadosCiviles();
+          this.listarSucursales();
         });
     }
   
-*/
+
 
     toggleCreate(): void {
       this.showCreate = !this.showCreate;

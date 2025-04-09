@@ -5,17 +5,21 @@ import {HttpClient} from '@angular/common/http';
 import {FormsModule} from '@angular/forms'
 import {Empleados} from '../../models/empleado.model'
 import { environment } from 'src/enviroments/enviroment';
+import { DropdownModule } from 'primeng/dropdown';
+import {ToggleButtonModule } from 'primeng/togglebutton';
+import { CalendarModule } from 'primeng/calendar';
+import { SelectButtonModule } from 'primeng/selectbutton';
 
 @Component({
   selector: 'app-create',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, DropdownModule, ToggleButtonModule, CalendarModule, SelectButtonModule],
   templateUrl: './create.component.html',
   styleUrl: './create.component.scss'
 })
 
 
-export class EmpleadoCreateComponent {
+export class EmpleadoCreateComponent implements OnInit {
   private apiUrl = environment.apiUrl; 
   //estadosCivil2: any[] = [];
   
@@ -32,6 +36,9 @@ export class EmpleadoCreateComponent {
   empleado = new Empleados();
 
   crearEmpleado()  {
+    const sexo = this.empleado.empl_Sexo ? 'M' : 'F';
+    this.empleado.empl_Sexo = sexo;
+
     this.empleado.usua_Creacion = 2;
     const fecha = new Date();
     this.empleado.empl_FechaCreacion = fecha;  
@@ -41,9 +48,62 @@ export class EmpleadoCreateComponent {
     }
 
     );
-    
-    
-    
   }
+
+  sexoOptions = [
+    { label: 'Femenino', value: 'F' },
+    { label: 'Masculino', value: 'M' }
+  ];
+
+  
+
+ 
+
+  estadoCivil: any[] = [];
+  listarEstadoCivil(): void {
+    this.http.get<any[]>(`${this.apiUrl}/EstadoCivil/Listar`)
+      .subscribe({
+        next: (response) => {
+          this.estadoCivil = response;
+        },
+        error: (error) => {
+          console.error('Error al listar los estados civiles:', error);
+        }
+      });
+  }
+
+  cargo: any[] = [];
+  listarCargo(): void {
+    this.http.get<any[]>(`${this.apiUrl}/Cargo/Listar`)
+      .subscribe({
+        next: (response) => {
+          this.cargo = response;
+        },
+        error: (error) => {
+          console.error('Error al listar los estados civiles:', error);
+        }
+      });
+  }
+
+  sucursal: any[] = [];
+  listarSucursal(): void {
+    this.http.get<any[]>(`${this.apiUrl}/Sucursal/Listar`)
+      .subscribe({
+        next: (response) => {
+          this.sucursal = response;
+        },
+        error: (error) => {
+          console.error('Error al listar los estados civiles:', error);
+        }
+      });
+  }
+
+  ngOnInit(): void {
+    this.listarEstadoCivil();
+    this.listarCargo();
+    this.listarSucursal();
+    this.empleado.empl_Sexo = 'F';
+  }
+
 }
 

@@ -98,7 +98,7 @@ export class CategoriasListComponent implements OnInit {
       {
         label: 'Eliminar',
         icon: 'pi pi-trash',
-        //command: () => this.confirmarEliminacion(estadoCivil.esCi_Id)
+        command: () => this.confirmarEliminacion(categoria.cate_Id)
       }
     ];
   }
@@ -112,16 +112,16 @@ export class CategoriasListComponent implements OnInit {
           this.showEdit = true;
         });
     }
-  
+  */
   
     confirmarEliminacion(id: number): void {
       this.confirmationService.confirm({
-        message: '¿Estás seguro que deseas eliminar este estado civil?',
+        message: '¿Estás seguro que deseas eliminar esta categoria?',
         header: 'Confirmar eliminación',
         icon: 'pi pi-exclamation-triangle',
         acceptLabel: 'Sí',
         rejectLabel: 'No',
-        accept: () => this.EliminarEstadoCivil(id),
+        accept: () => this.EliminarCategoria(id),
         reject: () => {
           this.messageService.add({
             severity: 'info',
@@ -133,20 +133,20 @@ export class CategoriasListComponent implements OnInit {
     }
   
   
-    EliminarEstadoCivil(id: number): void {
-      this.estadoCivil.esCi_Id = id;
-      this.http.post(`${this.apiUrl}/EstadoCivil/Eliminar`, this.estadoCivil)
+    EliminarCategoria(id: number): void {
+      this.categoria.cate_Id = id;
+      this.http.post(`${this.apiUrl}/Categoria/Eliminar`, this.categoria)
         .subscribe(() => {
           this.messageService.add({
             severity: 'success',
             summary: 'Eliminado',
-            detail: 'Estado civil eliminado'
+            detail: 'Categoria eliminada'
           });
-          this.listarEstadosCiviles();
+          this.listarCategorias();
         });
     }
   
-*/
+
 
     toggleCreate(): void {
       this.showCreate = !this.showCreate;

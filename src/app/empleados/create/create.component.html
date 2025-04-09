@@ -1,5 +1,6 @@
-<h2 >Crear Usuario</h2>
-
+<h2 >Crear Empleado</h2>
+<div class="grid p-fluid">
+    <div class="col-12"> 
 <div class="card">
     <div class="card-body">
      <form (submit)="crearEmpleado()">
@@ -26,8 +27,9 @@
                 
             </div>
             <div class="col-md-6">
-                <label for="" class="label-control">Birth</label>
-                <input type="text" name="empl_FechaNacimiento" [(ngModel)] = "empleado.empl_FechaNacimiento" class="form-control"/>
+                <label for="" class="label-control">Fecha de Nacimiento:</label>
+               
+                <p-calendar [showIcon]="true" name="empl_FechaNacimiento" [(ngModel)] = "empleado.empl_FechaNacimiento" inputId="icon" appendTo="body" ></p-calendar>
              
                 
             </div>
@@ -35,33 +37,41 @@
         </div>
         
         <div class="row">
+            
             <div class="col-md-6">
                 <label for="" class="label-control">Sexo</label>
-                <input type="text" name="empl_Sexo" [(ngModel)] = "empleado.empl_Sexo" class="form-control"/>
-             
-                
-            </div>
+                <br>
+                <p-selectButton
+                name="empl_Sexo"
+                [options]="sexoOptions"
+                optionLabel="label"
+                optionValue="value"
+                [(ngModel)]="empleado.empl_Sexo">
+              </p-selectButton>
+              
+              </div>
+
+            
+
             <div class="col-md-6">
-                <label for="" class="label-control">EsCi</label>
-                <input type="text" name="esCi_Id" [(ngModel)] = "empleado.esCi_Id" class="form-control"/>
-             
-                
+                <label>Estado Civil:</label>
+                <p-dropdown [filter]="true"  [options]="estadoCivil" optionLabel="esci_Descripcion" [(ngModel)]="empleado.esCi_Id" 
+                placeholder="Seleccione un estado civil" [showClear]="true" optionValue="esCi_Id" name="esCi_Id" appendTo="body"></p-dropdown>
             </div>
             
         </div>
 
         <div class="row">
             <div class="col-md-6">
-                <label for="" class="label-control">Cargo</label>
-                <input type="text" name="carg_Id" [(ngModel)] = "empleado.carg_Id" class="form-control"/>
-             
-                
+                <label>Cargo:</label>
+                <p-dropdown [filter]="true"  [options]="cargo" optionLabel="carg_Descripcion" [(ngModel)]="empleado.carg_Id" 
+                placeholder="Seleccione un cargo" [showClear]="true" optionValue="carg_Id" name="carg_Id" appendTo="body"></p-dropdown>
             </div>
+
             <div class="col-md-6">
-                <label for="" class="label-control">Sucursal</label>
-                <input type="text" name="sucu_Id" [(ngModel)] = "empleado.sucu_Id" class="form-control"/>
-             
-                
+                <label>Sucursal:</label>
+                <p-dropdown [filter]="true"  [options]="sucursal" optionLabel="sucu_Descripcion" [(ngModel)]="empleado.sucu_Id" 
+                placeholder="Seleccione una sucursal" [showClear]="true" optionValue="sucu_Id" name="sucu_Id" appendTo="body"></p-dropdown>
             </div>
             
         </div>
@@ -79,3 +89,5 @@
      </form>
     </div>
   </div>
+</div>
+</div>

@@ -99,7 +99,7 @@ export class CargosListComponent implements OnInit {
       {
         label: 'Eliminar',
         icon: 'pi pi-trash',
-        command: () => this.confirmarEliminacion(cargo.cargo_Id),
+        command: () => this.confirmarEliminacion(cargo.carg_Id),
       }
     ];
   }
@@ -116,8 +116,9 @@ export class CargosListComponent implements OnInit {
   */
   
     confirmarEliminacion(id: number): void {
+     
       this.confirmationService.confirm({
-        message: '¿Estás seguro que deseas eliminar este cargo?',
+        message: '¿Estás seguro que deseas eliminar este Cargo?',
         header: 'Confirmar eliminación',
         icon: 'pi pi-exclamation-triangle',
         acceptLabel: 'Sí',
@@ -136,12 +137,13 @@ export class CargosListComponent implements OnInit {
   
     EliminarCargo(id: number): void {
       this.cargo.carg_Id = id;
+      console.log(this.cargo);
       this.http.post(`${this.apiUrl}/Cargo/Eliminar`, this.cargo)
         .subscribe(() => {
           this.messageService.add({
             severity: 'success',
             summary: 'Eliminado',
-            detail: 'Estado civil eliminado'
+            detail: 'Cargo eliminado'
           });
           this.listarCargos();
         });

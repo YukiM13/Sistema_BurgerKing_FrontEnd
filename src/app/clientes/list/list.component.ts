@@ -99,7 +99,7 @@ export class ClienteListComponent implements OnInit {
       {
         label: 'Eliminar',
         icon: 'pi pi-trash',
-        //command: () => this.confirmarEliminacion(estadoCivil.esCi_Id)
+        command: () => this.confirmarEliminacion(cliente.clie_Id),
       }
     ];
   }
@@ -113,16 +113,16 @@ export class ClienteListComponent implements OnInit {
           this.showEdit = true;
         });
     }
-  
+  */
   
     confirmarEliminacion(id: number): void {
       this.confirmationService.confirm({
-        message: '¿Estás seguro que deseas eliminar este estado civil?',
+        message: '¿Estás seguro que deseas eliminar este Cliente?',
         header: 'Confirmar eliminación',
         icon: 'pi pi-exclamation-triangle',
         acceptLabel: 'Sí',
         rejectLabel: 'No',
-        accept: () => this.EliminarEstadoCivil(id),
+        accept: () => this.EliminarCliente(id),
         reject: () => {
           this.messageService.add({
             severity: 'info',
@@ -134,20 +134,20 @@ export class ClienteListComponent implements OnInit {
     }
   
   
-    EliminarEstadoCivil(id: number): void {
-      this.estadoCivil.esCi_Id = id;
-      this.http.post(`${this.apiUrl}/EstadoCivil/Eliminar`, this.estadoCivil)
+    EliminarCliente(id: number): void {
+      this.cliente.clie_Id = id;
+      this.http.post(`${this.apiUrl}/Cliente/Nose`, this.cliente)
         .subscribe(() => {
           this.messageService.add({
             severity: 'success',
             summary: 'Eliminado',
             detail: 'Estado civil eliminado'
           });
-          this.listarEstadosCiviles();
+          this.listarClientes();
         });
     }
   
-*/
+
 
     toggleCreate(): void {
       this.showCreate = !this.showCreate;
