@@ -6,6 +6,7 @@ import {FormsModule} from '@angular/forms'
 import {Productos} from '../../models/producto.model'
 import { environment } from 'src/enviroments/enviroment';
 import { FileUploadModule } from 'primeng/fileupload';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-create',
@@ -24,20 +25,34 @@ export class ProduCreateComponent {
 
     showRemove: boolean = false;
 
+    selectedFile: File | null = null;
+    nombreOriginal: string = '';
+onUpload(event: any) {
+  console.log('entro');
+  const file = event.files[0];
+  const reader = new FileReader();
+  this.selectedFile = file;
+  this.nombreOriginal = file.name;
+  console.log('verificacion asginacion',this.selectedFile);
+  this.producto.prod_ImgUrl = 'assets/layout/imagenes/' + this.nombreOriginal;
+console.log(file.name);
+  reader.onload = (e: any) => {
+    console.log('Imagen cargada:', e.target.result);
 
-    onUpload(event: any) {
-      const file = event.files[0];
-      const reader = new FileReader();
-    
-      reader.onload = (e: any) => {
-        this.producto.prod_ImgUrl = e.target.result; // Aquí se guarda como base64 string
-      };
-    
-      reader.readAsDataURL(file);
-    }
+  };
+};
+uploadImage(): Observable<any> {
+  const formData = new FormData();
+  formData.append('imagen', this.selectedFile!);
+  return this.http.post(`https://localhost:7147/Producto/subirImagen`, formData);
+}
+   
+
 
     removeImage() {
       this.producto.prod_ImgUrl = '';
+      this.selectedFile = null;
+      this.nombreOriginal = '';
     }
     cancelarFormulario() {
       this.cancelar.emit();  
@@ -45,15 +60,22 @@ export class ProduCreateComponent {
     router = inject(Router)
     producto = new Productos();
     crearProducto()  {
+      console.log('entro');
       this.producto.usua_Creacion = 2;
       const fecha = new Date();
-      this.producto.prod_FechaCreacion = fecha;  
-      this.http.post(`${this.apiUrl}/EstadoCivil/Insertar`, this.producto)
-      .subscribe(() => {
-        this.creado.emit();
-      }
-  
-      );
+      this.producto.prod_FechaCreacion = fecha;
+      this.producto.cate_Id = 1
+       
+
+       this.uploadImage().subscribe({
+        next: () => {
+            this.http.post(`https://localhost:7147/Producto/Insertar`, this.producto)
+        .subscribe(() => {
+          this.creado.emit();
+        });
+        },
+        error: (err: any) => console.error('Error al subir imagen:', err)
+      })
       
       
       

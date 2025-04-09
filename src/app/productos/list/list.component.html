@@ -10,7 +10,7 @@
             <div class="shadow-2 p-4 surface-card border-round">
                 <div class="relative mb-3 imagen-container">
                     <span class="surface-card text-900 shadow-2 px-3 py-2 absolute" style="border-radius: 1.5rem; left: 1rem; top: 1rem">{{producto.cate_Descripcion}}</span>
-                    <img [src]="producto.prod_ImgUrl" class="w-full" height="200px"/>
+                    <img [src]="url + '/' + producto.prod_ImgUrl"  class="w-full" height="200px"/>
                     <div class="acciones-hover">
                         <button pButton icon="pi pi-pencil" class="p-button-rounded p-button-warning p-button-sm" ></button>
                         <button pButton icon="pi pi-eye" class="p-button-rounded p-button-info p-button-sm"></button>

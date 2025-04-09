@@ -18,10 +18,9 @@
                 (onSelect)="onUpload($event)"
                 accept="image/*"
                 [multiple]="false"
-                [showUploadButton]="true"
+                [showUploadButton]="false"
                 [showCancelButton]="false"
-                [auto]="true"
-                styleClass="border-1 surface-border surface-card border-round"
+                styleClass="border-1 surface-border surface-card border-round">
               >
                 <ng-template pTemplate="content">
                   <div class="h-15rem overflow-y-auto py-3 border-round" style="cursor: copy" (click)="fileUploader.advancedFileInput.nativeElement.click()">

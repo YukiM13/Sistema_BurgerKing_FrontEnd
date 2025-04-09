@@ -54,7 +54,7 @@ export class ProduListComponent {
     productoSeleccionado: any;
     Productos: any[] = [];
     producto = new Productos();
-  
+    url =  'https://localhost:7147';
   
     private http = inject(HttpClient);
     private router = inject(Router);
@@ -74,6 +74,7 @@ export class ProduListComponent {
           this.Productos = res.map((estado: any) => ({
             ...estado,
             acciones: this.crearAcciones(estado)
+            
           }));
         });
     }
