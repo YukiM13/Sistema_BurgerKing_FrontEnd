@@ -11,17 +11,17 @@
                 
             </div>
             <div class="col-md-6">
-              <label>Departamento</label> <br>
+              <label>Categoria</label> <br>
               <p-dropdown [filter]="true"  [options]="categorias" optionValue="cate_Id" optionLabel="cate_Descripcion"  [(ngModel)]="producto.cate_Id" 
-              placeholder="Seleccionar una categoria" [showClear]="true"  name="cate_Id" appendTo="body" ></p-dropdown>
+              placeholder="Seleccione una categoria" [showClear]="true"  name="cate_Id" appendTo="body" ></p-dropdown>
         
           </div>
         <div class="row">
           <div class="col-md-6">
+            <label >Tamaños</label>
             <span class="p-float-label">
-              <label >Tamaños</label>
               <p-multiSelect inputId="multiselect" [options]="tamanos" name="tama_Id" [(ngModel)]="tamano.tama_Id" optionValue="tama_Id"  optionLabel="tama_Descripcion"
-                  [filter]="false" appendTo="body"></p-multiSelect>
+              placeholder="Seleccione un tamaño"  [filter]="false" appendTo="body"></p-multiSelect>
              
           </span>
           </div>
