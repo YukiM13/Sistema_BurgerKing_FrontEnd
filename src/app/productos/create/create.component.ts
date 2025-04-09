@@ -66,6 +66,7 @@ uploadImage(): Observable<any> {
     tamano = new Tamano();
     crearProducto()  {
       console.log('entro');
+      console.log(this.tamano.tama_Id);
       this.producto.usua_Creacion = 2;
       const fecha = new Date();
       this.producto.prod_FechaCreacion = fecha;
@@ -93,7 +94,7 @@ uploadImage(): Observable<any> {
     
    
     
-  
+  prueba: any[] = [];
     categorias: any[] = [];
     tamanos: any[] = [];
 
