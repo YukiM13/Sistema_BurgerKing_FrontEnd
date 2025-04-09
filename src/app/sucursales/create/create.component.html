@@ -7,22 +7,24 @@
                 <div class="row">
                     <div class="col-md-6">
                         <label for="" class="label-control">Sucursal:</label>
-                        <input type="text" name="sucu_Descripcion" [(ngModel)] = "sucursal.sucu_Descripcion" class="form-control"/>
+                        <input pinputtext id="descripcion" name="sucu_Descripcion" [(ngModel)] = "sucursal.sucu_Descripcion"  class="p-inputtext form-control ng-invalid " required #descripcion="ngModel"/>
+                        <small class="p-error" *ngIf="descripcion.invalid && cont == 1">El nombre es requerido</small>
                         <br>
                         
                     </div>
                     
                     <div class="col-md-6">
                         <label for="" class="label-control">Direccion:</label>
-                        <input type="text" name="sucu_Direccion" [(ngModel)] = "sucursal.sucu_Direccion" class="form-control"/>
-                        
+                        <input pinputtext id="direccion" name="sucu_Direccion" [(ngModel)] = "sucursal.sucu_Direccion" class="p-inputtext form-control ng-invalid " required #direccion="ngModel"/>
+                        <small class="p-error" *ngIf="direccion.invalid && cont == 1">El nombre es requerido</small>
                         
                     </div>
 
                     <div class="col-md-6">
                         <label>Municipios:</label>
-                        <p-dropdown [filter]="true"  [options]="municipios" optionLabel="muni_Descripcion" [(ngModel)]="sucursal.muni_Codigo" 
+                        <p-dropdown [filter]="true" id="muni" [options]="municipios" optionLabel="muni_Descripcion" [(ngModel)]="sucursal.muni_Codigo" 
                         placeholder="Municipios" [showClear]="true" optionValue="muni_Codigo" name="muni_Codigo" appendTo="body"></p-dropdown>
+                        <small class="p-error" *ngIf="!sucursal.muni_Codigo && cont == 1">El minicipio   es requerido</small>
                     </div>
                 </div>
                 

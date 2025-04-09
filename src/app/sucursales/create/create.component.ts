@@ -27,8 +27,11 @@ export class SucursalCreateComponent {
   @Output() cancelar = new EventEmitter<void>();  
   @Output() creado = new EventEmitter<void>();
  
+  cont = 0;
+
   ngOnInit(): void {
     this.listarMunicipios();
+    this.cont = 0;
   }
   
   municipios: any[] = [];
@@ -60,7 +63,13 @@ export class SucursalCreateComponent {
   
 
   crearSucursal()  {
-   
+    this.cont = 1;
+    if(!this.sucursal.sucu_Descripcion || !this.sucursal.muni_Codigo || !this.sucursal.sucu_Direccion)
+    {
+      return;
+    }
+
+
     this.sucursal.usua_Creacion = 2;
     const fecha = new Date();
     this.sucursal.sucu_FechaCreacion = fecha;  

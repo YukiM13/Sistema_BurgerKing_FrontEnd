@@ -21,6 +21,11 @@ export class CargoCreateComponent {
   @Output() cancelar = new EventEmitter<void>();  
   @Output() creado = new EventEmitter<void>();
  
+  cont = 0;
+  ngOnInit(): void {
+    this.cont = 0;
+  }
+
 
   cancelarFormulario() {
     this.cancelar.emit();  
@@ -30,6 +35,13 @@ export class CargoCreateComponent {
   cargos = new Cargo();
 
   crearCargo()  {
+    this.cont = 1;
+    if(!this.cargos.carg_Descripcion)
+    {
+      return;
+    }
+
+
     this.cargos.usua_Creacion= 2;
     const fecha = new Date();
     this.cargos.carg_FechaCreacion = fecha;  

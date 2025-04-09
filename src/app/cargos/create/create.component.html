@@ -6,7 +6,8 @@
         <div class="row">
             <div class="col-md-12">
                 <label for="" class="label-control">Cargo</label>
-                <input type="text" name="carg_Descripcion" [(ngModel)] = "cargos.carg_Descripcion" class="form-control"/>
+                <input pinputtext id="descripcion" name="carg_Descripcion" [(ngModel)] = "cargos.carg_Descripcion" class="p-inputtext form-control ng-invalid " required #descripcion="ngModel"/>
+                <small class="p-error" *ngIf="descripcion.invalid && cont == 1">El cargo es requerido</small>
                 <br>
                 
             </div>

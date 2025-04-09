@@ -28,6 +28,8 @@ export class EsCiCreateComponent {
   ngOnInit(): void {
     this.cont = 0;
   }
+
+  
   cancelarFormulario() {
     this.cancelar.emit();  
   }
@@ -39,6 +41,7 @@ export class EsCiCreateComponent {
     {
       return;
     }
+
     this.estadosCivil.usua_Creacion = 2;
     const fecha = new Date();
     this.estadosCivil.esCi_FechaCreacion = fecha;  
