@@ -7,11 +7,15 @@ import {Productos} from '../../models/producto.model'
 import { environment } from 'src/enviroments/enviroment';
 import { FileUploadModule } from 'primeng/fileupload';
 import { Observable } from 'rxjs';
+import { DropdownModule } from 'primeng/dropdown';
+import { MultiSelectModule } from 'primeng/multiselect';
+
+import { Tamano } from 'src/app/models/tamano.model';
 
 @Component({
   selector: 'app-create',
   standalone: true,
-  imports: [CommonModule, FormsModule,FileUploadModule],
+  imports: [CommonModule, FormsModule,FileUploadModule, DropdownModule,MultiSelectModule],
   templateUrl: './create.component.html',
   styleUrl: './create.component.scss'
 })
@@ -44,7 +48,7 @@ console.log(file.name);
 uploadImage(): Observable<any> {
   const formData = new FormData();
   formData.append('imagen', this.selectedFile!);
-  return this.http.post(`https://localhost:7147/Producto/subirImagen`, formData);
+  return this.http.post(`${this.apiUrl}/Producto/subirImagen`, formData);
 }
    
 
@@ -59,17 +63,18 @@ uploadImage(): Observable<any> {
     }
     router = inject(Router)
     producto = new Productos();
+    tamano = new Tamano();
     crearProducto()  {
       console.log('entro');
       this.producto.usua_Creacion = 2;
       const fecha = new Date();
       this.producto.prod_FechaCreacion = fecha;
-      this.producto.cate_Id = 1
+      this.producto.cate_Id = 2
        
 
        this.uploadImage().subscribe({
         next: () => {
-            this.http.post(`https://localhost:7147/Producto/Insertar`, this.producto)
+            this.http.post(`${this.apiUrl}/Producto/Insertar`, this.producto)
         .subscribe(() => {
           this.creado.emit();
         });
@@ -79,5 +84,50 @@ uploadImage(): Observable<any> {
       
       
       
+    }
+
+    ngOnInit(): void {
+      this.listarCategoria();
+      this.listarTamanos();
+    }
+    
+   
+    
+  
+    categorias: any[] = [];
+    tamanos: any[] = [];
+
+    //municipos = new Municipios();
+    listarTamanos(): void {
+      this.http.get<any[]>(`${this.apiUrl}/Tamano/Listar`)
+      .subscribe({
+        next: (response) => {
+            
+          this.tamanos = response;
+           
+           console.log(this.tamanos);
+           
+         },
+         error: (error) => {
+          
+           this.tamanos = [];
+         }
+      })
+    }
+    listarCategoria(): void {
+      this.http.get<any[]>(`${this.apiUrl}/Categoria/Listar`)
+        .subscribe({
+          next: (response) => {
+            
+           this.categorias = response;
+            
+            console.log(this.categorias);
+            
+          },
+          error: (error) => {
+           
+            this.categorias = [];
+          }
+        });
     }
 }

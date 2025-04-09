@@ -5,51 +5,72 @@
      <form (submit)="crearProducto()">
         <div class="row">
             <div class="col-md-6">
-                <label for="" class="label-control">Estado Civil</label>
+                <label for="" class="label-control">Nombre</label>
                 <input type="text" name="prod_Descripcion" [(ngModel)] = "producto.prod_Descripcion" class="form-control"/>
                 <br>
                 
             </div>
             <div class="col-md-6">
-                <p-fileUpload
-                #fileUploader
-                name="imagen"
-                [customUpload]="true"
-                (onSelect)="onUpload($event)"
-                accept="image/*"
-                [multiple]="false"
-                [showUploadButton]="false"
-                [showCancelButton]="false"
-                styleClass="border-1 surface-border surface-card border-round">
-              >
-                <ng-template pTemplate="content">
-                  <div class="h-15rem overflow-y-auto py-3 border-round" style="cursor: copy" (click)="fileUploader.advancedFileInput.nativeElement.click()">
-                    
-                    <!-- Si no hay imagen -->
-                    <div *ngIf="!producto.prod_ImgUrl" class="flex flex-column w-full h-full justify-content-center align-items-center">
-                      <i class="pi pi-file text-4xl text-primary"></i>
-                      <span class="block font-semibold text-900 text-lg mt-3">Seleccionar una imagen</span>
-                    </div>
-              
-                    <!-- Si ya hay una imagen -->
-                    <div *ngIf="producto.prod_ImgUrl" class="flex flex-wrap gap-3 border-round">
-                      <div class="h-full relative w-7rem h-7rem border-3 border-transparent border-round">
-                        <img [src]="producto.prod_ImgUrl" class="w-full h-full border-round shadow-2">
-                        <button
-                          pButton
-                          type="button"
-                          icon="pi pi-times"
-                          class="p-button-rounded p-button-primary text-sm absolute w-2rem h-2rem"
-                          style="top: -10px; right: -10px;"
-                          (click)="removeImage()"
-                        ></button>
-                      </div>
-                    </div>
-                  </div>
-                </ng-template>
-              </p-fileUpload>
+              <label>Departamento</label> <br>
+              <p-dropdown [filter]="true"  [options]="categorias" optionValue="cate_Id" optionLabel="cate_Descripcion"  [(ngModel)]="producto.cate_Id" 
+              placeholder="Seleccionar una categoria" [showClear]="true"  name="cate_Id" appendTo="body" ></p-dropdown>
+        
+          </div>
+        <div class="row">
+          <div class="col-md-6">
+            <span class="p-float-label">
+              <label >Tamaños</label>
+              <p-multiSelect inputId="multiselect" [options]="tamanos" [(ngModel)]="tamano.tama_Id" optionValue="tama_Id"  optionLabel="tama_Descripcion"
+                  [filter]="false" appendTo="body"></p-multiSelect>
+             
+          </span>
+          </div>
+        </div>
+        <br>
+        <div class="row">
+        
+           
+          <div class="col-md-12">
+            <p-fileUpload
+            #fileUploader
+            name="imagen"
+            [customUpload]="true"
+            (onSelect)="onUpload($event)"
+            accept="image/*"
+            [multiple]="false"
+            [showUploadButton]="false"
+            [showCancelButton]="false"
+            styleClass="border-1 surface-border surface-card border-round">
+          >
+            <ng-template pTemplate="content">
+              <div class="h-15rem overflow-y-auto py-3 border-round" style="cursor: copy" (click)="fileUploader.advancedFileInput.nativeElement.click()">
                 
-            </div>
+                <!-- Si no hay imagen -->
+                <div *ngIf="!producto.prod_ImgUrl" class="flex flex-column w-full h-full justify-content-center align-items-center">
+                  <i class="pi pi-file text-4xl text-primary"></i>
+                  <span class="block font-semibold text-900 text-lg mt-3">Seleccionar una imagen</span>
+                </div>
+          
+                <!-- Si ya hay una imagen -->
+                <div *ngIf="producto.prod_ImgUrl" class="flex flex-wrap gap-3 border-round">
+                  <div class="h-full relative w-7rem h-7rem border-3 border-transparent border-round">
+                    <img [src]="producto.prod_ImgUrl" class="w-full h-full border-round shadow-2">
+                    <button
+                      pButton
+                      type="button"
+                      icon="pi pi-times"
+                      class="p-button-rounded p-button-primary text-sm absolute w-2rem h-2rem"
+                      style="top: -10px; right: -10px;"
+                      (click)="removeImage()"
+                    ></button>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+          </p-fileUpload>
+            
+        </div>
+    </div>
         </div>
         <div class="row">
             <div>

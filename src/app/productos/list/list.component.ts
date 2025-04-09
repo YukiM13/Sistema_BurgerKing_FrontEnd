@@ -54,7 +54,7 @@ export class ProduListComponent {
     productoSeleccionado: any;
     Productos: any[] = [];
     producto = new Productos();
-    url =  'https://localhost:7147';
+    url =  this.apiUrl;
   
     private http = inject(HttpClient);
     private router = inject(Router);

@@ -5,8 +5,9 @@
      <form (submit)="crearEstadoCivil()">
         <div class="row">
             <div class="col-md-12">
-                <label for="" class="label-control">Estado Civil</label>
-                <input type="text" name="esci_Descripcion" [(ngModel)] = "estadosCivil.esci_Descripcion" class="form-control"/>
+                <label for="" class="label-control">Estado Civil</label> <span class="text-red-400">*</span>
+                <input pInputText id="descripcion"  name="esci_Descripcion" [(ngModel)] = "estadosCivil.esci_Descripcion" class="p-inputtext form-control ng-invalid " required #descripcion="ngModel"  />
+                <small class="p-error" *ngIf="descripcion.invalid && cont == 1">El estado civil es requerida</small>
                 <br>
                 
             </div>
