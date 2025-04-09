@@ -52,7 +52,7 @@ export class MunicipioCreateComponent {
           
          this.departamentos = response;
           
-          console.log(this.departamentos);
+         // console.log(this.departamentos);
           
         },
         error: (error) => {

@@ -139,6 +139,7 @@ export class EsCiListComponent implements OnInit {
 
   EliminarEstadoCivil(id: number): void {
     this.estadoCivil.esCi_Id = id;
+   
     this.http.post(`${this.apiUrl}/EstadoCivil/Eliminar`, this.estadoCivil)
       .subscribe(() => {
         this.messageService.add({

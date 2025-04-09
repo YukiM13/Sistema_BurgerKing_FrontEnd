@@ -83,7 +83,7 @@ export class CombosListComponent implements OnInit {
   }
 
 
-  crearAcciones(categoria: any): MenuItem[] {
+  crearAcciones(combo: any): MenuItem[] {
     return [
       {
         label: 'Editar',
@@ -98,7 +98,7 @@ export class CombosListComponent implements OnInit {
       {
         label: 'Eliminar',
         icon: 'pi pi-trash',
-        //command: () => this.confirmarEliminacion(estadoCivil.esCi_Id)
+        command: () => this.confirmarEliminacion(combo.comb_Id)
       }
     ];
   }
@@ -112,16 +112,16 @@ export class CombosListComponent implements OnInit {
           this.showEdit = true;
         });
     }
-  
+  */
   
     confirmarEliminacion(id: number): void {
       this.confirmationService.confirm({
-        message: '¿Estás seguro que deseas eliminar este estado civil?',
+        message: '¿Estás seguro que deseas eliminar este Combo?',
         header: 'Confirmar eliminación',
         icon: 'pi pi-exclamation-triangle',
         acceptLabel: 'Sí',
         rejectLabel: 'No',
-        accept: () => this.EliminarEstadoCivil(id),
+        accept: () => this.EliminarCombo(id),
         reject: () => {
           this.messageService.add({
             severity: 'info',
@@ -133,20 +133,20 @@ export class CombosListComponent implements OnInit {
     }
   
   
-    EliminarEstadoCivil(id: number): void {
-      this.estadoCivil.esCi_Id = id;
-      this.http.post(`${this.apiUrl}/EstadoCivil/Eliminar`, this.estadoCivil)
+    EliminarCombo(id: number): void {
+      this.combo.comb_Id = id;
+      this.http.post(`${this.apiUrl}/Combo/Eliminar`, this.combo)
         .subscribe(() => {
           this.messageService.add({
             severity: 'success',
             summary: 'Eliminado',
-            detail: 'Estado civil eliminado'
+            detail: 'Combo eliminado'
           });
-          this.listarEstadosCiviles();
+          this.listarCombos();
         });
     }
   
-*/
+
 
     toggleCreate(): void {
       this.showCreate = !this.showCreate;
