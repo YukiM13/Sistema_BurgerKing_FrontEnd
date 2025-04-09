@@ -2,5 +2,5 @@
 
   export const environment = {
     production: true,
-    apiUrl: 'https://burgerApi.somee.com'
+    apiUrl: 'http://burgerApi.somee.com'
   };

@@ -1,4 +1,4 @@
 export const environment = {
     production: false,
-    apiUrl: 'https://burgerApi.somee.com'
+    apiUrl: 'http://burgerApi.somee.com'
   };
