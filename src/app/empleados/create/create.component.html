@@ -1,4 +1,4 @@
-<h2 >Crear Usuario</h2>
+<h2 >Crear Empleado</h2>
 <div class="grid p-fluid">
     <div class="col-12"> 
 <div class="card">
@@ -41,18 +41,17 @@
             <div class="col-md-6">
                 <label for="" class="label-control">Sexo</label>
                 <br>
-                <p-toggleButton
-                  [(ngModel)]="empleado.empl_Sexo"
-                  name="empl_Sexo"
-                  [onLabel]="'M'"
-                  [offLabel]="'F'"
-                  [onIcon]="'pi pi-male'"
-                  [offIcon]="'pi pi-female'"
-                  
-                  [style]="{'width': '10em'}"
-                  (onChange)="onSexoToggleChange($event)">
-                </p-toggleButton>
+                <p-selectButton
+                name="empl_Sexo"
+                [options]="sexoOptions"
+                optionLabel="label"
+                optionValue="value"
+                [(ngModel)]="empleado.empl_Sexo">
+              </p-selectButton>
+              
               </div>
+
+            
 
             <div class="col-md-6">
                 <label>Estado Civil:</label>

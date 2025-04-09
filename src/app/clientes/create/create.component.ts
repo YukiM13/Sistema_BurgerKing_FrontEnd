@@ -6,17 +6,18 @@ import {FormsModule} from '@angular/forms'
 import {Cliente} from '../../models/clientes.model'
 import { environment } from 'src/enviroments/enviroment';
 import {ToggleButtonModule } from 'primeng/togglebutton';
+import { SelectButtonModule } from 'primeng/selectbutton';
 
 @Component({
   selector: 'app-create',
   standalone: true,
-  imports: [CommonModule, FormsModule, ToggleButtonModule],
+  imports: [CommonModule, FormsModule, ToggleButtonModule, SelectButtonModule],
   templateUrl: './create.component.html',
   styleUrl: './create.component.scss'
 })
 
 
-export class ClienteCreateComponent {
+export class ClienteCreateComponent implements OnInit {
   private apiUrl = environment.apiUrl; 
   //estadosCivil2: any[] = [];
   
@@ -24,6 +25,12 @@ export class ClienteCreateComponent {
   @Output() cancelar = new EventEmitter<void>();  
   @Output() creado = new EventEmitter<void>();
  
+  
+
+  sexoOptions = [
+    { label: 'Femenino', value: 'F' },
+    { label: 'Masculino', value: 'M' }
+  ];
 
   onSexoToggleChange(event: any) {
     console.log('Sexo seleccionado:', this.cliente.clie_Sexo);
@@ -35,10 +42,16 @@ export class ClienteCreateComponent {
 
   router = inject(Router)
   cliente = new Cliente();
+  
+  ngOnInit(): void {
+    this.cliente.clie_Sexo = 'F'; 
+  }
+  
 
   crearCliente()  {
-    const sexo = this.cliente.clie_Sexo ? 'M' : 'F';
-    this.cliente.clie_Sexo = sexo;
+    
+    //const sexo = this.cliente.clie_Sexo ? 'M' : 'F';
+    //this.cliente.clie_Sexo = sexo;
 
     this.cliente.usua_Creacion = 2;
     const fecha = new Date();

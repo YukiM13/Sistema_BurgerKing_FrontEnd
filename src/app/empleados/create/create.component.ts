@@ -8,17 +8,18 @@ import { environment } from 'src/enviroments/enviroment';
 import { DropdownModule } from 'primeng/dropdown';
 import {ToggleButtonModule } from 'primeng/togglebutton';
 import { CalendarModule } from 'primeng/calendar';
+import { SelectButtonModule } from 'primeng/selectbutton';
 
 @Component({
   selector: 'app-create',
   standalone: true,
-  imports: [CommonModule, FormsModule, DropdownModule, ToggleButtonModule, CalendarModule],
+  imports: [CommonModule, FormsModule, DropdownModule, ToggleButtonModule, CalendarModule, SelectButtonModule],
   templateUrl: './create.component.html',
   styleUrl: './create.component.scss'
 })
 
 
-export class EmpleadoCreateComponent {
+export class EmpleadoCreateComponent implements OnInit {
   private apiUrl = environment.apiUrl; 
   //estadosCivil2: any[] = [];
   
@@ -49,10 +50,14 @@ export class EmpleadoCreateComponent {
     );
   }
 
+  sexoOptions = [
+    { label: 'Femenino', value: 'F' },
+    { label: 'Masculino', value: 'M' }
+  ];
 
-  onSexoToggleChange(event: any) {
-    console.log('Sexo seleccionado:', this.empleado.empl_Sexo);
-  }
+  
+
+ 
 
   estadoCivil: any[] = [];
   listarEstadoCivil(): void {
@@ -97,6 +102,7 @@ export class EmpleadoCreateComponent {
     this.listarEstadoCivil();
     this.listarCargo();
     this.listarSucursal();
+    this.empleado.empl_Sexo = 'F';
   }
 
 }
