@@ -5,11 +5,12 @@ import {HttpClient} from '@angular/common/http';
 import {FormsModule} from '@angular/forms'
 import {Cliente} from '../../models/clientes.model'
 import { environment } from 'src/enviroments/enviroment';
+import {ToggleButtonModule } from 'primeng/togglebutton';
 
 @Component({
   selector: 'app-create',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ToggleButtonModule],
   templateUrl: './create.component.html',
   styleUrl: './create.component.scss'
 })
@@ -24,6 +25,10 @@ export class ClienteCreateComponent {
   @Output() creado = new EventEmitter<void>();
  
 
+  onSexoToggleChange(event: any) {
+    console.log('Sexo seleccionado:', this.cliente.clie_Sexo);
+  }
+
   cancelarFormulario() {
     this.cancelar.emit();  
   }
@@ -32,6 +37,9 @@ export class ClienteCreateComponent {
   cliente = new Cliente();
 
   crearCliente()  {
+    const sexo = this.cliente.clie_Sexo ? 'M' : 'F';
+    this.cliente.clie_Sexo = sexo;
+
     this.cliente.usua_Creacion = 2;
     const fecha = new Date();
     this.cliente.clie_FechaCreacion = fecha;  

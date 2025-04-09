@@ -27,10 +27,19 @@
             </div>
             <div class="col-md-6">
                 <label for="" class="label-control">Sexo</label>
-                <input type="text" name="clie_Sexo" [(ngModel)] = "cliente.clie_Sexo" class="form-control"/>
-             
-                
-            </div>
+                <br>
+                <p-toggleButton
+                  [(ngModel)]="cliente.clie_Sexo"
+                  name="clie_Sexo"
+                  [onLabel]="'M'"
+                  [offLabel]="'F'"
+                  [onIcon]="'pi pi-male'"
+                  [offIcon]="'pi pi-female'"
+                  
+                  [style]="{'width': '10em'}"
+                  (onChange)="onSexoToggleChange($event)">
+                </p-toggleButton>
+              </div>
             
         </div>
   

@@ -31,9 +31,6 @@ export class SucursalCreateComponent {
     this.listarMunicipios();
   }
   
- 
-  
-
   municipios: any[] = [];
   //municipos = new Municipios();
 

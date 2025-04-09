@@ -1,5 +1,6 @@
 <h2 >Crear Usuario</h2>
-
+<div class="grid p-fluid">
+    <div class="col-12"> 
 <div class="card">
     <div class="card-body">
      <form (submit)="crearUsuario()">
@@ -25,24 +26,26 @@
              
                 
             </div>
+
             <div class="col-md-6">
-                <label for="" class="label-control">Empleado</label>
-                <input type="text" name="empl_Id" [(ngModel)] = "usuario.empl_Id" class="form-control"/>
-             
-                
+                <label>Empleados:</label>
+                <p-dropdown [filter]="true"  [options]="empleados" optionLabel="empl_Nombre" [(ngModel)]="usuario.empl_Id" 
+                placeholder="Empleados" [showClear]="true" optionValue="empl_Id" name="empl_Id" appendTo="body"></p-dropdown>
             </div>
             
         </div>
         <div class="row">
-            <div class="col-md-6">
-                <label for="" class="label-control">Rol</label>
-                <input type="text" name="role_Id" [(ngModel)] = "usuario.role_Id" class="form-control"/>
-             
-                
+             <div class="col-md-6">
+                <label>Roles:</label>
+                <p-dropdown [filter]="true"  [options]="roles" optionLabel="role_Descripcion" [(ngModel)]="usuario.role_Id" 
+                placeholder="Roles" [showClear]="true" optionValue="role_Id" name="role_Id" appendTo="body"></p-dropdown>
             </div>
+
             <div class="col-md-6">
                 <label for="" class="label-control">Es admin?</label>
-                <input type="text" name="usua_Admin" [(ngModel)] = "usuario.usua_Admin" class="form-control"/>
+                <br>
+                <p-toggleButton [(ngModel)]="usuario.usua_Admin" onLabel="Si" offLabel="No"
+                [style]="{'width': '10em'}" name="usua_Admin" (onChange)="onAdminToggleChange($event)"></p-toggleButton>
              
                 
             </div>
@@ -61,3 +64,5 @@
      </form>
     </div>
   </div>
+</div>
+</div>
