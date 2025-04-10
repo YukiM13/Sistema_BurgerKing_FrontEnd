@@ -7,11 +7,14 @@ import {EstadoCivil} from '../../models/estadosCiviles.model'
 import { environment } from 'src/enviroments/enviroment';
 import { Respuesta } from 'src/app/models/respuesta.model';
 import { InputTextModule } from 'primeng/inputtext';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-create',
   standalone: true,
-  imports: [CommonModule, FormsModule, InputTextModule],
+  imports: [CommonModule, FormsModule, InputTextModule, ToastModule],
+  providers: [MessageService],
   templateUrl: './create.component.html',
   styleUrl: './create.component.scss'
 })
@@ -28,7 +31,7 @@ export class EsCiCreateComponent {
   ngOnInit(): void {
     this.cont = 0;
   }
-
+  constructor(private messageService: MessageService) { }
   
   cancelarFormulario() {
     this.cancelar.emit();  
@@ -39,6 +42,11 @@ export class EsCiCreateComponent {
     this.cont = 1;
     if(!this.estadosCivil.esci_Descripcion)
     {
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Error',
+        detail: 'Campos Vacios.'
+      });
       return;
     }
 

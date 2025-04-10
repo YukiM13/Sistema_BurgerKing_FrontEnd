@@ -7,11 +7,14 @@ import {Sucursal} from '../../models/sucursales.model'
 import { environment } from 'src/enviroments/enviroment';
 import { DropdownModule } from 'primeng/dropdown';
 import { SelectItem } from 'primeng/api';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-create',
   standalone: true,
-  imports: [CommonModule, FormsModule, DropdownModule],
+  imports: [CommonModule, FormsModule, DropdownModule, ToastModule],
+  providers: [MessageService],
   templateUrl: './create.component.html',
   styleUrl: './create.component.scss'
 })
@@ -28,7 +31,7 @@ export class SucursalCreateComponent {
   @Output() creado = new EventEmitter<void>();
  
   cont = 0;
-
+  constructor(private messageService: MessageService) { }
   ngOnInit(): void {
     this.listarMunicipios();
     this.cont = 0;
@@ -66,6 +69,11 @@ export class SucursalCreateComponent {
     this.cont = 1;
     if(!this.sucursal.sucu_Descripcion || !this.sucursal.muni_Codigo || !this.sucursal.sucu_Direccion)
     {
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Error',
+        detail: 'Campos Vacios.'
+      });
       return;
     }
 

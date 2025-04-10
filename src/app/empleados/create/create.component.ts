@@ -9,11 +9,14 @@ import { DropdownModule } from 'primeng/dropdown';
 import {ToggleButtonModule } from 'primeng/togglebutton';
 import { CalendarModule } from 'primeng/calendar';
 import { SelectButtonModule } from 'primeng/selectbutton';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-create',
   standalone: true,
-  imports: [CommonModule, FormsModule, DropdownModule, ToggleButtonModule, CalendarModule, SelectButtonModule],
+  imports: [CommonModule, FormsModule, DropdownModule, ToggleButtonModule, CalendarModule, SelectButtonModule, ToastModule],
+  providers: [MessageService],
   templateUrl: './create.component.html',
   styleUrl: './create.component.scss'
 })
@@ -26,7 +29,7 @@ export class EmpleadoCreateComponent implements OnInit {
   http = inject(HttpClient);
   @Output() cancelar = new EventEmitter<void>();  
   @Output() creado = new EventEmitter<void>();
- 
+  constructor(private messageService: MessageService) { }
   cont = 0;
   cancelarFormulario() {
     this.cancelar.emit();  
@@ -39,6 +42,11 @@ export class EmpleadoCreateComponent implements OnInit {
 this.cont = 1;
     if(!this.empleado.empl_Nombre || !this.empleado.empl_Apellido || !this.empleado.empl_FechaNacimiento || !this.empleado.empl_Identidad || !this.empleado.empl_Sexo  || !this.empleado.esCi_Id || !this.empleado.carg_Id || !this.empleado.sucu_Id )
     {
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Error',
+        detail: 'Campos Vacios.'
+      });
       return;
     }
 

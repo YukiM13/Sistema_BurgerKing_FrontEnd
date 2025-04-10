@@ -7,11 +7,14 @@ import {Usuario} from '../../models/usuario.model'
 import { environment } from 'src/enviroments/enviroment';
 import { DropdownModule } from 'primeng/dropdown';
 import { ToggleButtonModule } from 'primeng/togglebutton';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-create',
   standalone: true,
-  imports: [CommonModule, FormsModule, DropdownModule, ToggleButtonModule],
+  imports: [CommonModule, FormsModule, DropdownModule, ToggleButtonModule, ToastModule],
+  providers: [MessageService],
   templateUrl: './create.component.html',
   styleUrl: './create.component.scss'
 })
@@ -28,12 +31,17 @@ export class UsuaCreateComponent {
       }
       router = inject(Router)
       usuario = new Usuario();
-
+      constructor(private messageService: MessageService) { }
       crearUsuario()  {
       
         this.cont = 1;
         if(!this.usuario.usua_Usuario || !this.usuario.usua_Correo || !this.usuario.usua_Admin || !this.usuario.empl_Id || !this.usuario.role_Id || !this.usuario.usua_Clave) 
         {
+          this.messageService.add({
+            severity: 'warn',
+            summary: 'Error',
+            detail: 'Campos Vacios.'
+          });
           return;
         }
 

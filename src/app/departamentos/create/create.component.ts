@@ -6,11 +6,14 @@ import { HttpClient } from '@angular/common/http';
 import { Departamento } from 'src/app/models/departamento.model';
 
 import { environment } from 'src/enviroments/enviroment';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-create',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ToastModule],
+  providers: [MessageService],
   templateUrl: './create.component.html',
   styleUrl: './create.component.scss'
 })
@@ -20,6 +23,8 @@ export class DepaCreateComponent {
   departamento2: any[] = [];
   http = inject(HttpClient); //inicializa el cliente http
  
+  constructor(private messageService: MessageService) { }
+
   @Output() cancelar = new EventEmitter<void>();  
   @Output() creado = new EventEmitter<void>();
   cont = 0;
@@ -40,6 +45,11 @@ export class DepaCreateComponent {
     this.cont = 1;
         if(!this.departamento.depa_Codigo || !this.departamento.depa_Descripcion ) 
         {
+          this.messageService.add({
+            severity: 'warn',
+            summary: 'Error',
+            detail: 'Campos Vacios.'
+          });
           return;
         }
 

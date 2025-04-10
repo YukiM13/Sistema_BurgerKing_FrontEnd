@@ -8,11 +8,14 @@ import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from "primeng/inputtext";
 
 import { environment } from 'src/enviroments/enviroment';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-create',
   standalone: true,
-  imports: [CommonModule, FormsModule, DropdownModule, InputTextModule],
+  imports: [CommonModule, FormsModule, DropdownModule, InputTextModule, ToastModule],
+  providers: [MessageService],
   templateUrl: './create.component.html',
   styleUrl: './create.component.scss'
 })
@@ -31,7 +34,7 @@ export class MunicipioCreateComponent {
 
     cont = 0;
 
-
+  constructor(private messageService: MessageService) { }
   router = inject(Router); //inicializa el router
   municipio = new Municipios(); //inicializa el objeto departamento
 
@@ -67,6 +70,11 @@ export class MunicipioCreateComponent {
   crearMunicipio() {
     this.cont = 1;
     if(!this.municipio.muni_Codigo || !this.municipio.depa_Codigo || !this.municipio.muni_Descripcion) {
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Error',
+        detail: 'Campos Vacios.'
+      });
       return;
     }
 

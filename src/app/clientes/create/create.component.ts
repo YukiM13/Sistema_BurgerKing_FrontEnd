@@ -7,11 +7,14 @@ import {Cliente} from '../../models/clientes.model'
 import { environment } from 'src/enviroments/enviroment';
 import {ToggleButtonModule } from 'primeng/togglebutton';
 import { SelectButtonModule } from 'primeng/selectbutton';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-create',
   standalone: true,
-  imports: [CommonModule, FormsModule, ToggleButtonModule, SelectButtonModule],
+  imports: [CommonModule, FormsModule, ToggleButtonModule, SelectButtonModule, ToastModule],
+  providers: [MessageService],
   templateUrl: './create.component.html',
   styleUrl: './create.component.scss'
 })
@@ -27,6 +30,8 @@ export class ClienteCreateComponent implements OnInit {
   @Output() creado = new EventEmitter<void>();
  
   cont = 0;
+
+  constructor(private messageService: MessageService) { }
 
   sexoOptions = [
     { label: 'Femenino', value: 'F' },
@@ -58,6 +63,11 @@ export class ClienteCreateComponent implements OnInit {
     this.cont = 1;
     if(!this.cliente.clie_Nombre || !this.cliente.clie_Apellido || !this.cliente.clie_Sexo || !this.cliente.clie_Identidad_Rtn)
     {
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Error',
+        detail: 'Campos Vacios.'
+      });
       return;
     }
 

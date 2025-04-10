@@ -5,11 +5,14 @@ import {HttpClient} from '@angular/common/http';
 import {FormsModule} from '@angular/forms'
 import { Cargo } from '../../models/cargos.model'
 import { environment } from 'src/enviroments/enviroment';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-create',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ToastModule],
+  providers: [MessageService],
   templateUrl: './create.component.html',
   styleUrl: './create.component.scss'
 })
@@ -31,6 +34,9 @@ export class CargoCreateComponent {
     this.cancelar.emit();  
   }
 
+    constructor(private messageService: MessageService) { }
+
+
   router = inject(Router)
   cargos = new Cargo();
 
@@ -38,6 +44,11 @@ export class CargoCreateComponent {
     this.cont = 1;
     if(!this.cargos.carg_Descripcion)
     {
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Error',
+        detail: 'Campos Vacios.'
+      });
       return;
     }
 
