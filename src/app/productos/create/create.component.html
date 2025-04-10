@@ -5,32 +5,35 @@
      <form (submit)="crearProducto()">
         <div class="row">
             <div class="col-md-6">
-                <label for="" class="label-control">Nombre</label>
-                <input type="text" name="prod_Descripcion" [(ngModel)] = "producto.prod_Descripcion" class="form-control"/>
+                <label for="" class="label-control">Nombre</label><span class="text-red-400">*</span>
+                <input type="text" name="prod_Descripcion" [(ngModel)] = "producto.prod_Descripcion" class="form-control" required #descripcion="ngModel"/>
+                <small class="p-error" *ngIf="descripcion.invalid && cont == 1">El nombre es requerido</small>
                 <br>
                 
             </div>
             <div class="col-md-6">
-              <label>Categoria</label> <br>
+              <label>Categoria</label><span class="text-red-400">*</span> <br>
               <p-dropdown [filter]="true"  [options]="categorias" optionValue="cate_Id" optionLabel="cate_Descripcion"  [(ngModel)]="producto.cate_Id" 
               placeholder="Seleccione una categoria" [showClear]="true"  name="cate_Id" appendTo="body" ></p-dropdown>
-        
+              
           </div>
         <div class="row">
           <div class="col-md-6">
-            <label >Tamaños</label>
+            <label >Tamaños</label><span class="text-red-400">*</span>
             <span class="p-float-label">
               <p-multiSelect inputId="multiselect" [options]="tamanos" name="tama_Id" [(ngModel)]="tamano.tama_Id" optionValue="tama_Id"  optionLabel="tama_Descripcion"
-              placeholder="Seleccione un tamaño"  [filter]="false" appendTo="body"></p-multiSelect>
+              placeholder="Seleccione un tamaño"   (onChange)="onTamanoChange($event)"  [filter]="false" appendTo="body"></p-multiSelect>
              
           </span>
           </div>
         </div>
+        
         <br>
         <div class="row">
-        
+        <br>
            
           <div class="col-md-12">
+            <label for="">Imagen del producto</label><span class="text-red-400">*</span>
             <p-fileUpload
             #fileUploader
             name="imagen"
@@ -40,9 +43,15 @@
             [multiple]="false"
             [showUploadButton]="false"
             [showCancelButton]="false"
-            styleClass="border-1 surface-border surface-card border-round">
+            styleClass="border-1 surface-border surface-card border-round"
+            [(ngModel)] = "producto.prod_ImgUrl"
+            required #img="ngModel"
+            >
+            
           >
+         
             <ng-template pTemplate="content">
+             
               <div class="h-15rem overflow-y-auto py-3 border-round" style="cursor: copy" (click)="fileUploader.advancedFileInput.nativeElement.click()">
                 
                 <!-- Si no hay imagen -->
@@ -68,7 +77,7 @@
               </div>
             </ng-template>
           </p-fileUpload>
-            
+          <small class="p-error" *ngIf="img.invalid && cont2 == 1">La imagen es requerida</small>
         </div>
     </div>
         </div>
@@ -81,6 +90,20 @@
                 
             </div>
         </div>
+        <p-dialog header="Asignar precios por tamaño" [(visible)]="modalVisible" [modal]="true" [closable]="false">
+          <div class="row">
+            <div class="col-md-6" *ngFor="let t of tamanosSeleccionadosConDescripcion">
+              <label>Precio de {{ t.tama_Descripcion }}</label><span class="text-red-400">*</span>
+              <input type="number" [(ngModel)]="preciosPorTamano[t.tama_Id]" name="precio_{{ t.tama_Id }}" class="form-control" placeholder="Ingrese precio" required #precio="ngModel"/>
+              <small class="p-error" *ngIf="precio.invalid && cont1 == 1">El precio es requerido</small>
+            </div>
+        
+          </div>
+          <ng-template pTemplate="footer">
+            <button type="button"  pButton label="Guardar" (click)="guardarPrecios()"></button>
+            <button type="button" pButton label="Cancelar" class="p-button-secondary" (click)="cancelarModal()"></button>
+          </ng-template>
+        </p-dialog>
      </form>
     </div>
   </div>
