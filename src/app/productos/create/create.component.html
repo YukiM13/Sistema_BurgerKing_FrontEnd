@@ -15,6 +15,7 @@
               <label>Categoria</label><span class="text-red-400">*</span> <br>
               <p-dropdown [filter]="true"  [options]="categorias" optionValue="cate_Id" optionLabel="cate_Descripcion"  [(ngModel)]="producto.cate_Id" 
               placeholder="Seleccione una categoria" [showClear]="true"  name="cate_Id" appendTo="body" ></p-dropdown>
+              <small class="p-error" *ngIf="!producto.cate_Id && cont == 1">La categoria es requerida</small>
               
           </div>
         <div class="row">
@@ -23,7 +24,8 @@
             <span class="p-float-label">
               <p-multiSelect inputId="multiselect" [options]="tamanos" name="tama_Id" [(ngModel)]="tamano.tama_Id" optionValue="tama_Id"  optionLabel="tama_Descripcion"
               placeholder="Seleccione un tamaño"   (onChange)="onTamanoChange($event)"  [filter]="false" appendTo="body"></p-multiSelect>
-             
+              <br>
+              <small class="p-error" *ngIf="!tamano.tama_Id && cont == 1">El tamaño es requerido</small>
           </span>
           </div>
         </div>
