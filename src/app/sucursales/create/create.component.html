@@ -15,13 +15,14 @@
                     <div class="col-md-6">
                         <label for="" class="label-control">Direccion:</label>
                         <input type="text" name="sucu_Direccion" [(ngModel)] = "sucursal.sucu_Direccion" class="form-control"/>
-
+                        <small class="p-error" *ngIf="!sucursal.sucu_Direccion && cont == 1">La direccion es requerida</small>
 
                     </div>
                     <div class="col-md-6">
                         <label>Departamentos:</label>
                         <p-dropdown [filter]="true" (onChange)="filtrarMunicipiosPorDepartamento(departamentoSeleccionado)"   [options]="departamentos" optionLabel="depa_Descripcion" [(ngModel)]="departamentoSeleccionado"
                         placeholder="Departamentos" [showClear]="true" optionValue="depa_Codigo" name="depa_Codigo" appendTo="body"></p-dropdown>
+                        <small class="p-error" *ngIf="!departamentoSeleccionado && cont == 1">Seleccionar departamentos</small>
                     </div>
                     <div class="col-md-6">
                         <label>Municipios:</label>
