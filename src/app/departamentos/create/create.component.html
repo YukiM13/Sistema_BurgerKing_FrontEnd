@@ -5,7 +5,7 @@
      <form (submit)="crearDepartamento()">
         <div class="row">
             <div class="col-md-6">
-                <label for="" class="label-control">Codigo:</label>
+                <label for="" class="label-control">Codigo:</label>  <span class="text-red-400">*</span>
                 <input pinputtext id="cod" name="depa_Codigo" [(ngModel)] = "departamento.depa_Codigo" class="p-inputtext form-control ng-invalid " required #cod="ngModel"/>
                 <small class="p-error" *ngIf="cod.invalid && cont == 1">El codigo es requerido</small>
                 <br>
@@ -13,7 +13,7 @@
             </div>
 
             <div class="col-md-6">
-              <label for="" class="label-control">Departamento:</label>
+              <label for="" class="label-control">Departamento:</label>  <span class="text-red-400">*</span>
               <input pinputtext id="desc" name="depa_Descripcion" [(ngModel)] = "departamento.depa_Descripcion" class="form-control" class="p-inputtext form-control ng-invalid " required #desc="ngModel"/>
               <small class="p-error" *ngIf="desc.invalid && cont == 1">El nombre es requerido</small>
               <br>

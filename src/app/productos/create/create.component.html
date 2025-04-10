@@ -15,6 +15,7 @@
               <label>Categoria</label><span class="text-red-400">*</span> <br>
               <p-dropdown [filter]="true"  [options]="categorias" optionValue="cate_Id" optionLabel="cate_Descripcion"  [(ngModel)]="producto.cate_Id" 
               placeholder="Seleccione una categoria" [showClear]="true"  name="cate_Id" appendTo="body" ></p-dropdown>
+              <br>
               <small class="p-error" *ngIf="!producto.cate_Id && cont == 1">La categoria es requerida</small>
               
           </div>
@@ -79,7 +80,7 @@
               </div>
             </ng-template>
           </p-fileUpload>
-          <small class="p-error" *ngIf="img.invalid && cont2 == 1">La imagen es requerida</small>
+          <small class="p-error" *ngIf="!producto.prod_ImgUrl && cont2 == 1">La imagen es requerida</small>
         </div>
     </div>
         </div>
