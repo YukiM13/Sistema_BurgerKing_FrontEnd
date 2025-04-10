@@ -17,7 +17,7 @@ import { ProductoPorTamano } from 'src/app/models/productoPorTamano.model';
 @Component({
   selector: 'app-create',
   standalone: true,
-  imports: [CommonModule, FormsModule,FileUploadModule, DropdownModule,MultiSelectModule,DialogModule],
+  imports: [CommonModule, FormsModule, FileUploadModule, DropdownModule,MultiSelectModule,DialogModule],
   templateUrl: './create.component.html',
   styleUrl: './create.component.scss'
 })
