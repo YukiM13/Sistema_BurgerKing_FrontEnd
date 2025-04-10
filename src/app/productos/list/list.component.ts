@@ -168,4 +168,16 @@ export class ProduListComponent {
         });
       }, 100);
     }
+
+    crearError(): void {
+      this.showCreate = false;
+      this.listarProductos();
+      setTimeout(() => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'El estado civil no se pudo crear'
+        });
+      }, 100);
+    }
 }
