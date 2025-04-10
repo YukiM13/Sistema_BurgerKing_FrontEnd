@@ -6,66 +6,32 @@
           <a (click)="toggleCreate()" class="btn btn-primary"><span ng-reflect-ng-class="[object Object]" data-pc-section="icon" class="pi pi-plus-circle p-button-icon p-button-icon-left ng-star-inserted"></span> Nuevo</a>
        
 
-          <p-table #dt dataKey="id" [rows]="10" [rowHover]="true" [paginator]="true" [value]="combos" [globalFilterFields]="['comb_Descripcion']">
-            <ng-template pTemplate="caption">
-                <div class="flex justify-content-end flex-column sm:flex-row">
-                    <span class="p-input-icon-left mb-2">
-                        <i class="pi pi-search"></i>
-                        <input #filter pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Buscar"/>
-                    </span>
+          <div class="row" >
+            <div class="col-6 md:col-6 lg:col-4"  *ngFor="let combo of combos">
+                <div class="p-2">
+                    <div class="shadow-2 p-4 surface-card border-round">
+                        <div class="relative mb-3 imagen-container">
+
+                            <img [src]="url + '/' + combo.comb_ImgUrl"  class="w-full" height="200px"/>
+                            <div class="acciones-hover">
+                                <button pButton icon="pi pi-pencil" class="p-button-rounded p-button-warning p-button-sm" ></button>
+                                <button pButton icon="pi pi-eye" class="p-button-rounded p-button-info p-button-sm"></button>
+                                <button pButton icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-sm" (click)="confirmarEliminacion(combo.comb_Id)"></button>
+                           
+                            </div>
+                        </div>
+                        <div class="flex justify-content-between align-items-center mb-3">
+                            <span class="text-900 font-medium text-xl">{{combo.comb_Descripcion}}</span>
+                            <span>
+                               
+                                <span class="font-medium">L. {{combo.comb_Precio}}</span>
+                            </span>
+                        </div>
+                    
+                    </div>
                 </div>
-            </ng-template>
-            <ng-template pTemplate="header">
-                <tr>
-                    <th style="width: 10px;">
-                        Acciones
-                    </th>
-                   
-                    <th>
-                        <div class="flex justify-content-between align-items-center" pSortableColumn="comb_Descripcion">
-                            Combo
-                            <p-sortIcon field="comb_Descripcion"></p-sortIcon>
-                        </div>
-                    </th>
-                    <th>
-                      <div class="flex justify-content-between align-items-center" pSortableColumn="combo_Precio">
-                          Precio
-                          <p-sortIcon field="comb_Precio"></p-sortIcon>
-                      </div>
-                  </th>.
-                  
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-com>
-                <tr>
-                    <td>
-                      <p-splitButton appendTo="body" label="Acciones" icon="pi pi-cog" [model]="com.acciones" styleClass="p-button-info"></p-splitButton>
-                    </td>
-                   
-                    <td>
-                        <div class="flex justify-content-between align-items-center">
-                            {{com.comb_Descripcion}}
-                        </div>
-                    </td>
-                    <td>
-                      <div class="flex justify-content-between align-items-center">
-                          {{com.comb_Precio}}
-                      </div>
-                  </td>
-                  
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="emptymessage">
-                <tr>
-                    <td colspan="8">Sin registros</td>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="loadingbody">
-                <tr>
-                    <td colspan="8">Loading customers data. Please wait.</td>
-                </tr>
-            </ng-template>
-        </p-table>
+            </div>
+        </div>
   
   
       </div>
@@ -76,7 +42,7 @@
    <p-confirmDialog></p-confirmDialog>
   <p-toast></p-toast> 
     <div *ngIf="showCreate" @collapse>
-    <!-- <app-create (creado)="registroCreado()" (cancelar)="cancelCreate()" ></app-create> -->
+    <app-create (creado)="registroCreado()" (cancelar)="cancelCreate()" ></app-create>
     </div>
   
     <div *ngIf="showEdit" @collapse>
