@@ -6,14 +6,14 @@
         <div class="row">
             <div class="col-md-6">
                 <label for="" class="label-control">RTN-DNI</label>
-                <input type="text" name="clie_Identidad_Rtn" [(ngModel)] = "cliente.clie_Identidad_Rtn" class="form-control"/>
-             
+                <input pinputtext id="iden" name="clie_Identidad_Rtn" [(ngModel)] = "cliente.clie_Identidad_Rtn" class="p-inputtext form-control ng-invalid " required #iden="ngModel"/>
+                <small class="p-error" *ngIf="iden.invalid && cont == 1">La identidad es requerida</small>
                 
             </div>
             <div class="col-md-6">
                 <label for="" class="label-control">Nombres</label>
-                <input type="text" name="clie_Nombre" [(ngModel)] = "cliente.clie_Nombre" class="form-control"/>
-             
+                <input pinputtext id="nom" name="clie_Nombre" [(ngModel)] = "cliente.clie_Nombre" class="p-inputtext form-control ng-invalid " required #nom="ngModel"/>
+                <small class="p-error" *ngIf="nom.invalid && cont == 1">El nombre es requerido</small>
                 
             </div>
             
@@ -21,8 +21,8 @@
         <div class="row">
             <div class="col-md-6">
                 <label for="" class="label-control">Apellidos</label>
-                <input type="text" name="clie_Apellido" [(ngModel)] = "cliente.clie_Apellido" class="form-control"/>
-             
+                <input pinputtext id="ape" name="clie_Apellido" [(ngModel)] = "cliente.clie_Apellido" class="p-inputtext form-control ng-invalid " required #ape="ngModel"/>
+                <small class="p-error" *ngIf="ape.invalid && cont == 1">El apellido es requerido</small>
                 
             </div>
             

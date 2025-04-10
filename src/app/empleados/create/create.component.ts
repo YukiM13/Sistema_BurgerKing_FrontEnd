@@ -27,7 +27,7 @@ export class EmpleadoCreateComponent implements OnInit {
   @Output() cancelar = new EventEmitter<void>();  
   @Output() creado = new EventEmitter<void>();
  
-
+  cont = 0;
   cancelarFormulario() {
     this.cancelar.emit();  
   }
@@ -36,6 +36,12 @@ export class EmpleadoCreateComponent implements OnInit {
   empleado = new Empleados();
 
   crearEmpleado()  {
+this.cont = 1;
+    if(!this.empleado.empl_Nombre || !this.empleado.empl_Apellido || !this.empleado.empl_FechaNacimiento || !this.empleado.empl_Identidad || !this.empleado.empl_Sexo  || !this.empleado.esCi_Id || !this.empleado.carg_Id || !this.empleado.sucu_Id )
+    {
+      return;
+    }
+
     const sexo = this.empleado.empl_Sexo ? 'M' : 'F';
     this.empleado.empl_Sexo = sexo;
 
@@ -103,6 +109,7 @@ export class EmpleadoCreateComponent implements OnInit {
     this.listarCargo();
     this.listarSucursal();
     this.empleado.empl_Sexo = 'F';
+    this.cont = 0;
   }
 
 }

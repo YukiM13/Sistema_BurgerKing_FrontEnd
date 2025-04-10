@@ -17,6 +17,7 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 })
 
 
+
 export class ClienteCreateComponent implements OnInit {
   private apiUrl = environment.apiUrl; 
   //estadosCivil2: any[] = [];
@@ -25,7 +26,7 @@ export class ClienteCreateComponent implements OnInit {
   @Output() cancelar = new EventEmitter<void>();  
   @Output() creado = new EventEmitter<void>();
  
-  
+  cont = 0;
 
   sexoOptions = [
     { label: 'Femenino', value: 'F' },
@@ -45,6 +46,7 @@ export class ClienteCreateComponent implements OnInit {
   
   ngOnInit(): void {
     this.cliente.clie_Sexo = 'F'; 
+    this.cont = 0;
   }
   
 
@@ -52,6 +54,12 @@ export class ClienteCreateComponent implements OnInit {
     
     //const sexo = this.cliente.clie_Sexo ? 'M' : 'F';
     //this.cliente.clie_Sexo = sexo;
+
+    this.cont = 1;
+    if(!this.cliente.clie_Nombre || !this.cliente.clie_Apellido || !this.cliente.clie_Sexo || !this.cliente.clie_Identidad_Rtn)
+    {
+      return;
+    }
 
     this.cliente.usua_Creacion = 2;
     const fecha = new Date();

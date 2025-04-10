@@ -21,14 +21,22 @@ export class UsuaCreateComponent {
       http = inject(HttpClient);
       @Output() cancelar = new EventEmitter<void>();  
       @Output() creado = new EventEmitter<void>();
-     
+     cont = 0;
 
       cancelarFormulario() {
         this.cancelar.emit();  
       }
       router = inject(Router)
       usuario = new Usuario();
+
       crearUsuario()  {
+      
+        this.cont = 1;
+        if(!this.usuario.usua_Usuario || !this.usuario.usua_Correo || !this.usuario.usua_Admin || !this.usuario.empl_Id || !this.usuario.role_Id || !this.usuario.usua_Clave) 
+        {
+          return;
+        }
+
         this.usuario.usua_Creacion = 2;
         const fecha = new Date();
         this.usuario.usua_FechaCreacion = fecha;  
@@ -40,7 +48,8 @@ export class UsuaCreateComponent {
     
         );
         
-      }
+      
+    }
 
       onAdminToggleChange(event: any) {
         console.log('Valor de usua_Admin:', this.usuario.usua_Admin);
@@ -50,6 +59,7 @@ export class UsuaCreateComponent {
       ngOnInit(): void {
         this.listarEmpleado();
         this.listarRol();
+        this.cont = 0;
       }
 
    empleados: any[] = [];

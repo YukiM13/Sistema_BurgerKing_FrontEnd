@@ -29,7 +29,7 @@ export class MunicipioCreateComponent {
     this.cancelar.emit();  
   }
 
-    
+    cont = 0;
 
 
   router = inject(Router); //inicializa el router
@@ -37,6 +37,7 @@ export class MunicipioCreateComponent {
 
   ngOnInit(): void {
     this.listarMunicipios();
+    this.cont = 0;
   }
   
  
@@ -64,6 +65,11 @@ export class MunicipioCreateComponent {
 
 
   crearMunicipio() {
+    this.cont = 1;
+    if(!this.municipio.muni_Codigo || !this.municipio.depa_Codigo || !this.municipio.muni_Descripcion) {
+      return;
+    }
+
     this.municipio.usua_Creacion = 2;
     const fecha = new Date();
     fecha.toLocaleDateString;

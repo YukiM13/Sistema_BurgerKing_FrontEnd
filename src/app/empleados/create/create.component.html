@@ -7,14 +7,15 @@
         <div class="row">
             <div class="col-md-6">
                 <label for="" class="label-control">DNI</label>
-                <input type="text" name="empl_Identidad" [(ngModel)] = "empleado.empl_Identidad" class="form-control"/>
+                <input pinputtext id="iden" name="empl_Identidad" [(ngModel)] = "empleado.empl_Identidad" class="p-inputtext form-control ng-invalid " required #iden="ngModel"/>
+                <small class="p-error" *ngIf="iden.invalid && cont == 1">La identidad es requerido</small>
              
                 
             </div>
             <div class="col-md-6">
                 <label for="" class="label-control">Nombres</label>
-                <input type="text" name="empl_Nombre" [(ngModel)] = "empleado.empl_Nombre" class="form-control"/>
-             
+                <input pinputtext id="nom" name="empl_Nombre" [(ngModel)] = "empleado.empl_Nombre" class="p-inputtext form-control ng-invalid " required #nom="ngModel"/>
+                <small class="p-error" *ngIf="nom.invalid && cont == 1">El nombre es requerido</small>
                 
             </div>
             
@@ -22,8 +23,8 @@
         <div class="row">
             <div class="col-md-6">
                 <label for="" class="label-control">Apellidos</label>
-                <input type="text" name="empl_Apellido" [(ngModel)] = "empleado.empl_Apellido" class="form-control"/>
-             
+                <input pinputtext id="ape" name="empl_Apellido" [(ngModel)] = "empleado.empl_Apellido" class="p-inputtext form-control ng-invalid " required #ape="ngModel"/>
+                <small class="p-error" *ngIf="ape.invalid && cont == 1">El nombre es requerido</small>
                 
             </div>
             <div class="col-md-6">
@@ -48,7 +49,7 @@
                 optionValue="value"
                 [(ngModel)]="empleado.empl_Sexo">
               </p-selectButton>
-              
+              <small class="p-error" *ngIf="!empleado.empl_Sexo && cont == 1">El Sexo es requerido</small>
               </div>
 
             
@@ -57,6 +58,7 @@
                 <label>Estado Civil:</label>
                 <p-dropdown [filter]="true"  [options]="estadoCivil" optionLabel="esci_Descripcion" [(ngModel)]="empleado.esCi_Id" 
                 placeholder="Seleccione un estado civil" [showClear]="true" optionValue="esCi_Id" name="esCi_Id" appendTo="body"></p-dropdown>
+                <small class="p-error" *ngIf="!empleado.esCi_Id && cont == 1">El estado civil es requerido</small>
             </div>
             
         </div>
@@ -66,12 +68,14 @@
                 <label>Cargo:</label>
                 <p-dropdown [filter]="true"  [options]="cargo" optionLabel="carg_Descripcion" [(ngModel)]="empleado.carg_Id" 
                 placeholder="Seleccione un cargo" [showClear]="true" optionValue="carg_Id" name="carg_Id" appendTo="body"></p-dropdown>
+                <small class="p-error" *ngIf="!empleado.carg_Id && cont == 1">El cargo es requerido</small>
             </div>
 
             <div class="col-md-6">
                 <label>Sucursal:</label>
                 <p-dropdown [filter]="true"  [options]="sucursal" optionLabel="sucu_Descripcion" [(ngModel)]="empleado.sucu_Id" 
                 placeholder="Seleccione una sucursal" [showClear]="true" optionValue="sucu_Id" name="sucu_Id" appendTo="body"></p-dropdown>
+                <small class="p-error" *ngIf="!empleado.sucu_Id && cont == 1">La sucursal es requerido</small>
             </div>
             
         </div>

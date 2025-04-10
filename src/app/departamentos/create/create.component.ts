@@ -22,6 +22,12 @@ export class DepaCreateComponent {
  
   @Output() cancelar = new EventEmitter<void>();  
   @Output() creado = new EventEmitter<void>();
+  cont = 0;
+
+  ngOnInit(): void {
+    this.cont = 0;
+  }
+
 
   cancelarFormulario() {
     this.cancelar.emit();  
@@ -31,6 +37,13 @@ export class DepaCreateComponent {
   departamento = new Departamento(); //inicializa el objeto departamento
 
   crearDepartamento() {
+    this.cont = 1;
+        if(!this.departamento.depa_Codigo || !this.departamento.depa_Descripcion ) 
+        {
+          return;
+        }
+
+
     this.departamento.usua_Creacion = 2;
     const fecha = new Date();
     fecha.toLocaleDateString;

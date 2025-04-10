@@ -6,7 +6,8 @@
         <div class="row">
             <div class="col-md-12">
                 <label for="" class="label-control">Categoria:</label>
-                <input type="text" name="cate_Descripcion" [(ngModel)] = "categoria.cate_Descripcion" class="form-control"/>
+                <input pinputtext id="nom" name="cate_Descripcion" [(ngModel)] = "categoria.cate_Descripcion" class="p-inputtext form-control ng-invalid " required #nom="ngModel"/>
+                <small class="p-error" *ngIf="nom.invalid && cont == 1">El nombre es requerido</small>
                 <br>
                 
             </div>
@@ -24,3 +25,4 @@
      </form>
     </div>
   </div>
+  <p-toast></p-toast> 

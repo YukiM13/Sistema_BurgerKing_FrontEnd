@@ -7,14 +7,14 @@
         <div class="row">
             <div class="col-md-6">
                 <label for="" class="label-control">Usuario</label>
-                <input type="text" name="usua_Usuario" [(ngModel)] = "usuario.usua_Usuario" class="form-control"/>
-             
+                <input pinputtext id="usuar" name="usua_Usuario" [(ngModel)] = "usuario.usua_Usuario" class="p-inputtext form-control ng-invalid " required #usuar="ngModel"/>
+                <small class="p-error" *ngIf="usuar.invalid && cont == 1">El usuario es requerido</small>
                 
             </div>
             <div class="col-md-6">
                 <label for="" class="label-control">Contraseña</label>
-                <input type="text" name="usua_Clave" [(ngModel)] = "usuario.usua_Clave" class="form-control"/>
-             
+                <input pinputtext id="cla" name="usua_Clave" [(ngModel)] = "usuario.usua_Clave" class="p-inputtext form-control ng-invalid " required #cla="ngModel"/>
+                <small class="p-error" *ngIf="cla.invalid && cont == 1">La clave es requerido</small>
                 
             </div>
             
@@ -22,8 +22,8 @@
         <div class="row">
             <div class="col-md-6">
                 <label for="" class="label-control">Correo</label>
-                <input type="text" name="usua_Correo" [(ngModel)] = "usuario.usua_Correo" class="form-control"/>
-             
+                <input pinputtext id="corr" name="usua_Correo" [(ngModel)] = "usuario.usua_Correo" class="p-inputtext form-control ng-invalid " required #corr="ngModel"/>
+                <small class="p-error" *ngIf="corr.invalid && cont == 1">El correo es requerido</small>
                 
             </div>
 
@@ -31,6 +31,7 @@
                 <label>Empleados:</label>
                 <p-dropdown [filter]="true"  [options]="empleados" optionLabel="empl_Nombre" [(ngModel)]="usuario.empl_Id" 
                 placeholder="Empleados" [showClear]="true" optionValue="empl_Id" name="empl_Id" appendTo="body"></p-dropdown>
+                <small class="p-error" *ngIf="!usuario.empl_Id && cont == 1">El empleado es requerido</small>
             </div>
             
         </div>
@@ -39,6 +40,7 @@
                 <label>Roles:</label>
                 <p-dropdown [filter]="true"  [options]="roles" optionLabel="role_Descripcion" [(ngModel)]="usuario.role_Id" 
                 placeholder="Roles" [showClear]="true" optionValue="role_Id" name="role_Id" appendTo="body"></p-dropdown>
+                <small class="p-error" *ngIf="!usuario.role_Id && cont == 1">El rol es requerido</small>
             </div>
 
             <div class="col-md-6">

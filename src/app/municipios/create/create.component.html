@@ -10,14 +10,16 @@
         <div class="row">
             <div class="col-md-6">
                 <label for="" class="label-control">Codigo:</label>
-                <input type="text" name="muni_Codigo" [(ngModel)] = "municipio.muni_Codigo" class="form-control"/>
+                <input pinputtext id="cod" name="muni_Codigo" [(ngModel)] = "municipio.muni_Codigo" class="p-inputtext form-control ng-invalid " required #cod="ngModel"/>
+                <small class="p-error" *ngIf="cod.invalid && cont == 1">El codigo es requerido</small>
                 <br>
                 
             </div>
 
             <div class="col-md-6">
               <label for="" class="label-control">Municipio:</label>
-              <input type="text" name="muni_Descripcion" [(ngModel)] = "municipio.muni_Descripcion" class="form-control"/>
+              <input pinputtext id="descr" name="muni_Descripcion" [(ngModel)] = "municipio.muni_Descripcion" class="p-inputtext form-control ng-invalid " required #descr="ngModel"/>
+              <small class="p-error" *ngIf="descr.invalid && cont == 1">El nombre es requerido</small>
               <br>
               
           </div>
@@ -26,6 +28,7 @@
             <label>Departamento:</label>
             <p-dropdown [filter]="true"  [options]="departamentos" optionValue="depa_Codigo" optionLabel="depa_Descripcion"  [(ngModel)]="municipio.depa_Codigo" 
             placeholder="Seleccionar Departamento" [showClear]="true"  name="depa_Codigo" appendTo="body" ></p-dropdown>
+            <small class="p-error" *ngIf="!municipio.depa_Codigo && cont == 1">El departamento es requerido</small>
         </div>
             
         </div>

@@ -33,8 +33,19 @@ export class TamanoCreateComponent {
   router = inject(Router)
   tamano = new Tamano();
 
+  cont = 0;
+
+  ngOnit(): void {
+    this.cont = 0;
+  }
+
   crearTamano()  {
-   
+   this.cont = 1;
+    if(!this.tamano.tama_Descripcion) 
+    {
+      return;
+    }
+    
     this.tamano.usua_Creacion = 2;
     const fecha = new Date();
     this.tamano.tama_FechaCreacion = fecha;  
