@@ -6,26 +6,26 @@
             <form (submit)="crearSucursal()">
                 <div class="row">
                     <div class="col-md-6">
-                        <label for="" class="label-control">Sucursal:</label>
+                        <label for="" class="label-control">Sucursal:</label>  <span class="text-red-400">*</span>
                         <input pinputtext id="descripcion" name="sucu_Descripcion" [(ngModel)] = "sucursal.sucu_Descripcion"  class="p-inputtext form-control ng-invalid " required #descripcion="ngModel"/>
-                        <small class="p-error" *ngIf="descripcion.invalid && cont == 1">El nombre es requerido</small>
-                        <br>
+                        
+                        <br><small class="p-error" *ngIf="descripcion.invalid && cont == 1">El nombre es requerido</small>
                     </div>
 
                     <div class="col-md-6">
-                        <label for="" class="label-control">Direccion:</label>
+                        <label for="" class="label-control">Direccion:</label><span class="text-red-400">*</span>
                         <input type="text" name="sucu_Direccion" [(ngModel)] = "sucursal.sucu_Direccion" class="form-control"/>
                         <small class="p-error" *ngIf="!sucursal.sucu_Direccion && cont == 1">La direccion es requerida</small>
 
                     </div>
                     <div class="col-md-6">
-                        <label>Departamentos:</label>
+                        <label>Departamentos:</label><span class="text-red-400">*</span>
                         <p-dropdown [filter]="true" (onChange)="filtrarMunicipiosPorDepartamento(departamentoSeleccionado)"   [options]="departamentos" optionLabel="depa_Descripcion" [(ngModel)]="departamentoSeleccionado"
                         placeholder="Departamentos" [showClear]="true" optionValue="depa_Codigo" name="depa_Codigo" appendTo="body"></p-dropdown>
                         <small class="p-error" *ngIf="!departamentoSeleccionado && cont == 1">Seleccionar departamentos</small>
                     </div>
                     <div class="col-md-6">
-                        <label>Municipios:</label>
+                        <label>Municipios:</label><span class="text-red-400">*</span>
                         <p-dropdown [filter]="true"  [options]="municipios" optionLabel="muni_Descripcion" [(ngModel)]="sucursal.muni_Codigo"
                         placeholder="Municipios" [showClear]="true" optionValue="muni_Codigo" name="muni_Codigo" appendTo="body"></p-dropdown>
                         <small class="p-error" *ngIf="!sucursal.muni_Codigo && cont == 1">El minicipio   es requerido</small>

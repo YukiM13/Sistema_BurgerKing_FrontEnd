@@ -121,7 +121,7 @@ cancelarModal() {
       this.producto.usua_Creacion = 2;
       const fecha = new Date();
       this.producto.prod_FechaCreacion = fecha;
-      this.producto.cate_Id = 2
+      //this.producto.cate_Id = 2
        
      
        this.uploadImage().subscribe({

@@ -5,7 +5,7 @@
      <form (submit)="crearTamano()">
         <div class="row">
             <div class="col-md-6">
-                <label for="" class="label-control">Tamano:</label>
+                <label for="" class="label-control">Tamano:</label>  <span class="text-red-400">*</span>
                 <input pinputtext id="desc" name="tama_Descripcion" [(ngModel)] = "tamano.tama_Descripcion" class="p-inputtext form-control ng-invalid " required #desc="ngModel"/>
                 <small class="p-error" *ngIf="desc.invalid && cont == 1">El nombre es requerido</small>
                 <br>

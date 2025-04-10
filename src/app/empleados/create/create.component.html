@@ -6,14 +6,14 @@
      <form (submit)="crearEmpleado()">
         <div class="row">
             <div class="col-md-6">
-                <label for="" class="label-control">DNI</label>
+                <label for="" class="label-control">DNI</label>  <span class="text-red-400">*</span>
                 <input pinputtext id="iden" name="empl_Identidad" [(ngModel)] = "empleado.empl_Identidad" class="p-inputtext form-control ng-invalid " required #iden="ngModel"/>
                 <small class="p-error" *ngIf="iden.invalid && cont == 1">La identidad es requerido</small>
              
                 
             </div>
             <div class="col-md-6">
-                <label for="" class="label-control">Nombres</label>
+                <label for="" class="label-control">Nombres</label>  <span class="text-red-400">*</span>
                 <input pinputtext id="nom" name="empl_Nombre" [(ngModel)] = "empleado.empl_Nombre" class="p-inputtext form-control ng-invalid " required #nom="ngModel"/>
                 <small class="p-error" *ngIf="nom.invalid && cont == 1">El nombre es requerido</small>
                 
@@ -22,13 +22,13 @@
         </div>
         <div class="row">
             <div class="col-md-6">
-                <label for="" class="label-control">Apellidos</label>
+                <label for="" class="label-control">Apellidos</label>  <span class="text-red-400">*</span>
                 <input pinputtext id="ape" name="empl_Apellido" [(ngModel)] = "empleado.empl_Apellido" class="p-inputtext form-control ng-invalid " required #ape="ngModel"/>
                 <small class="p-error" *ngIf="ape.invalid && cont == 1">El nombre es requerido</small>
                 
             </div>
             <div class="col-md-6">
-                <label for="" class="label-control">Fecha de Nacimiento:</label>
+                <label for="" class="label-control">Fecha de Nacimiento:</label> <span class="text-red-400">*</span>
                
                 <p-calendar [showIcon]="true" name="empl_FechaNacimiento" [(ngModel)] = "empleado.empl_FechaNacimiento" inputId="icon" appendTo="body" ></p-calendar>
              
@@ -40,7 +40,7 @@
         <div class="row">
             
             <div class="col-md-6">
-                <label for="" class="label-control">Sexo</label>
+                <label for="" class="label-control">Sexo</label>  <span class="text-red-400">*</span>
                 <br>
                 <p-selectButton
                 name="empl_Sexo"
@@ -55,7 +55,7 @@
             
 
             <div class="col-md-6">
-                <label>Estado Civil:</label>
+                <label>Estado Civil:</label>  <span class="text-red-400">*</span>
                 <p-dropdown [filter]="true"  [options]="estadoCivil" optionLabel="esci_Descripcion" [(ngModel)]="empleado.esCi_Id" 
                 placeholder="Seleccione un estado civil" [showClear]="true" optionValue="esCi_Id" name="esCi_Id" appendTo="body"></p-dropdown>
                 <small class="p-error" *ngIf="!empleado.esCi_Id && cont == 1">El estado civil es requerido</small>
@@ -65,14 +65,14 @@
 
         <div class="row">
             <div class="col-md-6">
-                <label>Cargo:</label>
+                <label>Cargo:</label>  <span class="text-red-400">*</span>
                 <p-dropdown [filter]="true"  [options]="cargo" optionLabel="carg_Descripcion" [(ngModel)]="empleado.carg_Id" 
                 placeholder="Seleccione un cargo" [showClear]="true" optionValue="carg_Id" name="carg_Id" appendTo="body"></p-dropdown>
                 <small class="p-error" *ngIf="!empleado.carg_Id && cont == 1">El cargo es requerido</small>
             </div>
 
             <div class="col-md-6">
-                <label>Sucursal:</label>
+                <label>Sucursal:</label>  <span class="text-red-400">*</span>
                 <p-dropdown [filter]="true"  [options]="sucursal" optionLabel="sucu_Descripcion" [(ngModel)]="empleado.sucu_Id" 
                 placeholder="Seleccione una sucursal" [showClear]="true" optionValue="sucu_Id" name="sucu_Id" appendTo="body"></p-dropdown>
                 <small class="p-error" *ngIf="!empleado.sucu_Id && cont == 1">La sucursal es requerido</small>

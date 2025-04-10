@@ -5,7 +5,7 @@
      <form (submit)="crearCategoria()">
         <div class="row">
             <div class="col-md-12">
-                <label for="" class="label-control">Categoria:</label>
+                <label for="" class="label-control">Categoria:</label> <span class="text-red-400">*</span>
                 <input pinputtext id="nom" name="cate_Descripcion" [(ngModel)] = "categoria.cate_Descripcion" class="p-inputtext form-control ng-invalid " required #nom="ngModel"/>
                 <small class="p-error" *ngIf="nom.invalid && cont == 1">El nombre es requerido</small>
                 <br>
