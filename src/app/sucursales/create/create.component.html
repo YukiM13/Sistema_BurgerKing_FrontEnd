@@ -1,6 +1,6 @@
 <h2 >Crear nueva Sucursal</h2>
 <div class="grid p-fluid">
-    <div class="col-12"> 
+    <div class="col-12">
         <div class="card">
             <div class="card-body">
             <form (submit)="crearSucursal()">
@@ -9,19 +9,23 @@
                         <label for="" class="label-control">Sucursal:</label>
                         <input type="text" name="sucu_Descripcion" [(ngModel)] = "sucursal.sucu_Descripcion" class="form-control"/>
                         <br>
-                        
-                    </div>
-                    
-                    <div class="col-md-6">
-                        <label for="" class="label-control">Direccion:</label>
-                        <input type="text" name="sucu_Direccion" [(ngModel)] = "sucursal.sucu_Direccion" class="form-control"/>
-                        
-                        
+
                     </div>
 
                     <div class="col-md-6">
+                        <label for="" class="label-control">Direccion:</label>
+                        <input type="text" name="sucu_Direccion" [(ngModel)] = "sucursal.sucu_Direccion" class="form-control"/>
+
+
+                    </div>
+                    <div class="col-md-6">
+                        <label>Departamentos:</label>
+                        <p-dropdown [filter]="true" (onChange)="filtrarMunicipiosPorDepartamento(departamentoSeleccionado)"   [options]="departamentos" optionLabel="depa_Descripcion" [(ngModel)]="departamentoSeleccionado"
+                        placeholder="Departamentos" [showClear]="true" optionValue="depa_Codigo" name="depa_Codigo" appendTo="body"></p-dropdown>
+                    </div>
+                    <div class="col-md-6">
                         <label>Municipios:</label>
-                        <p-dropdown [filter]="true"  [options]="municipios" optionLabel="muni_Descripcion" [(ngModel)]="sucursal.muni_Codigo" 
+                        <p-dropdown [filter]="true"  [options]="municipios" optionLabel="muni_Descripcion" [(ngModel)]="sucursal.muni_Codigo"
                         placeholder="Municipios" [showClear]="true" optionValue="muni_Codigo" name="muni_Codigo" appendTo="body"></p-dropdown>
                     </div>
 
@@ -29,15 +33,15 @@
 
 
                 </div>
-                
-            
+
+
                 <div class="row">
                     <div>
                         <div class="col-md-12 text-right">
                             <input type="submit" class="btn btn-primary m-2" value="Guardar" />
                             <button type="button" class="btn btn-danger  m-2" (click)="cancelarFormulario()" class="btn btn-secondary">Cancelar</button>
                         </div>
-                        
+
                     </div>
                 </div>
             </form>
