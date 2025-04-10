@@ -3,7 +3,7 @@
 <div class="card">
     <div class="card-body">
      <form (submit)="crearProducto()">
-        <div class="row">
+        <div class="row m-2">
             <div class="col-md-6">
                 <label for="" class="label-control">Nombre</label><span class="text-red-400">*</span>
                 <input type="text" name="prod_Descripcion" [(ngModel)] = "producto.prod_Descripcion" class="form-control" required #descripcion="ngModel"/>
@@ -31,11 +31,11 @@
           </div>
         </div>
         
-        <br>
-        <div class="row">
-        <br>
-           
-          <div class="col-md-12">
+        
+        <div class="row mt-3">
+       
+         
+          <div class="col-md-12 ">
             <label for="">Imagen del producto</label><span class="text-red-400">*</span>
             <p-fileUpload
             #fileUploader

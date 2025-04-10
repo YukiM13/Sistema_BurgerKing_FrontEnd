@@ -6,6 +6,7 @@
      <form (submit)="crearUsuario()">
         <div class="row">
             <div class="col-md-6">
+                
                 <label for="" class="label-control">Usuario</label>  <span class="text-red-400">*</span>
                 <input pinputtext id="usuar" name="usua_Usuario" [(ngModel)] = "usuario.usua_Usuario" class="p-inputtext form-control ng-invalid " required #usuar="ngModel"/>
                 <small class="p-error" *ngIf="usuar.invalid && cont == 1">El usuario es requerido</small>
@@ -57,7 +58,7 @@
         <div class="row">
             <div>
                 <div class="col-md-12 text-right">
-                    <input type="submit" class="btn btn-primary" value="Guardar" />
+                    <input type="submit" class="btn btn-primary m-2" value="Guardar" /> 
                     <button type="button" class="btn btn-danger" (click)="cancelarFormulario()" class="btn btn-secondary">Cancelar</button>
                 </div>
                 
