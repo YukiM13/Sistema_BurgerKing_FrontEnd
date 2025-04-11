@@ -8,6 +8,7 @@ import { Departamento } from 'src/app/models/departamento.model';
 import { environment } from 'src/enviroments/enviroment';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { Respuesta } from '../../models/respuesta.model';
 
 @Component({
   selector: 'app-create',
@@ -27,6 +28,7 @@ export class DepaCreateComponent {
 
   @Output() cancelar = new EventEmitter<void>();  
   @Output() creado = new EventEmitter<void>();
+  @Output() errorCrear = new EventEmitter<void>();
   cont = 0;
 
   ngOnInit(): void {
@@ -48,6 +50,8 @@ export class DepaCreateComponent {
   }
 
 
+
+
   crearDepartamento() {
     this.cont = 1;
         if(!this.departamento.depa_Codigo.trim()  || !this.departamento.depa_Descripcion.trim() ) 
@@ -65,13 +69,17 @@ export class DepaCreateComponent {
     fecha.toLocaleDateString;
     this.departamento.depa_FechaCreacion = new Date(); 
 
-    this.http.post(`${this.apiUrl}/Departamento/Insertar`, this.departamento)
-    .subscribe(() =>{
-      this.creado.emit();
-
+    this.http.post<Respuesta<Departamento>>(`${this.apiUrl}/Departamento/Insertar`, this.departamento)
+    .subscribe({
+      next: (response) => {
+      if (response && response.data.codeStatus >0) {
+        console.log(response)
+        this.creado.emit();
+      } else {
+        this.errorCrear.emit();
+      }
     }
-     
-    );
+    });
 
   }
 }

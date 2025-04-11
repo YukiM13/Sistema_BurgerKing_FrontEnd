@@ -7,6 +7,7 @@
   import { environment } from 'src/enviroments/enviroment';
   import { MessageService } from 'primeng/api';
   import { ToastModule } from 'primeng/toast';
+  import { Respuesta } from '../../models/respuesta.model';
 
   @Component({
     selector: 'app-create',
@@ -28,6 +29,7 @@
     http = inject(HttpClient);
     @Output() cancelar = new EventEmitter<void>();  
     @Output() creado = new EventEmitter<void>();
+    @Output() errorCrear = new EventEmitter<void>();
   
     cont = 0;
 
@@ -58,12 +60,17 @@
       this.categoria.usua_Creacion = 2;
       const fecha = new Date();
       this.categoria.cate_FechaCreacion = fecha;  
-      this.http.post(`${this.apiUrl}/Categoria/Insertar`, this.categoria)
-      .subscribe(() => {
-        this.creado.emit();
+      this.http.post<Respuesta<Categoria>>(`${this.apiUrl}/Categoria/Insertar`, this.categoria)
+      .subscribe({
+        next: (response) => {
+        if (response && response.data.codeStatus >0) {
+          console.log(response)
+          this.creado.emit();
+        } else {
+          this.errorCrear.emit();
+        }
       }
-
-      );
+      });
       
       
       

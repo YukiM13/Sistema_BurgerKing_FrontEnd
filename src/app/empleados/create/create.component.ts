@@ -11,6 +11,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { Respuesta } from '../../models/respuesta.model';
 
 @Component({
   selector: 'app-create',
@@ -29,6 +30,9 @@ export class EmpleadoCreateComponent implements OnInit {
   http = inject(HttpClient);
   @Output() cancelar = new EventEmitter<void>();  
   @Output() creado = new EventEmitter<void>();
+  @Output() errorCrear = new EventEmitter<void>();
+
+
   constructor(private messageService: MessageService) { }
   cont = 0;
   cancelarFormulario() {
@@ -56,12 +60,17 @@ this.cont = 1;
     this.empleado.usua_Creacion = 2;
     const fecha = new Date();
     this.empleado.empl_FechaCreacion = fecha;  
-    this.http.post(`${this.apiUrl}/Empleado/Insertar`, this.empleado)
-    .subscribe(() => {
-      this.creado.emit();
+    this.http.post<Respuesta<Empleados>>(`${this.apiUrl}/Empleado/Insertar`, this.empleado)
+    .subscribe({
+      next: (response) => {
+      if (response && response.data.codeStatus >0) {
+        console.log(response)
+        this.creado.emit();
+      } else {
+        this.errorCrear.emit();
+      }
     }
-
-    );
+    });
   }
 
   sexoOptions = [

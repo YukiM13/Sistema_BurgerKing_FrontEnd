@@ -162,6 +162,18 @@ export class ClienteListComponent implements OnInit {
       this.showEdit = false;
       this.listarClientes();
     }
+
+    crearError(): void {
+      this.showCreate = false;
+      this.listarClientes();
+      setTimeout(() => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'El cliente no se pudo crear'
+        });
+      }, 100);
+    }
   
     registroCreado(): void {
       this.showCreate = false;

@@ -112,6 +112,18 @@ export class DepaListComponent implements OnInit {
           this.showEdit = true;
         });
     }
+
+    crearError(): void {
+      this.showCreate = false;
+      this.listardepartamentos();
+      setTimeout(() => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'El departamento no se pudo crear'
+        });
+      }, 100);
+    }
   
     confirmarEliminacion(id: string): void {
       this.confirmationService.confirm({
