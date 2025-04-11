@@ -14,7 +14,12 @@ import { Respuesta } from 'src/app/models/respuesta.model';
 import { Tamano } from 'src/app/models/tamano.model';
 import { Combo } from 'src/app/models/combos.model'; 
 import { ComboDetalle } from 'src/app/models/comboDetalles.model';
-import { ProductoPorTamano } from 'src/app/models/productoPorTamano.model';
+import { Table, TableModule } from 'primeng/table';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ToastModule } from 'primeng/toast';
+
+
 
 interface PrecioTamanio {
   prTa_Id: number;
@@ -25,13 +30,16 @@ interface PrecioTamanio {
 interface ProductoAgrupado {
   prod_Descripcion: string;
   prod_ImgUrl: string;
+  cate_Descripcion : string;
   tamanios: PrecioTamanio[];
 }
 
 @Component({
   selector: 'app-create',
   standalone: true,
-  imports: [CommonModule, FormsModule,FileUploadModule, DropdownModule,MultiSelectModule,DialogModule],
+  imports: [CommonModule, FormsModule,FileUploadModule, ConfirmDialogModule,ToastModule,DropdownModule,MultiSelectModule,DialogModule, TableModule],
+  providers:[MessageService, ConfirmationService],
+
   templateUrl: './create.component.html',
   styleUrl: './create.component.scss'
 })
@@ -43,9 +51,15 @@ export class CombosCreateComponent {
       @Output() creado = new EventEmitter<void>();
       @Output() errorCrear = new EventEmitter<void>();
       uploadedFiles: any[] = [];
+
+      constructor(
+        private confirmationService: ConfirmationService,
+        private messageService: MessageService
+      ) {}
     cont = 0;
     cont1 = 0;
     cont2 = 0;
+    aux = 0;
       showRemove: boolean = false;
     url = this.apiUrl;
       selectedFile: File | null = null;
@@ -57,7 +71,7 @@ export class CombosCreateComponent {
     this.selectedFile = file;
     this.nombreOriginal = file.name;
     console.log('verificacion asginacion',this.selectedFile);
-    this.producto.prod_ImgUrl = 'assets/layout/imagenes/' + this.nombreOriginal;
+    this.producto.comb_ImgUrl = 'assets/layout/imagenes/' + this.nombreOriginal;
   console.log(file.name);
     reader.onload = (e: any) => {
       console.log('Imagen cargada:', e.target.result);
@@ -89,6 +103,7 @@ ListarProductosPorTamano() {
           agrupados[key] = {
             prod_Descripcion: item.prod_Descripcion,
             prod_ImgUrl: item.prod_ImgUrl,
+            cate_Descripcion: item.cate_Descripcion,
             tamanios: []
           };
         }
@@ -117,68 +132,89 @@ ListarProductosPorTamano() {
         this.cancelar.emit();  
       }
       router = inject(Router)
-      producto = new Productos();
+      producto = new Combo();
       tamano = new Tamano();
-      // productoPorTamano = new ProductoPorTamano();
-      // productoAux = new Productos();
-      // crearProducto()  {
-      //   this.cont = 1;
-      //   console.log('entro');
-      //   console.log(this.tamano.tama_Id);
-      //   this.producto.usua_Creacion = 2;
-      //   const fecha = new Date();
-      //   this.producto.prod_FechaCreacion = fecha;
-      //   //this.producto.cate_Id = 2
+      comboDetalle = new ComboDetalle();
+      productoAux = new Productos();
+      crearCombo()  {
+        this.cont = 1;
+        console.log('entro');
+        console.log(this.producto.comb_Descripcion, this.producto.comb_Precio, this.producto.comb_ImgUrl);
+        this.producto.usua_Creacion = 2;
+        const fecha = new Date();
+        this.producto.comb_FechaCreacion = fecha;
+        this.producto.comb_Precio = this.comb_Precio;
+        //this.producto.cate_Id = 2
          
        
-      //    this.uploadImage().subscribe({
-      //     next: () => {
-      //       if(!(this.producto.prod_ImgUrl && this.producto.prod_Descripcion && this.producto.cate_Id)) {
-      //         return
-      //       }
+         this.uploadImage().subscribe({
+          next: () => {
+            if(!(this.producto.comb_ImgUrl && this.producto.comb_Descripcion)) {
+              console.log("Entro al return");
+        console.log(this.producto.comb_Descripcion, this.producto.comb_Precio, this.producto.comb_ImgUrl);
+        this.messageService.add({
+          severity: 'warn',
+          summary: 'Advertencia',
+          detail: 'Los campos no pueden ser vacios'
+        });
+              return
+            }
             
-      //         this.http.post(`${this.apiUrl}/Producto/Insertar`, this.producto)
-      //     .subscribe( data => {
-      //       if (data && Array.isArray(data) && data.length > 0) {
-      //         const producto1 = data[0] as any; 
-      //         this.productoPorTamano.prod_Id = producto1.prod_Id;
-      //       }
+              this.http.post(`${this.apiUrl}/Combo/Insertar`, this.producto)
+          .subscribe( data => {
+            if (data && Array.isArray(data) && data.length > 0) {
+              const producto1 = data[0] as any; 
+              this.comboDetalle.comb_Id = producto1.comb_Id;
+            }
       
+            
+            this.comboDetalle.usua_Creacion = 2;
+            this.comboDetalle.coDe_FechaCreacion = fecha;
+            for(const item of this.seleccionados)
+            {
+              this.comboDetalle.prTa_Id = item.prTa_Id
+              this.comboDetalle.coDe_Cantidad = item.cantidad
+              console.log(this.comboDetalle);
+              if(!(this.comboDetalle.prTa_Id && this.comboDetalle.comb_Id )) {
+
+                if(!this.comboDetalle.prTa_Id)
+                {
+                  this.messageService.add({
+                    severity: 'error',
+                    summary: 'Error',
+                    detail: 'Debe selecionarse al menos un producto'
+                  });
+                }
+                return
   
-      //     this.productoPorTamano.usua_Creacion = 2;
-      //     this.productoPorTamano.prTa_FechaCreacion = fecha;
-      //     for (let clave in this.preciosPorTamano) {
-      //       if (this.preciosPorTamano.hasOwnProperty(clave)) {
-      //         let valor = this.preciosPorTamano[clave];
-      //         this.productoPorTamano.tama_Id = Number(clave);
-      //         this.productoPorTamano.prTa_Precio = valor;
-      //         console.log(this.productoPorTamano);
-      //         if(!(this.productoPorTamano.tama_Id && this.productoPorTamano.prTa_Precio && this.productoPorTamano.prod_Id)) {
-      //           return
-  
-      //         }
-      //         this.http.post<Respuesta<ProductoPorTamano>>(`${this.apiUrl}/ProductoPorTamano/Insertar`, this.productoPorTamano)
-      //         .subscribe({
-      //           next: (response) => {
-      //           if (response && response.data.codeStatus >0) {
-      //             console.log(response)
-      //             this.creado.emit();
-      //           } else {
-      //             this.errorCrear.emit();
-      //           }
-      //         }
-      //         });
-      //       }
-      //     }
-      //     });
+              }
+
+                this.http.post<Respuesta<ComboDetalle>>(`${this.apiUrl}/ComboDetalle/Insertar`, this.comboDetalle)
+                          .subscribe({
+                            next: (response) => {
+                            if (response && response.data.codeStatus >0) {
+                              console.log(response)
+                              this.creado.emit();
+                            } else {
+                              this.errorCrear.emit();
+                            }
+                          }
+                          });
+
+              
+            }
+              
+          
+          
+          });
         
-      //     },
-      //     error: (err: any) => console.error('Error al subir imagen:', err)
-      //   })
+          },
+          error: (err: any) => console.error('Error al subir imagen:', err)
+        })
         
         
         
-      // }
+      }
   
       ngOnInit(): void {
         this.cont = 0;
@@ -199,20 +235,22 @@ ListarProductosPorTamano() {
         descripcion: string;
         cantidad: number;
         tamano: string;
+       
       }[] = [];
-      
+      comb_Precio = 0;
       total: number = 0;
       descuento: number = 0;
       totalConDescuento: number = 0;
 
       calcularTotal() {
-        this.total = this.seleccionados.reduce((acc, item) => acc + item.precio, 0);
+        this.total = this.seleccionados.reduce((acc, item) => acc + item.precio * item.cantidad, 0);
         this.descuento = this.total * 0.05;
         this.totalConDescuento = this.total - this.descuento;
+        this.comb_Precio = this.totalConDescuento;
         console.log(this.totalConDescuento);
       }
       agregarAlCombo(prTa_Id: number) {
-        // Buscar el producto y tamaño en base al prTa_Id
+      
         const producto = this.productosPorTamano.find(p =>
           p.tamanios.some(t => t.prTa_Id === prTa_Id)
         );
@@ -221,7 +259,7 @@ ListarProductosPorTamano() {
         const tamanioSeleccionado = producto.tamanios.find(t => t.prTa_Id === prTa_Id);
         if (!tamanioSeleccionado) return;
       
-        // Verificar si ya está en el arreglo
+     
         const existente = this.seleccionados.find(s => s.prTa_Id === prTa_Id);
         if (existente) {
           existente.cantidad += 1;
@@ -235,7 +273,7 @@ ListarProductosPorTamano() {
           });
         }
       
-        // Recalcular total
+       
         this.calcularTotal();
       }
       

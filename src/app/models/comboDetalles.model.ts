@@ -6,7 +6,8 @@ export class ComboDetalle{
   coDe_FechaCreacion: Date = new Date();
   usua_Modificacion: number = 0;
   coDe_FechaModificacion: Date = new Date();
-
+  coDe_Cantidad: number = 0;
+  codeStatus: number = 0;
   constructor(init?: Partial<ComboDetalle>) {
     Object.assign(this, init);
 }

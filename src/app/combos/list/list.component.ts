@@ -14,6 +14,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { Table, TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
+import { ComboDetalle } from 'src/app/models/comboDetalles.model';
 
 
 import {
@@ -25,6 +26,7 @@ import {
 } from '@angular/animations';
 
 import { MenuItem } from 'primeng/api';
+import { Respuesta } from 'src/app/models/respuesta.model';
 
 @Component({
   selector: 'app-list',
@@ -60,7 +62,7 @@ export class CombosListComponent implements OnInit {
   combos: any[] = [];
   combo = new Combo();
   url =  this.apiUrl;
-
+  comboDetalle = new ComboDetalle();
   private http = inject(HttpClient);
   private router = inject(Router);
   constructor(
@@ -135,18 +137,40 @@ export class CombosListComponent implements OnInit {
   
     EliminarCombo(id: number): void {
       this.combo.comb_Id = id;
-      this.http.post(`${this.apiUrl}/Combo/Eliminar`, this.combo)
-        .subscribe(() => {
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Eliminado',
-            detail: 'Combo eliminado'
-          });
-          this.listarCombos();
-        });
-    }
+      this.http.post<Respuesta<Combo>>(`${this.apiUrl}/Combo/Eliminar`, this.combo)
+     
+      .subscribe({ 
+        next: (response) => {
+          if (response && response.data.codeStatus >0) {
+            console.log(response)
   
-
+           
+            
+                  console.log(response)
+                  this.messageService.add({
+                    severity: 'success',
+                    summary: 'Eliminado',
+                    detail: 'Combo eliminado'
+                  });
+                  this.listarCombos();
+               
+          }
+          else
+          {
+            console.log(response)
+                  this.messageService.add({
+                    severity: 'error',
+                    summary: 'Error',
+                    detail: 'No se pudo eliminar el combo'
+                  });
+                  this.listarCombos();
+          }
+    },
+     
+      })
+        
+  
+    }
 
     toggleCreate(): void {
       this.showCreate = !this.showCreate;
@@ -173,7 +197,17 @@ export class CombosListComponent implements OnInit {
         });
       }, 100);
     }
-
+    crearError(): void {
+      this.showCreate = false;
+      this.listarCombos();
+      setTimeout(() => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'El Combo no se pudo crear'
+        });
+      }, 100);
+    }
     onGlobalFilter(table: Table, event: Event) {
       table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
     }

@@ -2,7 +2,7 @@
 
 <div class="card">
     <div class="card-body">
-     <form >
+     <form (submit)="crearCombo()">
         <div class="row mt-3">
 
 
@@ -18,7 +18,7 @@
               [showUploadButton]="false"
               [showCancelButton]="false"
               styleClass="border-1 surface-border surface-card border-round"
-              [(ngModel)] = "producto.prod_ImgUrl"
+              [(ngModel)] = "producto.comb_ImgUrl"
               required #img="ngModel"
               >
 
@@ -29,15 +29,15 @@
                 <div class="h-15rem overflow-y-auto py-3 border-round" style="cursor: copy" (click)="fileUploader.advancedFileInput.nativeElement.click()">
 
                   <!-- Si no hay imagen -->
-                  <div *ngIf="!producto.prod_ImgUrl" class="flex flex-column w-full h-full justify-content-center align-items-center">
+                  <div *ngIf="!producto.comb_ImgUrl" class="flex flex-column w-full h-full justify-content-center align-items-center">
                     <i class="pi pi-file text-4xl text-primary"></i>
                     <span class="block font-semibold text-900 text-lg mt-3">Seleccionar una imagen</span>
                   </div>
 
                   <!-- Si ya hay una imagen -->
-                  <div *ngIf="producto.prod_ImgUrl" class="flex flex-wrap gap-3 border-round">
+                  <div *ngIf="producto.comb_ImgUrl" class="flex flex-wrap gap-3 border-round">
                     <div class="h-full relative w-7rem h-7rem border-3 border-transparent border-round">
-                      <img [src]="producto.prod_ImgUrl" class="w-full h-full border-round shadow-2">
+                      <img [src]="producto.comb_ImgUrl" class="w-full h-full border-round shadow-2">
                       <button
                         pButton
                         type="button"
@@ -51,21 +51,21 @@
                 </div>
               </ng-template>
             </p-fileUpload>
-            <small class="p-error" *ngIf="!producto.prod_ImgUrl && cont2 == 1">La imagen es requerida</small>
+            <small class="p-error" *ngIf="!producto.comb_ImgUrl && cont2 == 1">La imagen es requerida</small>
           </div>
       </div>
         <div class="row mt-3">
             <div class="col-md-6">
                 <label for="" class="label-control">Nombre</label><span class="text-red-400">*</span>
-                <input type="text" name="prod_Descripcion" [(ngModel)] = "producto.prod_Descripcion" class="form-control" required #descripcion="ngModel"/>
-                <small class="p-error" *ngIf="descripcion.invalid && cont == 1">El nombre es requerido</small>
+                <input type="text" name="prod_Descripcion" [(ngModel)] = "producto.comb_Descripcion" class="form-control" required #descripcion="ngModel"/>
+                <small class="p-error" *ngIf="(descripcion.invalid && !producto.comb_Descripcion.trim()) && cont == 1">El nombre es requerido</small>
                 <br>
 
             </div>
             <div class="col-md-6">
               <label for="" class="label-control">Precio</label><span class="text-red-400">*</span>
-              <input type="text" name="prod_Descripcion" [(ngModel)] = "producto.prod_Descripcion" class="form-control" required #descripcion="ngModel" readonly value="{{totalConDescuento.toFixed(2)}}"/>
-              <small class="p-error" *ngIf="descripcion.invalid && cont == 1">El nombre es requerido</small>
+              <input type="number" name="comb_Precio" [(ngModel)] = "producto.comb_Precio" class="form-control" readonly  required #precio="ngModel"  value="{{totalConDescuento.toFixed(2)}}"/>
+              <small class="p-error" *ngIf="precio.invalid && cont == 1">El precio es requerido</small>
               <br>
 
           </div>
@@ -75,7 +75,7 @@
             <div class="p-2">
                 <div class="shadow-2 p-4 surface-card border-round">
                     <div class="relative mb-3 imagen-container">
-                        <span class="surface-card text-900 shadow-2 px-3 py-2 absolute" style="border-radius: 1.5rem; left: 1rem; top: 1rem"></span>
+                        <span class="surface-card text-900 shadow-2 px-3 py-2 absolute" style="border-radius: 1.5rem; left: 1rem; top: 1rem;">{{producto.cate_Descripcion}}</span>
                         <img [src]="url + '/' + producto.prod_ImgUrl"  class="w-full" height="200px"/>
 
                     </div>
@@ -84,6 +84,7 @@
                           {{producto.prod_Descripcion}} <br> 
                           <div class="tamanios-container" >
                             <button
+                            type="button"
                               *ngFor="let t of productosPorTamano[i].tamanios"
                               (click)="seleccionarTamano(producto.prod_Descripcion, t.prTa_Id)"
                               [ngClass]="{'btn-tamano': true, 'activo': selectedTamanios[producto.prod_Descripcion] === t.prTa_Id}">
@@ -119,6 +120,8 @@
                 </tr>
               </tbody>
             </table>
+
+           
           </div>
         </div>
         <div class="row mt-3">
@@ -130,4 +133,7 @@
 
           </div>
       </div>
+      
      </form>
+     <p-confirmDialog></p-confirmDialog>
+      <p-toast></p-toast> 
