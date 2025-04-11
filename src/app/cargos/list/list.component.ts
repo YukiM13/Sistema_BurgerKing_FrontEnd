@@ -5,7 +5,7 @@ import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http'
 import { Cargo } from '../../models/cargos.model'
 import {CargoCreateComponent } from '../create/create.component';
-//import {EsCiEditComponent} from '../edit/edit.component';
+import { CargoEditComponent } from '../edit/edit.component';
 import { environment } from '../../../enviroments/enviroment'; 
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { ButtonModule } from 'primeng/button';
@@ -30,7 +30,7 @@ import { InputTextModule } from 'primeng/inputtext';
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [CommonModule, RouterModule, CargoCreateComponent, SplitButtonModule, ButtonModule,ConfirmDialogModule,ToastModule, TableModule,InputTextModule],
+  imports: [CommonModule, RouterModule, CargoCreateComponent, CargoEditComponent, SplitButtonModule, ButtonModule,ConfirmDialogModule,ToastModule, TableModule,InputTextModule],
   providers:[MessageService, ConfirmationService],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss',
@@ -53,7 +53,7 @@ export class CargosListComponent implements OnInit {
 
   private apiUrl = environment.apiUrl;
 
-
+  showDetails = false;
   showCreate = false;
   showEdit = false;
   loading = [false, false, false, false];
@@ -89,12 +89,12 @@ export class CargosListComponent implements OnInit {
       {
         label: 'Editar',
         icon: 'pi pi-pencil',
-        //command: () => this.ObtenerEstadoCivil(cargo.car)
+        command: () => this.ObtenerCargo(cargo.carg_Id, 1)
       },
       {
         label: 'Detalles',
         icon: 'pi pi-eye',
-        // Puedes añadir lógica si se desea
+        command: () => this.ObtenerCargo(cargo.carg_Id, 2)
       },
       {
         label: 'Eliminar',
@@ -104,16 +104,21 @@ export class CargosListComponent implements OnInit {
     ];
   }
 
-  /*
-   ObtenerEstadoCivil(id: number): void {
-      this.estadoCivil.esCi_Id = id;
-      this.http.post<EstadoCivil>(`${this.apiUrl}/EstadoCivil/Find`, this.estadoCivil)
-        .subscribe(data => {
-          this.estadoCivilSeleccionado = data;
-          this.showEdit = true;
-        });
+  
+  ObtenerCargo(id: number, accion:number): void {
+    
+    this.cargoSeleccionado = id; // solo el ID
+    if(accion == 1)
+    {
+      this.showEdit = true;
     }
-  */
+    else
+    {
+      this.showDetails = true;
+    }
+    
+}
+  
   
     confirmarEliminacion(id: number): void {
      
@@ -164,6 +169,11 @@ export class CargosListComponent implements OnInit {
       this.showEdit = false;
       this.listarCargos();
     }
+
+    cancelDetails(): void {
+      this.showDetails = false;
+      this.listarCargos();
+    }
   
     registroCreado(): void {
       this.showCreate = false;
@@ -176,6 +186,31 @@ export class CargosListComponent implements OnInit {
         });
       }, 100);
     }
+
+    crearError(): void {
+      this.showCreate = false;
+      this.listarCargos();
+      setTimeout(() => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'El cargo no se pudo crear'
+        });
+      }, 100);
+    }
+
+    registroActualizado(): void {
+      this.showEdit = false;
+      this.listarCargos();
+      setTimeout(() => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Exito',
+          detail: 'El cargo fue actualizado exitosamente'
+        });
+      }, 100);
+    }
+
     onGlobalFilter(table: Table, event: Event) {
         table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
       }
