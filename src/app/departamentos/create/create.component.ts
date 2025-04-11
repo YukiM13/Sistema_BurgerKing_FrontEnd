@@ -43,7 +43,7 @@ export class DepaCreateComponent {
 
   crearDepartamento() {
     this.cont = 1;
-        if(!this.departamento.depa_Codigo || !this.departamento.depa_Descripcion ) 
+        if(!this.departamento.depa_Codigo.trim()  || !this.departamento.depa_Descripcion.trim() ) 
         {
           this.messageService.add({
             severity: 'warn',
