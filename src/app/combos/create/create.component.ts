@@ -14,7 +14,19 @@ import { Respuesta } from 'src/app/models/respuesta.model';
 import { Tamano } from 'src/app/models/tamano.model';
 import { Combo } from 'src/app/models/combos.model'; 
 import { ComboDetalle } from 'src/app/models/comboDetalles.model';
+import { ProductoPorTamano } from 'src/app/models/productoPorTamano.model';
 
+interface PrecioTamanio {
+  prTa_Id: number;
+  tama_Descripcion: string;
+  prTa_Precio: number;
+}
+
+interface ProductoAgrupado {
+  prod_Descripcion: string;
+  prod_ImgUrl: string;
+  tamanios: PrecioTamanio[];
+}
 
 @Component({
   selector: 'app-create',
@@ -35,7 +47,7 @@ export class CombosCreateComponent {
     cont1 = 0;
     cont2 = 0;
       showRemove: boolean = false;
-  
+    url = this.apiUrl;
       selectedFile: File | null = null;
       nombreOriginal: string = '';
   onUpload(event: any) {
@@ -51,6 +63,7 @@ export class CombosCreateComponent {
       console.log('Imagen cargada:', e.target.result);
   
     };
+    reader.readAsDataURL(file);
   };
   uploadImage(): Observable<any> {
     this.cont2 = 1;
@@ -58,51 +71,43 @@ export class CombosCreateComponent {
     formData.append('imagen', this.selectedFile!);
     return this.http.post(`${this.apiUrl}/Producto/subirImagen`, formData);
   }
-  tamanoSeleccionado: number[] = [];
-  preciosPorTamano: { [key: number]: number } = {}; 
-  modalVisible: boolean = false;
   
   
-  tamanosSeleccionadosConDescripcion: any[] = [];
-  onTamanoChange(event: any) {
-    const seleccionados: number[] = event.value;
   
   
-    this.tamanosSeleccionadosConDescripcion = this.tamanos.filter(t => seleccionados.includes(t.tama_Id));
-  
-  
-    this.tamanosSeleccionadosConDescripcion.forEach(t => {
-      if (this.preciosPorTamano[t.tama_Id] === undefined) {
-        this.preciosPorTamano[t.tama_Id] = 0;
+ 
+  productosPorTamano: ProductoAgrupado[] = [];
+
+ListarProductosPorTamano() {
+  this.http.get<any[]>(`${this.apiUrl}/ProductoPorTamano/Listar`).subscribe({
+    next: (data) => {
+      const agrupados: { [key: string]: ProductoAgrupado } = {};
+
+      for (const item of data) {
+        const key = `${item.prod_Descripcion}-${item.prod_ImgUrl}`;
+        if (!agrupados[key]) {
+          agrupados[key] = {
+            prod_Descripcion: item.prod_Descripcion,
+            prod_ImgUrl: item.prod_ImgUrl,
+            tamanios: []
+          };
+        }
+
+        agrupados[key].tamanios.push({
+          prTa_Id: item.prTa_Id,
+          tama_Descripcion: item.tama_Descripcion,
+          prTa_Precio: item.prTa_Precio
+        });
       }
-    });
-  
-    this.modalVisible = this.tamanosSeleccionadosConDescripcion.length > 0;
-   
-  }
-  
-  guardarPrecios() {
-   
-    this.cont1 = 1;
-    console.log("Antes:", this.preciosPorTamano);
-    const preciosValidos = this.tamanosSeleccionadosConDescripcion.every(t => this.preciosPorTamano[t.tama_Id] > 0);
-  
-    if (!preciosValidos) {
-      
-      return;
+
+      this.productosPorTamano = Object.values(agrupados);
+      console.log(this.productosPorTamano);
+    },
+    error: (err) => {
+      console.error('Error al obtener los productos:', err);
     }
-  
-    console.log('Precios guardados:', this.preciosPorTamano);
-    this.modalVisible = false;
-  }
-  cancelarModal() {
-    
-    this.tamanosSeleccionadosConDescripcion.forEach(t => {
-      delete this.preciosPorTamano[t.tama_Id];
-    });
-  
-    this.modalVisible = false;
-  }
+  });
+}
       removeImage() {
         this.producto.prod_ImgUrl = '';
         this.selectedFile = null;
@@ -179,47 +184,63 @@ export class CombosCreateComponent {
         this.cont = 0;
         this.cont1 = 0;
         this.cont2 = 0;
-        this.listarCategoria();
-        this.listarTamanos();
+      
+        this.ListarProductosPorTamano();
       }
       
-     
+      selectedTamanios: { [descripcion: string]: number } = {};
+      seleccionarTamano(prodDescripcion: string, prTaId: number) {
+        this.selectedTamanios[prodDescripcion] = prTaId;
+      }
+
+      seleccionados: {
+        prTa_Id: number;
+        precio: number;
+        descripcion: string;
+        cantidad: number;
+        tamano: string;
+      }[] = [];
+      
+      total: number = 0;
+      descuento: number = 0;
+      totalConDescuento: number = 0;
+
+      calcularTotal() {
+        this.total = this.seleccionados.reduce((acc, item) => acc + item.precio, 0);
+        this.descuento = this.total * 0.05;
+        this.totalConDescuento = this.total - this.descuento;
+        console.log(this.totalConDescuento);
+      }
+      agregarAlCombo(prTa_Id: number) {
+        // Buscar el producto y tamaño en base al prTa_Id
+        const producto = this.productosPorTamano.find(p =>
+          p.tamanios.some(t => t.prTa_Id === prTa_Id)
+        );
+        if (!producto) return;
+      
+        const tamanioSeleccionado = producto.tamanios.find(t => t.prTa_Id === prTa_Id);
+        if (!tamanioSeleccionado) return;
+      
+        // Verificar si ya está en el arreglo
+        const existente = this.seleccionados.find(s => s.prTa_Id === prTa_Id);
+        if (existente) {
+          existente.cantidad += 1;
+        } else {
+          this.seleccionados.push({
+            prTa_Id: prTa_Id,
+            descripcion: producto.prod_Descripcion,
+            tamano: tamanioSeleccionado.tama_Descripcion,
+            precio: tamanioSeleccionado.prTa_Precio,
+            cantidad: 1
+          });
+        }
+      
+        // Recalcular total
+        this.calcularTotal();
+      }
       
     prueba: any[] = [];
-      categorias: any[] = [];
-      tamanos: any[] = [];
   
       //municipos = new Municipios();
-      listarTamanos(): void {
-        this.http.get<any[]>(`${this.apiUrl}/Tamano/Listar`)
-        .subscribe({
-          next: (response) => {
-              
-            this.tamanos = response;
-             
-             console.log(this.tamanos);
-             
-           },
-           error: (error) => {
-            
-             this.tamanos = [];
-           }
-        })
-      }
-      listarCategoria(): void {
-        this.http.get<any[]>(`${this.apiUrl}/Categoria/Listar`)
-          .subscribe({
-            next: (response) => {
-              
-             this.categorias = response;
-              
-              console.log(this.categorias);
-              
-            },
-            error: (error) => {
-             
-              this.categorias = [];
-            }
-          });
-      }
+    
 }
