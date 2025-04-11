@@ -1,0 +1,133 @@
+<h2 >Crear Combo</h2>
+
+<div class="card">
+    <div class="card-body">
+     <form >
+        <div class="row mt-3">
+
+
+            <div class="col-md-12 ">
+              <label for="">Imagen del Combo</label><span class="text-red-400">*</span>
+              <p-fileUpload
+              #fileUploader
+              name="imagen"
+              [customUpload]="true"
+              (onSelect)="onUpload($event)"
+              accept="image/*"
+              [multiple]="false"
+              [showUploadButton]="false"
+              [showCancelButton]="false"
+              styleClass="border-1 surface-border surface-card border-round"
+              [(ngModel)] = "producto.prod_ImgUrl"
+              required #img="ngModel"
+              >
+
+            >
+
+              <ng-template pTemplate="content">
+
+                <div class="h-15rem overflow-y-auto py-3 border-round" style="cursor: copy" (click)="fileUploader.advancedFileInput.nativeElement.click()">
+
+                  <!-- Si no hay imagen -->
+                  <div *ngIf="!producto.prod_ImgUrl" class="flex flex-column w-full h-full justify-content-center align-items-center">
+                    <i class="pi pi-file text-4xl text-primary"></i>
+                    <span class="block font-semibold text-900 text-lg mt-3">Seleccionar una imagen</span>
+                  </div>
+
+                  <!-- Si ya hay una imagen -->
+                  <div *ngIf="producto.prod_ImgUrl" class="flex flex-wrap gap-3 border-round">
+                    <div class="h-full relative w-7rem h-7rem border-3 border-transparent border-round">
+                      <img [src]="producto.prod_ImgUrl" class="w-full h-full border-round shadow-2">
+                      <button
+                        pButton
+                        type="button"
+                        icon="pi pi-times"
+                        class="p-button-rounded p-button-primary text-sm absolute w-2rem h-2rem"
+                        style="top: -10px; right: -10px;"
+                        (click)="removeImage()"
+                      ></button>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+            </p-fileUpload>
+            <small class="p-error" *ngIf="!producto.prod_ImgUrl && cont2 == 1">La imagen es requerida</small>
+          </div>
+      </div>
+        <div class="row mt-3">
+            <div class="col-md-6">
+                <label for="" class="label-control">Nombre</label><span class="text-red-400">*</span>
+                <input type="text" name="prod_Descripcion" [(ngModel)] = "producto.prod_Descripcion" class="form-control" required #descripcion="ngModel"/>
+                <small class="p-error" *ngIf="descripcion.invalid && cont == 1">El nombre es requerido</small>
+                <br>
+
+            </div>
+            <div class="col-md-6">
+              <label for="" class="label-control">Precio</label><span class="text-red-400">*</span>
+              <input type="text" name="prod_Descripcion" [(ngModel)] = "producto.prod_Descripcion" class="form-control" required #descripcion="ngModel" readonly value="{{totalConDescuento.toFixed(2)}}"/>
+              <small class="p-error" *ngIf="descripcion.invalid && cont == 1">El nombre es requerido</small>
+              <br>
+
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-6 md:col-6 lg:col-4" *ngFor="let producto of productosPorTamano; let i = index" >
+            <div class="p-2">
+                <div class="shadow-2 p-4 surface-card border-round">
+                    <div class="relative mb-3 imagen-container">
+                        <span class="surface-card text-900 shadow-2 px-3 py-2 absolute" style="border-radius: 1.5rem; left: 1rem; top: 1rem"></span>
+                        <img [src]="url + '/' + producto.prod_ImgUrl"  class="w-full" height="200px"/>
+
+                    </div>
+                    <div class="flex justify-content-between align-items-center mb-3" >
+                        <span class="text-900 font-medium text-xl">
+                          {{producto.prod_Descripcion}} <br> 
+                          <div class="tamanios-container" >
+                            <button
+                              *ngFor="let t of productosPorTamano[i].tamanios"
+                              (click)="seleccionarTamano(producto.prod_Descripcion, t.prTa_Id)"
+                              [ngClass]="{'btn-tamano': true, 'activo': selectedTamanios[producto.prod_Descripcion] === t.prTa_Id}">
+                              {{ t.tama_Descripcion }}
+                            </button>
+                          </div>
+                        </span>
+                        <span >
+                         <button type="button" (click)="agregarAlCombo(selectedTamanios[producto.prod_Descripcion])" class="btn btn-primary"><i class="pi pi-plus"></i></button>
+                        </span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <h3>Detalles del combo</h3>
+            <table class="tabla-combo">
+              <thead>
+                <tr>
+                  <th>Producto</th>
+                  <th>Tamaño</th>
+                  <th>Cantidad</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of seleccionados">
+                  <td>{{ item.descripcion }}</td>
+                  <td>{{ item.tamano }}</td>
+                  <td>{{ item.cantidad }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div>
+              <div class="col-md-12 text-right">
+                  <input type="submit" class="btn btn-primary m-2" value="Guardar"  />
+                  <button type="button" class="btn btn-danger m-2" (click)="cancelarFormulario()" class="btn btn-secondary">Cancelar</button>
+              </div>
+
+          </div>
+      </div>
+     </form>

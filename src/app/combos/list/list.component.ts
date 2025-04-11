@@ -4,7 +4,7 @@ import {RouterModule} from '@angular/router'
 import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http'
 import { Combo } from '../../models/combos.model'
-//import {CargoCreateComponent } from '../create/create.component';
+import { CombosCreateComponent } from '../create/create.component'; 
 //import {EsCiEditComponent} from '../edit/edit.component';
 import { environment } from '../../../enviroments/enviroment'; 
 import { SplitButtonModule } from 'primeng/splitbutton';
@@ -29,7 +29,7 @@ import { MenuItem } from 'primeng/api';
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [CommonModule, RouterModule, SplitButtonModule, ButtonModule,ConfirmDialogModule,ToastModule, TableModule, InputTextModule],
+  imports: [CommonModule, RouterModule, SplitButtonModule, ButtonModule,ConfirmDialogModule,ToastModule, TableModule, InputTextModule,CombosCreateComponent],
   providers:[MessageService, ConfirmationService],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss',
@@ -59,7 +59,7 @@ export class CombosListComponent implements OnInit {
   comboSeleccionado: any;
   combos: any[] = [];
   combo = new Combo();
-
+  url =  this.apiUrl;
 
   private http = inject(HttpClient);
   private router = inject(Router);
