@@ -34,7 +34,7 @@ export class AppMenuComponent implements OnInit {
                         items: [
                             {
                                 label: 'Usuarios',
-                                icon: 'pi pi-fw pi-image',
+                                icon: 'pi pi-fw pi-users',
                                 routerLink: ['/usuario']
                             },
                             {
@@ -68,7 +68,7 @@ export class AppMenuComponent implements OnInit {
                             },
                             {
                                 label: 'Empleados',
-                                icon: 'pi pi-fw pi-list',
+                                icon: 'pi pi-fw pi-users',
                                 routerLink: ['/empleado']
                             },
                             {
@@ -78,12 +78,12 @@ export class AppMenuComponent implements OnInit {
                             },
                             {
                                 label: 'Sucursales',
-                                icon: 'pi pi-fw pi-pencil',
+                                icon: 'pi pi-fw pi-shop',
                                 routerLink: ['/sucursal']
                             },
                             {
                                 label: 'Clientes',
-                                icon: 'pi pi-fw pi-pencil',
+                                icon: 'pi pi-fw pi-users',
                                 routerLink: ['/cliente']
                             },
                            
@@ -95,7 +95,7 @@ export class AppMenuComponent implements OnInit {
                         
 
                         label: 'Ventas',
-                        icon: 'pi pi-fw pi-globe',
+                        icon: 'pi pi-fw pi-cart-plus',
                         items: [
                             {
                                 label: 'Tamaño',

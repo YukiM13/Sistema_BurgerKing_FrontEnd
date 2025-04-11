@@ -6,7 +6,7 @@
         <div class="row mt-3">
 
 
-            <div class="col-md-12 ">
+            <div class="col-md-6 ">
               <label for="">Imagen del Combo</label><span class="text-red-400">*</span>
               <p-fileUpload
               #fileUploader
@@ -52,6 +52,26 @@
               </ng-template>
             </p-fileUpload>
             <small class="p-error" *ngIf="!producto.comb_ImgUrl && cont2 == 1">La imagen es requerida</small>
+          </div>
+          <div class="col-md-6">
+            <h3>Detalles del combo</h3>
+            <table class="tabla-combo">
+              <thead>
+                <tr>
+                  <th>Producto</th>
+                  <th>Tamaño</th>
+                  <th>Cantidad</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of seleccionados">
+                  <td>{{ item.descripcion }}</td>
+                  <td>{{ item.tamano }}</td>
+                  <td>{{ item.cantidad }}</td>
+                </tr>
+              </tbody>
+            </table>
+
           </div>
       </div>
         <div class="row mt-3">
@@ -101,29 +121,7 @@
             </div>
         </div>
         </div>
-        <div class="row">
-          <div class="col-md-12">
-            <h3>Detalles del combo</h3>
-            <table class="tabla-combo">
-              <thead>
-                <tr>
-                  <th>Producto</th>
-                  <th>Tamaño</th>
-                  <th>Cantidad</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let item of seleccionados">
-                  <td>{{ item.descripcion }}</td>
-                  <td>{{ item.tamano }}</td>
-                  <td>{{ item.cantidad }}</td>
-                </tr>
-              </tbody>
-            </table>
-
-           
-          </div>
-        </div>
+        
         <div class="row mt-3">
           <div>
               <div class="col-md-12 text-right">
