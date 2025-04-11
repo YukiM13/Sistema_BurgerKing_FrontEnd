@@ -61,7 +61,7 @@ export class ClienteCreateComponent implements OnInit {
     //this.cliente.clie_Sexo = sexo;
 
     this.cont = 1;
-    if(!this.cliente.clie_Nombre || !this.cliente.clie_Apellido || !this.cliente.clie_Sexo || !this.cliente.clie_Identidad_Rtn)
+    if(!this.cliente.clie_Nombre.trim() || !this.cliente.clie_Apellido.trim() || !this.cliente.clie_Sexo || !this.cliente.clie_Identidad_Rtn.trim())
     {
       this.messageService.add({
         severity: 'warn',

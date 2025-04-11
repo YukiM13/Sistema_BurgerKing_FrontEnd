@@ -122,7 +122,7 @@ export class SucursalCreateComponent {
 
   crearSucursal()  {
     this.cont = 1;
-    if(!this.sucursal.sucu_Descripcion || !this.sucursal.muni_Codigo || !this.sucursal.sucu_Direccion)
+    if(!this.sucursal.sucu_Descripcion.trim() || !this.sucursal.muni_Codigo || !this.sucursal.sucu_Direccion.trim())
     {
       this.messageService.add({
         severity: 'warn',

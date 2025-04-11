@@ -45,7 +45,7 @@
     categoria = new Categoria();
     crearCategoria()  {
       this.cont = 1;
-      if(!this.categoria.cate_Descripcion) 
+      if(!this.categoria.cate_Descripcion.trim()) 
       {
         this.messageService.add({
           severity: 'warn',

@@ -3,6 +3,7 @@ import {CommonModule, NgFor} from '@angular/common';
 import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {FormsModule} from '@angular/forms'
+import { Respuesta } from '../../models/respuesta.model';
 import { Cargo } from '../../models/cargos.model'
 import { environment } from 'src/enviroments/enviroment';
 import { MessageService } from 'primeng/api';
@@ -11,7 +12,7 @@ import { ToastModule } from 'primeng/toast';
 @Component({
   selector: 'app-create',
   standalone: true,
-  imports: [CommonModule, FormsModule, ToastModule],
+  imports: [CommonModule, FormsModule, ToastModule ],
   providers: [MessageService],
   templateUrl: './create.component.html',
   styleUrl: './create.component.scss'
@@ -23,6 +24,7 @@ export class CargoCreateComponent {
   http = inject(HttpClient);
   @Output() cancelar = new EventEmitter<void>();  
   @Output() creado = new EventEmitter<void>();
+  @Output() errorCrear = new EventEmitter<void>();
  
   cont = 0;
   ngOnInit(): void {
@@ -42,7 +44,7 @@ export class CargoCreateComponent {
 
   crearCargo()  {
     this.cont = 1;
-    if(!this.cargos.carg_Descripcion)
+    if(!this.cargos.carg_Descripcion.trim())
     {
       this.messageService.add({
         severity: 'warn',
@@ -56,12 +58,19 @@ export class CargoCreateComponent {
     this.cargos.usua_Creacion= 2;
     const fecha = new Date();
     this.cargos.carg_FechaCreacion = fecha;  
-    this.http.post(`${this.apiUrl}/Cargo/Insertar`, this.cargos)
-    .subscribe(() => {
-      this.creado.emit();
+    this.http.post<Respuesta<Cargo>>(`${this.apiUrl}/Cargo/Insertar`, this.cargos)
+    .subscribe({
+      next: (response) => {
+      if (response && response.data.codeStatus >0) {
+        console.log(response)
+        this.creado.emit();
+      } else {
+        this.errorCrear.emit();
+      }
     }
+    });
 
-    );
+    
     
     
     

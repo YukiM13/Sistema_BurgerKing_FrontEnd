@@ -9,13 +9,13 @@
                 
                 <label for="" class="label-control">Usuario</label>  <span class="text-red-400">*</span>
                 <input pinputtext id="usuar" name="usua_Usuario" [(ngModel)] = "usuario.usua_Usuario" class="p-inputtext form-control ng-invalid " required #usuar="ngModel"/>
-                <small class="p-error" *ngIf="usuar.invalid && cont == 1">El usuario es requerido</small>
+                <small class="p-error" *ngIf="(usuar.invalid || !usuario.usua_Usuario.trim()) && cont == 1">El usuario es requerido</small>
                 
             </div>
             <div class="col-md-6">
                 <label for="" class="label-control">Contraseña</label>  <span class="text-red-400">*</span>
                 <input pinputtext id="cla" name="usua_Clave" [(ngModel)] = "usuario.usua_Clave" class="p-inputtext form-control ng-invalid " required #cla="ngModel"/>
-                <small class="p-error" *ngIf="cla.invalid && cont == 1">La clave es requerido</small>
+                <small class="p-error" *ngIf="(cla.invalid || !usuario.usua_Clave.trim()) && cont == 1">La clave es requerido</small>
                 
             </div>
             
@@ -24,7 +24,7 @@
             <div class="col-md-6">
                 <label for="" class="label-control">Correo</label>  <span class="text-red-400">*</span>
                 <input pinputtext id="corr" name="usua_Correo" [(ngModel)] = "usuario.usua_Correo" class="p-inputtext form-control ng-invalid " required #corr="ngModel"/>
-                <small class="p-error" *ngIf="corr.invalid && cont == 1">El correo es requerido</small>
+                <small class="p-error" *ngIf="(corr.invalid || !usuario.usua_Correo.trim()) && cont == 1">El correo es requerido</small>
                 
             </div>
 

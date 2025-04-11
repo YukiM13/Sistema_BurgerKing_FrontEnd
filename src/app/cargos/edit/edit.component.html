@@ -1,0 +1,25 @@
+<h2 >Editar Cargo</h2>
+<div class="card">
+ 
+    <div class="card-body">
+     <form (submit)="EditarCargo()"  >
+        <input type="text"  hidden  name="carg_Id" [(ngModel)]="cargo.carg_Id"  class="form-control"  />
+        <div class="row" >
+            
+            <div class="col-md-12" >
+                <label for="" class="label-control">Cargo</label>
+                <input type="text" name="carg_Descripcion" [(ngModel)]="cargo.carg_Descripcion"   id="carg_Descripcion"   class="form-control" />
+                <br>
+              
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <input type="submit"  class="btn btn-primary" value="Guardar" />
+                <button type="button" class="btn btn-secondary" (click)="cancelarFormulario()" class="btn btn-secondary">Cancelar</button>
+            </div>
+        </div>
+     </form>
+    </div>
+  </div>
+

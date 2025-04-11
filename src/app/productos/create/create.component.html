@@ -7,7 +7,7 @@
             <div class="col-md-6">
                 <label for="" class="label-control">Nombre</label><span class="text-red-400">*</span>
                 <input type="text" name="prod_Descripcion" [(ngModel)] = "producto.prod_Descripcion" class="form-control" required #descripcion="ngModel"/>
-                <small class="p-error" *ngIf="descripcion.invalid && cont == 1">El nombre es requerido</small>
+                <small class="p-error" *ngIf="(descripcion.invalid  || !producto.prod_Descripcion.trim()) && cont == 1">El nombre es requerido</small>
                 <br>
                 
             </div>

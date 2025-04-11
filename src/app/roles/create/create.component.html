@@ -3,7 +3,7 @@
     <div class="col-12 md:col-6">
         <label for="" class="label-control">Rol:</label> <span class="text-red-400">*</span>
         <input pinputtext id="descripcion" name="role_Descripcion" [(ngModel)] = "rolAccion.role_Descripcion" class="p-inputtext form-control ng-invalid " required #descripcion="ngModel"/>
-        <small class="p-error" *ngIf="descripcion.invalid && cont == 1">El rol es requerido</small>
+        <small class="p-error" *ngIf="(descripcion.invalid || !rolAccion.role_Descripcion.trim()) && cont == 1">El rol es requerido</small>
     </div>
     <p-pickList [source]="files1" [target]="pantallas2" sourceHeader="Pantallas" targetHeader="Pantallas Asignadas" [dragdrop]="true"
             [responsive]="true" [showSourceControls]="false" [showTargetControls]="false"  [sourceStyle]="{'height':'250px'}" [targetStyle]="{'height':'250px'}">

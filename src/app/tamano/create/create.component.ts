@@ -43,7 +43,7 @@ export class TamanoCreateComponent {
 
   crearTamano()  {
    this.cont = 1;
-    if(!this.tamano.tama_Descripcion) 
+    if(!this.tamano.tama_Descripcion.trim()) 
     {
       this.messageService.add({
         severity: 'warn',

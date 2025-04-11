@@ -126,7 +126,7 @@ cancelarModal() {
      
        this.uploadImage().subscribe({
         next: () => {
-          if(!(this.producto.prod_ImgUrl && this.producto.prod_Descripcion && this.producto.cate_Id)) {
+          if(!(this.producto.prod_ImgUrl && this.producto.prod_Descripcion.trim() && this.producto.cate_Id)) {
             return
           }
           
