@@ -9,6 +9,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { Respuesta } from 'src/app/models/respuesta.model';
 
 @Component({
   selector: 'app-create',
@@ -24,6 +25,7 @@ export class UsuaCreateComponent {
       http = inject(HttpClient);
       @Output() cancelar = new EventEmitter<void>();  
       @Output() creado = new EventEmitter<void>();
+      @Output() errorCrear = new EventEmitter<void>();
      cont = 0;
 
       cancelarFormulario() {
@@ -49,12 +51,19 @@ export class UsuaCreateComponent {
         const fecha = new Date();
         this.usuario.usua_FechaCreacion = fecha;  
        
-        this.http.post(`${this.apiUrl}/Usuario/Insertar`, this.usuario)
-        .subscribe(() => {
-          this.creado.emit();
+        this.http.post<Respuesta<Usuario>>(`${this.apiUrl}/Usuario/Insertar`, this.usuario)
+        .subscribe({
+          next: (response) => {
+          if (response && response.data.codeStatus >0) {
+            console.log(response)
+            this.creado.emit();
+          } else {
+            this.errorCrear.emit();
+          }
         }
+        });
     
-        );
+   
         
       
     }

@@ -171,6 +171,18 @@ export class MuniListComponent  implements OnInit {
         });
       }, 100);
     }
+
+    crearError(): void {
+      this.showCreate = false;
+      this.listarMunicipios();
+      setTimeout(() => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'El municipio no se pudo crear'
+        });
+      }, 100);
+    }
     onGlobalFilter(table: Table, event: Event) {
       table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
     }

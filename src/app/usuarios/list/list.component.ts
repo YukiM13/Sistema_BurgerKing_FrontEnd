@@ -90,8 +90,9 @@ export class UsuaListComponent  implements OnInit {
           // Puedes añadir lógica si se desea
         },
         {
-          label: 'Eliminar',
-          icon: 'pi pi-trash',
+          
+          label: usuario.usua_Estado ? 'Desactivar' : 'Activar',
+          icon: usuario.usua_Estado ? 'pi pi-ban' : 'pi pi-check-circle',
           command: () => this.confirmarEliminacion(usuario.usua_Id)
         }
       ];
@@ -162,6 +163,17 @@ export class UsuaListComponent  implements OnInit {
           severity: 'success',
           summary: 'Exito',
           detail: 'Usuario creado exitosamente'
+        });
+      }, 100);
+    }
+    crearError(): void {
+      this.showCreate = false;
+      this.listarUsuario();
+      setTimeout(() => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'El usuario no se pudo crear'
         });
       }, 100);
     }

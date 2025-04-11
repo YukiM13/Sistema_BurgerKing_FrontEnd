@@ -10,6 +10,7 @@ import { InputTextModule } from "primeng/inputtext";
 import { environment } from 'src/enviroments/enviroment';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { Respuesta } from 'src/app/models/respuesta.model';
 
 @Component({
   selector: 'app-create',
@@ -27,6 +28,7 @@ export class MunicipioCreateComponent {
  
   @Output() cancelar = new EventEmitter<void>();  
   @Output() creado = new EventEmitter<void>();
+  @Output() errorCrear = new EventEmitter<void>();
 
   cancelarFormulario() {
     this.cancelar.emit();  
@@ -89,13 +91,17 @@ export class MunicipioCreateComponent {
     fecha.toLocaleDateString;
     this.municipio.muni_FechaCreacion = new Date(); 
 
-    this.http.post(`${this.apiUrl}/Municipio/Insertar`, this.municipio)
-    .subscribe(() =>{
-      this.creado.emit();
-
+    this.http.post<Respuesta<Municipios>>(`${this.apiUrl}/Municipio/Insertar`, this.municipio)
+    .subscribe({
+      next: (response) => {
+      if (response && response.data.codeStatus >0) {
+        console.log(response)
+        this.creado.emit();
+      } else {
+        this.errorCrear.emit();
+      }
     }
-     
-    );
+    });
 
   }
 }

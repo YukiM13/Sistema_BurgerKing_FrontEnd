@@ -35,6 +35,7 @@ export class SucursalCreateComponent {
   http = inject(HttpClient);
   @Output() cancelar = new EventEmitter<void>();  
   @Output() creado = new EventEmitter<void>();
+  @Output() errorCrear = new EventEmitter<void>();
   constructor(
     private confirmationService: ConfirmationService,
     private messageService: MessageService
@@ -136,12 +137,17 @@ export class SucursalCreateComponent {
     this.sucursal.usua_Creacion = 2;
     const fecha = new Date();
     this.sucursal.sucu_FechaCreacion = fecha;  
-    this.http.post(`${this.apiUrl}/Sucursal/Insertar`, this.sucursal)
-    .subscribe(() => {
-      this.creado.emit();
+    this.http.post<Respuesta<Sucursal>>(`${this.apiUrl}/Sucursal/Insertar`, this.sucursal)
+    .subscribe({
+      next: (response) => {
+      if (response && response.data.codeStatus >0) {
+        console.log(response)
+        this.creado.emit();
+      } else {
+        this.errorCrear.emit();
+      }
     }
-
-    );
+    });
     
     
     

@@ -24,6 +24,7 @@ import {
   animate,
   transition
 } from '@angular/animations';
+import { Respuesta } from 'src/app/models/respuesta.model';
 
 @Component({
   selector: 'app-create',
@@ -52,6 +53,7 @@ export class RoleCreateComponent {
       http = inject(HttpClient);
       @Output() cancelar = new EventEmitter<void>();  
       @Output() creado = new EventEmitter<void>();
+      @Output() errorCrear = new EventEmitter<void>();
      cont = 0;
 
      cancelarFormulario() {
@@ -131,21 +133,24 @@ export class RoleCreateComponent {
           console.log(this.ScopedID, this.pantallas2[i].pant_Id);
           console.log('Pantallas por rol', this.pantallaPorRol);
 
-          this.http.post<any[]>(`${this.apiUrl}/RolPorPantallas/Insertar`, this.pantallaPorRol)
-          .subscribe(
-
-
-          );
-        }
-
-        this.creado.emit();
+          this.http.post<Respuesta<PantallasPorRoles>>(`${this.apiUrl}/RolPorPantallas/Insertar`, this.pantallaPorRol)
+          .subscribe({
+            next: (response) => {
+            if (response && response.data.codeStatus >0) {
+              console.log(response)
+              this.creado.emit();
+            } else {
+              this.errorCrear.emit();
+            }
+          }
+          });
        
       }
 
-    });
-  }
+    };
+    }
 
 
+  )
 
-
-}
+}}

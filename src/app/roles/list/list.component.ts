@@ -167,6 +167,17 @@ export class RoleListComponent implements OnInit {
       });
     }, 100);
   }
+  crearError(): void {
+    this.showCreate = false;
+    this.listarRoles();
+    setTimeout(() => {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'El rol no se pudo crear'
+      });
+    }, 100);
+  }
 
   onGlobalFilter(table: Table, event: Event) {
     table.filterGlobal((event.target as HTMLInputElement).value, 'contains');

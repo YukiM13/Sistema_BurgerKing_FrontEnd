@@ -176,7 +176,7 @@ export class ProduListComponent {
         this.messageService.add({
           severity: 'error',
           summary: 'Error',
-          detail: 'El estado civil no se pudo crear'
+          detail: 'El producto no se pudo crear'
         });
       }, 100);
     }

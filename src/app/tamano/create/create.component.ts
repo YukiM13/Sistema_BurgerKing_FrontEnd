@@ -7,6 +7,7 @@ import {Tamano} from '../../models/tamano.model'
 import { environment } from 'src/enviroments/enviroment';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { Respuesta } from 'src/app/models/respuesta.model';
 
 
 @Component({
@@ -27,6 +28,7 @@ export class TamanoCreateComponent {
   http = inject(HttpClient);
   @Output() cancelar = new EventEmitter<void>();  
   @Output() creado = new EventEmitter<void>();
+  @Output() errorCrear = new EventEmitter<void>();
  
   constructor(private messageService: MessageService) { }
   cancelarFormulario() {
@@ -56,12 +58,17 @@ export class TamanoCreateComponent {
     this.tamano.usua_Creacion = 2;
     const fecha = new Date();
     this.tamano.tama_FechaCreacion = fecha;  
-    this.http.post(`${this.apiUrl}/Tamano/Insertar`, this.tamano)
-    .subscribe(() => {
-      this.creado.emit();
+    this.http.post<Respuesta<Tamano>>(`${this.apiUrl}/Tamano/Insertar`, this.tamano)
+    .subscribe({
+      next: (response) => {
+      if (response && response.data.codeStatus >0) {
+        console.log(response)
+        this.creado.emit();
+      } else {
+        this.errorCrear.emit();
+      }
     }
-
-    );
+    });
     
     
   }
