@@ -93,7 +93,7 @@ export class RoleCreateComponent {
 
   guardar(){
     this.cont = 1;
-    if(!this.rolAccion.role_Descripcion || this.pantallas2.length == 0)
+    if(!this.rolAccion.role_Descripcion.trim() || this.pantallas2.length == 0)
     {
       this.messageService.add({
         severity: 'warn',

@@ -10,8 +10,8 @@
         <div class="row">
             <div class="col-md-6">
                 <label for="" class="label-control">Codigo:</label>  <span class="text-red-400">*</span>
-                <input pinputtext id="cod" name="muni_Codigo" [(ngModel)] = "municipio.muni_Codigo" class="p-inputtext form-control ng-invalid " required #cod="ngModel"/>
-                <small class="p-error" *ngIf="cod.invalid && cont == 1">El codigo es requerido</small>
+                <input pinputtext id="cod" name="muni_Codigo" [(ngModel)] = "municipio.muni_Codigo" (ngModelChange)="limpiarEspacioInicial()" class="p-inputtext form-control ng-invalid " required #cod="ngModel"/>
+                <small class="p-error" *ngIf="(cod.invalid || !municipio.muni_Codigo.trim()) && cont == 1">El codigo es requerido</small>
                 <br>
                 
             </div>
@@ -19,7 +19,7 @@
             <div class="col-md-6">
               <label for="" class="label-control">Municipio:</label>  <span class="text-red-400">*</span>
               <input pinputtext id="descr" name="muni_Descripcion" [(ngModel)] = "municipio.muni_Descripcion" class="p-inputtext form-control ng-invalid " required #descr="ngModel"/>
-              <small class="p-error" *ngIf="descr.invalid && cont == 1">El nombre es requerido</small>
+              <small class="p-error" *ngIf="(descr.invalid || !municipio.muni_Descripcion.trim()) && cont == 1">El nombre es requerido</small>
               <br>
               
           </div>

@@ -41,6 +41,13 @@ export class DepaCreateComponent {
   router = inject(Router); //inicializa el router
   departamento = new Departamento(); //inicializa el objeto departamento
 
+  limpiarEspacioInicial() {
+    if (this.departamento.depa_Codigo) {
+      this.departamento.depa_Codigo = this.departamento.depa_Codigo.replace(/^\s+/, '');
+    }
+  }
+
+
   crearDepartamento() {
     this.cont = 1;
         if(!this.departamento.depa_Codigo.trim()  || !this.departamento.depa_Descripcion.trim() ) 
@@ -52,7 +59,6 @@ export class DepaCreateComponent {
           });
           return;
         }
-
 
     this.departamento.usua_Creacion = 2;
     const fecha = new Date();

@@ -67,9 +67,15 @@ export class MunicipioCreateComponent {
   }
 
 
+  limpiarEspacioInicial() {
+    if (this.municipio.muni_Codigo) {
+      this.municipio.muni_Codigo = this.municipio.muni_Codigo.replace(/^\s+/, '');
+    }
+  }
+
   crearMunicipio() {
     this.cont = 1;
-    if(!this.municipio.muni_Codigo || !this.municipio.depa_Codigo || !this.municipio.muni_Descripcion) {
+    if(!this.municipio.muni_Codigo.trim() || !this.municipio.depa_Codigo || !this.municipio.muni_Descripcion.trim()) {
       this.messageService.add({
         severity: 'warn',
         summary: 'Error',

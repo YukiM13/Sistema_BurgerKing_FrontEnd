@@ -42,7 +42,7 @@ export class CargoCreateComponent {
 
   crearCargo()  {
     this.cont = 1;
-    if(!this.cargos.carg_Descripcion)
+    if(!this.cargos.carg_Descripcion.trim())
     {
       this.messageService.add({
         severity: 'warn',

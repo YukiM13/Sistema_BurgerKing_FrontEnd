@@ -8,14 +8,14 @@
             <div class="col-md-6">
                 <label for="" class="label-control">DNI</label>  <span class="text-red-400">*</span>
                 <input pinputtext id="iden" name="empl_Identidad" [(ngModel)] = "empleado.empl_Identidad" class="p-inputtext form-control ng-invalid " required #iden="ngModel"/>
-                <small class="p-error" *ngIf="iden.invalid && cont == 1">La identidad es requerido</small>
+                <small class="p-error" *ngIf="(iden.invalid || !empleado.empl_Identidad.trim()) && cont == 1">La identidad es requerido</small>
              
                 
             </div>
             <div class="col-md-6">
                 <label for="" class="label-control">Nombres</label>  <span class="text-red-400">*</span>
                 <input pinputtext id="nom" name="empl_Nombre" [(ngModel)] = "empleado.empl_Nombre" class="p-inputtext form-control ng-invalid " required #nom="ngModel"/>
-                <small class="p-error" *ngIf="nom.invalid && cont == 1">El nombre es requerido</small>
+                <small class="p-error" *ngIf="(nom.invalid || !empleado.empl_Nombre.trim()) && cont == 1">El nombre es requerido</small>
                 
             </div>
             
@@ -24,7 +24,7 @@
             <div class="col-md-6">
                 <label for="" class="label-control">Apellidos</label>  <span class="text-red-400">*</span>
                 <input pinputtext id="ape" name="empl_Apellido" [(ngModel)] = "empleado.empl_Apellido" class="p-inputtext form-control ng-invalid " required #ape="ngModel"/>
-                <small class="p-error" *ngIf="ape.invalid && cont == 1">El nombre es requerido</small>
+                <small class="p-error" *ngIf="(ape.invalid || !empleado.empl_Apellido.trim()) && cont == 1">El nombre es requerido</small>
                 
             </div>
             <div class="col-md-6">

@@ -35,7 +35,7 @@ export class UsuaCreateComponent {
       crearUsuario()  {
       
         this.cont = 1;
-        if(!this.usuario.usua_Usuario || !this.usuario.usua_Correo || !this.usuario.usua_Admin || !this.usuario.empl_Id || !this.usuario.role_Id || !this.usuario.usua_Clave) 
+        if(!this.usuario.usua_Usuario.trim() || !this.usuario.usua_Correo.trim() || !this.usuario.usua_Admin || !this.usuario.empl_Id || !this.usuario.role_Id || !this.usuario.usua_Clave.trim()) 
         {
           this.messageService.add({
             severity: 'warn',

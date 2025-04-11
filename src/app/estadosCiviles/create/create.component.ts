@@ -40,7 +40,7 @@ export class EsCiCreateComponent {
   estadosCivil = new EstadoCivil();
   crearEstadoCivil()  {
     this.cont = 1;
-    if(!this.estadosCivil.esci_Descripcion)
+    if(!this.estadosCivil.esci_Descripcion.trim())
     {
       this.messageService.add({
         severity: 'warn',

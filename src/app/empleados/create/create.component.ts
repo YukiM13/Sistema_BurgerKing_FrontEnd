@@ -40,7 +40,7 @@ export class EmpleadoCreateComponent implements OnInit {
 
   crearEmpleado()  {
 this.cont = 1;
-    if(!this.empleado.empl_Nombre || !this.empleado.empl_Apellido || !this.empleado.empl_FechaNacimiento || !this.empleado.empl_Identidad || !this.empleado.empl_Sexo  || !this.empleado.esCi_Id || !this.empleado.carg_Id || !this.empleado.sucu_Id )
+    if(!this.empleado.empl_Nombre.trim() || !this.empleado.empl_Apellido || !this.empleado.empl_FechaNacimiento || !this.empleado.empl_Identidad || !this.empleado.empl_Sexo  || !this.empleado.esCi_Id || !this.empleado.carg_Id || !this.empleado.sucu_Id )
     {
       this.messageService.add({
         severity: 'warn',
