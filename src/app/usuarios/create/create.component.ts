@@ -38,7 +38,7 @@ export class UsuaCreateComponent {
       crearUsuario()  {
       
         this.cont = 1;
-        if(!this.usuario.usua_Usuario.trim() || !this.usuario.usua_Correo.trim() || !this.usuario.usua_Admin || !this.usuario.empl_Id || !this.usuario.role_Id || !this.usuario.usua_Clave.trim()) 
+        if(!this.usuario.usua_Usuario.trim() || !this.usuario.usua_Correo.trim() || !this.usuario.empl_Id || !this.usuario.role_Id || !this.usuario.usua_Clave.trim()) 
         {
           this.messageService.add({
             severity: 'warn',
@@ -51,7 +51,7 @@ export class UsuaCreateComponent {
         this.usuario.usua_Creacion = 2;
         const fecha = new Date();
         this.usuario.usua_FechaCreacion = fecha;  
-       
+        console.log(this.usuario);
         this.http.post<Respuesta<Usuario>>(`${this.apiUrl}/Usuario/Insertar`, this.usuario)
         .subscribe({
           next: (response) => {
