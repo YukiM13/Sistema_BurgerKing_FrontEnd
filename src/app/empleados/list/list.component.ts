@@ -130,6 +130,17 @@ export class EmpleListComponent implements OnInit{
     });
   }
 
+  crearError(): void {
+    this.showCreate = false;
+    this.listarEmpleados();
+    setTimeout(() => {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'El empleado no se pudo crear'
+      });
+    }, 100);
+  }
 
   EliminarEmpleado(id: number): void {
     this.empleado.empl_Id = id;

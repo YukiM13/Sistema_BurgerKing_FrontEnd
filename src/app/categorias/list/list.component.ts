@@ -132,6 +132,18 @@ export class CategoriasListComponent implements OnInit {
       });
     }
   
+
+    crearError(): void {
+      this.showCreate = false;
+      this.listarCategorias();
+      setTimeout(() => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'El cargo no se pudo crear'
+        });
+      }, 100);
+    }
   
     EliminarCategoria(id: number): void {
       this.categoria.cate_Id = id;

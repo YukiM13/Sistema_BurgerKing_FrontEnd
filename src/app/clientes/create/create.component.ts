@@ -9,6 +9,8 @@ import {ToggleButtonModule } from 'primeng/togglebutton';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { Respuesta } from '../../models/respuesta.model';
+import { Empleados } from 'src/app/models/empleado.model';
 
 @Component({
   selector: 'app-create',
@@ -28,6 +30,7 @@ export class ClienteCreateComponent implements OnInit {
   http = inject(HttpClient);
   @Output() cancelar = new EventEmitter<void>();  
   @Output() creado = new EventEmitter<void>();
+  @Output() errorCrear = new EventEmitter<void>();
  
   cont = 0;
 
@@ -37,6 +40,8 @@ export class ClienteCreateComponent implements OnInit {
     { label: 'Femenino', value: 'F' },
     { label: 'Masculino', value: 'M' }
   ];
+
+  
 
   onSexoToggleChange(event: any) {
     console.log('Sexo seleccionado:', this.cliente.clie_Sexo);
@@ -74,12 +79,17 @@ export class ClienteCreateComponent implements OnInit {
     this.cliente.usua_Creacion = 2;
     const fecha = new Date();
     this.cliente.clie_FechaCreacion = fecha;  
-    this.http.post(`${this.apiUrl}/Cliente/Insertar`, this.cliente)
-    .subscribe(() => {
-      this.creado.emit();
+    this.http.post<Respuesta<Cliente>>(`${this.apiUrl}/Cliente/Insertar`, this.cliente)
+    .subscribe({
+      next: (response) => {
+      if (response && response.data.codeStatus >0) {
+        console.log(response)
+        this.creado.emit();
+      } else {
+        this.errorCrear.emit();
+      }
     }
-
-    );
+    });
     
     
     
