@@ -7,8 +7,8 @@
         <div class="row">
             <div class="col-md-6">
                 <label for="" class="label-control">DNI</label>  <span class="text-red-400">*</span>
-                <input pinputtext id="iden" name="empl_Identidad" [(ngModel)] = "empleado.empl_Identidad" class="p-inputtext form-control ng-invalid " required #iden="ngModel"/>
-                <small class="p-error" *ngIf="(iden.invalid || !empleado.empl_Identidad.trim()) && cont == 1">La identidad es requerido</small>
+                <p-inputMask   mask="9999-9999-99999"  id="iden" name="empl_Identidad" [(ngModel)] = "empleado.empl_Identidad"   />
+                <small class="p-error" *ngIf="( !empleado.empl_Identidad.trim()) && cont == 1">La identidad es requerido</small>
              
                 
             </div>

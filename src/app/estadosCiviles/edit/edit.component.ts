@@ -52,9 +52,9 @@ export class EsCiEditComponent {
     this.http.post<EstadoCivil[]>(`${this.apiUrl}/EstadoCivil/Find`, this.estadosCivil)
       .subscribe(data => {
         if (data && data.length > 0) {
-          this.estadosCivil = data[0];
+          this.estadoCivilAuxiliar = data[0];
           console.log("Respuesta API:", data); 
-          console.log("estadoCivilAuxiliar:", this.estadosCivil); 
+          console.log("estadoCivilAuxiliar:", this.estadoCivilAuxiliar); 
         } else {
           console.error("No se recibió una respuesta válida de la API");
         }

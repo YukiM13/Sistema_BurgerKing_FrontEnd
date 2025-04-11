@@ -93,7 +93,7 @@ export class UsuaListComponent  implements OnInit {
           
           label: usuario.usua_Estado ? 'Desactivar' : 'Activar',
           icon: usuario.usua_Estado ? 'pi pi-ban' : 'pi pi-check-circle',
-          command: () => this.confirmarEliminacion(usuario.usua_Id)
+          command: () => this.confirmarEliminacion(usuario.usua_Id, usuario.usua_Estado)
         }
       ];
     }
@@ -109,9 +109,9 @@ export class UsuaListComponent  implements OnInit {
     }
   
   
-    confirmarEliminacion(id: number): void {
+    confirmarEliminacion(id: number, estado: boolean): void {
       this.confirmationService.confirm({
-        message: '¿Estás seguro que deseas eliminar este usuario?',
+        message: estado? '¿Estás seguro que deseas desactivar este usuario?': '¿Estás seguro que deseas activar este usuario?',
         header: 'Confirmar eliminación',
         icon: 'pi pi-exclamation-triangle',
         acceptLabel: 'Sí',
@@ -121,7 +121,7 @@ export class UsuaListComponent  implements OnInit {
           this.messageService.add({
             severity: 'info',
             summary: 'Cancelado',
-            detail: 'No se eliminó el registro'
+            detail: estado? 'No se desactivo el usuario':'No se activo el usuario' 
           });
         }
       });

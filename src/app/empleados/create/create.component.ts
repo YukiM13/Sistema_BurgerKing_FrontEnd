@@ -12,11 +12,12 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { Respuesta } from '../../models/respuesta.model';
+import { InputMaskModule } from 'primeng/inputmask';
 
 @Component({
   selector: 'app-create',
   standalone: true,
-  imports: [CommonModule, FormsModule, DropdownModule, ToggleButtonModule, CalendarModule, SelectButtonModule, ToastModule],
+  imports: [CommonModule,InputMaskModule, FormsModule, DropdownModule, ToggleButtonModule, CalendarModule, SelectButtonModule, ToastModule],
   providers: [MessageService],
   templateUrl: './create.component.html',
   styleUrl: './create.component.scss'

@@ -1,13 +1,14 @@
 <h2 >Crear Cliente</h2>
-
+<div class="grid p-fluid">
+    <div class="col-12"> 
 <div class="card">
     <div class="card-body">
      <form (submit)="crearCliente()">
         <div class="row">
             <div class="col-md-6">
                 <label for="" class="label-control">RTN-DNI</label> <span class="text-red-400">*</span>
-                <input pinputtext id="iden" name="clie_Identidad_Rtn" [(ngModel)] = "cliente.clie_Identidad_Rtn" class="p-inputtext form-control ng-invalid " required #iden="ngModel"/>
-                <small class="p-error" *ngIf="(iden.invalid || !cliente.clie_Identidad_Rtn.trim()) && cont == 1">La identidad es requerida</small>
+                <p-inputMask mask="9999-9999-99999" id="iden" name="clie_Identidad_Rtn" [(ngModel)] = "cliente.clie_Identidad_Rtn" />
+                <small class="p-error" *ngIf="( !cliente.clie_Identidad_Rtn.trim()) && cont == 1">La identidad es requerida</small>
                 
             </div>
             <div class="col-md-6">
@@ -55,4 +56,6 @@
      </form>
     </div>
   </div>
+    </div>
+</div>
   <p-toast></p-toast> 
