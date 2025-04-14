@@ -4,8 +4,9 @@ import {RouterModule} from '@angular/router'
 import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http'
 import { Cargo } from '../../models/cargos.model'
-import {CargoCreateComponent } from '../create/create.component';
+import { CargoCreateComponent } from '../create/create.component';
 import { CargoEditComponent } from '../edit/edit.component';
+import { CargoDetailsComponent} from  '../details/details.component';
 import { environment } from '../../../enviroments/enviroment'; 
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { ButtonModule } from 'primeng/button';
@@ -30,7 +31,7 @@ import { InputTextModule } from 'primeng/inputtext';
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [CommonModule, RouterModule, CargoCreateComponent, CargoEditComponent, SplitButtonModule, ButtonModule,ConfirmDialogModule,ToastModule, TableModule,InputTextModule],
+  imports: [CommonModule, RouterModule, CargoCreateComponent, CargoEditComponent, CargoDetailsComponent, SplitButtonModule, ButtonModule,ConfirmDialogModule,ToastModule, TableModule,InputTextModule],
   providers:[MessageService, ConfirmationService],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss',

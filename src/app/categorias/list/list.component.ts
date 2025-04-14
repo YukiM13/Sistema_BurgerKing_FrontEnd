@@ -5,7 +5,8 @@ import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http'
 import { Categoria } from '../../models/categorias.model'
 import {CategoriaCreateComponent } from '../create/create.component';
-//import {EsCiEditComponent} from '../edit/edit.component';
+import { CategoriaEditComponent } from '../edit/edit.component';
+import { CategoriaDetailsComponent} from  '../details/details.component';
 import { environment } from '../../../enviroments/enviroment'; 
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { ButtonModule } from 'primeng/button';
@@ -29,7 +30,7 @@ import {
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [CommonModule, CategoriaCreateComponent,RouterModule, SplitButtonModule, ButtonModule,ConfirmDialogModule,ToastModule,TableModule,InputTextModule],
+  imports: [CommonModule, CategoriaCreateComponent, CategoriaDetailsComponent, CategoriaEditComponent,RouterModule, SplitButtonModule, ButtonModule,ConfirmDialogModule,ToastModule,TableModule,InputTextModule],
   providers:[MessageService, ConfirmationService],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss',
@@ -54,7 +55,9 @@ export class CategoriasListComponent implements OnInit {
 
 
   showCreate = false;
+  showDetails = false;
   showEdit = false;
+
   loading = [false, false, false, false];
   categoriaSeleccionado: any;
   categorias: any[] = [];
@@ -88,12 +91,12 @@ export class CategoriasListComponent implements OnInit {
       {
         label: 'Editar',
         icon: 'pi pi-pencil',
-        //command: () => this.ObtenerEstadoCivil(cargo.car)
+          command: () => this.ObtenerCategoria(categoria.cate_Id, 1)
       },
       {
         label: 'Detalles',
         icon: 'pi pi-eye',
-        // Puedes añadir lógica si se desea
+        command: () => this.ObtenerCategoria(categoria.cate_Id, 2)
       },
       {
         label: 'Eliminar',
@@ -103,16 +106,21 @@ export class CategoriasListComponent implements OnInit {
     ];
   }
 
-  /*
-   ObtenerEstadoCivil(id: number): void {
-      this.estadoCivil.esCi_Id = id;
-      this.http.post<EstadoCivil>(`${this.apiUrl}/EstadoCivil/Find`, this.estadoCivil)
-        .subscribe(data => {
-          this.estadoCivilSeleccionado = data;
-          this.showEdit = true;
-        });
+  
+  ObtenerCategoria(id: number, accion:number): void {
+    
+    this.categoriaSeleccionado = id; // solo el ID
+    if(accion == 1)
+    {
+      this.showEdit = true;
     }
-  */
+    else
+    {
+      this.showDetails = true;
+    }
+    
+}
+  
   
     confirmarEliminacion(id: number): void {
       this.confirmationService.confirm({
@@ -133,17 +141,7 @@ export class CategoriasListComponent implements OnInit {
     }
   
 
-    crearError(): void {
-      this.showCreate = false;
-      this.listarCategorias();
-      setTimeout(() => {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Error',
-          detail: 'El cargo no se pudo crear'
-        });
-      }, 100);
-    }
+   
   
     EliminarCategoria(id: number): void {
       this.categoria.cate_Id = id;
@@ -173,6 +171,11 @@ export class CategoriasListComponent implements OnInit {
       this.showEdit = false;
       this.listarCategorias();
     }
+
+    cancelDetails(): void {
+      this.showDetails = false;
+      this.listarCategorias();
+    }
   
     registroCreado(): void {
       this.showCreate = false;
@@ -185,6 +188,21 @@ export class CategoriasListComponent implements OnInit {
         });
       }, 100);
     }
+
+    crearError(): void {
+      this.showCreate = false;
+      this.listarCategorias();
+      setTimeout(() => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'La categoria no se pudo crear'
+        });
+      }, 100);
+    }
+
+
+
       onGlobalFilter(table: Table, event: Event) {
             table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
           }

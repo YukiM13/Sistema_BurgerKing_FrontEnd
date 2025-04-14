@@ -3,7 +3,7 @@ import {CommonModule, NgFor} from '@angular/common';
 import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {FormsModule} from '@angular/forms'
-import {EstadoCivil} from '../../models/estadosCiviles.model'
+import { Categoria } from '../../models/categorias.model'
 import { environment } from 'src/enviroments/enviroment';
 
 @Component({
@@ -13,9 +13,9 @@ import { environment } from 'src/enviroments/enviroment';
   templateUrl: './edit.component.html',
   styleUrl: './edit.component.scss'
 })
-export class EsCiEditComponent {
+export class CategoriaEditComponent {
   private apiUrl = environment.apiUrl; 
-  @Input() estadoCivilId: number = 0;
+  @Input() categoriaID: number = 0;
   @Output() cancelar = new EventEmitter<void>();  
   @Output() actualizado = new EventEmitter<void>();
   cancelarFormulario() {
@@ -23,38 +23,28 @@ export class EsCiEditComponent {
   }
   http = inject(HttpClient);
   router = inject(Router);
-  estadoCivilEntries:  any[] = [];
-  estadosCivil = new EstadoCivil();
-  estadoCivilAuxiliar = new EstadoCivil();
+  categoria = new Categoria();
   descripcion = "";
 
-  EditarEstadoCivil()  {
-    this.estadoCivilAuxiliar.usua_Modificacion = 3;
-    this.estadoCivilAuxiliar.esCi_FechaModificacion = new Date;
-    this.http.put(`${this.apiUrl}/EstadoCivil/Editar`, this.estadoCivilAuxiliar)
+  EditarCargo()  {
+    this.categoria.usua_Modificacion = 2;
+    this.categoria.cate_FechaCreacion = new Date;
+    this.http.put(`${this.apiUrl}/Categoria/Editar`, this.categoria)
     .subscribe(() => {
       this.actualizado.emit();
     });
    
   }
- // obtenerEstadoCivil(id: number) {
-   // this.estadosCivil.esCi_Id = id;
-    //this.http.post<EstadoCivil>(`${this.apiUrl}/EstadoCivil/Find`, this.estadosCivil)
-      //.subscribe(data => {
-        //this.estadoCivilAuxiliar = { ...data };
-        //console.log('Estado Civil actualizado:', this.estadoCivilAuxiliar);
-       
-      //});
-  //}
+
   ngOnInit(): void {
-    this.estadosCivil.esCi_Id = this.estadoCivilId;
+    this.categoria.cate_Id = this.categoriaID;
   
-    this.http.post<EstadoCivil[]>(`${this.apiUrl}/EstadoCivil/Find`, this.estadosCivil)
+    this.http.post<Categoria[]>(`${this.apiUrl}/Categoria/Find`, this.categoria)
       .subscribe(data => {
         if (data && data.length > 0) {
-          this.estadoCivilAuxiliar = data[0];
+          this.categoria = data[0];
           console.log("Respuesta API:", data); 
-          console.log("estadoCivilAuxiliar:", this.estadoCivilAuxiliar); 
+         
         } else {
           console.error("No se recibió una respuesta válida de la API");
         }
@@ -62,10 +52,5 @@ export class EsCiEditComponent {
         console.error("Error al cargar datos:", error);
       });
   }
-  
-  
 
-  
-  
-  
 }
