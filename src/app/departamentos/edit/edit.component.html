@@ -2,14 +2,14 @@
 <div class="card">
  
     <div class="card-body">
-     <form (submit)="EditarCargo()"  >
-        <input type="text"  hidden  name="carg_Id" [(ngModel)]="cargo.carg_Id"  class="form-control"  />
+     <form (submit)="EditarDepartamento()"  >
+        <input type="text"  hidden  name="depa_Codigo" [(ngModel)]="departamento.depa_Codigo"  class="form-control"  />
         <div class="row" >
             
             <div class="col-md-12" >
-                <label for="" class="label-control">Cargo</label>
-                <input pinputtext id="descripcion" name="carg_Descripcion" [(ngModel)]="cargo.carg_Descripcion"   id="carg_Descripcion"   class="p-inputtext form-control ng-invalid " required #descripcion="ngModel"/>
-                <small class="p-error" *ngIf="(descripcion.invalid || !cargo.carg_Descripcion.trim()) && cont == 1">El cargo es requerido</small>
+                <label for="" class="label-control">Departamento</label>
+                <input pinputtext id="descripcion" name="depa_Descripcion" [(ngModel)]="departamento.depa_Descripcion"    class="p-inputtext form-control ng-invalid " required #descripcion="ngModel"/>
+                <small class="p-error" *ngIf="(descripcion.invalid || !departamento.depa_Descripcion.trim()) && cont == 1">El departamento es requerido</small>
                 <br>
               
             </div>
@@ -23,4 +23,5 @@
      </form>
     </div>
   </div>
+
 

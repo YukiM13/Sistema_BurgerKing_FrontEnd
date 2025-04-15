@@ -3,7 +3,7 @@ import {CommonModule, NgFor} from '@angular/common';
 import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {FormsModule} from '@angular/forms'
-import { Categoria } from '../../models/categorias.model'
+import { Departamento } from '../../models/departamento.model'
 import { environment } from 'src/enviroments/enviroment';
 import { MessageService } from 'primeng/api';
 
@@ -14,24 +14,26 @@ import { MessageService } from 'primeng/api';
   templateUrl: './edit.component.html',
   styleUrl: './edit.component.scss'
 })
-export class CategoriaEditComponent {
+
+export class DepartamentoEditComponent {
   private apiUrl = environment.apiUrl; 
-  @Input() categoriaID: number = 0;
+  @Input() depaId: string = "";
   @Output() cancelar = new EventEmitter<void>();  
   @Output() actualizado = new EventEmitter<void>();
   cancelarFormulario() {
     this.cancelar.emit();  
   }
+
   http = inject(HttpClient);
   router = inject(Router);
-  categoria = new Categoria();
-    cont = 0;
-  
-    constructor(private messageService: MessageService) { }
+  departamento = new Departamento();
+  cont = 0;
 
-  EditarCategoria()  {
+  constructor(private messageService: MessageService) { }
+
+  EditarDepartamento()  {
     this.cont = 1;
-    if(!this.categoria.cate_Descripcion.trim())
+    if(!this.departamento.depa_Descripcion.trim())
     {
       this.messageService.add({
         severity: 'warn',
@@ -41,10 +43,9 @@ export class CategoriaEditComponent {
       return;
     }
 
-
-    this.categoria.usua_Modificacion = 2;
-    this.categoria.cate_FechaModificacion = new Date;
-    this.http.put(`${this.apiUrl}/Categoria/Editar`, this.categoria)
+    this.departamento.usua_Modificacion = 2;
+    this.departamento.depa_FechaModificacion = new Date;
+    this.http.put(`${this.apiUrl}/Departamento/Editar`, this.departamento)
     .subscribe(() => {
       this.actualizado.emit();
     });
@@ -53,14 +54,14 @@ export class CategoriaEditComponent {
 
   ngOnInit(): void {
     this.cont = 0;
-    this.categoria.cate_Id = this.categoriaID;
+    this.departamento.depa_Codigo = this.depaId;
   
-    this.http.post<Categoria[]>(`${this.apiUrl}/Categoria/Find`, this.categoria)
+    this.http.post<Departamento[]>(`${this.apiUrl}/Departamento/Find`, this.departamento)
       .subscribe(data => {
         if (data && data.length > 0) {
-          this.categoria = data[0];
-          console.log("Respuesta API:", data); 
-         
+          this.departamento = data[0];
+          //console.log("Respuesta API:", data); 
+        
         } else {
           console.error("No se recibió una respuesta válida de la API");
         }
@@ -70,3 +71,4 @@ export class CategoriaEditComponent {
   }
 
 }
+

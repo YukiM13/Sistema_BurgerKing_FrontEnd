@@ -3,10 +3,9 @@ import {CommonModule, NgFor} from '@angular/common';
 import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {FormsModule} from '@angular/forms'
-import { Cliente } from '../../models/clientes.model'
+import { Departamento  } from '../../models/departamento.model'
 import { environment } from 'src/enviroments/enviroment';
 import { Table, TableModule } from 'primeng/table';
-import { ClienteEditComponent } from '../edit/edit.component';
 
 @Component({
   selector: 'app-details',
@@ -16,9 +15,9 @@ import { ClienteEditComponent } from '../edit/edit.component';
   styleUrl: './details.component.scss'
 })
 
-export class ClienteDetailsComponent {
+export class DepartamentoDetailsComponent {
   private apiUrl = environment.apiUrl; 
-  @Input() clienteId: number = 0;
+  @Input() depaId: string = "";
   @Output() cancelar = new EventEmitter<void>(); 
 
   cancelarFormulario() {
@@ -27,17 +26,17 @@ export class ClienteDetailsComponent {
 
   http = inject(HttpClient);
   router = inject(Router);
-  cliente = new Cliente();
+  departamento = new Departamento();
 
 
 
   ngOnInit(): void {
-    this.cliente.clie_Id = this.clienteId;
+    this.departamento.depa_Codigo = this.depaId;
   
-    this.http.post<Cliente[]>(`${this.apiUrl}/Cliente/Buscar`, this.cliente)
+    this.http.post<Departamento[]>(`${this.apiUrl}/Departamento/Find`, this.departamento)
       .subscribe(data => {
         if (data && data.length > 0) {
-          this.cliente = data[0];
+          this.departamento = data[0];
           console.log("Respuesta API:", data);
           
         } else {
