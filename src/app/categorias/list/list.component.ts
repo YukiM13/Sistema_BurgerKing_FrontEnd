@@ -189,6 +189,18 @@ export class CategoriasListComponent implements OnInit {
       }, 100);
     }
 
+    registroActualizado(): void {
+      this.showEdit = false;
+      this.listarCategorias();
+      setTimeout(() => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Exito',
+          detail: 'La categoria fue actualizada exitosamente'
+        });
+      }, 100);
+    }
+
     crearError(): void {
       this.showCreate = false;
       this.listarCategorias();

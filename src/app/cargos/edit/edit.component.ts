@@ -3,7 +3,7 @@ import {CommonModule, NgFor} from '@angular/common';
 import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {FormsModule} from '@angular/forms'
-import {Cargo} from '../../models/cargos.model'
+import { Cargo } from '../../models/cargos.model'
 import { environment } from 'src/enviroments/enviroment';
 
 @Component({
@@ -13,6 +13,7 @@ import { environment } from 'src/enviroments/enviroment';
   templateUrl: './edit.component.html',
   styleUrl: './edit.component.scss'
 })
+
 export class CargoEditComponent {
   private apiUrl = environment.apiUrl; 
   @Input() cargoId: number = 0;
@@ -21,6 +22,7 @@ export class CargoEditComponent {
   cancelarFormulario() {
     this.cancelar.emit();  
   }
+
   http = inject(HttpClient);
   router = inject(Router);
   cargo = new Cargo();

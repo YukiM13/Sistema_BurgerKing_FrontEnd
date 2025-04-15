@@ -26,9 +26,9 @@ export class CategoriaEditComponent {
   categoria = new Categoria();
   descripcion = "";
 
-  EditarCargo()  {
+  EditarCategoria()  {
     this.categoria.usua_Modificacion = 2;
-    this.categoria.cate_FechaCreacion = new Date;
+    this.categoria.cate_FechaModificacion = new Date;
     this.http.put(`${this.apiUrl}/Categoria/Editar`, this.categoria)
     .subscribe(() => {
       this.actualizado.emit();
