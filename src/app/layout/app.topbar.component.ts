@@ -1,6 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
 import { AppSidebarComponent } from './app.sidebar.component';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-topbar',
@@ -12,7 +13,7 @@ export class AppTopbarComponent {
     @ViewChild('searchinput') searchInput!: ElementRef;
     @ViewChild(AppSidebarComponent) appSidebar!: AppSidebarComponent;
     searchActive: boolean = false;
-    constructor(public layoutService: LayoutService,public el: ElementRef) { }
+    constructor(public layoutService: LayoutService,public el: ElementRef, public router: Router) { }
     activateSearch() {
         this.searchActive = true;
         setTimeout(() => {
@@ -33,5 +34,18 @@ export class AppTopbarComponent {
     
     onSidebarButtonClick() {
         this.layoutService.showSidebar();
+    }
+
+    cierreSesion() {
+        console.log('Cerrando sesión...');
+        localStorage.removeItem('usuario_id');
+        localStorage.removeItem('usuario');
+        localStorage.removeItem('empleado');
+        localStorage.removeItem('rol');
+        localStorage.removeItem('correo');
+        localStorage.removeItem('sucursal');
+        localStorage.removeItem('rol_id');
+        localStorage.removeItem('Admin');
+        this.router.navigate(['/login']);   
     }
 }

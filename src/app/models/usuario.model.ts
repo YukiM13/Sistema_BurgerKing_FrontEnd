@@ -17,6 +17,9 @@ export class Usuario{
     usuaC_Nombre: string='';
     usuaM_Nombre: string='';
     nombreEmpleado: string ='';
+    role_Descripcion: string ='';
+    sucu_Id: number = 0;
+    sucu_Descripcion: string ='';
 
     codeStatus: number = 0;
 
