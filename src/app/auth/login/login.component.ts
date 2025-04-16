@@ -54,7 +54,8 @@ export class LoginComponent {
              this.router.navigate(['/']);
            }
    }
-    InicioSesion (){
+    InicioSesion (event: Event) {
+      event.preventDefault();
       this.cont = 1;
       if (!this.usuarioLogin.usua_Usuario || !this.usuarioLogin.usua_Clave) {
         this.messageService.add({

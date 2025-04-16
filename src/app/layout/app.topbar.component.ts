@@ -38,6 +38,7 @@ export class AppTopbarComponent {
 
     cierreSesion() {
         console.log('Cerrando sesión...');
+        localStorage.clear();
         localStorage.removeItem('usuario_id');
         localStorage.removeItem('usuario');
         localStorage.removeItem('empleado');

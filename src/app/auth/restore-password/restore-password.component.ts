@@ -43,7 +43,7 @@ export class RestorePasswordComponent {
       ) {}
 
   ngOnInit(): void {  
-    if( localStorage.getItem('idRestablecer') == null && localStorage.getItem('verificado') == null){
+    if( localStorage.getItem('idRestablecer') == null || localStorage.getItem('verificado') == null){
       this.router.navigate(['/login']);
 
     }
@@ -54,7 +54,8 @@ export class RestorePasswordComponent {
     this.contra = '';
   }
 
-  cambioContrasena1() {
+  cambioContrasena1(event: Event) {
+    event.preventDefault();
     this.cont = 1;
     if(!this.contra || !this.contraConfirmacion) {
       this.messageService.add({

@@ -5,7 +5,7 @@
         <img [src]="'assets/layout/images/login-image.avif'"
              alt="atlantis" class=" h-screen w-full" >
     </div>
-    <form (submit)="verificarCodigo()">
+    <form (submit)="verificarCodigo($event);">
         <div class="login-panel w-full" style="background:var(--surface-ground)">
             <div class="p-fluid min-h-screen bg-auto md:bg-contain bg-no-repeat text-center w-full flex align-items-center md:align-items-start justify-content-center flex-column bg-auto md:bg-contain bg-no-repeat"
                 style=" padding: 20% 10% 20% 10%;background:var(--exception-pages-image)">
@@ -22,7 +22,7 @@
                         <span class="text-600 font-medium">Enviamos un codigo de verificacion al email:</span>
                         <div class="flex align-items-center mt-1 mb-4">
                             <i class="pi pi-envelope text-600"></i>
-                            <span class="text-900 font-bold ml-2"><label for="" [(ngModel)]="censurarCorreo"></label></span>
+                            <span class="text-900 font-bold ml-2"></span>
                         </div>
                         <div class="flex justify-content-between w-full align-items-center  gap-3">
                             <input pInputText [(ngModel)]="val1" name="val1"  class="w-3rem text-center " maxlength="1"
