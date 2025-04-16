@@ -36,7 +36,7 @@ export class VerificationCodComponent {
       id = 0;
       codigo = '';
       correoCensurado = '';
-      correo = localStorage.getItem('correo');
+      correo = '';
       constructor(
               private confirmationService: ConfirmationService,
               private messageService: MessageService,
@@ -47,6 +47,7 @@ export class VerificationCodComponent {
         if(localStorage.getItem('idRestablecer') == null){
           this.router.navigate(['/login']);
         }
+        this.correo= localStorage.getItem('correo') ?? '';
         this.correoCensurado = this.censurarCorreo(this.correo ?? '');
         this.cont = 0;
       }
