@@ -23,7 +23,7 @@ import { Respuesta } from 'src/app/models/respuesta.model';
 
 export class MunicipioCreateComponent {
   private apiUrl = environment.apiUrl; 
-  //departamento2: any[] = [];
+  
   http = inject(HttpClient); //inicializa el cliente http
  
   @Output() cancelar = new EventEmitter<void>();  
@@ -41,7 +41,7 @@ export class MunicipioCreateComponent {
   municipio = new Municipios(); //inicializa el objeto departamento
 
   ngOnInit(): void {
-    this.listarMunicipios();
+    this.listarDepartamentos();
     this.cont = 0;
   }
   
@@ -51,7 +51,7 @@ export class MunicipioCreateComponent {
   departamentos: any[] = [];
   //municipos = new Municipios();
 
-  listarMunicipios(): void {
+  listarDepartamentos(): void {
     this.http.get<any[]>(`${this.apiUrl}/Departamento/Listar`)
       .subscribe({
         next: (response) => {

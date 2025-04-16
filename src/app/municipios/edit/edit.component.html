@@ -1,1 +1,36 @@
-<p>edit works!</p>
+<h2 >Editar Municipio</h2>
+<div class="grid p-fluid">
+    <div class="col-12 md:col-12">
+<div class="card">
+    <div class="card-body">
+     <form (submit)="EditarMunicipio()"  >
+        <input type="text"  hidden  name="muni_Codigo" [(ngModel)]="municipio.muni_Codigo"  class="form-control"  />
+        <div class="row" >
+            
+            <div class="col-md-6">
+                <label for="" class="label-control">Municipio:</label>  <span class="text-red-400">*</span>
+                <input pinputtext id="descr" name="muni_Descripcion" [(ngModel)] = "municipio.muni_Descripcion" class="p-inputtext form-control ng-invalid " required #descr="ngModel"/>
+                <small class="p-error" *ngIf="(descr.invalid || !municipio.muni_Descripcion.trim()) && cont == 1">El nombre es requerido</small>
+                <br>
+                
+              </div>
+  
+              <div class="col-md-6">
+                  <label>Departamento:</label>  <span class="text-red-400">*</span>
+                  <p-dropdown [filter]="true"  [options]="departamentos" optionValue="depa_Codigo" optionLabel="depa_Descripcion"  [(ngModel)]="municipio.depa_Codigo" 
+                  [showClear]="true"  name="depa_Codigo" appendTo="body" ></p-dropdown>
+                  <small class="p-error" *ngIf="!municipio.depa_Codigo && cont == 1">El departamento es requerido</small>
+              </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <button type="submit" class="btn btn-primary m-2"><span ng-reflect-ng-class="[object Object]" data-pc-section="icon" class="pi pi-save"></span> Guardar </button>
+                <button type="button" class="btn btn-danger  m-2" (click)="cancelarFormulario()" class="btn btn-secondary"><span ng-reflect-ng-class="[object Object]" data-pc-section="icon" class="pi pi-times"></span> Cancelar</button>
+        </div>
+        </div>
+     </form>
+    </div>
+  </div>
+</div>
+</div>
+

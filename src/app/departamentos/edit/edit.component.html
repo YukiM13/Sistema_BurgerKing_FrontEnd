@@ -6,7 +6,7 @@
         <input type="text"  hidden  name="depa_Codigo" [(ngModel)]="departamento.depa_Codigo"  class="form-control"  />
         <div class="row" >
             
-            <div class="col-md-12" >
+            <div class="col-md-6" >
                 <label for="" class="label-control">Departamento</label>
                 <input pinputtext id="descripcion" name="depa_Descripcion" [(ngModel)]="departamento.depa_Descripcion"    class="p-inputtext form-control ng-invalid " required #descripcion="ngModel"/>
                 <small class="p-error" *ngIf="(descripcion.invalid || !departamento.depa_Descripcion.trim()) && cont == 1">El departamento es requerido</small>

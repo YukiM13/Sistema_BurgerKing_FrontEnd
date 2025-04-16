@@ -78,12 +78,12 @@ export class SucursalCreateComponent {
       return;
     }
     
-    // Crear un objeto con el código de departamento para enviarlo en el cuerpo de la solicitud
+    
     const departamento = {
       depa_Codigo: depaCodigo
     };
     
-    // Usar el endpoint específico para obtener municipios por departamento
+  
     this.http.post<any[]>(`${this.apiUrl}/Municipio/FindPorDepartamento`, departamento)
       .subscribe({
         next: (response) => {

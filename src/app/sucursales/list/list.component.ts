@@ -5,7 +5,8 @@ import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http'
 import { Sucursal } from '../../models/sucursales.model'
 import {SucursalCreateComponent } from '../create/create.component';
-//import {EsCiEditComponent} from '../edit/edit.component';
+import { SucursalEditComponent } from '../edit/edit.component';
+import { SucursalDetailsComponent} from  '../details/details.component';
 import { environment } from '../../../enviroments/enviroment'; 
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { ButtonModule } from 'primeng/button';
@@ -31,7 +32,7 @@ import { an } from '@fullcalendar/core/internal-common';
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [CommonModule, RouterModule, SplitButtonModule,
+  imports: [CommonModule, RouterModule, SplitButtonModule, SucursalEditComponent, SucursalDetailsComponent,
      SucursalCreateComponent ,ButtonModule,ConfirmDialogModule,ToastModule, TableModule, InputTextModule,  DropdownModule,],
   providers:[MessageService, ConfirmationService],
   templateUrl: './list.component.html',
@@ -57,6 +58,7 @@ export class SucursalListComponent implements OnInit {
 
 
   showCreate = false;
+  showDetails = false;
   showEdit = false;
   loading = [false, false, false, false];
   sucursalSeleccionado: any;
@@ -94,12 +96,12 @@ export class SucursalListComponent implements OnInit {
       {
         label: 'Editar',
         icon: 'pi pi-pencil',
-        //command: () => this.ObtenerEstadoCivil(cargo.car)
+        command: () => this.ObtenerSucursal(sucursal.sucu_Id, 1)
       },
       {
         label: 'Detalles',
         icon: 'pi pi-eye',
-        // Puedes añadir lógica si se desea
+        command: () => this.ObtenerSucursal(sucursal.sucu_Id, 2)
       },
       {
         label: 'Eliminar',
@@ -109,17 +111,20 @@ export class SucursalListComponent implements OnInit {
     ];
   }
 
-  /*
-   ObtenerEstadoCivil(id: number): void {
-      this.estadoCivil.esCi_Id = id;
-      this.http.post<EstadoCivil>(`${this.apiUrl}/EstadoCivil/Find`, this.estadoCivil)
-        .subscribe(data => {
-          this.estadoCivilSeleccionado = data;
-          this.showEdit = true;
-        });
+  ObtenerSucursal(id: number, accion:number): void {
+    
+    this.sucursalSeleccionado = id; // solo el ID
+    if(accion == 1)
+    {
+      this.showEdit = true;
     }
-  
-  */
+    else
+    {
+      this.showDetails = true;
+    }
+    
+}
+
     confirmarEliminacion(id: number): void {
       this.confirmationService.confirm({
         message: '¿Estás seguro que deseas eliminar esta Sucursal?',
@@ -167,6 +172,11 @@ export class SucursalListComponent implements OnInit {
       this.showEdit = false;
       this.listarSucursales();
     }
+
+    cancelDetails(): void {
+      this.showDetails = false;
+      this.listarSucursales();
+    }
   
     registroCreado(): void {
       this.showCreate = false;
@@ -175,10 +185,11 @@ export class SucursalListComponent implements OnInit {
         this.messageService.add({
           severity: 'success',
           summary: 'Exito',
-          detail: 'Cargo creado exitosamente'
+          detail: 'Sucursal creado exitosamente'
         });
       }, 100);
     }
+
     crearError(): void {
       this.showCreate = false;
       this.listarSucursales();
@@ -190,6 +201,19 @@ export class SucursalListComponent implements OnInit {
         });
       }, 100);
     }
+
+    registroActualizado(): void {
+      this.showEdit = false;
+      this.listarSucursales();
+      setTimeout(() => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Exito',
+          detail: 'La sucursal fue actualizada exitosamente'
+        });
+      }, 100);
+    }
+
     onGlobalFilter(table: Table, event: Event) {
       table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
     }
