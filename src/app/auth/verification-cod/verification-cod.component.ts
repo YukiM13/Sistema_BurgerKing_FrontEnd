@@ -35,8 +35,8 @@ export class VerificationCodComponent {
       usuario = new Usuario();
       id = 0;
       codigo = '';
-      // correoCensurado = '';
-      // correo = '';
+       correoCensurado = '';
+       correo = '';
       constructor(
               private confirmationService: ConfirmationService,
               private messageService: MessageService,
@@ -47,8 +47,8 @@ export class VerificationCodComponent {
         if(localStorage.getItem('idRestablecer') == null){
           this.router.navigate(['/login']);
         }
-        // this.correo= localStorage.getItem('correo') ?? '';
-        // this.correoCensurado = this.censurarCorreo(this.correo ?? '');
+         this.correo= localStorage.getItem('correo') ?? '';
+         this.correoCensurado = this.censurarCorreo(this.correo ?? '');
         this.cont = 0;
       }
       verificarCodigo(event: Event) {
@@ -91,15 +91,15 @@ export class VerificationCodComponent {
       }
 
 
-      // censurarCorreo(correo: string): string {
-      //   if (!correo || !correo.includes('@')) return correo;
+       censurarCorreo(correo: string): string {
+         if (!correo || !correo.includes('@')) return correo;
       
-      //   const [usuario, dominio] = correo.split('@');
+         const [usuario, dominio] = correo.split('@');
       
-      //   let visible = usuario.slice(0, 2); 
-      //   let oculto = '*'.repeat(usuario.length - 2); 
+         let visible = usuario.slice(0, 2); 
+        let oculto = '*'.repeat(usuario.length - 2); 
       
-      //   return `${visible}${oculto}@${dominio}`;
-      // }
+        return `${visible}${oculto}@${dominio}`;
+       }
   //Usuario/VerificarCodigo
 }

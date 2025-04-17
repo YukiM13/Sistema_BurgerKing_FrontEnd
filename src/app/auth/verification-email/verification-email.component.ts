@@ -59,8 +59,8 @@ export class VerificationEmailComponent {
          this.usuario = data as Usuario;
           this.id = this.usuario.usua_Id;
           localStorage.setItem('idRestablecer', this.id.toString());
-          // localStorage.setItem('correo', this.usuario.usua_Correo);
-          // console.log(localStorage.getItem('correo'));
+          localStorage.setItem('correo', this.usuario.usua_Correo);
+          console.log(localStorage.getItem('correo'));
           this.router.navigate(['/verification-cod']);
         }
         else{
