@@ -54,8 +54,8 @@ export class RestorePasswordComponent {
     this.contra = '';
   }
 
-  cambioContrasena1(event: Event) {
-    event.preventDefault();
+  cambioContrasena1() {
+    
     this.cont = 1;
     if(!this.contra || !this.contraConfirmacion) {
       this.messageService.add({
@@ -91,6 +91,7 @@ export class RestorePasswordComponent {
             });
             localStorage.removeItem('idRestablecer');
             localStorage.removeItem('verificado');
+            localStorage.removeItem('correo1');
             this.router.navigate(['/login']);
           } else {
             this.messageService.add({

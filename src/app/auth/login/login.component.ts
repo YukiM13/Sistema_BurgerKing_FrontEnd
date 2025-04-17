@@ -48,14 +48,14 @@ export class LoginComponent {
           const usuario = localStorage.getItem('usuario');
           const empleado = localStorage.getItem('empleado');
           const rol = localStorage.getItem('rol');
-          const correo = localStorage.getItem('correo');
+        
 
-           if (usuario || empleado || rol || correo) {
+           if (usuario || empleado || rol ) {
              this.router.navigate(['/']);
            }
    }
-    InicioSesion (event: Event) {
-      event.preventDefault();
+    InicioSesion () {
+   
       this.cont = 1;
       if (!this.usuarioLogin.usua_Usuario || !this.usuarioLogin.usua_Clave) {
         this.messageService.add({

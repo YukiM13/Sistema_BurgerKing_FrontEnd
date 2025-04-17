@@ -42,8 +42,8 @@ export class VerificationEmailComponent {
     ngOnInit(): void {  
       this.cont = 0;
     }
-    generarCodigo(event: Event) {
-      event.preventDefault();
+    generarCodigo() {
+   
       this.cont = 1;
       if (!this.usuario.usua_Usuario) {
         this.messageService.add({
@@ -59,8 +59,8 @@ export class VerificationEmailComponent {
          this.usuario = data as Usuario;
           this.id = this.usuario.usua_Id;
           localStorage.setItem('idRestablecer', this.id.toString());
-          localStorage.setItem('correo', this.usuario.usua_Correo);
-          console.log(localStorage.getItem('correo'));
+          localStorage.setItem('correo1', this.usuario.usua_Correo);
+          console.log(localStorage.getItem('correo1'));
           this.router.navigate(['/verification-cod']);
         }
         else{

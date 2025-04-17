@@ -47,12 +47,12 @@ export class VerificationCodComponent {
         if(localStorage.getItem('idRestablecer') == null){
           this.router.navigate(['/login']);
         }
-         this.correo= localStorage.getItem('correo') ?? '';
+         this.correo= localStorage.getItem('correo1') ?? '';
          this.correoCensurado = this.censurarCorreo(this.correo ?? '');
         this.cont = 0;
       }
-      verificarCodigo(event: Event) {
-        event.preventDefault();
+      verificarCodigo() {
+   
         this.cont = 1;
         if (!this.val1 || !this.val2 || !this.val3 || !this.val4) {
           this.messageService.add({
@@ -73,6 +73,7 @@ export class VerificationCodComponent {
             console.log(response)
             localStorage.setItem('verificado', 'true');
             console.log(localStorage.getItem('verificado'));
+            
             this.router.navigate(['/reset-password']);
 
            
