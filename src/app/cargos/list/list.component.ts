@@ -118,7 +118,7 @@ export class CargosListComponent implements OnInit {
       this.showDetails = true;
     }
     
-}
+  }
   
   
     confirmarEliminacion(id: number): void {

@@ -41,37 +41,39 @@ export class SucursalEditComponent {
   constructor(private messageService: MessageService) { }
   
   filtrarMunicipiosPorDepartamento(depaCodigo: string): void {
-    //console.log('entro codigo obtenido', depaCodigo);
     this.departamentoSeleccionado = depaCodigo;
+  
     if (!depaCodigo) {
-      
       this.sucursal.muni_Codigo = '';
       return;
     }
-    
-    
-    const departamento = {
-      depa_Codigo: depaCodigo
-    };
-    
+  
+    const departamento = { depa_Codigo: depaCodigo };
   
     this.http.post<any[]>(`${this.apiUrl}/Municipio/FindPorDepartamento`, departamento)
       .subscribe({
         next: (response) => {
-          
-          this.municipios = response; 
-          
+          this.municipios = response;
+  
+          // 🔁 Aquí se fuerza la re-asignación si ya tenía un valor
+          if (this.sucursal.muni_Codigo) {
+            const muniActual = this.municipios.find(m => m.muni_Codigo === this.sucursal.muni_Codigo);
+            if (muniActual) {
+              const codigo = this.sucursal.muni_Codigo;
+              this.sucursal.muni_Codigo = ''; // ⚠ Limpiar primero
+              setTimeout(() => {
+                this.sucursal.muni_Codigo = codigo; // 👉 Y luego volver a asignar
+              });
+            }
+          }
         },
-        error: (error) => {
-         
+        error: () => {
           this.municipios = [];
         }
       });
- 
-    
-    // Resetear el municipio seleccionado
-    this.sucursal.muni_Codigo = '';
   }
+  
+  
 
   listarDepartamentos(): void {
     this.http.get<any[]>(`${this.apiUrl}/Departamento/Listar`)
@@ -112,25 +114,62 @@ export class SucursalEditComponent {
    
   }
 
-  ngOnInit(): void {
-    this.listarDepartamentos();
-   // this.filtrarMunicipiosPorDepartamento(this.departamentoSeleccionado);
-    this.sucursal.sucu_Id = this.sucuId;
-    this.cont = 0;
-    this.http.post<Sucursal[]>(`${this.apiUrl}/Sucursal/Buscar`, this.sucursal)
-      .subscribe(data => {
-        if (data && data.length > 0) {
-          this.sucursal = data[0];
-          console.log("Respuesta API:", data); 
+  todosLosMunicipios: any[] = [];
 
-          
-          
-        } else {
-          console.error("No se recibió una respuesta válida de la API");
-        }
-      }, error => {
-        console.error("Error al cargar datos:", error);
-      });
-  }
+listarTodosLosMunicipios(): void {
+  this.http.get<any[]>(`${this.apiUrl}/Municipio/Listar`)
+    .subscribe({
+      next: (response) => {
+        this.todosLosMunicipios = response;
+        console.log('Muni', this.todosLosMunicipios);
+      },
+      error: (error) => {
+        console.error('Error al obtener todos los municipios', error);
+        this.todosLosMunicipios = [];
+      }
+    });
+}
+
+ngOnInit(): void {
+  this.listarDepartamentos();
+  this.listarTodosLosMunicipios();
+
+  this.sucursal.sucu_Id = this.sucuId;
+  this.cont = 0;
+
+  // Paso 1: Obtener sucursal
+  this.http.post<Sucursal[]>(`${this.apiUrl}/Sucursal/Buscar`, this.sucursal).subscribe(data => {
+    if (data && data.length > 0) {
+      this.sucursal = data[0];
+
+      // Paso 2: Buscar el municipio completo
+      const municipio = this.todosLosMunicipios.find(m => m.muni_Codigo === this.sucursal.muni_Codigo);
+
+      if (municipio) {
+        // Paso 3: Asignar departamento y cargar municipios
+        this.departamentoSeleccionado = municipio.depa_Codigo;
+
+        // Paso 4: Cargar municipios de ese departamento
+        const departamento = { depa_Codigo: municipio.depa_Codigo };
+        this.http.post<any[]>(`${this.apiUrl}/Municipio/FindPorDepartamento`, departamento)
+          .subscribe({
+            next: (response) => {
+              this.municipios = response;
+
+              // Paso 5: Asegurar que el municipio se seleccione
+              const encontrado = this.municipios.find(m => m.muni_Codigo === municipio.muni_Codigo);
+              this.sucursal.muni_Codigo = encontrado ? encontrado.muni_Codigo : '';
+            },
+            error: () => {
+              this.municipios = [];
+              this.sucursal.muni_Codigo = '';
+            }
+          });
+      }
+    }
+  });
+}
+
+
 
 }

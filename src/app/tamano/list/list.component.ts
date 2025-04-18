@@ -4,8 +4,9 @@ import {RouterModule} from '@angular/router'
 import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http'
 import {Tamano} from '../../models/tamano.model'
- import {TamanoCreateComponent} from '../../tamano/create/create.component';
-// import {TamaEditComponent} from '../../tamano/edit/edit.component';
+import {TamanoCreateComponent} from '../../tamano/create/create.component';
+//import {TamanoEditComponent} from '../../tamano/edit/edit.component';
+import {TamanoDetailsComponent} from '../../tamano/details/details.component';
 import { environment } from '../../../enviroments/enviroment'; 
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { ButtonModule } from 'primeng/button';
@@ -27,7 +28,7 @@ import { MenuItem } from 'primeng/api';
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [CommonModule, RouterModule, TamanoCreateComponent,
+  imports: [CommonModule, RouterModule, TamanoCreateComponent, TamanoDetailsComponent,
      SplitButtonModule, ButtonModule,ConfirmDialogModule,ToastModule, TableModule, InputTextModule],
   providers:[MessageService, ConfirmationService],
   templateUrl: './list.component.html',
@@ -53,6 +54,7 @@ export class TamaListComponent implements OnInit {
 
   showCreate = false;
   showEdit = false;
+  showDetails = false;
   loading = [false, false, false, false];
   tamanoSeleccionado: any;
   tamanos: any[] = [];
@@ -87,12 +89,12 @@ export class TamaListComponent implements OnInit {
       {
         label: 'Editar',
         icon: 'pi pi-pencil',
-        command: () => this.ObtenerTamano(tamano.tama_Id)
+        command: () => this.ObtenerTamano(tamano.tama_Id, 1)
       },
       {
         label: 'Detalles',
         icon: 'pi pi-eye',
-        // Puedes añadir lógica si se desea
+        command: () => this.ObtenerTamano(tamano.tama_Id, 2)
       },
       {
         label: 'Eliminar',
@@ -103,13 +105,18 @@ export class TamaListComponent implements OnInit {
   }
 
 
-  ObtenerTamano(id: number): void {
-    this.tamano.tama_Id = id;
-    this.http.post<Tamano>(`${this.apiUrl}/Tamano/Find`, this.tamano)
-      .subscribe(data => {
-        this.tamanoSeleccionado = data;
-        this.showEdit = true;
-      });
+  ObtenerTamano(id: number, accion:number): void {
+    
+    this.tamanoSeleccionado = id; // solo el ID
+    if(accion == 1)
+    {
+      this.showEdit = true;
+    }
+    else
+    {
+      this.showDetails = true;
+    }
+    
   }
 
 
@@ -159,6 +166,11 @@ export class TamaListComponent implements OnInit {
     this.listarTamanos();
   }
 
+  cancelDetails(): void {
+    this.showDetails = false;
+    this.listarTamanos();
+  }
+
   registroCreado(): void {
     this.showCreate = false;
     this.listarTamanos();
@@ -166,7 +178,7 @@ export class TamaListComponent implements OnInit {
       this.messageService.add({
         severity: 'success',
         summary: 'Exito',
-        detail: 'Tamaño creado exitosamente'
+        detail: 'Cargo creado exitosamente'
       });
     }, 100);
   }
@@ -178,10 +190,24 @@ export class TamaListComponent implements OnInit {
       this.messageService.add({
         severity: 'error',
         summary: 'Error',
-        detail: 'El tamaño no se pudo crear'
+        detail: 'El cargo no se pudo crear'
       });
     }, 100);
   }
+
+  registroActualizado(): void {
+    this.showEdit = false;
+    this.listarTamanos();
+    setTimeout(() => {
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Exito',
+        detail: 'El cargo fue actualizado exitosamente'
+      });
+    }, 100);
+  }
+
+  
   onGlobalFilter(table: Table, event: Event) {
     table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
   }
