@@ -1,4 +1,4 @@
-<ng-container *ngIf="!showCreate  && !showEdit" @collapse>
+<ng-container *ngIf="!showCreate  && !showEdit && !showDetails" @collapse>
     <h2>Categorias</h2>
   <div class="card">
   
@@ -66,8 +66,12 @@
     </div>
   
     <div *ngIf="showEdit" @collapse>
-     <!-- <app-edit [estadoCivil]="estadoCivilSeleccionado" (cancelar)="cancelEdit()" ></app-edit> --> 
+     <app-edit [categoriaID]="categoriaSeleccionado" (actualizado)="registroActualizado()" (cancelar)="cancelEdit()" ></app-edit> 
     </div>
- 
+
+    <div *ngIf="showDetails" @collapse>
+        <app-details [categoriaID]="categoriaSeleccionado"  (cancelar)="cancelDetails()" ></app-details>
+    </div>
+    
  
   

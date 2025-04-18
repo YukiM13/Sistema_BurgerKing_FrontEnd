@@ -5,7 +5,8 @@ import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http'
 import {Municipios} from '../../models/municipio.model'
  import {MunicipioCreateComponent} from '../../municipios/create/create.component';
-// import {MuniEditComponent} from '../../municipios/edit/edit.component';
+ import {MuniEditComponent} from '../../municipios/edit/edit.component';
+ import { MuniDetailsComponent } from '../details/details.component';
 import { environment } from '../../../enviroments/enviroment'; 
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { ButtonModule } from 'primeng/button';
@@ -28,7 +29,8 @@ import { MenuItem } from 'primeng/api';
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [CommonModule, RouterModule, MunicipioCreateComponent, SplitButtonModule, ButtonModule,ConfirmDialogModule,ToastModule, TableModule, InputTextModule],
+  imports: [CommonModule, RouterModule, MunicipioCreateComponent, MuniEditComponent, MuniDetailsComponent,
+    SplitButtonModule, ButtonModule,ConfirmDialogModule,ToastModule, TableModule, InputTextModule],
   providers:[MessageService, ConfirmationService],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss',
@@ -52,6 +54,7 @@ export class MuniListComponent  implements OnInit {
   
   
     showCreate = false;
+    showDetails = false;
     showEdit = false;
     loading = [false, false, false, false];
     municipioSeleccionado: any;
@@ -87,12 +90,12 @@ export class MuniListComponent  implements OnInit {
         {
           label: 'Editar',
           icon: 'pi pi-pencil',
-          command: () => this.ObtenerMunicipio(municipio.muni_Codigo)
+          command: () => this.ObtenerMunicipio(municipio.muni_Codigo, 1)
         },
         {
           label: 'Detalles',
           icon: 'pi pi-eye',
-          // Puedes añadir lógica si se desea
+          command: () => this.ObtenerMunicipio(municipio.muni_Codigo, 2)
         },
         {
           label: 'Eliminar',
@@ -103,15 +106,19 @@ export class MuniListComponent  implements OnInit {
     }
   
   
-    ObtenerMunicipio(id: string): void {
-      this.municipio.muni_Codigo = id;
+    ObtenerMunicipio(id: string, accion:number): void {
+    
+      this.municipioSeleccionado = id; // solo el ID
+      if(accion == 1)
+      {
+        this.showEdit = true;
+      }
+      else
+      {
+        this.showDetails = true;
+      }
       
-      this.http.post<Municipios>(`${this.apiUrl}/Municipio/Find`, this.municipio)
-        .subscribe(data => {
-          this.municipioSeleccionado = data;
-          this.showEdit = true;
-        });
-    }
+  }
   
   
     confirmarEliminacion(id: string): void {
@@ -159,6 +166,11 @@ export class MuniListComponent  implements OnInit {
       this.showEdit = false;
       this.listarMunicipios();
     }
+
+    cancelDetails(): void {
+      this.showDetails = false;
+      this.listarMunicipios();
+    }
   
     registroCreado(): void {
       this.showCreate = false;
@@ -167,7 +179,7 @@ export class MuniListComponent  implements OnInit {
         this.messageService.add({
           severity: 'success',
           summary: 'Exito',
-          detail: 'Municipio creado exitosamente'
+          detail: 'Cargo creado exitosamente'
         });
       }, 100);
     }
@@ -179,10 +191,24 @@ export class MuniListComponent  implements OnInit {
         this.messageService.add({
           severity: 'error',
           summary: 'Error',
-          detail: 'El municipio no se pudo crear'
+          detail: 'El cargo no se pudo crear'
         });
       }, 100);
     }
+
+    registroActualizado(): void {
+      this.showEdit = false;
+      this.listarMunicipios();
+      setTimeout(() => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Exito',
+          detail: 'El cargo fue actualizado exitosamente'
+        });
+      }, 100);
+    }
+
+
     onGlobalFilter(table: Table, event: Event) {
       table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
     }

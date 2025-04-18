@@ -1,5 +1,5 @@
 
-<ng-container *ngIf="!showCreate  && !showEdit" @collapse>
+<ng-container *ngIf="!showCreate  && !showEdit && !showDetails" @collapse>
     <h2>Roles</h2>
   <div class="card">
   
@@ -68,6 +68,10 @@
     </div>
   
     <div *ngIf="showEdit" @collapse>
-      <!-- <app-edit [rol]="rolSeleccionado" (cancelar)="cancelEdit()" ></app-edit> -->
+        <!-- <app-edit [cargoId]="cargoSeleccionado" (actualizado)="registroActualizado()"  (cancelar)="cancelEdit()" ></app-edit> -->
     </div>
+
+    <div *ngIf="showDetails" @collapse>
+        <app-details [rolId]="rolSeleccionado"  (cancelar)="cancelDetails()" ></app-details>
+      </div>
   

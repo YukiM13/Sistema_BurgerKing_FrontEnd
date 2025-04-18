@@ -8,6 +8,8 @@ export class Sucursal{
     sucu_FechaCreacion: Date = new Date() ;
     usua_Modificacion: number = 0 ;
     sucu_FechaModificacion: Date = new Date() ;
+    usuaC_Nombre: string = '';
+    usuaM_Nombre: string = '';
     codeStatus: number = 0;
 
 

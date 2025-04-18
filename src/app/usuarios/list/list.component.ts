@@ -5,6 +5,8 @@ import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http'
 import {Usuario} from '../../models/usuario.model'
 import {UsuaCreateComponent} from '../../usuarios/create/create.component'
+//import { UsuarioEditComponent } from '../edit/edit.component';
+import { UsuarioDetailsComponent } from '../details/details.component';
 import { environment } from '../../../enviroments/enviroment'; 
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { ButtonModule } from 'primeng/button';
@@ -25,7 +27,8 @@ import { MenuItem } from 'primeng/api';
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports:[CommonModule, RouterModule, UsuaCreateComponent, SplitButtonModule, ButtonModule,ConfirmDialogModule,ToastModule, TableModule, InputTextModule],
+  imports:[CommonModule, RouterModule, UsuaCreateComponent,UsuarioDetailsComponent,
+     SplitButtonModule, ButtonModule,ConfirmDialogModule,ToastModule, TableModule, InputTextModule],
   providers:[MessageService, ConfirmationService],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss',
@@ -49,6 +52,7 @@ export class UsuaListComponent  implements OnInit {
 
   showCreate = false;
   showEdit = false;
+  showDetails = false;
   loading = [false, false, false, false];
     usurioSeleccionado: any;
     usuarios: any[] = [];
@@ -82,12 +86,12 @@ export class UsuaListComponent  implements OnInit {
         {
           label: 'Editar',
           icon: 'pi pi-pencil',
-          command: () => this.ObtenerUsuario(usuario.usua_Id)
+          command: () => this.ObtenerUsuario(usuario.usua_Id, 1)
         },
         {
           label: 'Detalles',
           icon: 'pi pi-eye',
-          // Puedes añadir lógica si se desea
+          command: () => this.ObtenerUsuario(usuario.usua_Id, 2)
         },
         {
           
@@ -99,13 +103,18 @@ export class UsuaListComponent  implements OnInit {
     }
   
   
-    ObtenerUsuario(id: number): void {
-      this.usuario.usua_Id = id;
-      this.http.post<Usuario>(`${this.apiUrl}/Usuario/Buscar`, this.usuario)
-        .subscribe(data => {
-          this.usurioSeleccionado = data;
-          this.showEdit = true;
-        });
+    ObtenerUsuario(id: number, accion:number): void {
+    
+      this.usurioSeleccionado = id; 
+      if(accion == 1)
+      {
+        this.showEdit = true;
+      }
+      else
+      {
+        this.showDetails = true;
+      }
+      
     }
   
   
@@ -154,6 +163,11 @@ export class UsuaListComponent  implements OnInit {
       this.showEdit = false;
       this.listarUsuario();
     }
+
+    cancelDetails(): void {
+      this.showDetails = false;
+      this.listarUsuario();
+    }
   
     registroCreado(): void {
       this.showCreate = false;
@@ -162,10 +176,11 @@ export class UsuaListComponent  implements OnInit {
         this.messageService.add({
           severity: 'success',
           summary: 'Exito',
-          detail: 'Usuario creado exitosamente'
+          detail: 'Cargo creado exitosamente'
         });
       }, 100);
     }
+
     crearError(): void {
       this.showCreate = false;
       this.listarUsuario();
@@ -173,10 +188,23 @@ export class UsuaListComponent  implements OnInit {
         this.messageService.add({
           severity: 'error',
           summary: 'Error',
-          detail: 'El usuario no se pudo crear'
+          detail: 'El cargo no se pudo crear'
         });
       }, 100);
     }
+
+    registroActualizado(): void {
+      this.showEdit = false;
+      this.listarUsuario();
+      setTimeout(() => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Exito',
+          detail: 'El cargo fue actualizado exitosamente'
+        });
+      }, 100);
+    }
+    
     onGlobalFilter(table: Table, event: Event) {
       table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
     }

@@ -5,7 +5,8 @@ import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http'
 import { Cliente } from '../../models/clientes.model'
 import { ClienteCreateComponent } from '../create/create.component';
-//import {EsCiEditComponent} from '../edit/edit.component';
+import { ClienteEditComponent } from '../edit/edit.component';
+import { ClienteDetailsComponent} from  '../details/details.component';
 import { environment } from '../../../enviroments/enviroment'; 
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { ButtonModule } from 'primeng/button';
@@ -29,7 +30,7 @@ import { MenuItem } from 'primeng/api';
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [CommonModule, RouterModule, ClienteCreateComponent, 
+  imports: [CommonModule, RouterModule, ClienteCreateComponent, ClienteEditComponent, ClienteDetailsComponent,
     SplitButtonModule, ButtonModule,ConfirmDialogModule,ToastModule, TableModule, InputTextModule],
   providers:[MessageService, ConfirmationService],
   templateUrl: './list.component.html',
@@ -53,7 +54,7 @@ export class ClienteListComponent implements OnInit {
 
   private apiUrl = environment.apiUrl;
 
-
+  showDetails = false;
   showCreate = false;
   showEdit = false;
   loading = [false, false, false, false];
@@ -89,12 +90,12 @@ export class ClienteListComponent implements OnInit {
       {
         label: 'Editar',
         icon: 'pi pi-pencil',
-        //command: () => this.ObtenerEstadoCivil(cargo.car)
+        command: () => this. ObtenerCliente(cliente.clie_Id, 1),
       },
       {
         label: 'Detalles',
         icon: 'pi pi-eye',
-        // Puedes añadir lógica si se desea
+        command: () => this. ObtenerCliente(cliente.clie_Id, 2),
       },
       {
         label: 'Eliminar',
@@ -104,16 +105,19 @@ export class ClienteListComponent implements OnInit {
     ];
   }
 
-  /*
-   ObtenerEstadoCivil(id: number): void {
-      this.estadoCivil.esCi_Id = id;
-      this.http.post<EstadoCivil>(`${this.apiUrl}/EstadoCivil/Find`, this.estadoCivil)
-        .subscribe(data => {
-          this.estadoCivilSeleccionado = data;
-          this.showEdit = true;
-        });
+  ObtenerCliente(id: number, accion:number): void {
+    
+    this.clienteSeleccionado = id; // solo el ID
+    if(accion == 1)
+    {
+      this.showEdit = true;
     }
-  */
+    else
+    {
+      this.showDetails = true;
+    }
+    
+  }
   
     confirmarEliminacion(id: number): void {
       this.confirmationService.confirm({
@@ -141,7 +145,7 @@ export class ClienteListComponent implements OnInit {
           this.messageService.add({
             severity: 'success',
             summary: 'Eliminado',
-            detail: 'Estado civil eliminado'
+            detail: 'Cliente eliminado'
           });
           this.listarClientes();
         });
@@ -163,16 +167,10 @@ export class ClienteListComponent implements OnInit {
       this.listarClientes();
     }
 
-    crearError(): void {
-      this.showCreate = false;
+
+     cancelDetails(): void {
+      this.showDetails = false;
       this.listarClientes();
-      setTimeout(() => {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Error',
-          detail: 'El cliente no se pudo crear'
-        });
-      }, 100);
     }
   
     registroCreado(): void {
@@ -183,6 +181,30 @@ export class ClienteListComponent implements OnInit {
           severity: 'success',
           summary: 'Exito',
           detail: 'Cliente creado exitosamente'
+        });
+      }, 100);
+    }
+
+    registroActualizado(): void {
+      this.showEdit = false;
+      this.listarClientes();
+      setTimeout(() => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Exito',
+          detail: 'El cliente fue actualizado exitosamente'
+        });
+      }, 100);
+    }
+
+    crearError(): void {
+      this.showCreate = false;
+      this.listarClientes();
+      setTimeout(() => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'El cliente no se pudo crear'
         });
       }, 100);
     }

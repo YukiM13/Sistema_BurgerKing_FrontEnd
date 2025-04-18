@@ -3,8 +3,10 @@ import {CommonModule, NgFor} from '@angular/common';
 import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {FormsModule} from '@angular/forms'
-import {Cargo} from '../../models/cargos.model'
+import { Cargo } from '../../models/cargos.model'
 import { environment } from 'src/enviroments/enviroment';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-edit',
@@ -13,6 +15,7 @@ import { environment } from 'src/enviroments/enviroment';
   templateUrl: './edit.component.html',
   styleUrl: './edit.component.scss'
 })
+
 export class CargoEditComponent {
   private apiUrl = environment.apiUrl; 
   @Input() cargoId: number = 0;
@@ -21,14 +24,28 @@ export class CargoEditComponent {
   cancelarFormulario() {
     this.cancelar.emit();  
   }
+
   http = inject(HttpClient);
   router = inject(Router);
   cargo = new Cargo();
-  descripcion = "";
+  cont = 0;
+
+  constructor(private messageService: MessageService) { }
 
   EditarCargo()  {
+    this.cont = 1;
+    if(!this.cargo.carg_Descripcion.trim())
+    {
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Advertencia!',
+        detail: 'Campos Vacios.'
+      });
+      return;
+    }
+
     this.cargo.usua_Modificacion = 2;
-    this.cargo.carg_FechaCreacion = new Date;
+    this.cargo.carg_FechaModificacion = new Date;
     this.http.put(`${this.apiUrl}/Cargo/Editar`, this.cargo)
     .subscribe(() => {
       this.actualizado.emit();
@@ -38,7 +55,7 @@ export class CargoEditComponent {
 
   ngOnInit(): void {
     this.cargo.carg_Id = this.cargoId;
-  
+    this.cont = 0;
     this.http.post<Cargo[]>(`${this.apiUrl}/Cargo/Find`, this.cargo)
       .subscribe(data => {
         if (data && data.length > 0) {

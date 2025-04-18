@@ -22,14 +22,14 @@
               <small class="p-error" *ngIf="(descr.invalid || !municipio.muni_Descripcion.trim()) && cont == 1">El nombre es requerido</small>
               <br>
               
-          </div>
+            </div>
 
-          <div class="col-md-6">
-            <label>Departamento:</label>  <span class="text-red-400">*</span>
-            <p-dropdown [filter]="true"  [options]="departamentos" optionValue="depa_Codigo" optionLabel="depa_Descripcion"  [(ngModel)]="municipio.depa_Codigo" 
-            placeholder="Seleccionar Departamento" [showClear]="true"  name="depa_Codigo" appendTo="body" ></p-dropdown>
-            <small class="p-error" *ngIf="!municipio.depa_Codigo && cont == 1">El departamento es requerido</small>
-        </div>
+            <div class="col-md-6">
+                <label>Departamento:</label>  <span class="text-red-400">*</span>
+                <p-dropdown [filter]="true"  [options]="departamentos" optionValue="depa_Codigo" optionLabel="depa_Descripcion"  [(ngModel)]="municipio.depa_Codigo" 
+                placeholder="Seleccionar Departamento" [showClear]="true"  name="depa_Codigo" appendTo="body" ></p-dropdown>
+                <small class="p-error" *ngIf="!municipio.depa_Codigo && cont == 1">El departamento es requerido</small>
+            </div>
             
         </div>
 

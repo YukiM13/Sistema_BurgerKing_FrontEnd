@@ -5,7 +5,8 @@ import {Router} from '@angular/router';
 import { HttpClient } from '@angular/common/http'; //Trae el cliente http
 import {Departamento } from '../../models/departamento.model'
 import {DepaCreateComponent} from '../create/create.component';
-//import {EsCiEditComponent} from '../edit/edit.component';
+import {DepartamentoDetailsComponent} from '../details/details.component';
+import { DepartamentoEditComponent } from '../edit/edit.component'; 
 import { environment } from '../../../enviroments/enviroment'; 
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { ButtonModule } from 'primeng/button';
@@ -31,7 +32,8 @@ import { MenuItem } from 'primeng/api';
   standalone: true,
   //Falta el componente de editar
   //import {DepaEditComponent} from '../edit/edit.component';
-  imports: [CommonModule, RouterModule, DepaCreateComponent, SplitButtonModule, ButtonModule,ConfirmDialogModule,ToastModule, TableModule, InputTextModule],
+  imports: [CommonModule, RouterModule, DepaCreateComponent, DepartamentoDetailsComponent, DepartamentoEditComponent,
+     SplitButtonModule, ButtonModule,ConfirmDialogModule,ToastModule, TableModule, InputTextModule],
   providers:[MessageService, ConfirmationService],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss',
@@ -55,7 +57,7 @@ export class DepaListComponent implements OnInit {
 
   private apiUrl = environment.apiUrl;
 
-
+  showDetails = false;
   showCreate = false;
   showEdit = false;
   loading = [false, false, false, false];
@@ -89,12 +91,12 @@ export class DepaListComponent implements OnInit {
       {
         label: 'Editar',
         icon: 'pi pi-pencil',
-        command: () => this.ObtenerDepartamento(departamento.depa_Codigo)
+        command: () => this.ObtenerDepartamento(departamento.depa_Codigo, 1)
       },
       {
         label: 'Detalles',
         icon: 'pi pi-eye',
-        // Puedes añadir lógica si se desea
+        command: () => this.ObtenerDepartamento(departamento.depa_Codigo, 2)
       },
       {
         label: 'Eliminar',
@@ -104,26 +106,20 @@ export class DepaListComponent implements OnInit {
     ];
   }
 
-   ObtenerDepartamento(id: string): void {
-      this.departamento.depa_Codigo = id;
-      this.http.post<Departamento>(`${this.apiUrl}/Departamento/Find`, this.departamento)
-        .subscribe(data => {
-          this.departamentoSeleccionado = data;
-          this.showEdit = true;
-        });
+  ObtenerDepartamento(id: string, accion:number): void {
+    
+    this.departamentoSeleccionado = id; // solo el ID
+    if(accion == 1)
+    {
+      this.showEdit = true;
     }
+    else
+    {
+      this.showDetails = true;
+    }
+    
+  }
 
-    crearError(): void {
-      this.showCreate = false;
-      this.listardepartamentos();
-      setTimeout(() => {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Error',
-          detail: 'El departamento no se pudo crear'
-        });
-      }, 100);
-    }
   
     confirmarEliminacion(id: string): void {
       this.confirmationService.confirm({
@@ -169,6 +165,11 @@ export class DepaListComponent implements OnInit {
       this.showEdit = false;
       this.listardepartamentos();
     }
+
+    cancelDetails(): void {
+      this.showDetails = false;
+      this.listardepartamentos();
+    }
   
     registroCreado(): void {
       this.showCreate = false;
@@ -178,6 +179,30 @@ export class DepaListComponent implements OnInit {
           severity: 'success',
           summary: 'Exito',
           detail: 'Departamento creado exitosamente'
+        });
+      }, 100);
+    }
+
+    crearError(): void {
+      this.showCreate = false;
+      this.listardepartamentos();
+      setTimeout(() => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'El departamento no se pudo crear'
+        });
+      }, 100);
+    }
+
+    registroActualizado(): void {
+      this.showEdit = false;
+      this.listardepartamentos();
+      setTimeout(() => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Exito',
+          detail: 'El departamento fue actualizado exitosamente'
         });
       }, 100);
     }

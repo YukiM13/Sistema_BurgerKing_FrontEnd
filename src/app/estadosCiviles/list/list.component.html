@@ -65,7 +65,7 @@
   </div>
 
   <div *ngIf="showEdit" @collapse>
-    <app-edit [estadoCivilId]="estadoCivilSeleccionado"(actualizado)="registroActualizado()"  (cancelar)="cancelEdit()" ></app-edit>
+    <app-edit [estadoCivilId]="estadoCivilSeleccionado" (actualizado)="registroActualizado()"  (cancelar)="cancelEdit()" ></app-edit>
   </div>
 
   <div *ngIf="showDetails" @collapse>

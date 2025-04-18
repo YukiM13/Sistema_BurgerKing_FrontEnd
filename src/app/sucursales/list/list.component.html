@@ -1,4 +1,4 @@
-<ng-container *ngIf="!showCreate  && !showEdit" @collapse>
+<ng-container *ngIf="!showCreate  && !showEdit && !showDetails" @collapse>
     <h2>Sucursales</h2>
   <div class="card">
   
@@ -88,9 +88,14 @@
      <app-create (creado)="registroCreado()" (cancelar)="cancelCreate()" ></app-create> 
     </div>
   
+  
     <div *ngIf="showEdit" @collapse>
-     <!-- <app-edit [estadoCivil]="estadoCivilSeleccionado" (cancelar)="cancelEdit()" ></app-edit> --> 
+        <app-edit [sucuId]="sucursalSeleccionado" (actualizado)="registroActualizado()"  (cancelar)="cancelEdit()" ></app-edit> 
     </div>
+
+    <div *ngIf="showDetails" @collapse>
+        <app-details [sucuId]="sucursalSeleccionado"  (cancelar)="cancelDetails()" ></app-details>
+      </div>
  
  
   

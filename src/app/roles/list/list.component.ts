@@ -6,6 +6,7 @@ import {HttpClient} from '@angular/common/http'
 import {Roles} from '../../models/rol.model'
 import {RoleCreateComponent} from '../../roles/create/create.component';
 // import {RoleEditComponent} from '../../roles/edit/edit.component';
+import {RolDetailsComponent} from '../../roles/details/details.component';
 import { environment } from '../../../enviroments/enviroment'; 
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { ButtonModule } from 'primeng/button';
@@ -25,8 +26,8 @@ import { MenuItem } from 'primeng/api';
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [CommonModule, RouterModule, SplitButtonModule, RoleCreateComponent
-    , ButtonModule,ConfirmDialogModule,ToastModule, TableModule, InputTextModule],
+  imports: [CommonModule, RouterModule, SplitButtonModule, RoleCreateComponent, RolDetailsComponent,
+            ButtonModule,ConfirmDialogModule,ToastModule, TableModule, InputTextModule],
   providers:[MessageService, ConfirmationService],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss',
@@ -50,6 +51,7 @@ export class RoleListComponent implements OnInit {
 
   showCreate = false;
   showEdit = false;
+  showDetails = false;
   loading = [false, false, false, false];
   rolSeleccionado: any;
   roles: any[] = [];
@@ -84,12 +86,12 @@ export class RoleListComponent implements OnInit {
       {
         label: 'Editar',
         icon: 'pi pi-pencil',
-        command: () => this.ObtenerRol(rol.role_Id)
+        command: () => this.ObtenerRol(rol.role_Id, 1)
       },
       {
         label: 'Detalles',
         icon: 'pi pi-eye',
-        // Puedes añadir lógica si se desea
+        command: () => this.ObtenerRol(rol.role_Id, 2)
       },
       {
         label: 'Eliminar',
@@ -100,13 +102,18 @@ export class RoleListComponent implements OnInit {
   }
 
 
-  ObtenerRol(id: number): void {
-    this.rol.role_Id = id;
-    this.http.post<Roles>(`${this.apiUrl}/Rol/Buscar`, this.rol)
-      .subscribe(data => {
-        this.rolSeleccionado = data;
-        this.showEdit = true;
-      });
+  ObtenerRol(id: number, accion:number): void {
+    
+    this.rolSeleccionado = id; // solo el ID
+    if(accion == 1)
+    {
+      this.showEdit = true;
+    }
+    else
+    {
+      this.showDetails = true;
+    }
+    
   }
 
 
@@ -155,6 +162,10 @@ export class RoleListComponent implements OnInit {
     this.showEdit = false;
     this.listarRoles();
   }
+  cancelDetails(): void {
+    this.showDetails = false;
+    this.listarRoles();
+  }
 
   registroCreado(): void {
     this.showCreate = false;
@@ -163,10 +174,11 @@ export class RoleListComponent implements OnInit {
       this.messageService.add({
         severity: 'success',
         summary: 'Exito',
-        detail: 'Rol creado exitosamente'
+        detail: 'Cargo creado exitosamente'
       });
     }, 100);
   }
+
   crearError(): void {
     this.showCreate = false;
     this.listarRoles();
@@ -174,7 +186,19 @@ export class RoleListComponent implements OnInit {
       this.messageService.add({
         severity: 'error',
         summary: 'Error',
-        detail: 'El rol no se pudo crear'
+        detail: 'El cargo no se pudo crear'
+      });
+    }, 100);
+  }
+
+  registroActualizado(): void {
+    this.showEdit = false;
+    this.listarRoles();
+    setTimeout(() => {
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Exito',
+        detail: 'El cargo fue actualizado exitosamente'
       });
     }, 100);
   }
