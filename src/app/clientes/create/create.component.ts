@@ -14,7 +14,7 @@ import { Empleados } from 'src/app/models/empleado.model';
 import { InputMaskModule } from 'primeng/inputmask';
 
 @Component({
-  selector: 'app-create',
+  selector: 'app-create-cliente',
   standalone: true,
   imports: [CommonModule,InputMaskModule, FormsModule, ToggleButtonModule, SelectButtonModule, ToastModule],
   providers: [MessageService],

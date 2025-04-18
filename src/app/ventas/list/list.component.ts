@@ -4,7 +4,7 @@ import {RouterModule} from '@angular/router'
 import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http'
 import { Venta } from '../../models/ventas.model'
-//import {CargoCreateComponent } from '../create/create.component';
+import {VentaCreateComponent } from '../create/create.component';
 //import {EsCiEditComponent} from '../edit/edit.component';
 import { environment } from '../../../enviroments/enviroment'; 
 import { SplitButtonModule } from 'primeng/splitbutton';
@@ -28,7 +28,7 @@ import { MenuItem } from 'primeng/api';
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [CommonModule, RouterModule, SplitButtonModule, ButtonModule,ConfirmDialogModule,ToastModule, TableModule, InputTextModule],
+  imports: [CommonModule, RouterModule, SplitButtonModule, ButtonModule,ConfirmDialogModule,ToastModule, TableModule, InputTextModule, VentaCreateComponent],
   providers:[MessageService, ConfirmationService],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss',
@@ -92,6 +92,11 @@ export class VentasListComponent implements OnInit {
       {
         label: 'Detalles',
         icon: 'pi pi-eye',
+        // Puedes añadir lógica si se desea
+      },
+      {
+        label: 'Factura',
+        icon: 'pi pi-file',
         // Puedes añadir lógica si se desea
       },
       {

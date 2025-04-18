@@ -278,7 +278,28 @@ ListarProductosPorTamano() {
       }
       
     prueba: any[] = [];
-  
+    decrementarCantidad(prTaId: number) {
+      if (!prTaId) return; 
+      
+      const existente = this.seleccionados.find(s => s.prTa_Id === prTaId);
+      if (existente) {
+        existente.cantidad -= 1;
+        
+
+        if (existente.cantidad <= 0) {
+          this.seleccionados = this.seleccionados.filter(s => s.prTa_Id !== prTaId);
+        }
+        
+        this.calcularTotal();
+      }
+    }
+
+    getCantidadProducto(prTaId: number): number {
+      if (!prTaId) return 0;
+      
+      const existente = this.seleccionados.find(s => s.prTa_Id === prTaId);
+      return existente ? existente.cantidad : 0;
+    }
       //municipos = new Municipios();
     
 }

@@ -14,7 +14,7 @@
             <div class="col-md-6">
                 <label for="" class="label-control">Nombres</label> <span class="text-red-400">*</span>
                 <input pinputtext id="nom" name="clie_Nombre" [(ngModel)] = "cliente.clie_Nombre" class="p-inputtext form-control ng-invalid " required #nom="ngModel"/>
-                <small class="p-error" *ngIf="(nom.invalid || cliente.clie_Nombre.trim())  && cont == 1">El nombre es requerido</small>
+                <small class="p-error" *ngIf="!cliente.clie_Nombre.trim()  && cont == 1">El nombre es requerido</small>
                 
             </div>
             
@@ -23,7 +23,7 @@
             <div class="col-md-6">
                 <label for="" class="label-control">Apellidos</label> <span class="text-red-400">*</span>
                 <input pinputtext id="ape" name="clie_Apellido" [(ngModel)] = "cliente.clie_Apellido" class="p-inputtext form-control ng-invalid " required #ape="ngModel"/>
-                <small class="p-error" *ngIf="(ape.invalid || cliente.clie_Apellido.trim()) && cont == 1">El apellido es requerido</small>
+                <small class="p-error" *ngIf="!cliente.clie_Apellido.trim() && cont == 1">El apellido es requerido</small>
                 
             </div>
             

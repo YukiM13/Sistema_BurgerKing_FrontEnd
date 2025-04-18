@@ -112,8 +112,15 @@
                             </button>
                           </div>
                         </span>
-                        <span >
-                         <button type="button" (click)="agregarAlCombo(selectedTamanios[producto.prod_Descripcion])" class="btn btn-primary"><i class="pi pi-plus"></i></button>
+                        <span class="flex align-items-center">
+                          <button type="button" (click)="decrementarCantidad(selectedTamanios[producto.prod_Descripcion])" class="btn btn-secondary btn-sm">
+                            <i class="pi pi-minus"></i>
+                          </button>
+                          <input type="text" class="form-control mx-1" style="width: 40px; text-align: center;" 
+                                 [value]="getCantidadProducto(selectedTamanios[producto.prod_Descripcion])" readonly>
+                          <button type="button" (click)="agregarAlCombo(selectedTamanios[producto.prod_Descripcion])" class="btn btn-primary btn-sm">
+                            <i class="pi pi-plus"></i>
+                          </button>
                         </span>
                     </div>
 

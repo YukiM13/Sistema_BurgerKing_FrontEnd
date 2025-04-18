@@ -77,9 +77,10 @@ export class LoginComponent {
              localStorage.setItem('sucursal', this.usuarioLogin.sucu_Descripcion);
              localStorage.setItem('correo', this.usuarioLogin.usua_Correo);
               localStorage.setItem('rol_id', this.usuarioLogin.role_Id.toString());
+              localStorage.setItem('sucursal_id', this.usuarioLogin.sucu_Id.toString());
               const adminValue = this.usuarioLogin.usua_Admin.toString();
               
-              console.log(adminValue);
+              console.log(localStorage.getItem('sucursal_id'));
               // if(adminValue == '1'){
               //   localStorage.setItem('Admin', 'true');
               // }
