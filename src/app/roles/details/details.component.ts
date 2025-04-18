@@ -27,13 +27,29 @@ export class RolDetailsComponent {
   http = inject(HttpClient);
   router = inject(Router);
   rol = new Roles();
+  rol2 = new Roles();
+  pantallas: any[] = [];
 
 
 
   ngOnInit(): void {
     this.rol.role_Id = this.rolId;
+    
+
+    this.http.post<any[]>('https://localhost:7147/RolPorPantallas/Buscar', this.rol)
+    .subscribe(data1  => {
+      if (data1 && data1.length > 0) {
+        this.pantallas = data1;
+        console.log("Respuesta Pantallas:", data1);
+        
+      } else {
+        console.error("No se recibió una respuesta válida de la API");
+      }
+    }, error => {
+      console.error("Error al cargar datos:", error);
+    });
   
-    this.http.post<Roles[]>(`${this.apiUrl}/Rol/Buscar`, this.rol)
+    this.http.post<Roles[]>(`https://localhost:7147/Rol/Buscar`, this.rol)
       .subscribe(data => {
         if (data && data.length > 0) {
           this.rol = data[0];

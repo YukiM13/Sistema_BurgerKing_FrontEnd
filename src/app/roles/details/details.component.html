@@ -9,6 +9,16 @@
                 <label  class="label-control">Rol:</label> <br>
                 <label for="">{{rol.role_Descripcion}}</label>
             </div>
+
+            <div class="col-md-8">
+                <label class="label-control">Pantallas:</label> <br>
+                <div class="row">
+                    <div *ngFor="let pantalla of pantallas"  class="col-md-4">
+                        <label for="">{{pantalla.pant_Descripcion}}</label>
+                    </div>
+                </div>
+            </div>
+              
             
         </div>
         <br>
