@@ -6,19 +6,20 @@
         <div class="row" >
             
             <div class="col-md-4 p-1" >
-                <label  class="label-control">Identidad:</label> <br>
-                <label for="">{{cliente.clie_Identidad_Rtn}}</label>
+                <label  class="label-control">Producto:</label> <br>
+                <label for="">{{producto.prod_Descripcion}}</label>
             </div>
 
             <div class="col-md-4 p-1" >
-                <label  class="label-control">Cliente:</label> <br>
-                <label for="">{{cliente.clie_Nombre}} {{cliente.clie_Apellido}}</label>
+                <label  class="label-control">Categoria:</label> <br>
+                <label for="">{{producto.cate_Descripcion}}</label>
             </div>
 
             <div class="col-md-4 p-1" >
-                <label  class="label-control">Sexo:</label> <br>
-                <label for="">{{cliente.clie_Sexo}}</label>
+                <label  class="label-control">URL:</label> <br>
+                <label for="">{{producto.prod_ImgUrl}}</label>
             </div>
+
         </div>
         <br>
         <div class="row">
@@ -43,27 +44,43 @@
                         <tr>
                             <td>Creacion</td>
                             <td>
-                                <label for="">{{cliente.usuaC_Nombre}}</label>
+                                <label for="">{{producto.usuaC_Nombre}}</label>
                             </td>
                             <td>
-                                <label for="">{{cliente.clie_FechaCreacion}}</label>
+                                <label for="">{{producto.prod_FechaCreacion}}</label>
                             </td>
                             
                         </tr>
-                        
+                        <tr>
+                            <td>Actualizacion</td>
+                                <td>
+                                    <label for="">{{producto.usuaM_Nombre}}</label>
+                                </td>
+                                <td>
+                                    <label for="">{{producto.prod_FechaModificacion}}</label>
+                                </td>
+                        </tr>
                     </ng-template>
                     <ng-template pTemplate="emptymessage">
                         <tr>
                             <td>Creacion</td>
                             <td>
-                                <label for="">{{cliente.usuaC_Nombre}}</label>
+                                <label for="">{{producto.usuaC_Nombre}}</label>
                             </td>
                             <td>
-                                <label for="">{{cliente.clie_FechaCreacion}}</label>
+                                <label for="">{{producto.prod_FechaCreacion}}</label>
                             </td>
                             
                         </tr>
-                        
+                        <tr>
+                            <td>Actualizacion</td>
+                                <td>
+                                    <label for="">{{producto.usuaM_Nombre}}</label>
+                                </td>
+                                <td>
+                                    <label for="">{{producto.prod_FechaModificacion}}</label>
+                                </td>
+                        </tr>
                     </ng-template>
                     <ng-template pTemplate="loadingbody">
                         <tr>

@@ -176,7 +176,7 @@ export class UsuaListComponent  implements OnInit {
         this.messageService.add({
           severity: 'success',
           summary: 'Exito',
-          detail: 'Cargo creado exitosamente'
+          detail: 'Usuario creado exitosamente'
         });
       }, 100);
     }
@@ -188,7 +188,7 @@ export class UsuaListComponent  implements OnInit {
         this.messageService.add({
           severity: 'error',
           summary: 'Error',
-          detail: 'El cargo no se pudo crear'
+          detail: 'El usuario no se pudo crear'
         });
       }, 100);
     }
@@ -200,7 +200,7 @@ export class UsuaListComponent  implements OnInit {
         this.messageService.add({
           severity: 'success',
           summary: 'Exito',
-          detail: 'El cargo fue actualizado exitosamente'
+          detail: 'El usuario fue actualizado exitosamente'
         });
       }, 100);
     }

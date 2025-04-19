@@ -3,7 +3,7 @@ import {CommonModule, NgFor} from '@angular/common';
 import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {FormsModule} from '@angular/forms'
-import { Cliente } from '../../models/clientes.model'
+import { Productos } from '../../models/producto.model'
 import { environment } from 'src/enviroments/enviroment';
 import { Table, TableModule } from 'primeng/table';
 
@@ -15,9 +15,9 @@ import { Table, TableModule } from 'primeng/table';
   styleUrl: './details.component.scss'
 })
 
-export class ClienteDetailsComponent {
+export class ProductoDetailsComponent {
   private apiUrl = environment.apiUrl; 
-  @Input() clienteId: string = "";
+  @Input() prodId: number = 0;
   @Output() cancelar = new EventEmitter<void>(); 
 
   cancelarFormulario() {
@@ -26,17 +26,17 @@ export class ClienteDetailsComponent {
 
   http = inject(HttpClient);
   router = inject(Router);
-  cliente = new Cliente();
+  producto = new Productos();
 
 
 
   ngOnInit(): void {
-    this.cliente.clie_Identidad_Rtn = this.clienteId;
+    this.producto.prod_Id = this.prodId;
   
-    this.http.post<Cliente[]>(`https://localhost:7147/Cliente/Buscar`, this.cliente)
+    this.http.post<Productos[]>(`${this.apiUrl}/Prodcuto/Buscar`, this.producto)
       .subscribe(data => {
         if (data && data.length > 0) {
-          this.cliente = data[0];
+          this.producto = data[0];
           console.log("Respuesta API:", data);
           
         } else {

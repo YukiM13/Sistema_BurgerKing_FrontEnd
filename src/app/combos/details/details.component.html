@@ -6,19 +6,20 @@
         <div class="row" >
             
             <div class="col-md-4 p-1" >
-                <label  class="label-control">Identidad:</label> <br>
-                <label for="">{{cliente.clie_Identidad_Rtn}}</label>
+                <label  class="label-control">Combo:</label> <br>
+                <label for="">{{combo.comb_Descripcion}}</label>
             </div>
 
             <div class="col-md-4 p-1" >
-                <label  class="label-control">Cliente:</label> <br>
-                <label for="">{{cliente.clie_Nombre}} {{cliente.clie_Apellido}}</label>
+                <label  class="label-control">Precio:</label> <br>
+                <label for="">{{combo.comb_Precio}}</label>
             </div>
 
             <div class="col-md-4 p-1" >
-                <label  class="label-control">Sexo:</label> <br>
-                <label for="">{{cliente.clie_Sexo}}</label>
+                <label  class="label-control">URL:</label> <br>
+                <label for="">{{combo.comb_ImgUrl}}</label>
             </div>
+
         </div>
         <br>
         <div class="row">
@@ -43,27 +44,43 @@
                         <tr>
                             <td>Creacion</td>
                             <td>
-                                <label for="">{{cliente.usuaC_Nombre}}</label>
+                                <label for="">{{combo.usuaC_Nombre}}</label>
                             </td>
                             <td>
-                                <label for="">{{cliente.clie_FechaCreacion}}</label>
+                                <label for="">{{combo.comb_FechaCreacion}}</label>
                             </td>
                             
                         </tr>
-                        
+                        <tr>
+                            <td>Actualizacion</td>
+                                <td>
+                                    <label for="">{{combo.usuaM_Nombre}}</label>
+                                </td>
+                                <td>
+                                    <label for="">{{combo.comb_FechaModificacion}}</label>
+                                </td>
+                        </tr>
                     </ng-template>
                     <ng-template pTemplate="emptymessage">
                         <tr>
                             <td>Creacion</td>
                             <td>
-                                <label for="">{{cliente.usuaC_Nombre}}</label>
+                                <label for="">{{combo.usuaC_Nombre}}</label>
                             </td>
                             <td>
-                                <label for="">{{cliente.clie_FechaCreacion}}</label>
+                                <label for="">{{combo.comb_FechaCreacion}}</label>
                             </td>
                             
                         </tr>
-                        
+                        <tr>
+                            <td>Actualizacion</td>
+                                <td>
+                                    <label for="">{{combo.usuaM_Nombre}}</label>
+                                </td>
+                                <td>
+                                    <label for="">{{combo.comb_FechaModificacion}}</label>
+                                </td>
+                        </tr>
                     </ng-template>
                     <ng-template pTemplate="loadingbody">
                         <tr>

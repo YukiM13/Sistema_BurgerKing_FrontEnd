@@ -6,6 +6,7 @@ import {HttpClient} from '@angular/common/http'
 import {Empleados} from '../../models/empleado.model'
  import { EmpleadoCreateComponent } from '../../empleados/create/create.component';
 // import {EmpleEditComponent} from '../../empleados/edit/edit.component';
+import { EmpleadoDetailsComponent} from  '../details/details.component';
 import { environment } from '../../../enviroments/enviroment'; 
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { ButtonModule } from 'primeng/button';
@@ -27,7 +28,7 @@ import { MenuItem } from 'primeng/api';
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [CommonModule, RouterModule, EmpleadoCreateComponent,
+  imports: [CommonModule, RouterModule, EmpleadoCreateComponent,EmpleadoDetailsComponent,
      SplitButtonModule, ButtonModule,ConfirmDialogModule,ToastModule, TableModule, InputTextModule],
   providers:[MessageService, ConfirmationService],
   templateUrl: './list.component.html',
@@ -52,6 +53,7 @@ export class EmpleListComponent implements OnInit{
 
   showCreate = false;
   showEdit = false;
+  showDetails = false;
   loading = [false, false, false, false];
   empleadoSeleccionado: any;
   empleados: any[] = [];
@@ -86,12 +88,12 @@ export class EmpleListComponent implements OnInit{
       {
         label: 'Editar',
         icon: 'pi pi-pencil',
-        command: () => this.ObtenerEmpleado(empleado.empl_Id)
+        command: () => this.ObtenerEmpleado(empleado.empl_Id, 1)
       },
       {
         label: 'Detalles',
         icon: 'pi pi-eye',
-        // Puedes añadir lógica si se desea
+        command: () => this.ObtenerEmpleado(empleado.empl_Id, 2)
       },
       {
         label: 'Eliminar',
@@ -102,13 +104,18 @@ export class EmpleListComponent implements OnInit{
   }
 
 
-  ObtenerEmpleado(id: number): void {
-    this.empleado.empl_Id = id;
-    this.http.post<Empleados>(`${this.apiUrl}/Empleado/Buscar`, this.empleado)
-      .subscribe(data => {
-        this.empleadoSeleccionado = data;
-        this.showEdit = true;
-      });
+  ObtenerEmpleado(id: number, accion:number): void {
+    
+    this.empleadoSeleccionado = id; // solo el ID
+    if(accion == 1)
+    {
+      this.showEdit = true;
+    }
+    else
+    {
+      this.showDetails = true;
+    }
+    
   }
 
 
@@ -130,17 +137,7 @@ export class EmpleListComponent implements OnInit{
     });
   }
 
-  crearError(): void {
-    this.showCreate = false;
-    this.listarEmpleados();
-    setTimeout(() => {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Error',
-        detail: 'El empleado no se pudo crear'
-      });
-    }, 100);
-  }
+ 
 
   EliminarEmpleado(id: number): void {
     this.empleado.empl_Id = id;
@@ -169,6 +166,11 @@ export class EmpleListComponent implements OnInit{
     this.listarEmpleados();
   }
 
+  cancelDetails(): void {
+    this.showDetails = false;
+    this.listarEmpleados();
+  }
+
   registroCreado(): void {
     this.showCreate = false;
     this.listarEmpleados();
@@ -177,6 +179,30 @@ export class EmpleListComponent implements OnInit{
         severity: 'success',
         summary: 'Exito',
         detail: 'Empleado creado exitosamente'
+      });
+    }, 100);
+  }
+
+  crearError(): void {
+    this.showCreate = false;
+    this.listarEmpleados();
+    setTimeout(() => {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'El empleado no se pudo crear'
+      });
+    }, 100);
+  }
+
+  registroActualizado(): void {
+    this.showEdit = false;
+    this.listarEmpleados();
+    setTimeout(() => {
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Exito',
+        detail: 'El empleado fue actualizado exitosamente'
       });
     }, 100);
   }

@@ -10,6 +10,8 @@ export class Combo{
     prod_Descripcion: string = '';
     prod_ImgUrl: string = '';
     tama_Descripcion: string = '';
+    usuaC_Nombre: string = '';
+    usuaM_Nombre: string = '';
     codeStatus: number = 0;
 
     constructor(init?: Partial<Combo>) {

@@ -88,10 +88,6 @@
     <app-create (creado)="registroCreado()" (errorCrear)="crearError()" (cancelar)="cancelCreate()" ></app-create> 
     </div>
   
-    <div *ngIf="showEdit" @collapse>
-        <app-edit  (actualizado)="registroActualizado()"  (cancelar)="cancelEdit()" ></app-edit> 
-    </div>
-
     <div *ngIf="showDetails" @collapse>
         <app-details [clienteId]="clienteSeleccionado"  (cancelar)="cancelDetails()" ></app-details>
       </div>

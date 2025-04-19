@@ -1,24 +1,43 @@
 <h2 >Detalles</h2>
 <div class="card">
- 
     <div class="card-body">
    
         <div class="row" >
-            
             <div class="col-md-4 p-1" >
                 <label  class="label-control">Identidad:</label> <br>
-                <label for="">{{cliente.clie_Identidad_Rtn}}</label>
+                <label for="">{{empleado.empl_Identidad}}</label>
             </div>
 
             <div class="col-md-4 p-1" >
-                <label  class="label-control">Cliente:</label> <br>
-                <label for="">{{cliente.clie_Nombre}} {{cliente.clie_Apellido}}</label>
+                <label  class="label-control">Empleado:</label> <br>
+                <label for="">{{empleado.empl_Nombre}} {{empleado.empl_Apellido}}</label>
+            </div>
+
+            <div class="col-md-4 p-1" >
+                <label  class="label-control">Fecha Nacimiento:</label> <br>
+                <label for="">{{empleado.empl_FechaNacimiento}}</label>
             </div>
 
             <div class="col-md-4 p-1" >
                 <label  class="label-control">Sexo:</label> <br>
-                <label for="">{{cliente.clie_Sexo}}</label>
+                <label for="">{{empleado.empl_Sexo}}</label>
             </div>
+
+            <div class="col-md-4 p-1" >
+                <label  class="label-control">Estado Civil:</label> <br>
+                <label for="">{{empleado.esCi_Descripcion}}</label>
+            </div>
+
+            <div class="col-md-4 p-1" >
+                <label  class="label-control">Cargo:</label> <br>
+                <label for="">{{empleado.carg_Descripcion}}</label>
+            </div>
+
+            <div class="col-md-4 p-1" >
+                <label  class="label-control">Sucursal:</label> <br>
+                <label for="">{{empleado.sucu_Descripcion}}</label>
+            </div>   
+
         </div>
         <br>
         <div class="row">
@@ -43,27 +62,43 @@
                         <tr>
                             <td>Creacion</td>
                             <td>
-                                <label for="">{{cliente.usuaC_Nombre}}</label>
+                                <label for="">{{empleado.usuaC_Nombre}}</label>
                             </td>
                             <td>
-                                <label for="">{{cliente.clie_FechaCreacion}}</label>
+                                <label for="">{{empleado.empl_FechaCreacion}}</label>
                             </td>
                             
                         </tr>
-                        
+                        <tr>
+                            <td>Actualizacion</td>
+                                <td>
+                                    <label for="">{{empleado.usuaM_Nombre}}</label>
+                                </td>
+                                <td>
+                                    <label for="">{{empleado.empl_FechaModificacion}}</label>
+                                </td>
+                        </tr>
                     </ng-template>
                     <ng-template pTemplate="emptymessage">
                         <tr>
                             <td>Creacion</td>
                             <td>
-                                <label for="">{{cliente.usuaC_Nombre}}</label>
+                                <label for="">{{empleado.usuaC_Nombre}}</label>
                             </td>
                             <td>
-                                <label for="">{{cliente.clie_FechaCreacion}}</label>
+                                <label for="">{{empleado.empl_FechaCreacion}}</label>
                             </td>
                             
                         </tr>
-                        
+                        <tr>
+                            <td>Actualizacion</td>
+                                <td>
+                                    <label for="">{{empleado.usuaM_Nombre}}</label>
+                                </td>
+                                <td>
+                                    <label for="">{{empleado.empl_FechaModificacion}}</label>
+                                </td>
+                        </tr>
                     </ng-template>
                     <ng-template pTemplate="loadingbody">
                         <tr>
@@ -83,4 +118,5 @@
 
     </div>
   </div>
+
 

@@ -178,7 +178,7 @@ export class TamaListComponent implements OnInit {
       this.messageService.add({
         severity: 'success',
         summary: 'Exito',
-        detail: 'Cargo creado exitosamente'
+        detail: 'Tamaño creado exitosamente'
       });
     }, 100);
   }
@@ -190,7 +190,7 @@ export class TamaListComponent implements OnInit {
       this.messageService.add({
         severity: 'error',
         summary: 'Error',
-        detail: 'El cargo no se pudo crear'
+        detail: 'El tamaño no se pudo crear'
       });
     }, 100);
   }
@@ -202,7 +202,7 @@ export class TamaListComponent implements OnInit {
       this.messageService.add({
         severity: 'success',
         summary: 'Exito',
-        detail: 'El cargo fue actualizado exitosamente'
+        detail: 'El tamaño fue actualizado exitosamente'
       });
     }, 100);
   }

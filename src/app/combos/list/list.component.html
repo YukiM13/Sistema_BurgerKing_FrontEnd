@@ -1,4 +1,4 @@
-<ng-container *ngIf="!showCreate  && !showEdit" @collapse>
+<ng-container *ngIf="!showCreate  && !showEdit && !showDetails" @collapse>
     <h2>Combos</h2>
   <div class="card">
   
@@ -14,8 +14,8 @@
 
                             <img [src]="url + '/' + combo.comb_ImgUrl"  class="w-full" height="200px"/>
                             <div class="acciones-hover">
-                                <button pButton icon="pi pi-pencil" class="p-button-rounded p-button-warning p-button-sm" ></button>
-                                <button pButton icon="pi pi-eye" class="p-button-rounded p-button-info p-button-sm"></button>
+                                <button pButton icon="pi pi-pencil" class="p-button-rounded p-button-warning p-button-sm" (click)="ObtenerCombo(combo.comb_Id, 1)" ></button>
+                                <button pButton icon="pi pi-eye" class="p-button-rounded p-button-info p-button-sm" (click)="ObtenerCombo(combo.comb_Id, 2)"></button>
                                 <button pButton icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-sm" (click)="confirmarEliminacion(combo.comb_Id)"></button>
                            
                             </div>
@@ -46,7 +46,11 @@
     </div>
   
     <div *ngIf="showEdit" @collapse>
-     <!-- <app-edit [estadoCivil]="estadoCivilSeleccionado" (cancelar)="cancelEdit()" ></app-edit> --> 
+     <!-- <app-edit [comboId]="comboSeleccionado" (actualizado)="registroActualizado()"  (cancelar)="cancelEdit()" ></app-edit>  --> 
+    </div>
+
+    <div *ngIf="showDetails" @collapse>
+        <app-details [comboId]="comboSeleccionado"  (cancelar)="cancelDetails()" ></app-details>
     </div>
  
  

@@ -5,7 +5,7 @@ import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http'
 import { Cliente } from '../../models/clientes.model'
 import { ClienteCreateComponent } from '../create/create.component';
-import { ClienteEditComponent } from '../edit/edit.component';
+
 import { ClienteDetailsComponent} from  '../details/details.component';
 import { environment } from '../../../enviroments/enviroment'; 
 import { SplitButtonModule } from 'primeng/splitbutton';
@@ -30,7 +30,7 @@ import { MenuItem } from 'primeng/api';
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [CommonModule, RouterModule, ClienteCreateComponent, ClienteEditComponent, ClienteDetailsComponent,
+  imports: [CommonModule, RouterModule, ClienteCreateComponent, ClienteDetailsComponent,
     SplitButtonModule, ButtonModule,ConfirmDialogModule,ToastModule, TableModule, InputTextModule],
   providers:[MessageService, ConfirmationService],
   templateUrl: './list.component.html',
@@ -88,14 +88,9 @@ export class ClienteListComponent implements OnInit {
   crearAcciones(cliente: any): MenuItem[] {
     return [
       {
-        label: 'Editar',
-        icon: 'pi pi-pencil',
-        command: () => this. ObtenerCliente(cliente.clie_Id, 1),
-      },
-      {
         label: 'Detalles',
         icon: 'pi pi-eye',
-        command: () => this. ObtenerCliente(cliente.clie_Id, 2),
+        command: () => this. ObtenerCliente(cliente.clie_Identidad_Rtn, 2),
       },
       {
         label: 'Eliminar',
@@ -105,7 +100,7 @@ export class ClienteListComponent implements OnInit {
     ];
   }
 
-  ObtenerCliente(id: number, accion:number): void {
+  ObtenerCliente(id: string, accion: number): void {
     
     this.clienteSeleccionado = id; // solo el ID
     if(accion == 1)
