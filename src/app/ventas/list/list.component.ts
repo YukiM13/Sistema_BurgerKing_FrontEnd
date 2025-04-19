@@ -5,7 +5,7 @@ import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http'
 import { Venta } from '../../models/ventas.model'
 import {VentaCreateComponent } from '../create/create.component';
-//import {EsCiEditComponent} from '../edit/edit.component';
+import {EditComponent} from '../edit/edit.component';
 import { environment } from '../../../enviroments/enviroment'; 
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { ButtonModule } from 'primeng/button';
@@ -14,7 +14,8 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { Table, TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
-
+import { FacturaComponent } from '../factura/factura.component';
+import { DetailsComponent } from '../details/details.component';
 import {
   trigger,
   state,
@@ -28,7 +29,7 @@ import { MenuItem } from 'primeng/api';
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [CommonModule, RouterModule, SplitButtonModule, ButtonModule,ConfirmDialogModule,ToastModule, TableModule, InputTextModule, VentaCreateComponent],
+  imports: [CommonModule,FacturaComponent,DetailsComponent,EditComponent, RouterModule, SplitButtonModule, ButtonModule,ConfirmDialogModule,ToastModule, TableModule, InputTextModule, VentaCreateComponent],
   providers:[MessageService, ConfirmationService],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss',
@@ -55,13 +56,15 @@ export class VentasListComponent implements OnInit {
   showCreate = false;
   showEdit = false;
   loading = [false, false, false, false];
-  ventaSeleccionado: any;
+
   ventas: any[] = [];
   venta = new Venta();
-
+ ventaSeleccionada: any;
 
   private http = inject(HttpClient);
   private router = inject(Router);
+  showDetails = false;
+  showFactura = false;
   constructor(
     private confirmationService: ConfirmationService,
     private messageService: MessageService
@@ -87,17 +90,19 @@ export class VentasListComponent implements OnInit {
       {
         label: 'Editar',
         icon: 'pi pi-pencil',
-        //command: () => this.ObtenerEstadoCivil(cargo.car)
+        command: () => this.obtenerVenta(venta.vent_Id, 1)
       },
       {
         label: 'Detalles',
         icon: 'pi pi-eye',
-        // Puedes añadir lógica si se desea
+        command: () => this.obtenerVenta(venta.vent_Id, 2)
+
       },
       {
         label: 'Factura',
         icon: 'pi pi-file',
-        // Puedes añadir lógica si se desea
+        command: () => this.obtenerVenta(venta.vent_Id, 3)
+
       },
       {
         label: 'Eliminar',
@@ -106,7 +111,21 @@ export class VentasListComponent implements OnInit {
       }
     ];
   }
-
+  obtenerVenta(id: number, accion:number): void {
+    
+    this.ventaSeleccionada = id; 
+    if(accion == 1)
+    {
+      this.showEdit = true;
+    }
+    else if(accion == 2)
+    {
+      this.showDetails = true;
+    }
+    else{
+      this.showFactura = true;
+    }
+  }
   /*
    ObtenerEstadoCivil(id: number): void {
       this.estadoCivil.esCi_Id = id;
@@ -161,10 +180,23 @@ export class VentasListComponent implements OnInit {
       this.listarVentas();
     }
   
-    cancelEdit(): void {
-      this.showEdit = false;
+    cancel(accion: number): void {
+      if(accion == 1)
+      {
+        this.showEdit = false;
+      }
+      else if(accion == 2)
+      {
+        this.showDetails = false;
+      }
+      else if(accion == 3){
+        this.showFactura = false;
+      } 
+    
       this.listarVentas();
     }
+
+    
   
     registroCreado(): void {
       this.showCreate = false;
@@ -173,7 +205,19 @@ export class VentasListComponent implements OnInit {
         this.messageService.add({
           severity: 'success',
           summary: 'Exito',
-          detail: 'Categoria creado exitosamente'
+          detail: 'Venta creado exitosamente'
+        });
+      }, 100);
+    }
+
+    registroActualizado(): void {
+      this.showEdit = false;
+      this.listarVentas();
+      setTimeout(() => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Exito',
+          detail: 'venta actualizada exitosamente'
         });
       }, 100);
     }

@@ -1,4 +1,4 @@
-<ng-container *ngIf="!showCreate  && !showEdit" @collapse>
+<ng-container *ngIf="!showCreate  && !showEdit && !showDetails && !showFactura" @collapse>
     <h2>Ventas</h2>
   <div class="card">
   
@@ -92,7 +92,13 @@
     </div>
   
     <div *ngIf="showEdit" @collapse>
-     <!-- <app-edit [estadoCivil]="estadoCivilSeleccionado" (cancelar)="cancelEdit()" ></app-edit> --> 
+     <app-edit [ventaId]="ventaSeleccionada" (creado)="registroActualizado()" (cancelar)="cancel(1)" ></app-edit> 
+    </div>
+    <div *ngIf="showDetails" @collapse>
+        <app-details [ventaId]="ventaSeleccionada" (cancelar)="cancel(2)" ></app-details> 
+    </div>
+    <div *ngIf="showFactura" @collapse>
+        <app-factura [ventaId]="ventaSeleccionada" (cancelar)="cancel(3)" ></app-factura> 
     </div>
  
  

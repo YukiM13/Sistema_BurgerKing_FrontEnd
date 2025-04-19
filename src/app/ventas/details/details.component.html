@@ -1,1 +1,113 @@
-<p>details works!</p>
+<h2 >Detalles</h2>
+<div class="card">
+ 
+    <div class="card-body">
+   
+        <div class="row" >
+            
+            <div class="col-md-4" >
+                <label  class="label-control">Fecha Venta</label> <br>
+                <label for="">{{ventaAux.vent_Fecha}}</label>
+
+              
+            </div>
+
+            <div class="col-md-4" >
+                <label  class="label-control">Clientes</label> <br>
+                <label for="">{{ventaAux.clie_NombreC}}</label>
+
+              
+            </div>
+            <div class="col-md-4" >
+                <label  class="label-control">Productos Comprados</label> <br>
+                <div class="row">
+                    <div class="col-md-6" *ngFor="let item of ventaDetalleAux">
+                        {{item.comb_Descripcion}}
+                    </div>
+                </div>
+               
+                
+
+              
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-12">
+                <p-table >
+                   
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th style="width: 10px;">
+                                Acción
+                            </th>
+                            <th style="width: 10px;">
+                                Usuario
+                            </th>
+                            <th style="width: 10px;">
+                                Fecha
+                           </th>
+                           
+                        </tr>
+                    </ng-template>
+                    <ng-template >
+                        <tr>
+                            <td>Creacion</td>
+                            <td>
+                                <label for="">{{ventaAux.usuaC_Nombre}}</label>
+                            </td>
+                            <td>
+                                <label for="">{{ventaAux.vent_FechaCreacion}}</label>
+                            </td>
+                            
+                        </tr>
+                        <tr>
+                            <td>Actualizacion</td>
+                                <td>
+                                    <label for="">{{ventaAux.usuaM_Nombre}}</label>
+                                </td>
+                                <td>
+                                    <label for="">{{ventaAux.vent_FechaModificacion}}</label>
+                                </td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage">
+                        <tr>
+                            <td>Creacion</td>
+                            <td>
+                                <label for="">{{ventaAux.usuaC_Nombre}}</label>
+                            </td>
+                            <td>
+                                <label for="">{{ventaAux.vent_FechaCreacion}}</label>
+                            </td>
+                            
+                        </tr>
+                        <tr>
+                            <td>Actualizacion</td>
+                                <td>
+                                    <label for="">{{ventaAux.usuaM_Nombre}}</label>
+                                </td>
+                                <td>
+                                    <label for="">{{ventaAux.vent_FechaModificacion}}</label>
+                                </td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="loadingbody">
+                        <tr>
+                            <td colspan="8">Loading customers data. Please wait.</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-12 text-right">
+               
+                <button type="button" class="btn btn-secondary" (click)="cancelarFormulario()" class="btn btn-secondary">Cancelar</button>
+            </div>
+        </div>
+
+    </div>
+  </div>
+
