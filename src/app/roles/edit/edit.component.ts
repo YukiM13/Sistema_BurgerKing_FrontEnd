@@ -33,6 +33,7 @@ export class RoleEditComponent {
   router = inject(Router);
   //cargo = new Cargo();
   rol = new Roles();
+  rol2 = new Roles();
   cont = 0;
   pantallas2: any[] = [];
   pantallasList: any[] = [];
@@ -82,30 +83,42 @@ export class RoleEditComponent {
 
 
     this.rol.role_Id = this.rolId;
-    this.http.post(`${this.apiUrl}/Rol/Eliminar`, this.rol )
+    this.rol.usua_Modificacion = 2;
+    this.rol.role_FechaModificacion = new Date;
+    this.http.put(`${this.apiUrl}/Rol/Actualizar`, this.rol)
     .subscribe(() => {
-      console.log("Intentando guardar... 3");
-      console.log('Rol recibidas:', this.rol);
-      console.log('Pantallas recibidas:', this.pantallas2);
-      console.log('Pantallas asignadas:', this.pantallas2.length);
-      if (this.pantallas2 && this.pantallas2.length > 0) {
-
-        for (let pantalla of this.pantallas2) {
-          const relacion = {
-            pant_Id: pantalla.pant_Id,
-            role_Id: this.rol.role_Id,
-            usua_Creacion: 2,
-            paRo_FechaCreacion: new Date().toLocaleString()
-          };
+      //this.actualizado.emit();
+      this.rol2.role_Id = this.rolId;
+      this.http.post(`${this.apiUrl}/RolP/Eliminar`, this.rol2 )
+      .subscribe(() => {
+       /* console.log("Intentando guardar... 3");
+        console.log('Rol recibidas:', this.rol);
+        console.log('Pantallas recibidas:', this.pantallas2);
+        console.log('Pantallas asignadas:', this.pantallas2.length);*/
+        if (this.pantallas2 && this.pantallas2.length > 0) {
   
-          //console.log('Relacion a insertar:', relacion);
-          
-          //this.http.post(`${this.apiUrl}/RolPorPantallas/Insertar`,  relacion).subscribe();
+          for (let pantalla of this.pantallas2) {
+            const relacion = {
+              pant_Id: pantalla.pant_Id,
+              role_Id: this.rol2.role_Id,
+              usua_Creacion: 2,
+              roPa_FechaCreacion: new Date()
+            };
+    
+            //console.log('Relacion a insertar:', relacion);
+            //return;
+            this.http.post(`${this.apiUrl}/RolPorPantallas/Insertar`,  relacion).subscribe();
+          }
+  
         }
-
-      }
+        
+      });
       this.actualizado.emit();
     });
+
+
+
+   
     
 
   }

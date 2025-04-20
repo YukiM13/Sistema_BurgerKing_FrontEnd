@@ -33,7 +33,7 @@ export class ClienteDetailsComponent {
   ngOnInit(): void {
     this.cliente.clie_Identidad_Rtn = this.clienteId;
   
-    this.http.post<Cliente[]>(`https://localhost:7147/Cliente/Buscar`, this.cliente)
+    this.http.post<Cliente[]>(`${this.apiUrl}/Cliente/Buscar`, this.cliente)
       .subscribe(data => {
         if (data && data.length > 0) {
           this.cliente = data[0];

@@ -118,6 +118,7 @@ export class RoleListComponent implements OnInit {
 
 
   confirmarEliminacion(id: number): void {
+    console.log('ID a eliminar:', id);
     this.confirmationService.confirm({
       message: '¿Estás seguro que deseas eliminar este estado civil?',
       header: 'Confirmar eliminación',
@@ -138,6 +139,8 @@ export class RoleListComponent implements OnInit {
 
   EliminarRol(id: number): void {
     this.rol.role_Id = id;
+    console.log('Rol a eliminar:', this.rol);
+    //return;
     this.http.post(`${this.apiUrl}/Rol/Eliminar`, this.rol)
       .subscribe(() => {
         this.messageService.add({

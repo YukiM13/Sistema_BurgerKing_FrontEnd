@@ -94,7 +94,7 @@ export class EmpleadoEditComponent {
       }
 
     this.empleado.usua_Modificacion = 2;
-    this.empleado.empl_FechaModificacion = new Date;
+    this.empleado.empl_FechaModificacion = new Date();
     this.http.put(`${this.apiUrl}/Empleado/Actualizar`, this.empleado)
     .subscribe(() => {
       this.actualizado.emit();
