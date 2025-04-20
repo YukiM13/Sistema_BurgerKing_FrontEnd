@@ -97,7 +97,7 @@
     </div>
   
     <div *ngIf="showEdit" @collapse>
-       <!-- <app-edit [cargoId]="cargoSeleccionado" (actualizado)="registroActualizado()"  (cancelar)="cancelEdit()" ></app-edit>  --> 
+      <app-edit [usuaId]="usurioSeleccionado" (actualizado)="registroActualizado()"  (cancelar)="cancelEdit()" ></app-edit>  
     </div>
 
     <div *ngIf="showDetails" @collapse>

@@ -5,7 +5,7 @@ import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http'
 import {Roles} from '../../models/rol.model'
 import {RoleCreateComponent} from '../../roles/create/create.component';
-// import {RoleEditComponent} from '../../roles/edit/edit.component';
+import {RoleEditComponent} from '../../roles/edit/edit.component';
 import {RolDetailsComponent} from '../../roles/details/details.component';
 import { environment } from '../../../enviroments/enviroment'; 
 import { SplitButtonModule } from 'primeng/splitbutton';
@@ -26,7 +26,7 @@ import { MenuItem } from 'primeng/api';
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [CommonModule, RouterModule, SplitButtonModule, RoleCreateComponent, RolDetailsComponent,
+  imports: [CommonModule, RouterModule, SplitButtonModule, RoleCreateComponent, RolDetailsComponent, RoleEditComponent,
             ButtonModule,ConfirmDialogModule,ToastModule, TableModule, InputTextModule],
   providers:[MessageService, ConfirmationService],
   templateUrl: './list.component.html',
@@ -174,7 +174,7 @@ export class RoleListComponent implements OnInit {
       this.messageService.add({
         severity: 'success',
         summary: 'Exito',
-        detail: 'Cargo creado exitosamente'
+        detail: 'Rol creado exitosamente'
       });
     }, 100);
   }
@@ -186,7 +186,7 @@ export class RoleListComponent implements OnInit {
       this.messageService.add({
         severity: 'error',
         summary: 'Error',
-        detail: 'El cargo no se pudo crear'
+        detail: 'El rol no se pudo crear'
       });
     }, 100);
   }
@@ -198,7 +198,7 @@ export class RoleListComponent implements OnInit {
       this.messageService.add({
         severity: 'success',
         summary: 'Exito',
-        detail: 'El cargo fue actualizado exitosamente'
+        detail: 'El rol fue actualizado exitosamente'
       });
     }, 100);
   }

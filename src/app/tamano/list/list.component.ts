@@ -5,7 +5,7 @@ import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http'
 import {Tamano} from '../../models/tamano.model'
 import {TamanoCreateComponent} from '../../tamano/create/create.component';
-//import {TamanoEditComponent} from '../../tamano/edit/edit.component';
+import {TamanoEditComponent} from '../../tamano/edit/edit.component';
 import {TamanoDetailsComponent} from '../../tamano/details/details.component';
 import { environment } from '../../../enviroments/enviroment'; 
 import { SplitButtonModule } from 'primeng/splitbutton';
@@ -28,7 +28,7 @@ import { MenuItem } from 'primeng/api';
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [CommonModule, RouterModule, TamanoCreateComponent, TamanoDetailsComponent,
+  imports: [CommonModule, RouterModule, TamanoCreateComponent, TamanoDetailsComponent, TamanoEditComponent,
      SplitButtonModule, ButtonModule,ConfirmDialogModule,ToastModule, TableModule, InputTextModule],
   providers:[MessageService, ConfirmationService],
   templateUrl: './list.component.html',
@@ -178,7 +178,7 @@ export class TamaListComponent implements OnInit {
       this.messageService.add({
         severity: 'success',
         summary: 'Exito',
-        detail: 'Cargo creado exitosamente'
+        detail: 'Tamaño creado exitosamente'
       });
     }, 100);
   }
@@ -190,7 +190,7 @@ export class TamaListComponent implements OnInit {
       this.messageService.add({
         severity: 'error',
         summary: 'Error',
-        detail: 'El cargo no se pudo crear'
+        detail: 'El tamaño no se pudo crear'
       });
     }, 100);
   }
@@ -202,7 +202,7 @@ export class TamaListComponent implements OnInit {
       this.messageService.add({
         severity: 'success',
         summary: 'Exito',
-        detail: 'El cargo fue actualizado exitosamente'
+        detail: 'El tamaño fue actualizado exitosamente'
       });
     }, 100);
   }

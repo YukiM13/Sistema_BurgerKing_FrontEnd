@@ -6,6 +6,7 @@ import {HttpClient} from '@angular/common/http'
 import { Combo } from '../../models/combos.model'
 import { CombosCreateComponent } from '../create/create.component'; 
 //import {EsCiEditComponent} from '../edit/edit.component';
+import { ComboDetailsComponent} from  '../details/details.component';
 import { environment } from '../../../enviroments/enviroment'; 
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { ButtonModule } from 'primeng/button';
@@ -31,7 +32,8 @@ import { Respuesta } from 'src/app/models/respuesta.model';
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [CommonModule, RouterModule, SplitButtonModule, ButtonModule,ConfirmDialogModule,ToastModule, TableModule, InputTextModule,CombosCreateComponent],
+  imports: [CommonModule, RouterModule, SplitButtonModule, ComboDetailsComponent,
+     ButtonModule,ConfirmDialogModule,ToastModule, TableModule, InputTextModule,CombosCreateComponent],
   providers:[MessageService, ConfirmationService],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss',
@@ -57,6 +59,7 @@ export class CombosListComponent implements OnInit {
 
   showCreate = false;
   showEdit = false;
+  showDetails = false;
   loading = [false, false, false, false];
   comboSeleccionado: any;
   combos: any[] = [];
@@ -105,16 +108,20 @@ export class CombosListComponent implements OnInit {
     ];
   }
 
-  /*
-   ObtenerEstadoCivil(id: number): void {
-      this.estadoCivil.esCi_Id = id;
-      this.http.post<EstadoCivil>(`${this.apiUrl}/EstadoCivil/Find`, this.estadoCivil)
-        .subscribe(data => {
-          this.estadoCivilSeleccionado = data;
-          this.showEdit = true;
-        });
+  ObtenerCombo(id: number, accion: number): void {
+    
+    this.comboSeleccionado = id; 
+    if(accion == 1)
+    {
+      this.showEdit = true;
     }
-  */
+    else
+    {
+      this.showDetails = true;
+    }
+    
+  }
+  
   
     confirmarEliminacion(id: number): void {
       this.confirmationService.confirm({
@@ -185,6 +192,10 @@ export class CombosListComponent implements OnInit {
       this.showEdit = false;
       this.listarCombos();
     }
+    cancelDetails(): void {
+      this.showDetails = false;
+      this.listarCombos();
+    }
   
     registroCreado(): void {
       this.showCreate = false;
@@ -197,6 +208,7 @@ export class CombosListComponent implements OnInit {
         });
       }, 100);
     }
+
     crearError(): void {
       this.showCreate = false;
       this.listarCombos();
@@ -204,7 +216,19 @@ export class CombosListComponent implements OnInit {
         this.messageService.add({
           severity: 'error',
           summary: 'Error',
-          detail: 'El Combo no se pudo crear'
+          detail: 'El combo no se pudo crear'
+        });
+      }, 100);
+    }
+
+    registroActualizado(): void {
+      this.showEdit = false;
+      this.listarCombos();
+      setTimeout(() => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Exito',
+          detail: 'El combo fue actualizado exitosamente'
         });
       }, 100);
     }

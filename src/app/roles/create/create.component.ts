@@ -50,13 +50,13 @@ import { Respuesta } from 'src/app/models/respuesta.model';
 export class RoleCreateComponent {
   private apiUrl = environment.apiUrl; 
     
-      http = inject(HttpClient);
-      @Output() cancelar = new EventEmitter<void>();  
-      @Output() creado = new EventEmitter<void>();
-      @Output() errorCrear = new EventEmitter<void>();
-     cont = 0;
+    http = inject(HttpClient);
+    @Output() cancelar = new EventEmitter<void>();  
+    @Output() creado = new EventEmitter<void>();
+    @Output() errorCrear = new EventEmitter<void>();
+    cont = 0;
 
-     cancelarFormulario() {
+    cancelarFormulario() {
       this.cancelar.emit();  
     }
 

@@ -6,6 +6,7 @@ import {HttpClient} from '@angular/common/http'
 import {Productos} from '../../models/producto.model'
 import {ProduCreateComponent} from '../../productos/create/create.component';
 // import {MuniEditComponent} from '../../Productos/edit/edit.component';
+import {ProductoDetailsComponent} from '../../productos/details/details.component';
 import { environment } from '../../../enviroments/enviroment'; 
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { ButtonModule } from 'primeng/button';
@@ -26,7 +27,8 @@ import { MenuItem } from 'primeng/api';
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [CommonModule, RouterModule,ProduCreateComponent, SplitButtonModule, ButtonModule,ConfirmDialogModule,ToastModule],
+  imports: [CommonModule, RouterModule,ProduCreateComponent, ProductoDetailsComponent,
+     SplitButtonModule, ButtonModule,ConfirmDialogModule,ToastModule],
   providers:[MessageService, ConfirmationService],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss',
@@ -50,6 +52,7 @@ export class ProduListComponent {
   
     showCreate = false;
     showEdit = false;
+    showDetails = false;
     loading = [false, false, false, false];
     productoSeleccionado: any;
     Productos: any[] = [];
@@ -85,12 +88,12 @@ export class ProduListComponent {
         {
           label: 'Editar',
           icon: 'pi pi-pencil',
-          command: () => this.ObtenerProducto(producto.prod_Id)
+          command: () => this.ObtenerProducto(producto.prod_Id , 1)
         },
         {
           label: 'Detalles',
           icon: 'pi pi-eye',
-          // Puedes añadir lógica si se desea
+          command: () => this.ObtenerProducto(producto.prod_Id , 2)
         },
         {
           label: 'Eliminar',
@@ -101,13 +104,18 @@ export class ProduListComponent {
     }
   
   
-    ObtenerProducto(id: number): void {
-      this.producto.prod_Id = id;
-      this.http.post<Productos>(`${this.apiUrl}/producto/Find`, this.producto)
-        .subscribe(data => {
-          this.productoSeleccionado = data;
-          this.showEdit = true;
-        });
+    ObtenerProducto(id: number, accion:number): void {
+    
+      this.productoSeleccionado = id; 
+      if(accion == 1)
+      {
+        this.showEdit = true;
+      }
+      else
+      {
+        this.showDetails = true;
+      }
+      
     }
   
   
@@ -157,6 +165,11 @@ export class ProduListComponent {
       this.listarProductos();
     }
   
+    cancelDetails(): void {
+      this.showDetails = false;
+      this.listarProductos();
+    }
+  
     registroCreado(): void {
       this.showCreate = false;
       this.listarProductos();
@@ -177,6 +190,18 @@ export class ProduListComponent {
           severity: 'error',
           summary: 'Error',
           detail: 'El producto no se pudo crear'
+        });
+      }, 100);
+    }
+
+    registroActualizado(): void {
+      this.showEdit = false;
+      this.listarProductos();
+      setTimeout(() => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Exito',
+          detail: 'El producto fue actualizado exitosamente'
         });
       }, 100);
     }

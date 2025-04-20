@@ -5,7 +5,7 @@ import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http'
 import {Usuario} from '../../models/usuario.model'
 import {UsuaCreateComponent} from '../../usuarios/create/create.component'
-//import { UsuarioEditComponent } from '../edit/edit.component';
+import { UsuarioEditComponent } from '../edit/edit.component';
 import { UsuarioDetailsComponent } from '../details/details.component';
 import { environment } from '../../../enviroments/enviroment'; 
 import { SplitButtonModule } from 'primeng/splitbutton';
@@ -27,7 +27,7 @@ import { MenuItem } from 'primeng/api';
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports:[CommonModule, RouterModule, UsuaCreateComponent,UsuarioDetailsComponent,
+  imports:[CommonModule, RouterModule, UsuaCreateComponent,UsuarioDetailsComponent, UsuarioEditComponent,
      SplitButtonModule, ButtonModule,ConfirmDialogModule,ToastModule, TableModule, InputTextModule],
   providers:[MessageService, ConfirmationService],
   templateUrl: './list.component.html',
@@ -176,7 +176,7 @@ export class UsuaListComponent  implements OnInit {
         this.messageService.add({
           severity: 'success',
           summary: 'Exito',
-          detail: 'Cargo creado exitosamente'
+          detail: 'Usuario creado exitosamente'
         });
       }, 100);
     }
@@ -188,7 +188,7 @@ export class UsuaListComponent  implements OnInit {
         this.messageService.add({
           severity: 'error',
           summary: 'Error',
-          detail: 'El cargo no se pudo crear'
+          detail: 'El usuario no se pudo crear'
         });
       }, 100);
     }
@@ -200,7 +200,7 @@ export class UsuaListComponent  implements OnInit {
         this.messageService.add({
           severity: 'success',
           summary: 'Exito',
-          detail: 'El cargo fue actualizado exitosamente'
+          detail: 'El usuario fue actualizado exitosamente'
         });
       }, 100);
     }

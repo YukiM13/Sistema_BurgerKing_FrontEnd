@@ -1,4 +1,4 @@
-<ng-container *ngIf="!showCreate  && !showEdit" @collapse>
+<ng-container *ngIf="!showCreate  && !showEdit && !showDetails" @collapse>
     <h2>Productos</h2>
 <div class="card">
   
@@ -13,7 +13,7 @@
                     <img [src]="url + '/' + producto.prod_ImgUrl"  class="w-full" height="200px"/>
                     <div class="acciones-hover">
                         <button pButton icon="pi pi-pencil" class="p-button-rounded p-button-warning p-button-sm" ></button>
-                        <button pButton icon="pi pi-eye" class="p-button-rounded p-button-info p-button-sm"></button>
+                        <button pButton icon="pi pi-eye" class="p-button-rounded p-button-info p-button-sm" (click)="ObtenerProducto(producto.prod_Id , 2)"></button>
                         <button pButton icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-sm" (click)="confirmarEliminacion(producto.prod_Id)"></button>
                    
                     </div>
@@ -35,6 +35,15 @@
 </ng-container>
 <p-confirmDialog></p-confirmDialog>
 <p-toast></p-toast> 
+
 <div *ngIf="showCreate" @collapse>
     <app-create (creado)="registroCreado()" (errorCrear)="crearError()" (cancelar)="cancelCreate()" ></app-create>
-  </div>
+</div>
+
+<div *ngIf="showEdit" @collapse>
+   <!-- <app-edit [prodId]="productoSeleccionado" (actualizado)="registroActualizado()"  (cancelar)="cancelEdit()" ></app-edit>   --> 
+</div>
+
+<div *ngIf="showDetails" @collapse>
+    <app-details [prodId]="productoSeleccionado"  (cancelar)="cancelDetails()" ></app-details>
+</div>

@@ -1,1 +1,24 @@
-<p>edit works!</p>
+<div class="card">
+    <form (submit)="EditarRol()">
+    <div class="col-12 md:col-6">
+        <label for="" class="label-control">Rol:</label> <span class="text-red-400">*</span>
+        <input pinputtext id="descripcion" name="role_Descripcion" [(ngModel)] = "rol.role_Descripcion" class="p-inputtext form-control ng-invalid " required #descripcion="ngModel"/>
+        <small class="p-error" *ngIf="(descripcion.invalid || !rol.role_Descripcion.trim()) && cont == 1">El rol es requerido</small>
+    </div>
+    <p-pickList [source]="files1" [target]="pantallas2" sourceHeader="Pantallas" targetHeader="Pantallas Asignadas" [dragdrop]="true"
+            [responsive]="true" [showSourceControls]="false" [showTargetControls]="false"  [sourceStyle]="{'height':'250px'}" [targetStyle]="{'height':'250px'}">
+        <ng-template let-pantalla of pantallaPorRol pTemplate="item">
+            <div>{{pantalla.pant_Descripcion}}</div>
+        </ng-template>
+    </p-pickList>
+    <small class="p-error" *ngIf="pantallas2.length == 0 && cont == 1">Las pantallas son requeridas</small>
+
+    <div class="row">
+        <div class="col-md-12 text-right">
+            <button type="submit" class="btn btn-primary m-2"><span ng-reflect-ng-class="[object Object]" data-pc-section="icon" class="pi pi-save"></span> Guardar </button>
+            <button type="button" class="btn btn-danger  m-2" (click)="cancelarFormulario()" class="btn btn-secondary"><span ng-reflect-ng-class="[object Object]" data-pc-section="icon" class="pi pi-times"></span> Cancelar</button>
+        </div>
+    </div>
+    </form>
+</div>
+

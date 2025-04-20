@@ -49,7 +49,7 @@ this.cont = 1;
     {
       this.messageService.add({
         severity: 'warn',
-        summary: 'Error',
+        summary: 'Advertencia!',
         detail: 'Campos Vacios.'
       });
       return;
