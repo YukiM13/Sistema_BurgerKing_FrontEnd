@@ -43,124 +43,111 @@ export class AppMenuComponent implements OnInit {
              
           });
   
-          if(this.tieneAcceso){
-              this.model.push({
-                  label: '',
+          const items = [];
+
+          if (this.tieneAcceso) {
+              items.push({
+                  label: 'Acceso',
+                  icon: 'pi pi-fw pi-user',
                   items: [
                       {
-                          
-                        
-                          label: 'Acceso',
-                          icon: 'pi pi-fw pi-user',
-                          items: [
-                              {
-                                  label: 'Usuarios',
-                                  icon: 'pi pi-fw pi-users',
-                                  routerLink: ['/usuario']
-                              },
-                              {
-                                  label: 'Roles',
-                                  icon: 'pi pi-fw pi-list',
-                                  routerLink: ['/rol']
-                              }
-                          ]
-                          }
-                  ]
-              })
-  
-          }
-          if(this.tieneGeneral){
-              this.model.push({
-                  label: '',
-                  items: [
+                          label: 'Usuarios',
+                          icon: 'pi pi-fw pi-users',
+                          routerLink: ['/usuario']
+                      },
                       {
-                  label: 'General',
-                          icon: 'pi pi-fw pi-globe',
-                          items: [
-                              {
-                                  label: 'Departamentos',
-                                  icon: 'pi pi-fw pi-image',
-                                  routerLink: ['/departamento']
-                              },
-                              {
-                                  label: 'Municipios',
-                                  icon: 'pi pi-fw pi-list',
-                                  routerLink: ['/municipio']
-                              },
-                              {
-                                  label: 'Estados Civiles',
-                                  icon: 'pi pi-fw pi-pencil',
-                                  routerLink: ['/estadoCivil']
-                              },
-                              {
-                                  label: 'Empleados',
-                                  icon: 'pi pi-fw pi-users',
-                                  routerLink: ['/empleado']
-                              },
-                              {
-                                  label: 'Cargos',
-                                  icon: 'pi pi-fw pi-pencil',
-                                  routerLink: ['/cargo']
-                              },
-                              {
-                                  label: 'Sucursales',
-                                  icon: 'pi pi-fw pi-shop',
-                                  routerLink: ['/sucursal']
-                              },
-                              {
-                                  label: 'Clientes',
-                                  icon: 'pi pi-fw pi-users',
-                                  routerLink: ['/cliente']
-                              },
-                             
-                             
-                           
-                          ]
+                          label: 'Roles',
+                          icon: 'pi pi-fw pi-list',
+                          routerLink: ['/rol']
                       }
-                      ]
-                      
-              })
+                  ]
+              });
           }
-               if(this.tieneVentas){
-                  this.model.push({
-                      label: '',
-                      items: [
-                          {
-                      label: 'Ventas',
-                      icon: 'pi pi-fw pi-cart-plus',
-                      items: [
-                          {
-                              label: 'Tamaño',
-                              icon: 'pi pi-fw pi-image',
-                              routerLink: ['/tamano']
-                          },
-                          {
-                              label: 'Categorias',
-                              icon: 'pi pi-fw pi-pencil',
-                              routerLink: ['/categoria']
-                          },
-                          {
-                              label: 'Productos',
-                              icon: 'pi pi-fw pi-list',
-                              routerLink: ['/producto']
-                          },
-                          {
-                              label: 'Combos',
-                              icon: 'pi pi-fw pi-comments',
-                              routerLink: ['/combo']
-  
-                          },
-                          {
-                              label: 'Ventas',
-                              icon: 'pi pi-fw pi-list',
-                              routerLink: ['/venta']
-                          }
-                       
-                      ]
-                  }
-              ]
-                  })  
-               }
+          
+          if (this.tieneGeneral) {
+              items.push({
+                  label: 'General',
+                  icon: 'pi pi-fw pi-globe',
+                  items: [
+                      {
+                          label: 'Departamentos',
+                          icon: 'pi pi-fw pi-image',
+                          routerLink: ['/departamento']
+                      },
+                      {
+                          label: 'Municipios',
+                          icon: 'pi pi-fw pi-list',
+                          routerLink: ['/municipio']
+                      },
+                      {
+                          label: 'Estados Civiles',
+                          icon: 'pi pi-fw pi-pencil',
+                          routerLink: ['/estadoCivil']
+                      },
+                      {
+                          label: 'Empleados',
+                          icon: 'pi pi-fw pi-users',
+                          routerLink: ['/empleado']
+                      },
+                      {
+                          label: 'Cargos',
+                          icon: 'pi pi-fw pi-pencil',
+                          routerLink: ['/cargo']
+                      },
+                      {
+                          label: 'Sucursales',
+                          icon: 'pi pi-fw pi-shop',
+                          routerLink: ['/sucursal']
+                      },
+                      {
+                          label: 'Clientes',
+                          icon: 'pi pi-fw pi-users',
+                          routerLink: ['/cliente']
+                      }
+                  ]
+              });
+          }
+          
+          if (this.tieneVentas) {
+              items.push({
+                  label: 'Ventas',
+                  icon: 'pi pi-fw pi-cart-plus',
+                  items: [
+                      {
+                          label: 'Tamaño',
+                          icon: 'pi pi-fw pi-image',
+                          routerLink: ['/tamano']
+                      },
+                      {
+                          label: 'Categorias',
+                          icon: 'pi pi-fw pi-pencil',
+                          routerLink: ['/categoria']
+                      },
+                      {
+                          label: 'Productos',
+                          icon: 'pi pi-fw pi-list',
+                          routerLink: ['/producto']
+                      },
+                      {
+                          label: 'Combos',
+                          icon: 'pi pi-fw pi-comments',
+                          routerLink: ['/combo']
+                      },
+                      {
+                          label: 'Ventas',
+                          icon: 'pi pi-fw pi-list',
+                          routerLink: ['/venta']
+                      }
+                  ]
+              });
+          }
+          
+          if (items.length > 0) {
+              this.model.push({
+                  label: '',
+                  items: items
+              });
+          }
                       
     }
     ngOnInit() {

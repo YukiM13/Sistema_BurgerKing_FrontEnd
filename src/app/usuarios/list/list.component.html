@@ -3,7 +3,7 @@
   <div class="card">
   
       <div class="card-body">
-          <a (click)="toggleCreate()" class="btn btn-primary"><span ng-reflect-ng-class="[object Object]" data-pc-section="icon" class="pi pi-plus-circle p-button-icon p-button-icon-left ng-star-inserted"></span> Nuevo</a>
+          <p-button (click)="toggleCreate()" styleClass="p-button-primary"><span ng-reflect-ng-class="[object Object]" data-pc-section="icon" class="pi pi-plus-circle p-button-icon p-button-icon-left ng-star-inserted"></span> Nuevo</p-button>
      
           
           <p-table #dt dataKey="id" [rows]="10" [rowHover]="true" [paginator]="true" [value]="usuarios" [globalFilterFields]="['usua_Usuario','usua_Correo']">
@@ -48,7 +48,7 @@
             <ng-template pTemplate="body" let-usua>
                 <tr>
                     <td>
-                      <p-splitButton appendTo="body" label="Acciones" icon="pi pi-cog" [model]="usua.acciones" styleClass="p-button-info"></p-splitButton>
+                      <p-splitButton appendTo="body" label="Acciones" icon="pi pi-cog" [model]="usua.acciones" styleClass="p-button-secondary"></p-splitButton>
                     </td>
                    
                     <td>
@@ -66,7 +66,7 @@
                     class="text-center text-white rounded"
                     [ngClass]="usua.usua_Estado ? 'bg-success' : 'bg-danger'"
                   >
-                    {{ usua.usua_Estado ? 'Activo' : 'Inactivo' }}
+                  <i [ngClass]="usua.usua_Estado ? 'pi pi-check-circle' : 'pi pi-ban'"></i> {{ usua.usua_Estado ? 'Activo' : 'Inactivo' }}
                   </div>
                   
                 </td>

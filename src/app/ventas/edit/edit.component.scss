@@ -1,0 +1,43 @@
+.tamanios-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .btn-tamano {
+    font-size: 12px; 
+    padding: 4px 10px; 
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 16px;
+    background-color: #e0e0e0;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-tamano.activo {
+    background-color: orange;
+    color: white;
+  }
+
+  .tabla-combo {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+  }
+  
+  .tabla-combo th, .tabla-combo td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: center;
+  }
+  
+  .tabla-combo th {
+    background-color: #f2f2f2;
+  }
