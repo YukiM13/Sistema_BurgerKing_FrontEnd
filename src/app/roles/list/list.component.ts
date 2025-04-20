@@ -5,7 +5,7 @@ import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http'
 import {Roles} from '../../models/rol.model'
 import {RoleCreateComponent} from '../../roles/create/create.component';
-// import {RoleEditComponent} from '../../roles/edit/edit.component';
+import {RoleEditComponent} from '../../roles/edit/edit.component';
 import {RolDetailsComponent} from '../../roles/details/details.component';
 import { environment } from '../../../enviroments/enviroment'; 
 import { SplitButtonModule } from 'primeng/splitbutton';
@@ -26,7 +26,7 @@ import { MenuItem } from 'primeng/api';
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [CommonModule, RouterModule, SplitButtonModule, RoleCreateComponent, RolDetailsComponent,
+  imports: [CommonModule, RouterModule, SplitButtonModule, RoleCreateComponent, RolDetailsComponent, RoleEditComponent,
             ButtonModule,ConfirmDialogModule,ToastModule, TableModule, InputTextModule],
   providers:[MessageService, ConfirmationService],
   templateUrl: './list.component.html',

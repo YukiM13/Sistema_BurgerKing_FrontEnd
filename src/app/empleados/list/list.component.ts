@@ -5,7 +5,7 @@ import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http'
 import {Empleados} from '../../models/empleado.model'
  import { EmpleadoCreateComponent } from '../../empleados/create/create.component';
-// import {EmpleEditComponent} from '../../empleados/edit/edit.component';
+import {EmpleadoEditComponent} from '../../empleados/edit/edit.component';
 import { EmpleadoDetailsComponent} from  '../details/details.component';
 import { environment } from '../../../enviroments/enviroment'; 
 import { SplitButtonModule } from 'primeng/splitbutton';
@@ -28,7 +28,7 @@ import { MenuItem } from 'primeng/api';
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [CommonModule, RouterModule, EmpleadoCreateComponent,EmpleadoDetailsComponent,
+  imports: [CommonModule, RouterModule, EmpleadoCreateComponent,EmpleadoDetailsComponent, EmpleadoEditComponent,
      SplitButtonModule, ButtonModule,ConfirmDialogModule,ToastModule, TableModule, InputTextModule],
   providers:[MessageService, ConfirmationService],
   templateUrl: './list.component.html',
@@ -77,8 +77,14 @@ export class EmpleListComponent implements OnInit{
       .subscribe((res: any) => {
         this.empleados = res.map((estado: any) => ({
           ...estado,
+          empl_FechaNacimiento: estado.empl_FechaNacimiento ? new Date(estado.empl_FechaNacimiento).toLocaleDateString() : null,
+          empl_Sexo: estado.empl_Sexo === 'M' ? 'Masculino' : 'Femenino',
           acciones: this.crearAcciones(estado)
         }));
+
+        console.log(this.empleados);
+
+       
       });
   }
 

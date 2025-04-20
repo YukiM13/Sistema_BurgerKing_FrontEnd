@@ -67,6 +67,10 @@
     <div *ngIf="showCreate" @collapse>
       <app-create (creado)="registroCreado()" (cancelar)="cancelCreate()" ></app-create>
     </div>
+
+    <div *ngIf="showEdit" @collapse>
+        <app-edit [tamaId]="tamanoSeleccionado" (actualizado)="registroActualizado()"  (cancelar)="cancelEdit()" ></app-edit> 
+    </div>
   
     <div *ngIf="showDetails" @collapse>
         <app-details [tamaId]="tamanoSeleccionado"  (cancelar)="cancelDetails()" ></app-details>

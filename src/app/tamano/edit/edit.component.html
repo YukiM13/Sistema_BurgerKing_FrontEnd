@@ -1,1 +1,24 @@
-<p>edit works!</p>
+<h2 >Editar Tamaño</h2>
+<div class="card">
+    <div class="card-body">
+     <form (submit)="EditarTamano()"  >
+        <input type="text"  hidden  name="tama_Id" [(ngModel)]="tamano.tama_Id"  class="form-control"  />
+        <div class="row" >
+            
+            <div class="col-md-6" >
+                <label for="" class="label-control">Tamaño:</label> 
+                <input pinputtext id="descripcion" name="tama_Descripcion" [(ngModel)]="tamano.tama_Descripcion"   id="tama_Descripcion"   class="p-inputtext form-control ng-invalid " required #descripcion="ngModel"/>
+                <small class="p-error" *ngIf="(descripcion.invalid || !tamano.tama_Descripcion.trim()) && cont == 1">El Tamaño es requerido</small>
+                <br>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <button type="submit" class="btn btn-primary m-2"><span ng-reflect-ng-class="[object Object]" data-pc-section="icon" class="pi pi-save"></span> Guardar </button>
+                <button type="button" class="btn btn-danger  m-2" (click)="cancelarFormulario()" class="btn btn-secondary"><span ng-reflect-ng-class="[object Object]" data-pc-section="icon" class="pi pi-times"></span> Cancelar</button>
+        </div>
+        </div>
+     </form>
+    </div>
+</div>
+

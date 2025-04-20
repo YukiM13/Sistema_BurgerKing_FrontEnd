@@ -5,7 +5,7 @@ import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http'
 import {Usuario} from '../../models/usuario.model'
 import {UsuaCreateComponent} from '../../usuarios/create/create.component'
-//import { UsuarioEditComponent } from '../edit/edit.component';
+import { UsuarioEditComponent } from '../edit/edit.component';
 import { UsuarioDetailsComponent } from '../details/details.component';
 import { environment } from '../../../enviroments/enviroment'; 
 import { SplitButtonModule } from 'primeng/splitbutton';
@@ -27,7 +27,7 @@ import { MenuItem } from 'primeng/api';
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports:[CommonModule, RouterModule, UsuaCreateComponent,UsuarioDetailsComponent,
+  imports:[CommonModule, RouterModule, UsuaCreateComponent,UsuarioDetailsComponent, UsuarioEditComponent,
      SplitButtonModule, ButtonModule,ConfirmDialogModule,ToastModule, TableModule, InputTextModule],
   providers:[MessageService, ConfirmationService],
   templateUrl: './list.component.html',
