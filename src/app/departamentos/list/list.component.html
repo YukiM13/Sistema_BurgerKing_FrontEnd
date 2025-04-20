@@ -3,7 +3,7 @@
 <div class="card">
 
     <div class="card-body">
-        <a (click)="toggleCreate()" class="btn btn-primary"><span ng-reflect-ng-class="[object Object]" data-pc-section="icon" class="pi pi-plus-circle p-button-icon p-button-icon-left ng-star-inserted"></span> Nuevo</a>
+         <p-button (click)="toggleCreate()" styleClass="p-button-primary"><span ng-reflect-ng-class="[object Object]" data-pc-section="icon" class="pi pi-plus-circle p-button-icon p-button-icon-left ng-star-inserted"></span> Nuevo</p-button>
       
 
         <p-table #dt dataKey="id" [rows]="10" [rowHover]="true" [paginator]="true" [value]="departamentos" [globalFilterFields]="['depa_Codigo','depa_Descripcion']">
@@ -37,7 +37,7 @@
           <ng-template pTemplate="body" let-depa>
               <tr>
                   <td>
-                    <p-splitButton appendTo="body" label="Acciones" icon="pi pi-cog" [model]="depa.acciones" styleClass="p-button-info"></p-splitButton>
+                    <p-splitButton appendTo="body" label="Acciones" icon="pi pi-cog" [model]="depa.acciones" styleClass="p-button-secondary"></p-splitButton>
                   </td>
                   <td>
                     <div class="flex justify-content-between align-items-center">

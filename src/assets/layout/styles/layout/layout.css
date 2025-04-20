@@ -77,9 +77,9 @@
   --sidebar-border: 1px solid transparent;
   --card-shadow: 0px 4px 30px rgba(221, 224, 255, 0.54);
   --body-bg:linear-gradient(180deg, #F6F9FC 0%, #ECECF9 100%);
-  --body-image: url("/assets/layout/images/effect-onlight.png");
+ 
   --root-menu-item-hover-bg:rgba(68, 72, 109, 0.07);
-  --exception-pages-image: url("/assets/layout/images/pages/exception-onlight.png");
+ 
 }
 
 .layout-dark {
@@ -87,9 +87,9 @@
   --sidebar-border: 1px solid transparent;
   --card-shadow: 0px 4px 30px rgba(221, 224, 255, 0.54);
   --body-bg:linear-gradient(180deg, #F6F9FC 0%, #ECECF9 100%);
-  --body-image: url("/assets/layout/images/effect-onlight.png");
+
   --root-menu-item-hover-bg:rgba(68, 72, 109, 0.07);
-  --exception-pages-image: url("/assets/layout/images/pages/exception-onlight.png");
+
 }
 
 * {
@@ -130,8 +130,7 @@ a {
   position: absolute;
   top: 0;
   left: 0;
-  background-image: var(--body-image);
-  background-repeat: no-repeat;
+ 
   z-index: 0;
 }
 .layout-container .layout-content-wrapper {

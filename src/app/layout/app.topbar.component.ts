@@ -14,13 +14,14 @@ export class AppTopbarComponent {
     @ViewChild(AppSidebarComponent) appSidebar!: AppSidebarComponent;
     searchActive: boolean = false;
     constructor(public layoutService: LayoutService,public el: ElementRef, public router: Router) { }
+    
     activateSearch() {
         this.searchActive = true;
         setTimeout(() => {
             this.searchInput.nativeElement.focus();
         }, 100);
     }
-
+    
     deactivateSearch() {
         this.searchActive = false;
     }
