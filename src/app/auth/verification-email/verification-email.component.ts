@@ -18,10 +18,11 @@ import { ToastModule } from 'primeng/toast';
 import { Roles } from 'src/app/models/rol.model';
 import { er } from '@fullcalendar/core/internal-common';
 
+
 @Component({
   selector: 'app-verification-email',
   standalone: true,
-  imports: [CommonModule, FormsModule,FileUploadModule, ConfirmDialogModule,ToastModule,DropdownModule,MultiSelectModule,DialogModule, TableModule, RouterModule],
+  imports: [CommonModule,FormsModule,FileUploadModule, ConfirmDialogModule,ToastModule,DropdownModule,MultiSelectModule,DialogModule, TableModule, RouterModule],
     providers:[MessageService, ConfirmationService],
   templateUrl: './verification-email.component.html',
   styleUrl: './verification-email.component.scss'
@@ -72,6 +73,11 @@ export class VerificationEmailComponent {
           console.log('todo mal');
         }
        })
+      }
+
+      Regresar(){
+        localStorage.clear();
+        this.router.navigate(['/login']);
       }
     
 }
