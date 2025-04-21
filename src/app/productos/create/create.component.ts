@@ -29,6 +29,7 @@ export class ProduCreateComponent {
     @Output() creado = new EventEmitter<void>();
     @Output() errorCrear = new EventEmitter<void>();
     uploadedFiles: any[] = [];
+
   cont = 0;
   cont1 = 0;
   cont2 = 0;
@@ -50,12 +51,14 @@ console.log(file.name);
 
   };
 };
+
 uploadImage(): Observable<any> {
   this.cont2 = 1;
   const formData = new FormData();
   formData.append('imagen', this.selectedFile!);
   return this.http.post(`${this.apiUrl}/Producto/subirImagen`, formData);
 }
+
 tamanoSeleccionado: number[] = [];
 preciosPorTamano: { [key: number]: number } = {}; 
 modalVisible: boolean = false;
@@ -93,6 +96,7 @@ guardarPrecios() {
   console.log('Precios guardados:', this.preciosPorTamano);
   this.modalVisible = false;
 }
+
 cancelarModal() {
   
   this.tamanosSeleccionadosConDescripcion.forEach(t => {
@@ -101,19 +105,22 @@ cancelarModal() {
 
   this.modalVisible = false;
 }
-    removeImage() {
-      this.producto.prod_ImgUrl = '';
-      this.selectedFile = null;
-      this.nombreOriginal = '';
-    }
+    
+  removeImage() {
+    this.producto.prod_ImgUrl = '';
+    this.selectedFile = null;
+    this.nombreOriginal = '';
+  }
     cancelarFormulario() {
       this.cancelar.emit();  
     }
+
     router = inject(Router)
     producto = new Productos();
     tamano = new Tamano();
     productoPorTamano = new ProductoPorTamano();
-    productoAux = new Productos();
+    //productoAux = new Productos();
+
     crearProducto()  {
       this.cont = 1;
       console.log('entro');
@@ -183,7 +190,7 @@ cancelarModal() {
     
    
     
-  prueba: any[] = [];
+  //prueba: any[] = [];
     categorias: any[] = [];
     tamanos: any[] = [];
 
