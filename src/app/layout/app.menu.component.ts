@@ -31,11 +31,11 @@ export class AppMenuComponent implements OnInit {
           this.model = [];
           this.model.push({
              
-                  label: 'Dashboards',
-                  icon: 'pi pi-home',
+                  label: '',
+                  icon: '',
                   items: [
                       {
-                          label: 'E-Commerce',
+                          label: 'Inicio',
                           icon: 'pi pi-fw pi-home',
                           routerLink: ['/']
                       }

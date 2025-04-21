@@ -5,6 +5,7 @@ import { MenuService } from './app.menu.service';
 import { AppSidebarComponent } from './app.sidebar.component';
 import { AppTopbarComponent } from './app.topbar.component';
 import { LayoutService } from './service/app.layout.service';
+import { AppInicioComponent } from './app.inicio.component';
 
 @Component({
     selector: 'app-layout',
