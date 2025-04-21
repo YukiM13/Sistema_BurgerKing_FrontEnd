@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Departamento } from 'src/app/models/departamento.model';
-
+import { ButtonModule } from 'primeng/button';
 import { environment } from 'src/enviroments/enviroment';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
@@ -13,7 +13,7 @@ import { Respuesta } from '../../models/respuesta.model';
 @Component({
   selector: 'app-create',
   standalone: true,
-  imports: [CommonModule, FormsModule, ToastModule],
+  imports: [CommonModule, ButtonModule,FormsModule, ToastModule],
   providers: [MessageService],
   templateUrl: './create.component.html',
   styleUrl: './create.component.scss'

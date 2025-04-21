@@ -6,11 +6,11 @@ import {FormsModule} from '@angular/forms'
 import { Departamento } from '../../models/departamento.model'
 import { environment } from 'src/enviroments/enviroment';
 import { MessageService } from 'primeng/api';
-
+import { ButtonModule } from 'primeng/button';
 @Component({
   selector: 'app-edit',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule,ButtonModule, FormsModule],
   templateUrl: './edit.component.html',
   styleUrl: './edit.component.scss'
 })

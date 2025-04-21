@@ -32,7 +32,7 @@
             <div class="col-md-6">
                 <label for="" class="label-control">Fecha</label><span class="text-red-400">*</span>
                 <input type="text" name="vent_Fecha" class="form-control" [value]="ventaAux.vent_Fecha | date: 'dd/MM/yyyy HH:mm:ss'" readonly />
-                <small class="p-error" *ngIf=" !venta.vent_Fecha && cont == 1">La fecha es requerida</small>
+                <small class="p-error" *ngIf=" !ventaAux.vent_Fecha && cont == 1">La fecha es requerida</small>
                 <br>
 
             </div>
@@ -68,7 +68,7 @@
                 </div>
               </ng-template>
             </p-dropdown> <br>
-              <small class="p-error" *ngIf="!venta.clie_Id && cont == 1">El cliente es requerido</small>
+              <small class="p-error" *ngIf="!ventaAux.clie_Id && cont == 1">El cliente es requerido</small>
               <br>
 
           </div>
@@ -120,7 +120,8 @@
         <div class="row mt-3">
           <div>
               <div class="col-md-12 text-right">
-                <button type="submit" class="btn btn-primary m-2"><span ng-reflect-ng-class="[object Object]" data-pc-section="icon" class="pi pi-save"></span> Guardar </button>
+                <p-button type="submit" class="btn button-primary m-2"><span ng-reflect-ng-class="[object Object]" data-pc-section="icon" class="pi pi-save"></span> Guardar </p-button>
+
                 <button type="button" class="btn btn-danger  m-2" (click)="cancelarFormulario()" class="btn btn-secondary"><span ng-reflect-ng-class="[object Object]" data-pc-section="icon" class="pi pi-times"></span> Cancelar</button>
           </div>
 

@@ -11,11 +11,11 @@ import { Respuesta } from 'src/app/models/respuesta.model';
 import { Roles } from '../../models/rol.model';
 import { PantallasPorRoles } from '../../models/pantallasPorRol.model';
 import { Pantallas } from '../../models/pantallas.model';
-
+import { ButtonModule } from 'primeng/button';
 @Component({
   selector: 'app-edit',
   standalone: true,
-  imports: [CommonModule, FormsModule, PickListModule],
+  imports: [CommonModule,ButtonModule, FormsModule, PickListModule],
   templateUrl: './edit.component.html',
   styleUrl: './edit.component.scss'
 })

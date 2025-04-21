@@ -5,7 +5,7 @@ import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http'
 import { Combo } from '../../models/combos.model'
 import { CombosCreateComponent } from '../create/create.component'; 
-//import {EsCiEditComponent} from '../edit/edit.component';
+import {EditComponent} from '../edit/edit.component';
 import { ComboDetailsComponent} from  '../details/details.component';
 import { environment } from '../../../enviroments/enviroment'; 
 import { SplitButtonModule } from 'primeng/splitbutton';
@@ -32,7 +32,7 @@ import { Respuesta } from 'src/app/models/respuesta.model';
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [CommonModule, RouterModule, SplitButtonModule, ComboDetailsComponent,
+  imports: [CommonModule,EditComponent, RouterModule, SplitButtonModule, ComboDetailsComponent,
      ButtonModule,ConfirmDialogModule,ToastModule, TableModule, InputTextModule,CombosCreateComponent],
   providers:[MessageService, ConfirmationService],
   templateUrl: './list.component.html',
@@ -221,6 +221,18 @@ export class CombosListComponent implements OnInit {
       }, 100);
     }
 
+
+    EditarError(): void {
+      this.showEdit = false;
+      this.listarCombos();
+      setTimeout(() => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'El combo no se pudo editar'
+        });
+      }, 100);
+    }
     registroActualizado(): void {
       this.showEdit = false;
       this.listarCombos();

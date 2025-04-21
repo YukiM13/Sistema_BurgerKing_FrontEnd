@@ -5,11 +5,11 @@ import {HttpClient} from '@angular/common/http';
 import {FormsModule} from '@angular/forms'
 import {EstadoCivil} from '../../models/estadosCiviles.model'
 import { environment } from 'src/enviroments/enviroment';
-
+import { ButtonModule } from 'primeng/button';
 @Component({
   selector: 'app-edit',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, ButtonModule,FormsModule],
   templateUrl: './edit.component.html',
   styleUrl: './edit.component.scss'
 })

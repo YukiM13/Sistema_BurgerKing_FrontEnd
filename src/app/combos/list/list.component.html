@@ -46,7 +46,7 @@
     </div>
   
     <div *ngIf="showEdit" @collapse>
-     <!-- <app-edit [comboId]="comboSeleccionado" (actualizado)="registroActualizado()"  (cancelar)="cancelEdit()" ></app-edit>  --> 
+      <app-edit [comboId]="comboSeleccionado" (creado)="registroActualizado()"  (errorCrear)="EditarError()" (cancelar)="cancelEdit()" ></app-edit>  
     </div>
 
     <div *ngIf="showDetails" @collapse>
