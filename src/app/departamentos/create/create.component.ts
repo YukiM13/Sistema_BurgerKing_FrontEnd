@@ -49,7 +49,20 @@ export class DepaCreateComponent {
     }
   }
 
-
+  filtrarCodigo(event: any) {
+    let valor = event.target.value;
+  
+    // Solo mantener números
+    valor = valor.replace(/[^0-9]/g, '');
+  
+    // Limitar a 2 dígitos
+    if (valor.length > 2) {
+      valor = valor.slice(0, 2);
+    }
+  
+    this.departamento.depa_Codigo = valor;
+  }
+  
 
 
   crearDepartamento() {

@@ -23,8 +23,15 @@
         <div class="row">
             <div class="col-md-6">
                 <label for="" class="label-control">Correo</label>  <span class="text-red-400">*</span>
-                <input pinputtext id="corr" name="usua_Correo" [(ngModel)] = "usuario.usua_Correo" class="p-inputtext form-control ng-invalid " required #corr="ngModel"/>
-                <small class="p-error" *ngIf="(corr.invalid || !usuario.usua_Correo.trim()) && cont == 1">El correo es requerido</small>
+                <input pinputtext id="corr" email name="usua_Correo" [(ngModel)] = "usuario.usua_Correo" class="p-inputtext form-control ng-invalid " required #corr="ngModel"/>
+                <small class="p-error" *ngIf="cont == 1 && (corr.invalid || !usuario.usua_Correo.trim())">
+                    <ng-container *ngIf="corr.errors?.['required'] || !usuario.usua_Correo.trim()">
+                      El correo es requerido
+                    </ng-container>
+                    <ng-container *ngIf="corr.errors?.['email']">
+                      El formato del correo es inválido
+                    </ng-container>
+                  </small>
                 
             </div>
 
