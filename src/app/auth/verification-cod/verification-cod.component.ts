@@ -102,5 +102,10 @@ export class VerificationCodComponent {
       
         return `${visible}${oculto}@${dominio}`;
        }
+
+       Regresar(){
+        localStorage.clear();
+        this.router.navigate(['/login']);
+      }
   //Usuario/VerificarCodigo
 }

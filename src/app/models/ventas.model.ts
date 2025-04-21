@@ -12,6 +12,8 @@ export class Venta{
     vent_FechaModificacion: Date = new Date() ;
     usuaC_Nombre: string = ""; 
     usuaM_Nombre: string = ""; 
+    depa_Descripcion: string = "";
+    muni_Descripcion: string = "";
     codeStatus: number = 0;
 
 

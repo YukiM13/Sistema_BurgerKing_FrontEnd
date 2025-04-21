@@ -7,6 +7,7 @@ import { Venta } from 'src/app/models/ventas.model';
 import { VentaDetalle } from 'src/app/models/ventaDetalles';
 import { environment } from 'src/enviroments/enviroment';
 import { Table, TableModule } from 'primeng/table';
+
 import jsPDF from 'jspdf';
 @Component({
   selector: 'app-factura',
@@ -88,18 +89,34 @@ export class FacturaComponent {
     
     y += 12;
     doc.setFontSize(8);
-    doc.text(`${this.ventaAux.sucu_Descripcion}`, 40, y, { align: 'center' });
-    y += 4;
-    if(this.ventaAux.clie_Identidad_Rtn === '9999-9999-99999')
-    {
-      doc.text(` ${this.ventaAux.clie_NombreC}`, 40, y, { align: 'center' });
-    }
-    else
-    {
-      doc.text(`RTN: ${this.ventaAux.clie_Identidad_Rtn}`, 40, y, { align: 'center' });
-    }
-    
+    doc.text(`${this.ventaAux.sucu_Descripcion}, ${this.ventaAux.muni_Descripcion}, ${this.ventaAux.depa_Descripcion}`, 5, y, );
    
+    y += 4;
+    
+    doc.text(`RTN: 0501-1994-00006`, 40, y, { align: 'center' });
+
+    
+    const fecha = new Date(this.ventaAux.vent_Fecha);
+const fechaFormateada = fecha.toLocaleString('es-ES', {
+  day: '2-digit',
+  month: '2-digit',
+  year: 'numeric',
+  hour: '2-digit',
+  minute: '2-digit',
+  second: '2-digit'
+});
+   
+    y += 5;
+   
+    doc.text(` ${fechaFormateada} `, 40, y, { align: 'center' });
+
+     y += 5;
+
+    if(this.ventaAux.clie_Identidad_Rtn != '9999-9999-99999')
+      {
+        doc.text(`RTN cliente: ${this.ventaAux.clie_Identidad_Rtn}`, 40, y, { align: 'center' });
+      }
+      
     y += 5;
     doc.setFontSize(10);
    
