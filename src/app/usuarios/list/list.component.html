@@ -1,4 +1,4 @@
-<ng-container *ngIf="!showCreate  && !showEdit && !showDetails" @collapse>
+<ng-container *ngIf="!showCreate  && !showEdit && !showDetails && !showChangesPassword" @collapse>
     <h2>Usuarios</h2>
   <div class="card">
   
@@ -103,4 +103,18 @@
     <div *ngIf="showDetails" @collapse>
         <app-details [usuaId]="usurioSeleccionado"  (cancelar)="cancelDetails()" ></app-details>
       </div>
+    <div *ngIf="showChangesPassword" @collapse>
+        <h2 >Cambio de contraseña</h2>
+    <div class="grid p-fluid">
+        <div class="col-12"> 
+            <div class="card" >
+                <div class="card-body">
+                    <app-restore-password (enviado)="UsurioEnviado()" (cancelar)="cancelar()"  ></app-restore-password>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+   
+     
   
