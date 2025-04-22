@@ -17,13 +17,16 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { Roles } from 'src/app/models/rol.model';
 import { AuthService } from 'src/app/layout/service/authService.service';
+import { VerificationEmailComponent } from '../verification-email/verification-email.component';
+import { VerificationCodComponent } from '../verification-cod/verification-cod.component';
+import { RestorePasswordComponent } from '../restore-password/restore-password.component';
 
 
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, FormsModule,FileUploadModule, ConfirmDialogModule,ToastModule,DropdownModule,MultiSelectModule,DialogModule, TableModule, RouterModule],
+  imports: [CommonModule, VerificationEmailComponent,RestorePasswordComponent,VerificationCodComponent,FormsModule,FileUploadModule, ConfirmDialogModule,ToastModule,DropdownModule,MultiSelectModule,DialogModule, TableModule, RouterModule],
   providers:[MessageService, ConfirmationService],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
@@ -35,6 +38,9 @@ export class LoginComponent {
       rol_Id = new Roles();
       usuarioLogin = new Usuario();
       pantallas: string ='';
+      showForgetPassword = false;
+      showVerificationCod= false;
+      showChangesPassword = false;
      cont = 0;
       constructor(
         private confirmationService: ConfirmationService,
@@ -117,5 +123,44 @@ export class LoginComponent {
             });
           }
         });
+    }
+
+    forgetPassword(){
+      this.showForgetPassword = true;
+    }
+
+    cancelar(accion: number){
+      if(accion == 1){
+        this.showForgetPassword = false;
+
+      }
+      else if(accion == 2)
+      {
+        this.showVerificationCod = false;
+      }
+      else if(accion == 3)
+      {
+        this.showChangesPassword = false;
+      }
+     
+    }
+
+    UsurioEnviado(accion: number){
+      if(accion == 1){
+        this.showForgetPassword = false;
+        this.showVerificationCod = true;
+
+      }
+      else if(accion == 2)
+      {
+        this.showVerificationCod = false;
+        this.showChangesPassword = true;
+      }
+      else if(accion == 3)
+      {
+        this.showChangesPassword = false;
+        
+      }
+    
     }
 }

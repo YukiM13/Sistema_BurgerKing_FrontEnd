@@ -25,27 +25,22 @@ import { LoginComponent } from './auth/login/login.component';
 import { VerificationEmailComponent } from './auth/verification-email/verification-email.component';
 import { VerificationCodComponent } from './auth/verification-cod/verification-cod.component';
 import { RestorePasswordComponent } from './auth/restore-password/restore-password.component';
+import { InicioComponent } from './dashbords/inicio/inicio.component'; 
 
 const routerOptions: ExtraOptions = {
     anchorScrolling: 'enabled'
 };
 
 const routes: Routes = [
-    { path: '', component: AppLayoutComponent },
+    { path: 'inicio', component: AppLayoutComponent },
   
     { path: 'login', component: LoginComponent },
 
-    {path:'forget-password', component: VerificationEmailComponent},
-    
-    {path:'verification-cod', component: VerificationCodComponent},
-
-    {path: 'reset-password', component: RestorePasswordComponent},
   
     {
-      path: '',
-      component: AppLayoutComponent,
+      path: '',component: AppLayoutComponent,
       children: [
-        {path: '', component:AppLayoutComponent},
+        {path: '', component:InicioComponent},
         { path: 'departamento', component: DepaListComponent },
         { path: 'departamento/crear', component: DepaCreateComponent },
         { path: 'estadoCivil', component: EsCiListComponent },

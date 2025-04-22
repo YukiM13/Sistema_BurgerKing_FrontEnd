@@ -15,6 +15,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { Table, TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
+import { RestorePasswordComponent } from 'src/app/auth/restore-password/restore-password.component';
 
 import {
   trigger,
@@ -27,7 +28,7 @@ import { MenuItem } from 'primeng/api';
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports:[CommonModule, RouterModule, UsuaCreateComponent,UsuarioDetailsComponent, UsuarioEditComponent,
+  imports:[CommonModule, RestorePasswordComponent,RouterModule, UsuaCreateComponent,UsuarioDetailsComponent, UsuarioEditComponent,
      SplitButtonModule, ButtonModule,ConfirmDialogModule,ToastModule, TableModule, InputTextModule],
   providers:[MessageService, ConfirmationService],
   templateUrl: './list.component.html',
@@ -53,6 +54,7 @@ export class UsuaListComponent  implements OnInit {
   showCreate = false;
   showEdit = false;
   showDetails = false;
+  showChangesPassword = false;
   loading = [false, false, false, false];
     usurioSeleccionado: any;
     usuarios: any[] = [];
@@ -94,6 +96,11 @@ export class UsuaListComponent  implements OnInit {
           command: () => this.ObtenerUsuario(usuario.usua_Id, 2)
         },
         {
+          label: 'Restablecer contraseña',
+          icon: 'pi pi-refresh',
+          command: () => this.ObtenerUsuario(usuario.usua_Id, 3)
+        },
+        {
           
           label: usuario.usua_Estado ? 'Desactivar' : 'Activar',
           icon: usuario.usua_Estado ? 'pi pi-ban' : 'pi pi-check-circle',
@@ -110,9 +117,14 @@ export class UsuaListComponent  implements OnInit {
       {
         this.showEdit = true;
       }
-      else
+      else if(accion == 2)
       {
         this.showDetails = true;
+      }
+      else if(accion == 3)
+      {
+        localStorage.setItem('idRestablecer', id.toString());
+          this.showChangesPassword = true;
       }
       
     }
@@ -207,5 +219,27 @@ export class UsuaListComponent  implements OnInit {
     
     onGlobalFilter(table: Table, event: Event) {
       table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
+    }
+
+    cancelar(){
+     
+        this.showChangesPassword = false;
+      
+     
+    }
+
+    UsurioEnviado(){
+  
+        this.showChangesPassword = false;
+        this.listarUsuario();
+        setTimeout(() => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Exito',
+            detail: 'La contraseña fue cambiada exitosamente'
+          });
+        }, 100);
+      
+    
     }
 }

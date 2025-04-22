@@ -28,6 +28,9 @@ import { er } from '@fullcalendar/core/internal-common';
   styleUrl: './verification-email.component.scss'
 })
 export class VerificationEmailComponent {
+  @Output() cancelar = new EventEmitter<void>();  
+  @Output() enviado = new EventEmitter<void>();  
+
   private apiUrl = environment.apiUrl; 
       http = inject(HttpClient);
       usuario = new Usuario();
@@ -62,7 +65,7 @@ export class VerificationEmailComponent {
           localStorage.setItem('idRestablecer', this.id.toString());
           localStorage.setItem('correo1', this.usuario.usua_Correo);
           console.log(localStorage.getItem('correo1'));
-          this.router.navigate(['/verification-cod']);
+          this.enviado.emit();
         }
         else{
           this.messageService.add({
@@ -76,8 +79,9 @@ export class VerificationEmailComponent {
       }
 
       Regresar(){
-        localStorage.clear();
-        this.router.navigate(['/login']);
+        console.log("Entro");
+ 
+        this.cancelar.emit();
       }
     
 }
