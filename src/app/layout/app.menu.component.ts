@@ -17,7 +17,7 @@ export class AppMenuComponent implements OnInit {
     pant: string []= [];
     cont =0;
     
-    esAdmin = localStorage.getItem('esAdmin');
+    esAdmin = localStorage.getItem('Admin');
    
     cargarMenu(){
         console.log(this.esAdmin);
@@ -25,7 +25,7 @@ export class AppMenuComponent implements OnInit {
         if(pantallas){
           this.pant=pantallas.split(',');
           console.log(this.pant);
-          this.tieneAcceso = this.pant.includes('Usuarios') || this.pant.includes('Roles') || this.esAdmin == 'True'
+          this.tieneAcceso = this.pant.includes('Usuarios') || this.pant.includes('Roles') || this.esAdmin == 'true'
           this.tieneGeneral = this.pant.includes('Departamentos') || this.pant.includes('Municipios') || this.pant.includes('Estados Civiles') || this.pant.includes('Empleados') || this.pant.includes('Cargos') || this.pant.includes('Sucursales') || this.pant.includes('Clientes')
           this.tieneVentas = this.pant.includes('Tamano') || this.pant.includes('Categorias') || this.pant.includes('Productos') || this.pant.includes('Combos') || this.pant.includes('Ventas')
           

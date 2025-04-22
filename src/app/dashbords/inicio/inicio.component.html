@@ -1,6 +1,6 @@
 <div class="row mt-3">
 
-    <div class="col-12 widget-customer-carousel">
+    <div class="col-12 widget-customer-carousel" *ngIf="combos.length >0">
         <h2>¡Lo mas vendido!</h2>
         <p-carousel [value]="combos" [numVisible]="3" [numScroll]="1" [circular]="true"
             [responsiveOptions]="carouselResponsiveOptions" indicatorsContentClass="hidden">

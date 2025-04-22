@@ -84,17 +84,17 @@ export class LoginComponent {
              localStorage.setItem('correo', this.usuarioLogin.usua_Correo);
               localStorage.setItem('rol_id', this.usuarioLogin.role_Id.toString());
               localStorage.setItem('sucursal_id', this.usuarioLogin.sucu_Id.toString());
-              const adminValue = this.usuarioLogin.usua_Admin.toString();
+             
               
               console.log(localStorage.getItem('sucursal_id'));
-              // if(adminValue == '1'){
-              //   localStorage.setItem('Admin', 'true');
-              // }
-              // else if(adminValue == '0'){
+               if(this.usuarioLogin.usua_Admin){
+                 localStorage.setItem('Admin', 'true');
+               }
+               else if(!this.usuarioLogin.usua_Admin){
               
-              //   localStorage.setItem('Admin', 'false');
-              // }
-              localStorage.setItem('Admin', 'true');
+                localStorage.setItem('Admin', 'false');
+               }
+             
              
               console.log(localStorage.getItem('Admin'));
             const rolId = localStorage.getItem('rol_id');

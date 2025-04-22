@@ -27,7 +27,7 @@ export class InicioComponent {
   uploadedFiles: any[] = [];
 url = this.apiUrl;
  
-
+esAdmin = localStorage.getItem('Admin');
 
  
 
@@ -54,12 +54,20 @@ carouselResponsiveOptions: any[] = [
 customerCarousel: any[] = [];
 
 listarCombos(): void {
-this.http.get(`${this.apiUrl}/Combo/MasVendido`)
+if(this.esAdmin == 'true')
+{
+  this.http.get(`${this.apiUrl}/Combo/MasVendido`)
   .subscribe((res: any) => {
     this.combos = res.map((estado: any) => ({
       ...estado
     }));
   });
+}
+else{
+
+}
+
+
 }
 
 
