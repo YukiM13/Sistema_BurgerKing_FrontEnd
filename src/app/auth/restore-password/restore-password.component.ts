@@ -32,6 +32,8 @@ export class RestorePasswordComponent {
   cont = 0;
   cont1 = 0;
   validacion = false;
+  @Output() cancelar = new EventEmitter<void>();  
+  @Output() enviado = new EventEmitter<void>(); 
   http = inject(HttpClient);
       usuario = new Usuario();
 
@@ -43,9 +45,16 @@ export class RestorePasswordComponent {
       ) {}
 
   ngOnInit(): void {  
-    if( localStorage.getItem('idRestablecer') == null || localStorage.getItem('verificado') == null){
-      this.router.navigate(['/login']);
+    if(localStorage.getItem('usuario') == null)
+    {
+      console.log("Entro al if");
+      
+      if( localStorage.getItem('idRestablecer') == null || localStorage.getItem('verificado') == null){
+        console.log("Entro al 2 if");
 
+        this.cancelar.emit();
+
+      }
     }
     this.cont = 0;
     this.cont1 = 0;
@@ -92,7 +101,7 @@ export class RestorePasswordComponent {
             localStorage.removeItem('idRestablecer');
             localStorage.removeItem('verificado');
             localStorage.removeItem('correo1');
-            this.router.navigate(['/login']);
+            this.enviado.emit();
           } else {
             this.messageService.add({
               severity: 'error',
@@ -110,8 +119,10 @@ export class RestorePasswordComponent {
 }
 
 Regresar(){
-  localStorage.clear();
-  this.router.navigate(['/login']);
+  localStorage.removeItem('idRestablecer');
+  localStorage.removeItem('verificado');
+  localStorage.removeItem('correo1');
+  this.cancelar.emit();
 }
 
 

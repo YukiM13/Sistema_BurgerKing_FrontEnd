@@ -15,6 +15,8 @@ export class AppMenuComponent implements OnInit {
     tieneGeneral =false;
     tieneVentas = false;
     pant: string []= [];
+    cont =0;
+    
     esAdmin = localStorage.getItem('esAdmin');
    
     cargarMenu(){
@@ -152,9 +154,12 @@ export class AppMenuComponent implements OnInit {
     }
     ngOnInit() {
         this.authService.sessionChange$.subscribe(() => {
-            this.cargarMenu(); 
-          });
         
+            this.cargarMenu();
+        
+          });
+         
+    
           this.cargarMenu();
                         
 

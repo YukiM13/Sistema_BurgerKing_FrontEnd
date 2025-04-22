@@ -37,6 +37,8 @@ export class VerificationCodComponent {
       codigo = '';
        correoCensurado = '';
        correo = '';
+       @Output() cancelar = new EventEmitter<void>();  
+       @Output() enviado = new EventEmitter<void>(); 
       constructor(
               private confirmationService: ConfirmationService,
               private messageService: MessageService,
@@ -74,7 +76,7 @@ export class VerificationCodComponent {
             localStorage.setItem('verificado', 'true');
             console.log(localStorage.getItem('verificado'));
             
-            this.router.navigate(['/reset-password']);
+            this.enviado.emit();
 
            
            
@@ -105,7 +107,7 @@ export class VerificationCodComponent {
 
        Regresar(){
         localStorage.clear();
-        this.router.navigate(['/login']);
+        this.cancelar.emit();
       }
   //Usuario/VerificarCodigo
 }
