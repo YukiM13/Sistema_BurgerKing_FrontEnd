@@ -76,8 +76,6 @@ export class DepaCreateComponent {
   
 
 
-
-
   crearDepartamento() {
     this.cont = 1;
        if (
