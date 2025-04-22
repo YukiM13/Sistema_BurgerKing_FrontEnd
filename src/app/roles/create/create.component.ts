@@ -9,7 +9,7 @@ import { ToggleButtonModule } from 'primeng/togglebutton';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { PickListModule } from 'primeng/picklist';
-
+import { ButtonModule } from 'primeng/button';
 
 
 import { Roles } from '../../models/rol.model';
@@ -29,7 +29,7 @@ import { Respuesta } from 'src/app/models/respuesta.model';
 @Component({
   selector: 'app-create',
   standalone: true,
-  imports: [CommonModule, FormsModule, ToastModule, PickListModule],
+  imports: [CommonModule,ButtonModule, FormsModule, ToastModule, PickListModule],
   providers: [MessageService],
   templateUrl: './create.component.html',
   styleUrl: './create.component.scss',

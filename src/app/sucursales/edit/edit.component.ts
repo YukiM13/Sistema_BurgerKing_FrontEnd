@@ -9,11 +9,11 @@ import { environment } from 'src/enviroments/enviroment';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { DropdownModule } from 'primeng/dropdown';
-
+import { ButtonModule } from 'primeng/button';
 @Component({
   selector: 'app-edit',
   standalone: true,
-  imports: [CommonModule, FormsModule, DropdownModule],
+  imports: [CommonModule, ButtonModule,FormsModule, DropdownModule],
   templateUrl: './edit.component.html',
   styleUrl: './edit.component.scss'
 })

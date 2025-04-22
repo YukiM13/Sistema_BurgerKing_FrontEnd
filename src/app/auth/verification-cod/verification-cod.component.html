@@ -5,11 +5,13 @@
         <img [src]="'assets/layout/images/login-image.avif'"
              alt="atlantis" class=" h-screen w-full" >
     </div>
-    <form (submit)="verificarCodigo();">
+  
         <div class="login-panel w-full" style="background:var(--surface-ground)">
             <div class="p-fluid min-h-screen bg-auto md:bg-contain bg-no-repeat text-center w-full flex align-items-center md:align-items-start justify-content-center flex-column bg-auto md:bg-contain bg-no-repeat"
-                style=" padding: 20% 10% 20% 10%;background:var(--exception-pages-image)">
+                style=" padding: 10% 20%;background:var(--exception-pages-image)">
+               
                 <div class="flex flex-column">
+                    <form (submit)="verificarCodigo();">
                     <div class="flex align-items-center mb-6 logo-container">
                         <img [src]="'assets/layout/images/logo-lc.png'"
                                     class="login-logo" style=" width: 55px;" />
@@ -39,17 +41,18 @@
 
 
                     </div>
-                    <div class="button-container mt-4 text-left " style="   max-width: 320px;
-                    min-width: 270px;">
-                        <div class="buttons flex align-items-center gap-3">
-                        
-                            <button type="submit" pButton   class="block btn btn-primary" style="max-width: 320px;
-                            margin-bottom: 32px;">Verificar</button>
+                    <div class="row"> 
+                        <div>
+                            <div class="col-md-12 text-left">
+                                <button type="button" (click)="Regresar()"  class="btn btn-secondary m-2">Regresar</button>
+                                <button type="submit"  class="btn btn-primary m-2"  style="background-color: rgb(255 135 50);">Verificar</button>
+                            </div>
+                            
                         </div>
-
                     </div>
+                </form>
                 </div>
-            
+               
                 <div class="login-footer flex align-items-center absolute" style="bottom: 75px;">
                     <div
                         class="flex align-items-center login-footer-logo-container pr-4 mr-4 border-right-1 surface-border">
@@ -63,8 +66,9 @@
             </div>
        
     </div>
-</form>
+
     
 </div>
+
 <p-confirmDialog></p-confirmDialog>
     <p-toast></p-toast>

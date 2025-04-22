@@ -15,6 +15,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { Table, TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
+import { Respuesta } from '../../models/respuesta.model'
 
 
 
@@ -141,15 +142,27 @@ export class DepaListComponent implements OnInit {
 
     EliminarDepartamento(id: string): void {
       this.departamento.depa_Codigo = id;
-      this.http.post(`${this.apiUrl}/Departamento/Eliminar`, this.departamento)
-        .subscribe(() => {
+      this.http.post<Respuesta<Departamento>>(`${this.apiUrl}/Departamento/Eliminar`, this.departamento)
+      .subscribe({
+        next: (response) => {
+        if (response && response.data.codeStatus >0) {
+          console.log(response)
           this.messageService.add({
             severity: 'success',
             summary: 'Eliminado',
             detail: 'Departamento eliminado'
           });
           this.listardepartamentos();
-        });
+        } else {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'No se pudo eliminar!',
+            detail: 'El departamento esta siendo utilizado'
+          });
+          this.listardepartamentos();
+        }
+      }
+      });
     }
 
     toggleCreate(): void {

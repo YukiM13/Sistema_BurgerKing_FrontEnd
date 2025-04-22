@@ -9,11 +9,11 @@ import { Respuesta } from 'src/app/models/respuesta.model';
 import { InputTextModule } from 'primeng/inputtext';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
-
+import { ButtonModule } from 'primeng/button';
 @Component({
   selector: 'app-create',
   standalone: true,
-  imports: [CommonModule, FormsModule, InputTextModule, ToastModule],
+  imports: [CommonModule,   ButtonModule,FormsModule, InputTextModule, ToastModule],
   providers: [MessageService],
   templateUrl: './create.component.html',
   styleUrl: './create.component.scss'

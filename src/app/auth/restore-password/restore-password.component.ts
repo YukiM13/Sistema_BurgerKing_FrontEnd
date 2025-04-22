@@ -109,4 +109,10 @@ export class RestorePasswordComponent {
    
 }
 
+Regresar(){
+  localStorage.clear();
+  this.router.navigate(['/login']);
+}
+
+
 }

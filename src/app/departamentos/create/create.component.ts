@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Departamento } from 'src/app/models/departamento.model';
-
+import { ButtonModule } from 'primeng/button';
 import { environment } from 'src/enviroments/enviroment';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
@@ -13,7 +13,7 @@ import { Respuesta } from '../../models/respuesta.model';
 @Component({
   selector: 'app-create',
   standalone: true,
-  imports: [CommonModule, FormsModule, ToastModule],
+  imports: [CommonModule, ButtonModule,FormsModule, ToastModule],
   providers: [MessageService],
   templateUrl: './create.component.html',
   styleUrl: './create.component.scss'
@@ -40,8 +40,8 @@ export class DepaCreateComponent {
     this.cancelar.emit();  
   }
 
-  router = inject(Router); //inicializa el router
-  departamento = new Departamento(); //inicializa el objeto departamento
+  router = inject(Router); 
+  departamento = new Departamento(); 
 
   limpiarEspacioInicial() {
     if (this.departamento.depa_Codigo) {
@@ -49,31 +49,47 @@ export class DepaCreateComponent {
     }
   }
 
-  filtrarCodigo(event: any) {
-    let valor = event.target.value;
-  
-    valor = valor.replace(/[^0-9]/g, '');
+  validarCodigoKey(event: KeyboardEvent) {
+    const tecla = event.key;
 
-    if (valor.length > 2) {
-      valor = valor.slice(0, 2);
+    const teclasPermitidas = ['Backspace', 'ArrowLeft', 'ArrowRight', 'Tab'];
+    if (teclasPermitidas.includes(tecla)) {
+      return;
+    }
+
+    const esNumero = /^[0-9]$/.test(tecla);
+    const codigoActual = this.departamento.depa_Codigo ?? '';
+  
+    if (!esNumero || codigoActual.length >= 2) {
+      event.preventDefault(); 
+    }
+  }
+  
+  limitarCodigo() {
+    if (this.departamento.depa_Codigo?.length > 2) {
+      this.departamento.depa_Codigo = this.departamento.depa_Codigo.slice(0, 2);
     }
   
-    this.departamento.depa_Codigo = valor;
+    
+    this.departamento.depa_Codigo = this.departamento.depa_Codigo.replace(/[^0-9]/g, '');
   }
   
 
 
   crearDepartamento() {
     this.cont = 1;
-        if(!this.departamento.depa_Codigo.trim()  || !this.departamento.depa_Descripcion.trim() ) 
-        {
-          this.messageService.add({
-            severity: 'warn',
-            summary: 'Error',
-            detail: 'Campos Vacios.'
-          });
-          return;
-        }
+       if (
+      !this.departamento.depa_Codigo.trim() ||
+      !/^\d{2}$/.test(this.departamento.depa_Codigo) || 
+      !this.departamento.depa_Descripcion.trim()
+    ) {
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Error',
+        detail: 'Código inválido o campos vacíos.'
+      });
+  return;
+    }   
 
     this.departamento.usua_Creacion = 2;
     const fecha = new Date();

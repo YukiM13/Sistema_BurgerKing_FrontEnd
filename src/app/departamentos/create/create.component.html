@@ -6,10 +6,12 @@
         <div class="row">
             <div class="col-md-6">
                 <label for="" class="label-control">Codigo:</label>  <span class="text-red-400">*</span>
-                <input type="text" (input)="filtrarCodigo($event)"
-                maxlength="2" pinputtext id="cod"  name="depa_Codigo"  [(ngModel)] = "departamento.depa_Codigo" (ngModelChange)="limpiarEspacioInicial()" class="p-inputtext form-control ng-invalid " required #cod="ngModel"/>
+                <input pinputtext id="cod" (keydown)="validarCodigoKey($event)"
+                (input)="limitarCodigo()" name="depa_Codigo"  [(ngModel)] = "departamento.depa_Codigo" (ngModelChange)="limpiarEspacioInicial()" class="p-inputtext form-control ng-invalid " required #cod="ngModel"/>
                 <small class="p-error" *ngIf="(cod.invalid || ! departamento.depa_Codigo.trim()) && cont == 1">El codigo es requerido</small>
-                <br>
+                <small class="p-error" *ngIf="cont === 1 && departamento.depa_Codigo.length !== 2"> El código debe tener exactamente 2 caracteres </small>
+                  
+                 <br>
                 
             </div>
 
@@ -25,7 +27,7 @@
         <div class="row">
             <div>
                 <div class="col-md-12 text-right">
-                    <button type="submit" class="btn btn-primary m-2"><span ng-reflect-ng-class="[object Object]" data-pc-section="icon" class="pi pi-save"></span> Guardar </button>
+                    <p-button type="submit" class="btn button-primary m-2"><span ng-reflect-ng-class="[object Object]" data-pc-section="icon" class="pi pi-save"></span> Guardar </p-button>
                     <button type="button" class="btn btn-danger  m-2" (click)="cancelarFormulario()" class="btn btn-secondary"><span ng-reflect-ng-class="[object Object]" data-pc-section="icon" class="pi pi-times"></span> Cancelar</button>
                 </div>
                 

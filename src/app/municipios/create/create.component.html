@@ -10,7 +10,7 @@
         <div class="row">
             <div class="col-md-6">
                 <label for="" class="label-control">Codigo:</label>  <span class="text-red-400">*</span>
-                <input pinputtext id="cod" name="muni_Codigo" [(ngModel)] = "municipio.muni_Codigo" (ngModelChange)="limpiarEspacioInicial()" class="p-inputtext form-control ng-invalid " required #cod="ngModel"/>
+                <input pinputtext id="cod" name="muni_Codigo" [(ngModel)] = "municipio.muni_Codigo" (ngModelChange)="limpiarEspacioInicial()" class="p-inputtext form-control ng-invalid " required #cod="ngModel" [maxlength]="4"/>
                 <small class="p-error" *ngIf="(cod.invalid || !municipio.muni_Codigo.trim()) && cont == 1">El codigo es requerido</small>
                 <br>
                 
@@ -36,7 +36,8 @@
         <div class="row">
             <div>
                 <div class="col-md-12 text-right">
-                    <button type="submit" class="btn btn-primary m-2"><span ng-reflect-ng-class="[object Object]" data-pc-section="icon" class="pi pi-save"></span> Guardar </button>
+                    <p-button type="submit" class="btn button-primary m-2"><span ng-reflect-ng-class="[object Object]" data-pc-section="icon" class="pi pi-save"></span> Guardar </p-button>
+
                     <button type="button" class="btn btn-danger  m-2" (click)="cancelarFormulario()" class="btn btn-secondary"><span ng-reflect-ng-class="[object Object]" data-pc-section="icon" class="pi pi-times"></span> Cancelar</button>
                 </div>
                 

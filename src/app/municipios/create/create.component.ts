@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { Municipios } from 'src/app/models/municipio.model';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from "primeng/inputtext";
-
+import { ButtonModule } from 'primeng/button';
 import { environment } from 'src/enviroments/enviroment';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
@@ -15,7 +15,7 @@ import { Respuesta } from 'src/app/models/respuesta.model';
 @Component({
   selector: 'app-create',
   standalone: true,
-  imports: [CommonModule, FormsModule, DropdownModule, InputTextModule, ToastModule],
+  imports: [CommonModule, ButtonModule,FormsModule, DropdownModule, InputTextModule, ToastModule],
   providers: [MessageService],
   templateUrl: './create.component.html',
   styleUrl: './create.component.scss'

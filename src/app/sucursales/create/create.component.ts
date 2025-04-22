@@ -11,12 +11,12 @@ import { SelectItem } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { Respuesta } from 'src/app/models/respuesta.model';
 import { Municipios } from 'src/app/models/municipio.model';
-
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-create',
   standalone: true,
-  imports: [CommonModule, FormsModule, DropdownModule, ToastModule],
+  imports: [CommonModule, ButtonModule,FormsModule, DropdownModule, ToastModule],
   providers:[MessageService, ConfirmationService],
   templateUrl: './create.component.html',
   styleUrl: './create.component.scss'

@@ -7,11 +7,11 @@ import { Cargo } from '../../models/cargos.model'
 import { environment } from 'src/enviroments/enviroment';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
-
+import { ButtonModule } from 'primeng/button';
 @Component({
   selector: 'app-edit',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ButtonModule],
   templateUrl: './edit.component.html',
   styleUrl: './edit.component.scss'
 })

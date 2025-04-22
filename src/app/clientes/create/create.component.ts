@@ -12,11 +12,11 @@ import { ToastModule } from 'primeng/toast';
 import { Respuesta } from '../../models/respuesta.model';
 import { Empleados } from 'src/app/models/empleado.model';
 import { InputMaskModule } from 'primeng/inputmask';
-
+import { ButtonModule } from 'primeng/button';
 @Component({
   selector: 'app-create-cliente',
   standalone: true,
-  imports: [CommonModule,InputMaskModule, FormsModule, ToggleButtonModule, SelectButtonModule, ToastModule],
+  imports: [CommonModule,InputMaskModule, ButtonModule,FormsModule, ToggleButtonModule, SelectButtonModule, ToastModule],
   providers: [MessageService],
   templateUrl: './create.component.html',
   styleUrl: './create.component.scss'

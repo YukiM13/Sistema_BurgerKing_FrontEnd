@@ -8,11 +8,11 @@
   import { MessageService } from 'primeng/api';
   import { ToastModule } from 'primeng/toast';
   import { Respuesta } from '../../models/respuesta.model';
-
+import { Button, ButtonModule } from 'primeng/button';
   @Component({
     selector: 'app-create',
     standalone: true,
-    imports: [CommonModule, FormsModule, ToastModule],
+    imports: [CommonModule,ButtonModule, FormsModule, ToastModule],
     providers: [MessageService],
     templateUrl: './create.component.html',
     styleUrl: './create.component.scss'
