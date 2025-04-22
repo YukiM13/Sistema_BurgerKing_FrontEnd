@@ -6,9 +6,12 @@
         <div class="row">
             <div class="col-md-6">
                 <label for="" class="label-control">Codigo:</label>  <span class="text-red-400">*</span>
-                <input pinputtext id="cod" name="depa_Codigo"  [(ngModel)] = "departamento.depa_Codigo" (ngModelChange)="limpiarEspacioInicial()" class="p-inputtext form-control ng-invalid " required #cod="ngModel" [maxlength]="2"/>
+                <input pinputtext id="cod" (keydown)="validarCodigoKey($event)"
+                (input)="limitarCodigo()" name="depa_Codigo"  [(ngModel)] = "departamento.depa_Codigo" (ngModelChange)="limpiarEspacioInicial()" class="p-inputtext form-control ng-invalid " required #cod="ngModel"/>
                 <small class="p-error" *ngIf="(cod.invalid || ! departamento.depa_Codigo.trim()) && cont == 1">El codigo es requerido</small>
-                <br>
+                <small class="p-error" *ngIf="cont === 1 && departamento.depa_Codigo.length !== 2"> El código debe tener exactamente 2 caracteres </small>
+                  
+                 <br>
                 
             </div>
 
