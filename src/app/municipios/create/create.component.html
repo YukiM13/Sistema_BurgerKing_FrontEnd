@@ -10,7 +10,7 @@
         <div class="row">
             <div class="col-md-6">
                 <label for="" class="label-control">Codigo:</label>  <span class="text-red-400">*</span>
-                <input pinputtext id="cod" name="muni_Codigo" [(ngModel)] = "municipio.muni_Codigo" (ngModelChange)="limpiarEspacioInicial()" class="p-inputtext form-control ng-invalid " required #cod="ngModel" [maxlength]="4"/>
+                <input pinputtext id="cod" name="muni_Codigo" maxlength="4" [(ngModel)] = "municipio.muni_Codigo" (ngModelChange)="limpiarEspacioInicial()" class="p-inputtext form-control ng-invalid " required #cod="ngModel" [maxlength]="4"/>
                 <small class="p-error" *ngIf="(cod.invalid || !municipio.muni_Codigo.trim()) && cont == 1">El codigo es requerido</small>
                 <br>
                 
