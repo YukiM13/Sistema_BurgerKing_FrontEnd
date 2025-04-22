@@ -81,7 +81,7 @@
                 <!-- Si ya hay una imagen -->
                 <div *ngIf="producto.prod_ImgUrl" class="flex flex-wrap gap-3 border-round">
                   <div class="h-full relative w-7rem h-7rem border-3 border-transparent border-round">
-                    <img [src]="producto.prod_ImgUrl" class="w-full h-full border-round shadow-2">
+                    <img  [src]="url + '/' + producto.prod_ImgUrl"  class="w-full h-full border-round shadow-2">
                     <button
                       pButton
                       type="button"

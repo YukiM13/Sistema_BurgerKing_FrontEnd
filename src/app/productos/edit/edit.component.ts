@@ -53,6 +53,7 @@ export class EditarProductoComponent implements OnInit {
   tamanosSeleccionadosConDescripcion: any[] = [];
   preciosPorTamano: { [key: number]: number } = {};
   modalVisible = false;
+  url =  this.apiUrl;
 
   selectedFile: File | null = null;
   nombreOriginal = '';
@@ -76,7 +77,7 @@ export class EditarProductoComponent implements OnInit {
     
     this.producto2.prod_Id = this.prodId;
 
-    this.http.post<ProductoPorTamano[]>(`https://localhost:7147/ProductoPorTamano/FindPrTa`, this.producto2).subscribe({
+    this.http.post<ProductoPorTamano[]>(`${this.apiUrl}/ProductoPorTamano/FindPrTa`, this.producto2).subscribe({
       next: (res) => {
         //console.log("Respuesta API:", res);
         res.forEach(item => {
