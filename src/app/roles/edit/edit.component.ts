@@ -115,12 +115,6 @@ export class RoleEditComponent {
       });
       this.actualizado.emit();
     });
-
-
-
-   
-    
-
   }
 
   ngOnInit(): void {
