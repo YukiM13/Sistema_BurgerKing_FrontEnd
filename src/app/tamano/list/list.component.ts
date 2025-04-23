@@ -25,6 +25,7 @@ import {
   transition
 } from '@angular/animations';
 import { MenuItem } from 'primeng/api';
+import { Respuesta } from 'src/app/models/respuesta.model';
 @Component({
   selector: 'app-list',
   standalone: true,
@@ -142,15 +143,27 @@ export class TamaListComponent implements OnInit {
 
   EliminarTamano(id: number): void {
     this.tamano.tama_Id = id;
-    this.http.post(`${this.apiUrl}/Tamano/Eliminar`, this.tamano)
-      .subscribe(() => {
+    this.http.post<Respuesta<Tamano>>(`${this.apiUrl}/Tamano/Eliminar`, this.tamano)
+    .subscribe({
+      next: (response) => {
+      if (response && response.data.codeStatus >0) {
+        console.log(response)
         this.messageService.add({
           severity: 'success',
           summary: 'Eliminado',
           detail: 'Tamaño eliminado'
         });
         this.listarTamanos();
-      });
+      } else {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'No se pudo eliminar!',
+          detail: 'El tamaño esta siendo utilizado'
+        });
+        this.listarTamanos();
+      }
+    }
+    });
   }
 
   toggleCreate(): void {

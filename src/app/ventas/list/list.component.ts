@@ -27,6 +27,7 @@ import {
 } from '@angular/animations';
 
 import { MenuItem } from 'primeng/api';
+import { Respuesta } from 'src/app/models/respuesta.model';
 
 @Component({
   selector: 'app-list',
@@ -161,15 +162,27 @@ export class VentasListComponent implements OnInit {
   
     EliminarVenta(id: number): void {
       this.venta.vent_Id = id;
-      this.http.post(`${this.apiUrl}/Venta/Eliminar`, this.venta)
-        .subscribe(() => {
+      this.http.post<Respuesta<Venta>>(`${this.apiUrl}/Venta/Eliminar`, this.venta)
+      .subscribe({
+        next: (response) => {
+        if (response && response.data.codeStatus >0) {
+          console.log(response)
           this.messageService.add({
             severity: 'success',
             summary: 'Eliminado',
-            detail: 'Venta eliminada'
+            detail: 'Venta eliminado'
           });
           this.listarVentas();
-        });
+        } else {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'No se pudo eliminar!',
+            detail: 'La venta esta siendo utilizado'
+          });
+          this.listarVentas();
+        }
+      }
+      });
     }
   
 

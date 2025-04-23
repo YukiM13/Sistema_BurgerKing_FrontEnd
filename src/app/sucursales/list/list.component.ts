@@ -28,6 +28,7 @@ import {
 
 import { MenuItem } from 'primeng/api';
 import { an } from '@fullcalendar/core/internal-common';
+import { Respuesta } from 'src/app/models/respuesta.model';
 
 @Component({
   selector: 'app-list',
@@ -147,15 +148,27 @@ export class SucursalListComponent implements OnInit {
   
     EliminarSucursal(id: number): void {
       this.sucursal.sucu_Id = id;
-      this.http.post(`${this.apiUrl}/Sucursal/Eliminar`, this.sucursal)
-        .subscribe(() => {
+      this.http.post<Respuesta<Sucursal>>(`${this.apiUrl}/Sucursal/Eliminar`, this.sucursal)
+      .subscribe({
+        next: (response) => {
+        if (response && response.data.codeStatus >0) {
+          console.log(response)
           this.messageService.add({
             severity: 'success',
             summary: 'Eliminado',
             detail: 'Sucursal eliminado'
           });
           this.listarSucursales();
-        });
+        } else {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'No se pudo eliminar!',
+            detail: 'La sucursal esta siendo utilizado'
+          });
+          this.listarSucursales();
+        }
+      }
+      });
     }
   
 
