@@ -82,7 +82,7 @@ customerCarousel: any[] = [];
 
   fecha = new Date();
   cantidadClientes: number = 0;
- 
+
   listarCantidadClientes(): void {
   if(this.esAdmin == 'true')
   {
