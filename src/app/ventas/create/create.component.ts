@@ -59,6 +59,9 @@ private apiUrl = environment.apiUrl;
     cont = 0;
     cont1 = 0;
     cont2 = 0;
+    subtotal = 0;
+    isv = 0;
+    total=0;
     aux = 0;
       showRemove: boolean = false;
     url = this.apiUrl;
@@ -145,7 +148,7 @@ private apiUrl = environment.apiUrl;
        
         
       }
-  
+      
       ngOnInit(): void {
         this.cont = 0;
         this.cont1 = 0;
@@ -178,7 +181,11 @@ private apiUrl = environment.apiUrl;
             precio: combo.comb_Precio,
             cantidad: 1
           });
+
         }
+        this.subtotal += this.seleccionados.reduce((acc, item) => acc + (item.cantidad * item.precio), 0);
+        this.isv =this.subtotal * 0.15;
+        this.total = this.subtotal + this.isv;
       }
       
       // Disminuir cantidad

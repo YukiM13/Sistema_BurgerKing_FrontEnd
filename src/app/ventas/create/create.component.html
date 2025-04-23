@@ -15,6 +15,7 @@
                   <th>Combo</th>
                   <th>Precio</th>
                   <th>Cantidad</th>
+                  <th>Precio</th>
                 </tr>
               </thead>
               <tbody>
@@ -22,10 +23,15 @@
                   <td>{{ item.descripcion }}</td>
                   <td>{{ item.precio }}</td>
                   <td>{{ item.cantidad }}</td>
+                  <td>{{item.precio}}</td>
                 </tr>
               </tbody>
             </table>
-
+            <div class="text-right">
+              Subtotal:{{subtotal.toFixed(2)}} <br>
+              Isv 15%:{{isv.toFixed(2)}} <br>
+              Total:{{total.toFixed(2)}} <br>
+            </div>
           </div>
       </div>
         <div class="row mt-3">
