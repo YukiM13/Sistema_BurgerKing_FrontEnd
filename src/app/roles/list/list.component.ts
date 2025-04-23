@@ -15,6 +15,8 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { Table, TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
+
+
 import {
   trigger,
   state,
@@ -23,6 +25,7 @@ import {
   transition
 } from '@angular/animations';
 import { MenuItem } from 'primeng/api';
+import { Respuesta } from 'src/app/models/respuesta.model';
 @Component({
   selector: 'app-list',
   standalone: true,
@@ -129,15 +132,27 @@ export class RoleListComponent implements OnInit {
     this.rol.role_Id = id;
     console.log('Rol a eliminar:', this.rol);
     //return;
-    this.http.post(`${this.apiUrl}/Rol/Eliminar`, this.rol)
-      .subscribe(() => {
+    this.http.post<Respuesta<Roles>>(`${this.apiUrl}/Rol/Eliminar`, this.rol)
+    .subscribe({
+      next: (response) => {
+      if (response && response.data.codeStatus >0) {
+        console.log(response)
         this.messageService.add({
           severity: 'success',
           summary: 'Eliminado',
           detail: 'Rol eliminado'
         });
         this.listarRoles();
-      });
+      } else {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'No se pudo eliminar!',
+          detail: 'El rol esta siendo utilizado'
+        });
+        this.listarRoles();
+      }
+    }
+    });
   }
 
   toggleCreate(): void {

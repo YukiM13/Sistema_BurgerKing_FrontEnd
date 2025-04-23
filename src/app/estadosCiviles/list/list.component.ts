@@ -15,6 +15,7 @@ import { ToastModule } from 'primeng/toast';
 import { Table, TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
 import { EsCiDetailsComponent } from '../details/details.component';
+import { Respuesta } from '../../models/respuesta.model'
 
 import {
   trigger,
@@ -128,15 +129,27 @@ export class EsCiListComponent implements OnInit {
   EliminarEstadoCivil(id: number): void {
     this.estadoCivil.esCi_Id = id;
    
-    this.http.post(`${this.apiUrl}/EstadoCivil/Eliminar`, this.estadoCivil)
-      .subscribe(() => {
+    this.http.post<Respuesta<EstadoCivil>>(`${this.apiUrl}/EstadoCivil/Eliminar`, this.estadoCivil)
+    .subscribe({
+      next: (response) => {
+      if (response && response.data.codeStatus >0) {
+        console.log(response)
         this.messageService.add({
           severity: 'success',
           summary: 'Eliminado',
-          detail: 'Estado civil eliminado'
+          detail: 'Estado Civil eliminado'
         });
         this.listarEstadosCiviles();
-      });
+      } else {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'No se pudo eliminar!',
+          detail: 'El estado civil esta siendo utilizado'
+        });
+        this.listarEstadosCiviles();
+      }
+    }
+    });
   }
 
   toggleCreate(): void {

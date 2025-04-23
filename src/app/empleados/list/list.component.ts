@@ -15,6 +15,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { Table, TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
+import { Respuesta } from '../../models/respuesta.model'
 
 
 import {
@@ -135,15 +136,27 @@ export class EmpleListComponent implements OnInit{
 
   EliminarEmpleado(id: number): void {
     this.empleado.empl_Id = id;
-    this.http.post(`${this.apiUrl}/Empleado/Eliminar`, this.empleado)
-      .subscribe(() => {
+    this.http.post<Respuesta<Empleados>>(`${this.apiUrl}/Empleado/Eliminar`, this.empleado)
+    .subscribe({
+      next: (response) => {
+      if (response && response.data.codeStatus >0) {
+        console.log(response)
         this.messageService.add({
           severity: 'success',
           summary: 'Eliminado',
           detail: 'Empleado eliminado'
         });
         this.listarEmpleados();
-      });
+      } else {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'No se pudo eliminar!',
+          detail: 'El empleado esta siendo utilizado'
+        });
+        this.listarEmpleados();
+      }
+    }
+    });
   }
 
   toggleCreate(): void {

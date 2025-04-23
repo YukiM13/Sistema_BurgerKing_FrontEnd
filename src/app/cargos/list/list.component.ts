@@ -14,7 +14,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { Table, TableModule } from 'primeng/table';
-
+import { Respuesta } from '../../models/respuesta.model'
 
 
 import {
@@ -132,15 +132,27 @@ export class CargosListComponent implements OnInit {
     EliminarCargo(id: number): void {
       this.cargo.carg_Id = id;
       console.log(this.cargo);
-      this.http.post(`${this.apiUrl}/Cargo/Eliminar`, this.cargo)
-        .subscribe(() => {
+      this.http.post<Respuesta<Cargo>>(`${this.apiUrl}/Cargo/Eliminar`, this.cargo)
+      .subscribe({
+        next: (response) => {
+        if (response && response.data.codeStatus >0) {
+          console.log(response)
           this.messageService.add({
             severity: 'success',
             summary: 'Eliminado',
             detail: 'Cargo eliminado'
           });
           this.listarCargos();
-        });
+        } else {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'No se pudo eliminar!',
+            detail: 'El cargo esta siendo utilizado'
+          });
+          this.listarCargos();
+        }
+      }
+      });
     }
   
 
