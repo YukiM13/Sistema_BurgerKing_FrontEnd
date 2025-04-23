@@ -91,9 +91,9 @@
           </div>
         </div>
         <div class="row mt-3">
-          <div class="col-6 md:col-6 lg:col-4" *ngFor="let producto of productosPorTamano; let i = index" >
+          <div class="col-6 md:col-6 lg:col-4" *ngFor="let producto of productosPorTamano; let i = index"  >
             <div class="p-2">
-                <div class="shadow-2 p-4 surface-card border-round">
+                <div class="shadow-2 p-4 surface-card border-round" style="height: 400px;" >
                     <div class="relative mb-3 imagen-container">
                         <span class="surface-card text-900 shadow-2 px-3 py-2 absolute" style="border-radius: 1.5rem; left: 1rem; top: 1rem;">{{producto.cate_Descripcion}}</span>
                         <img [src]="url + '/' + producto.prod_ImgUrl"  class="w-full" height="200px"/>

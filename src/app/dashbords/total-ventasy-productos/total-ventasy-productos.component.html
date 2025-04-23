@@ -26,5 +26,40 @@
             </div>
         </div>
     </div>
+
+    <div class="col-6 md:col-6">
+        <div class="card">
+            <div class="card-header line-height-4">
+                <span>Total ventas</span>
+                <p-dropdown [options]="revenueMonth" [(ngModel)]="selectedRevenueMonth" optionLabel="name"
+                    (onChange)="
+                        changeRevenueChart($event); revenue.refresh()
+                    "></p-dropdown>
+            </div>
+
+            <div class="graph">
+                <p-chart #revenue type="line" id="revenue-chart" [data]="revenueChart2"
+                    [options]="revenueChartOptions2"></p-chart>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-6 md:col-6">
+        <div class="card">
+            <div class="card-header line-height-4">
+                <span>Productos vendidos</span>
+                <p-dropdown [options]="revenueMonth" [(ngModel)]="selectedRevenueMonth" optionLabel="name"
+                    (onChange)="
+                        changeRevenueChart($event); revenue.refresh()
+                    "></p-dropdown>
+            </div>
+
+            <div class="graph">
+                <p-chart #revenue type="line" id="revenue-chart" [data]="revenueChart3"
+                    [options]="revenueChartOptions3"></p-chart>
+            </div>
+        </div>
+    </div>
+    
     
 </div>

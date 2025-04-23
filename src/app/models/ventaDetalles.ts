@@ -11,6 +11,7 @@ export class VentaDetalle{
     usuaC_Nombre: string = ""; 
     usuaM_Nombre: string = ""; 
     comb_Descripcion: string = ""; 
+    mes: Date = new Date();
     codeStatus: number = 0;
     constructor(init?: Partial<VentaDetalle>) {
         Object.assign(this, init);

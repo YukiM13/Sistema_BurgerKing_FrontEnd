@@ -35,6 +35,7 @@ esAdmin = localStorage.getItem('Admin');
  
 
 combos: any[] = [];
+combos2: any[] = [];
 
 carouselResponsiveOptions: any[] = [
   {
@@ -55,7 +56,7 @@ carouselResponsiveOptions: any[] = [
 ];
 
 customerCarousel: any[] = [];
-
+conteoCombos =0;
   listarCombos(): void {
   if(this.esAdmin == 'true')
   {
@@ -74,7 +75,8 @@ customerCarousel: any[] = [];
       this.combos = res.map((estado: any) => ({
         ...estado
       }));
-      
+
+
       this.initCharts();
     });
    }
@@ -83,7 +85,16 @@ customerCarousel: any[] = [];
 
   fecha = new Date();
   cantidadClientes: number = 0;
-
+  conteoCombo(){
+    this.http.get(`${this.apiUrl}/Combo/Listar`)
+    .subscribe((res: any) => {
+      this.combos2 = res.map((estado: any) => ({
+       
+      }));
+      console.log(this.combos2);
+      this.conteoCombos = this.combos2.length;
+    });
+  }
   listarCantidadClientes(): void {
   if(this.esAdmin == 'true')
   {
@@ -174,12 +185,22 @@ customerCarousel: any[] = [];
 
 
   router = inject(Router)
-
-  
+  ventas: any[] = [];
+  conteoVentas = 0;
+  listarVentas(): void {
+    this.http.get(`${this.apiUrl}/Venta/Listar`)
+      .subscribe((res: any) => {
+        this.ventas = res.map((estado: any) => ({
+          
+        }));
+        this.conteoVentas = this.ventas.length
+      });
+  }
   ngOnInit(): void {
     this.listarCombos();
     this.listarCantidadClientes();
-
+    this.conteoCombo();
+    this.listarVentas();
     
 
   }
