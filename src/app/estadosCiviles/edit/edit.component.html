@@ -6,7 +6,7 @@
         <input type="text"  hidden  name="esci_Id" [(ngModel)]= "estadoCivilAuxiliar.esCi_Id"  class="form-control"  />
         <div class="row" >
             
-            <div class="col-md-12" >
+            <div class="col-md-6" >
                 <label for="" class="label-control">Estado Civil</label>
                 <input type="text" name="esci_Descripcion" [(ngModel)]="estadoCivilAuxiliar.esci_Descripcion"   id="esci_Descripcion"   class="form-control" />
                 <br>
@@ -15,7 +15,7 @@
         </div>
         <div class="row">
             <div class="col-md-12 text-right">
-                <p-button type="submit" class="btn button-primary m-2"><span ng-reflect-ng-class="[object Object]" data-pc-section="icon" class="pi pi-save"></span> Guardar </p-button>
+                <button type="submit" class="btn  m-2 " style="background: rgb(255 135 50); color: white;"><span ng-reflect-ng-class="[object Object]" data-pc-section="icon" class="pi pi-save"></span> Guardar </button>
 
                 <button type="button" class="btn btn-secondary" (click)="cancelarFormulario()" class="btn btn-secondary">Cancelar</button>
             </div>

@@ -5,7 +5,7 @@
         <input type="text"  hidden  name="carg_Id" [(ngModel)]="cargo.carg_Id"  class="form-control"  />
         <div class="row" >
             
-            <div class="col-md-12" >
+            <div class="col-md-6" >
                 <label for="" class="label-control">Cargo</label>
                 <input pinputtext id="descripcion" name="carg_Descripcion" [(ngModel)]="cargo.carg_Descripcion"   id="carg_Descripcion"   class="p-inputtext form-control ng-invalid " required #descripcion="ngModel"/>
                 <small class="p-error" *ngIf="(descripcion.invalid || !cargo.carg_Descripcion.trim()) && cont == 1">El cargo es requerido</small>
@@ -15,7 +15,7 @@
         </div>
         <div class="row">
             <div class="col-md-12 text-right">
-                <p-button type="submit" class="btn button-primary m-2"><span ng-reflect-ng-class="[object Object]" data-pc-section="icon" class="pi pi-save"></span> Guardar </p-button>
+                <button type="submit" class="btn  m-2 " style="background: rgb(255 135 50); color: white;"><span ng-reflect-ng-class="[object Object]" data-pc-section="icon" class="pi pi-save"></span> Guardar </button>
                 <button type="button" class="btn btn-danger  m-2" (click)="cancelarFormulario()" class="btn btn-secondary"><span ng-reflect-ng-class="[object Object]" data-pc-section="icon" class="pi pi-times"></span> Cancelar</button>
             </div>
         </div>
