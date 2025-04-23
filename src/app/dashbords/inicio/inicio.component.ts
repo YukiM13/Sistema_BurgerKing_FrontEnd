@@ -10,12 +10,12 @@ import { Tamano } from 'src/app/models/tamano.model';
 import { Combo } from 'src/app/models/combos.model'; 
 import { ComboDetalle } from 'src/app/models/comboDetalles.model';
 import { ChartModule } from 'primeng/chart';
-
+import { TotalVentasyProductosComponent } from '../total-ventasy-productos/total-ventasy-productos.component';
 
 @Component({
   selector: 'app-inicio',
   standalone: true,
-  imports: [CommonModule, FormsModule , CarouselModule, ChartModule],
+  imports: [CommonModule, FormsModule , CarouselModule, ChartModule, TotalVentasyProductosComponent],
   templateUrl: './inicio.component.html',
   styleUrl: './inicio.component.scss'
 })
