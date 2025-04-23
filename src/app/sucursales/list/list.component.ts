@@ -37,7 +37,20 @@ import { an } from '@fullcalendar/core/internal-common';
   providers:[MessageService, ConfirmationService],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss',
-  
+  animations: [
+    trigger('collapse', [
+      state('void', style({ height: '0px', opacity: 0 })),
+      state('*', style({ height: '*', opacity: 1 })),
+      transition(':enter', [
+        style({ height: '0px', opacity: 0 }),
+        
+      ]),
+      transition(':leave', [
+         style({ height: '0px', opacity: 0 })
+      ])
+    ])
+  ]
+ 
 })
 
 export class SucursalListComponent implements OnInit {
