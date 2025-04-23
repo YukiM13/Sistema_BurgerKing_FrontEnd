@@ -111,7 +111,7 @@ export class RoleListComponent implements OnInit {
   confirmarEliminacion(id: number): void {
     console.log('ID a eliminar:', id);
     this.confirmationService.confirm({
-      message: '¿Estás seguro que deseas eliminar este estado civil?',
+      message: '¿Estás seguro que deseas eliminar este rol?',
       header: 'Confirmar eliminación',
       icon: 'pi pi-exclamation-triangle',
       acceptLabel: 'Sí',
