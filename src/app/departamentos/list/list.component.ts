@@ -38,19 +38,7 @@ import { MenuItem } from 'primeng/api';
   providers:[MessageService, ConfirmationService],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss',
-  animations: [
-    trigger('collapse', [
-      state('void', style({ height: '0px', opacity: 0 })),
-      state('*', style({ height: '*', opacity: 1 })),
-      transition(':enter', [
-        style({ height: '0px', opacity: 0 }),
-        animate('300ms ease-out')
-      ]),
-      transition(':leave', [
-        animate('300ms ease-in', style({ height: '0px', opacity: 0 }))
-      ])
-    ])
-  ]
+ 
 })
 
 export class DepaListComponent implements OnInit {

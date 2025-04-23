@@ -17,6 +17,7 @@ import { Table, TableModule } from 'primeng/table';
 
 export class ComboDetailsComponent {
   private apiUrl = environment.apiUrl; 
+  url = this.apiUrl;
   @Input() comboId: number = 0;
   @Output() cancelar = new EventEmitter<void>(); 
 

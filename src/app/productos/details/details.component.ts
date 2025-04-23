@@ -17,6 +17,7 @@ import { Table, TableModule } from 'primeng/table';
 
 export class ProductoDetailsComponent {
   private apiUrl = environment.apiUrl; 
+  url = this.apiUrl;
   @Input() prodId: number = 0;
   @Output() cancelar = new EventEmitter<void>(); 
 

@@ -46,6 +46,7 @@ export class AppTopbarComponent {
         localStorage.removeItem('rol');
         localStorage.removeItem('correo');
         localStorage.removeItem('sucursal');
+        localStorage.removeItem('sucursal_id');
         localStorage.removeItem('rol_id');
         localStorage.removeItem('Admin');
         this.router.navigate(['/login']);   
