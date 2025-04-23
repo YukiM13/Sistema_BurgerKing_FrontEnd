@@ -15,6 +15,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { Table, TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
+import { Respuesta } from '../../models/respuesta.model'
 
 
 
@@ -130,15 +131,27 @@ export class MuniListComponent  implements OnInit {
   
     EliminarMunicipio(id: string): void {
       this.municipio.muni_Codigo = id;
-      this.http.post(`${this.apiUrl}/municipio/Eliminar`, this.municipio)
-        .subscribe(() => {
+      this.http.post<Respuesta<Municipios>>(`${this.apiUrl}/municipio/Eliminar`, this.municipio)
+      .subscribe({
+        next: (response) => {
+        if (response && response.data.codeStatus >0) {
+          console.log(response)
           this.messageService.add({
             severity: 'success',
             summary: 'Eliminado',
             detail: 'Municipio eliminado'
           });
           this.listarMunicipios();
-        });
+        } else {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'No se pudo eliminar!',
+            detail: 'El municipio esta siendo utilizado'
+          });
+          this.listarMunicipios();
+        }
+      }
+      });
     }
   
     toggleCreate(): void {

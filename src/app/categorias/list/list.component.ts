@@ -16,6 +16,7 @@ import { ToastModule } from 'primeng/toast';
 import { Table, TableModule } from 'primeng/table';
 import { MenuItem } from 'primeng/api';
 import { InputTextModule } from 'primeng/inputtext';
+import { Respuesta } from '../../models/respuesta.model'
 
 import {
   trigger,
@@ -133,15 +134,27 @@ export class CategoriasListComponent implements OnInit {
   
     EliminarCategoria(id: number): void {
       this.categoria.cate_Id = id;
-      this.http.post(`${this.apiUrl}/Categoria/Eliminar`, this.categoria)
-        .subscribe(() => {
+      this.http.post<Respuesta<Categoria>>(`${this.apiUrl}/Categoria/Eliminar`, this.categoria)
+      .subscribe({
+        next: (response) => {
+        if (response && response.data.codeStatus >0) {
+          console.log(response)
           this.messageService.add({
             severity: 'success',
             summary: 'Eliminado',
             detail: 'Categoria eliminada'
           });
           this.listarCategorias();
-        });
+        } else {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'No se pudo eliminar!',
+            detail: 'La categoria esta siendo utilizado'
+          });
+          this.listarCategorias();
+        }
+      }
+      });
     }
   
 

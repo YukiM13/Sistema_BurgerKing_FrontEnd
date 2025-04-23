@@ -13,6 +13,7 @@ import { ButtonModule } from 'primeng/button';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
+import { Respuesta } from 'src/app/models/respuesta.model';
 
 
 
@@ -128,15 +129,27 @@ export class ProduListComponent {
   
     EliminarProducto(id: number): void {
       this.producto.prod_Id = id;
-      this.http.post(`${this.apiUrl}/producto/Eliminar`, this.producto)
-        .subscribe(() => {
+      this.http.post<Respuesta<Productos>>(`${this.apiUrl}/producto/Eliminar`, this.producto)
+      .subscribe({
+        next: (response) => {
+        if (response && response.data.codeStatus >0) {
+          console.log(response)
           this.messageService.add({
             severity: 'success',
             summary: 'Eliminado',
             detail: 'Producto eliminado'
           });
           this.listarProductos();
-        });
+        } else {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'No se pudo eliminar!',
+            detail: 'Algo paso!'
+          });
+          this.listarProductos();
+        }
+      }
+      });
     }
   
     toggleCreate(): void {

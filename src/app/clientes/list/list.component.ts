@@ -15,6 +15,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { Table, TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
+import { Respuesta } from '../../models/respuesta.model'
 
 
 import {
@@ -80,11 +81,7 @@ export class ClienteListComponent implements OnInit {
         icon: 'pi pi-eye',
         command: () => this. ObtenerCliente(cliente.clie_Identidad_Rtn, 2),
       },
-      {
-        label: 'Eliminar',
-        icon: 'pi pi-trash',
-        command: () => this.confirmarEliminacion(cliente.clie_Id),
-      }
+    
     ];
   }
 
@@ -123,7 +120,7 @@ export class ClienteListComponent implements OnInit {
   
     EliminarCliente(id: number): void {
       this.cliente.clie_Id = id;
-      this.http.post(`${this.apiUrl}/Cliente/Nose`, this.cliente)
+      this.http.post<Respuesta<Cliente>>(`${this.apiUrl}/Cliente/Nose`, this.cliente)
         .subscribe(() => {
           this.messageService.add({
             severity: 'success',
