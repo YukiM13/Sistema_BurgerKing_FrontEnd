@@ -7,10 +7,11 @@ import {CarouselModule} from 'primeng/carousel';
 import { environment } from 'src/enviroments/enviroment';
 import { Venta } from 'src/app/models/ventas.model';
 import { ChartModule } from 'primeng/chart';
+import { DropdownModule } from 'primeng/dropdown';
 @Component({
   selector: 'app-total-ventasy-productos',
   standalone: true,
-  imports: [CommonModule, FormsModule , CarouselModule, ChartModule],
+  imports: [CommonModule, FormsModule , CarouselModule, ChartModule,DropdownModule],
   templateUrl: './total-ventasy-productos.component.html',
   styleUrl: './total-ventasy-productos.component.scss'
 })
@@ -57,6 +58,12 @@ totalVenta=0;
 totalProducto = 0;
 totalVentaPorDia=0;
 totalProductoPorDia=0;
+  revenueChartOptions2: any;
+  revenueChart2: any;
+
+  revenueChartOptions3: any;
+  revenueChart3: any;
+
 
 listarTotalVentas(): void {
 this.venta.vent_Fecha= new Date()
@@ -112,13 +119,88 @@ else{
 
 
 }
+productoPorMeses: any[] = [];
+ventaPorMeses: any [] = [];
+meses: Date[] = [];
+ventaDetalle3: any[] = [];
+listarVentasyProductosPorAño(){
+  this.venta.vent_Fecha= new Date()
+this.venta.sucu_Id = Number(localStorage.getItem("sucursal_id")) || 0;
+if(this.esAdmin == 'true')
+{
+  this.http.post(`${this.apiUrl}/VentaDetalle/TotalVentayProductosPorAnio`, this.venta)
+  .subscribe((res: any) => {
+    this.ventaDetalle3 = res.map((estado: any) => ({ ...estado }));
+    for(let item of this.ventaDetalle3) {
+      console.log("Entro");
+      this.ventaPorMeses.push(item.veDe_Precio);
+      this.productoPorMeses.push(item.veDe_Cantidad);
+      this.meses.push(item.mes)
+    }
 
+    
+
+  
+        this.initCharts();
+  
+  });
+ 
+}
+else{
+  
+  this.http.post(`${this.apiUrl}/VentaDetalle/TotalVentayProductosPorAnioPorSucursal`, this.venta)
+  .subscribe((res: any) => {
+    this.ventaDetalle3 = res.map((estado: any) => ({ ...estado }));
+    console.log(this.ventaDetalle3);
+    for(let item of this.ventaDetalle3) {
+      this.ventaPorMeses.push(item.veDe_Precio);
+      this.productoPorMeses.push(item.veDe_Cantidad);
+      this.meses.push(item.mes)
+      console.log("Meses", this.meses);
+    }
+    
+
+    
+
+
+        this.initCharts();
+   
+  });
+}
+}
 
 revenueChartOptions: any;
 revenueChart: any;
 productos: any;
 opcionesProductos: any;
+changeRevenueChart(event: any) {
+  const dataSet1 = [
+      [37, 34, 21, 27, 10, 18, 15],
+      [31, 27, 30, 37, 23, 29, 20],
+      [21, 7, 13, 3, 19, 11, 6],
+      [47, 31, 35, 20, 46, 39, 25],
+  ];
+  const dataSet2 = [
+      [31, 27, 30, 37, 23, 29, 20],
+      [47, 31, 35, 20, 46, 39, 25],
+      [37, 34, 21, 27, 10, 18, 15],
+      [21, 7, 13, 3, 19, 11, 6],
+  ];
 
+  if (event.value.code === '1') {
+      this.revenueChart.datasets[0].data = dataSet2[parseInt('0')];
+      this.revenueChart.datasets[1].data = dataSet2[parseInt('1')];
+      this.revenueChart.datasets[2].data = dataSet2[parseInt('2')];
+      this.revenueChart.datasets[3].data = dataSet2[parseInt('3')];
+  } else {
+      this.revenueChart.datasets[0].data = dataSet1[parseInt('0')];
+      this.revenueChart.datasets[1].data = dataSet1[parseInt('1')];
+      this.revenueChart.datasets[2].data = dataSet1[parseInt('2')];
+      this.revenueChart.datasets[3].data = dataSet1[parseInt('3')];
+  }
+}
+revenueMonth: any;
+selectedRevenueMonth: any;
 
 initCharts() {
   const documentStyle = getComputedStyle(document.documentElement);
@@ -183,8 +265,107 @@ initCharts() {
       }
     }
   };
+  const nombres = ['Enero', 'Febrero', 'Marzo','Abril','Mayo', 'Junio', 'Julio','Agosto','Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+  const nombreMeses = []
+  console.log("Dentro",this.meses);
+  for(let item of this.meses)
+  {
+    var fecha = new Date(item);
 
+    console.log("Entro en for", fecha.getMonth());
+      nombreMeses.push(nombres[fecha.getMonth()])
+     console.log(nombreMeses);
+    
+  }
+ 
+  this.revenueChart2 = {
+    labels: nombreMeses,
+    datasets: [
+        {
+            label: 'Ventas',
+            data: this.ventaPorMeses,
+            borderColor: '#EEE500',
+            pointBackgroundColor: '#EEE500',
+            backgroundColor: 'rgba(121, 243, 39, 0.05)',
+            fill: true,
+            tension: 0.4,
+        },
+       
+        
+    ],
+};
+this.revenueChart3 = {
+  labels: nombreMeses,
+  datasets: [
+      {
+          label: 'Productos',
+          data: this.productoPorMeses,
+          borderColor: '#00D0DE',
+          pointBackgroundColor: '#00D0DE',
+          backgroundColor: 'rgba(8, 83, 243, 0.05)',
+          fill: true,
+          tension: 0.4,
+      },
+      
+  ],
+};
 
+this.revenueChartOptions3 = {
+  plugins: {
+      legend: {
+          labels: {
+              color: textColor,
+          },
+      },
+  },
+  responsive: true,
+  hover: {
+      mode: 'index',
+  },
+  scales: {
+      x: {
+          ticks: {
+              color: textColor,
+          },
+      },
+      y: {
+          ticks: {
+              color: textColor,
+              min: 0,
+              max: 60,
+              stepSize: 5,
+          },
+      },
+  },
+};
+this.revenueChartOptions2 = {
+    plugins: {
+        legend: {
+            labels: {
+                color: textColor,
+            },
+        },
+    },
+    responsive: true,
+    hover: {
+        mode: 'index',
+    },
+    scales: {
+        x: {
+            ticks: {
+                color: textColor,
+            },
+        },
+        y: {
+            ticks: {
+                color: textColor,
+                min: 0,
+                max: 60,
+                stepSize: 5,
+            },
+        },
+    },
+};
   this.productos = {
     labels: ['Porductos vendidos en el mes'], 
     datasets: [
@@ -244,7 +425,7 @@ initCharts() {
   ngOnInit(): void {
 
     this.listarTotalVentas();
-    
+   this.listarVentasyProductosPorAño()
 
   }
   
