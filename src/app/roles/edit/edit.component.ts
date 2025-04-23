@@ -83,7 +83,7 @@ export class RoleEditComponent {
 
 
     this.rol.role_Id = this.rolId;
-    this.rol.usua_Modificacion = 2;
+    this.rol.usua_Modificacion =  Number(localStorage.getItem('usuario_id'));
     this.rol.role_FechaModificacion = new Date;
     this.http.put(`${this.apiUrl}/Rol/Actualizar`, this.rol)
     .subscribe(() => {
@@ -101,7 +101,7 @@ export class RoleEditComponent {
             const relacion = {
               pant_Id: pantalla.pant_Id,
               role_Id: this.rol2.role_Id,
-              usua_Creacion: 2,
+              usua_Creacion:  Number(localStorage.getItem('usuario_id')),
               roPa_FechaCreacion: new Date()
             };
     

@@ -93,7 +93,7 @@ export class EmpleadoEditComponent {
         return;
       }
 
-    this.empleado.usua_Modificacion = 2;
+    this.empleado.usua_Modificacion =  Number(localStorage.getItem('usuario_id'));
     this.empleado.empl_FechaModificacion = new Date();
     this.http.put(`${this.apiUrl}/Empleado/Actualizar`, this.empleado)
     .subscribe(() => {

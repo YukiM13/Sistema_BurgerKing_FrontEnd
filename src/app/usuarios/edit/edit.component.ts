@@ -47,7 +47,7 @@ export class UsuarioEditComponent {
         return;
       }
 
-    this.usuario.usua_Modificacion = 2;
+    this.usuario.usua_Modificacion =  Number(localStorage.getItem('usuario_id'));
     this.usuario.usua_FechaModificacion = new Date;
     this.http.put(`${this.apiUrl}/Usuario/Actualizar`, this.usuario)
     .subscribe(() => {

@@ -105,7 +105,7 @@ export class RoleCreateComponent {
       return;
     }
 
-    this.rolAccion.usua_Creacion = 2;
+    this.rolAccion.usua_Creacion =  Number(localStorage.getItem('usuario_id'));
     const fecha = new Date();
     fecha.toLocaleDateString();
     this.rolAccion.role_FechaCreacion =fecha;
@@ -126,7 +126,7 @@ export class RoleCreateComponent {
           this.pantallaPorRol.pant_Id = this.pantallas2[i].pant_Id;
           this.pantallaPorRol.role_Id = this.ScopedID;
           console.log('Este debera de ser el ID', this.pantallaPorRol.role_Id);
-          this.pantallaPorRol.usua_Creacion = 2;
+          this.pantallaPorRol.usua_Creacion =  Number(localStorage.getItem('usuario_id'));
           const fecha = new Date();
           fecha.toLocaleDateString();
           this.pantallaPorRol.roPa_FechaCreacion =fecha;

@@ -134,7 +134,7 @@ export class SucursalCreateComponent {
     }
 
 
-    this.sucursal.usua_Creacion = 2;
+    this.sucursal.usua_Creacion =  Number(localStorage.getItem('usuario_id'));
     const fecha = new Date();
     this.sucursal.sucu_FechaCreacion = fecha;  
     this.http.post<Respuesta<Sucursal>>(`${this.apiUrl}/Sucursal/Insertar`, this.sucursal)

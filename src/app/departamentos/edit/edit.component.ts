@@ -43,7 +43,7 @@ export class DepartamentoEditComponent {
       return;
     }
 
-    this.departamento.usua_Modificacion = 2;
+    this.departamento.usua_Modificacion =  Number(localStorage.getItem('usuario_id'));
     this.departamento.depa_FechaModificacion = new Date;
     this.http.put(`${this.apiUrl}/Departamento/Editar`, this.departamento)
     .subscribe(() => {

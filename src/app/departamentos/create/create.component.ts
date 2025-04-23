@@ -91,7 +91,7 @@ export class DepaCreateComponent {
   return;
     }   
 
-    this.departamento.usua_Creacion = 2;
+    this.departamento.usua_Creacion = Number(localStorage.getItem('usuario_id'));
     const fecha = new Date();
     fecha.toLocaleDateString;
     this.departamento.depa_FechaCreacion = new Date(); 

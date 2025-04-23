@@ -12,6 +12,7 @@ import { ComboDetalle } from 'src/app/models/comboDetalles.model';
 import { ChartModule } from 'primeng/chart';
 import { TotalVentasyProductosComponent } from '../total-ventasy-productos/total-ventasy-productos.component';
 
+
 @Component({
   selector: 'app-inicio',
   standalone: true,
@@ -64,16 +65,16 @@ customerCarousel: any[] = [];
       this.combos = res.map((estado: any) => ({
         ...estado
       }));
-
+      
       this.initCharts();
     });
   }else{
-    this.http.post<Combo[]>(`${this.apiUrl}/Combo/MasVendidoEmpleado`, { comb_FechaCreacion: this.fecha, comb_Id: 1 })
+    this.http.post<Combo[]>(`${this.apiUrl}/Combo/MasVendidoEmpleado`, { comb_FechaCreacion: this.fecha, comb_Id: Number(localStorage.getItem('sucursal_id')) })
     .subscribe((res: any) => {
       this.combos = res.map((estado: any) => ({
         ...estado
       }));
-
+      
       this.initCharts();
     });
    }
@@ -99,7 +100,7 @@ customerCarousel: any[] = [];
     );
 
   }else{
-    this.http.post<Cliente[]>(`${this.apiUrl}/Cliente/CantidadEmpleado`, { clie_FechaDato: this.fecha, clie_Id: 1 })
+    this.http.post<Cliente[]>(`${this.apiUrl}/Cliente/CantidadEmpleado`, { clie_FechaDato: this.fecha, clie_Id:  Number(localStorage.getItem('sucursal_id')) })
     .subscribe(
       (response) => {
         console.log('Respuesta del servidor:', response);

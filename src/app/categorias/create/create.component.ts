@@ -57,7 +57,7 @@ import { Button, ButtonModule } from 'primeng/button';
 
         return;
       }
-      this.categoria.usua_Creacion = 2;
+      this.categoria.usua_Creacion =  Number(localStorage.getItem('usuario_id'));
       const fecha = new Date();
       this.categoria.cate_FechaCreacion = fecha;  
       this.http.post<Respuesta<Categoria>>(`${this.apiUrl}/Categoria/Insertar`, this.categoria)

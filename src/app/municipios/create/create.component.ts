@@ -86,7 +86,7 @@ export class MunicipioCreateComponent {
       return;
     }
 
-    this.municipio.usua_Creacion = 2;
+    this.municipio.usua_Creacion =  Number(localStorage.getItem('usuario_id'));
     const fecha = new Date();
     fecha.toLocaleDateString;
     this.municipio.muni_FechaCreacion = new Date(); 

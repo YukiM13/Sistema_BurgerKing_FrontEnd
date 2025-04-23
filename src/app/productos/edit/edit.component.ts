@@ -142,7 +142,7 @@ export class EditarProductoComponent implements OnInit {
 }
 
     this.producto.prod_Id = this.prodId;
-    this.producto.usua_Modificacion = 2;
+    this.producto.usua_Modificacion =  Number(localStorage.getItem('usuario_id'));
     this.producto.prod_FechaModificacion = new Date();
     this.producto2.prod_Id = this.prodId;
     this.uploadImage().then(() => {
@@ -166,7 +166,7 @@ export class EditarProductoComponent implements OnInit {
               nuevoProductoPorTamano.prod_Id = this.producto.prod_Id!;
               nuevoProductoPorTamano.tama_Id = +id;
               nuevoProductoPorTamano.prTa_Precio = precio;
-              nuevoProductoPorTamano.usua_Creacion = 2;
+              nuevoProductoPorTamano.usua_Creacion =  Number(localStorage.getItem('usuario_id'));
               nuevoProductoPorTamano.prTa_FechaCreacion = new Date();
           
               //console.log(nuevoProductoPorTamano);

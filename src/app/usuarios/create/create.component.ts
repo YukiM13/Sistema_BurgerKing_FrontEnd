@@ -48,7 +48,7 @@ export class UsuaCreateComponent {
           return;
         }
 
-        this.usuario.usua_Creacion = 2;
+        this.usuario.usua_Creacion =  Number(localStorage.getItem('usuario_id'));
         const fecha = new Date();
         this.usuario.usua_FechaCreacion = fecha;  
         console.log(this.usuario);

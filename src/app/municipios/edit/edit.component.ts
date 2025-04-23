@@ -46,7 +46,7 @@ export class MuniEditComponent {
       return;
     }
 
-    this.municipio.usua_Modificacion = 2;
+    this.municipio.usua_Modificacion =  Number(localStorage.getItem('usuario_id'));
     this.municipio.muni_FechaModificacion = new Date;
     this.http.put(`${this.apiUrl}/Municipio/Editar`, this.municipio)
     .subscribe(() => {

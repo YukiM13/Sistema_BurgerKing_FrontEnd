@@ -72,7 +72,7 @@ export class EditComponent {
   
   editarVenta(){
     this.ventaAux.vent_FechaModificacion = new Date();
-    this.ventaAux.usua_Modificacion = 2;
+    this.ventaAux.usua_Modificacion =  Number(localStorage.getItem('usuario_id'));
     if(!this.ventaAux.clie_Id || !this.ventaAux.vent_Fecha || this.seleccionados.length<=0){
       this.messageService.add({
         severity: 'warn',
@@ -85,7 +85,7 @@ export class EditComponent {
     .subscribe({
       next: (response) => {
       if (response && response.data.codeStatus >0) {
-        this.ventaDetalle.usua_Modificacion = 2;
+        this.ventaDetalle.usua_Modificacion =  Number(localStorage.getItem('usuario_id'));
         this.ventaDetalle.veDe_FechaModificacion = new Date();
         this.ventaDetalle.vent_Id = this.ventaId;
         this.ventaDetalle.veDe_FechaCreacion = this.ventaAux.vent_FechaCreacion;

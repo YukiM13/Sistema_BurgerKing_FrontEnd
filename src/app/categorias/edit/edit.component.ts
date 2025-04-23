@@ -43,7 +43,7 @@ export class CategoriaEditComponent {
     }
 
 
-    this.categoria.usua_Modificacion = 2;
+    this.categoria.usua_Modificacion =  Number(localStorage.getItem('usuario_id'));
     this.categoria.cate_FechaModificacion = new Date;
     this.http.put(`${this.apiUrl}/Categoria/Editar`, this.categoria)
     .subscribe(() => {

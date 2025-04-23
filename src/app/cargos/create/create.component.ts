@@ -30,6 +30,7 @@ export class CargoCreateComponent {
   cont = 0;
   ngOnInit(): void {
     this.cont = 0;
+    //console.log('usa', Number(localStorage.getItem('usuario_id')))
   }
 
 
@@ -56,7 +57,7 @@ export class CargoCreateComponent {
     }
 
 
-    this.cargos.usua_Creacion= 2;
+    this.cargos.usua_Creacion=   Number(localStorage.getItem('usuario_id'));
     const fecha = new Date();
     this.cargos.carg_FechaCreacion = fecha;  
     this.http.post<Respuesta<Cargo>>(`${this.apiUrl}/Cargo/Insertar`, this.cargos)

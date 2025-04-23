@@ -29,7 +29,7 @@ export class EsCiEditComponent {
   descripcion = "";
 
   EditarEstadoCivil()  {
-    this.estadoCivilAuxiliar.usua_Modificacion = 3;
+    this.estadoCivilAuxiliar.usua_Modificacion =  Number(localStorage.getItem('usuario_id'));
     this.estadoCivilAuxiliar.esCi_FechaModificacion = new Date;
     this.http.put(`${this.apiUrl}/EstadoCivil/Editar`, this.estadoCivilAuxiliar)
     .subscribe(() => {

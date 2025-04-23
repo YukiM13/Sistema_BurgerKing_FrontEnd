@@ -44,7 +44,7 @@ export class CargoEditComponent {
       return;
     }
 
-    this.cargo.usua_Modificacion = 2;
+    this.cargo.usua_Modificacion =  Number(localStorage.getItem('usuario_id'));
     this.cargo.carg_FechaModificacion = new Date;
     this.http.put(`${this.apiUrl}/Cargo/Editar`, this.cargo)
     .subscribe(() => {

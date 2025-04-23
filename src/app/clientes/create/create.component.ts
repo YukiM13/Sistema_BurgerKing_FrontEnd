@@ -77,7 +77,7 @@ export class ClienteCreateComponent implements OnInit {
       return;
     }
 
-    this.cliente.usua_Creacion = 2;
+    this.cliente.usua_Creacion =  Number(localStorage.getItem('usuario_id'));
     const fecha = new Date();
     this.cliente.clie_FechaCreacion = fecha;  
     this.http.post<Respuesta<Cliente>>(`${this.apiUrl}/Cliente/Insertar`, this.cliente)

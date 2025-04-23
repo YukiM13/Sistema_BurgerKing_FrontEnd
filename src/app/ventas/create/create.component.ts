@@ -105,7 +105,7 @@ private apiUrl = environment.apiUrl;
           return;
         }
 
-        this.venta.usua_Creacion = 2;
+        this.venta.usua_Creacion =  Number(localStorage.getItem('usuario_id'));
         const fecha = new Date();
         this.venta.vent_FechaCreacion = fecha;
         this.http.post<Venta[]>(`${this.apiUrl}/Venta/Insertar`, this.venta)
@@ -116,7 +116,7 @@ private apiUrl = environment.apiUrl;
           }
     
           
-          this.ventaDetalle.usua_Creacion = 2;
+          this.ventaDetalle.usua_Creacion =  Number(localStorage.getItem('usuario_id'));
           this.ventaDetalle.veDe_FechaCreacion = fecha;
           for(const item of this.seleccionados)
           {

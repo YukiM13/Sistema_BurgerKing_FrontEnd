@@ -325,7 +325,7 @@ ListarProductosPorTamano() {
 
     EditarCombo(){
       this.combo.comb_FechaModificacion = new Date();
-          this.combo.usua_Modificacion = 2;
+          this.combo.usua_Modificacion =  Number(localStorage.getItem('usuario_id'));
           this.combo.comb_Precio = this.comb_Precio
           if(this.seleccionados.length<=0 || !this.combo.comb_ImgUrl || !this.combo.comb_Precio || !this.combo.comb_Descripcion)
           {
@@ -355,7 +355,7 @@ ListarProductosPorTamano() {
           .subscribe({
             next: (response) => {
             if (response && response.data.codeStatus >0) {
-              this.comboDetalle.usua_Modificacion = 2;
+              this.comboDetalle.usua_Modificacion =  Number(localStorage.getItem('usuario_id'));
               this.comboDetalle.coDe_FechaModificacion = new Date();
               this.comboDetalle.comb_Id = this.comboId;
               this.comboDetalle.coDe_FechaCreacion = this.combo.comb_FechaCreacion;

@@ -140,7 +140,7 @@ ListarProductosPorTamano() {
         this.cont = 1;
         console.log('entro');
         console.log(this.producto.comb_Descripcion, this.producto.comb_Precio, this.producto.comb_ImgUrl);
-        this.producto.usua_Creacion = 2;
+        this.producto.usua_Creacion =  Number(localStorage.getItem('usuario_id'));
         const fecha = new Date();
         this.producto.comb_FechaCreacion = fecha;
         this.producto.comb_Precio = this.comb_Precio;
@@ -168,7 +168,7 @@ ListarProductosPorTamano() {
             }
       
             
-            this.comboDetalle.usua_Creacion = 2;
+            this.comboDetalle.usua_Creacion =  Number(localStorage.getItem('usuario_id'));
             this.comboDetalle.coDe_FechaCreacion = fecha;
             for(const item of this.seleccionados)
             {

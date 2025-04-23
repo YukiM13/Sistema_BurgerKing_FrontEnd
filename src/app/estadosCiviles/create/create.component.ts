@@ -50,7 +50,7 @@ export class EsCiCreateComponent {
       return;
     }
 
-    this.estadosCivil.usua_Creacion = 2;
+    this.estadosCivil.usua_Creacion =  Number(localStorage.getItem('usuario_id'));
     const fecha = new Date();
     this.estadosCivil.esCi_FechaCreacion = fecha;  
     this.http.post<Respuesta<EstadoCivil>>(`${this.apiUrl}/EstadoCivil/Insertar`, this.estadosCivil)

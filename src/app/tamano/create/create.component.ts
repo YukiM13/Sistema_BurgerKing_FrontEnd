@@ -55,7 +55,7 @@ export class TamanoCreateComponent {
       return;
     }
     
-    this.tamano.usua_Creacion = 2;
+    this.tamano.usua_Creacion =  Number(localStorage.getItem('usuario_id'));
     const fecha = new Date();
     this.tamano.tama_FechaCreacion = fecha;  
     this.http.post<Respuesta<Tamano>>(`${this.apiUrl}/Tamano/Insertar`, this.tamano)

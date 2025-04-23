@@ -105,7 +105,7 @@ export class SucursalEditComponent {
       return;
     }
 
-    this.sucursal.usua_Modificacion = 2;
+    this.sucursal.usua_Modificacion =  Number(localStorage.getItem('usuario_id'));
     this.sucursal.sucu_FechaModificacion = new Date;
     this.http.put(`${this.apiUrl}/Sucursal/Actualizar`, this.sucursal)
     .subscribe(() => {

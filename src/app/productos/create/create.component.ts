@@ -125,7 +125,7 @@ cancelarModal() {
       this.cont = 1;
       console.log('entro');
       console.log(this.tamano.tama_Id);
-      this.producto.usua_Creacion = 2;
+      this.producto.usua_Creacion =  Number(localStorage.getItem('usuario_id'));
       const fecha = new Date();
       this.producto.prod_FechaCreacion = fecha;
       //this.producto.cate_Id = 2
@@ -145,7 +145,7 @@ cancelarModal() {
           }
     
 
-        this.productoPorTamano.usua_Creacion = 2;
+        this.productoPorTamano.usua_Creacion =  Number(localStorage.getItem('usuario_id'));
         this.productoPorTamano.prTa_FechaCreacion = fecha;
         for (let clave in this.preciosPorTamano) {
           if (this.preciosPorTamano.hasOwnProperty(clave)) {

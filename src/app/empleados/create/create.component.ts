@@ -58,7 +58,7 @@ this.cont = 1;
     const sexo = this.empleado.empl_Sexo ? 'M' : 'F';
     this.empleado.empl_Sexo = sexo;
 
-    this.empleado.usua_Creacion = 2;
+    this.empleado.usua_Creacion =  Number(localStorage.getItem('usuario_id'));
     const fecha = new Date();
     this.empleado.empl_FechaCreacion = fecha;  
     this.http.post<Respuesta<Empleados>>(`${this.apiUrl}/Empleado/Insertar`, this.empleado)

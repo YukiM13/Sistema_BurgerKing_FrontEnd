@@ -45,7 +45,7 @@ export class TamanoEditComponent {
       return;
     }
 
-    this.tamano.usua_Modificacion = 2;
+    this.tamano.usua_Modificacion =  Number(localStorage.getItem('usuario_id'));
     this.tamano.tama_FechaModificacion = new Date;
     this.http.put(`${this.apiUrl}/Tamano/Editar`, this.tamano)
     .subscribe(() => {
