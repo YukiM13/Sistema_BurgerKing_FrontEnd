@@ -137,6 +137,7 @@ a {
   position: relative;
   z-index: 1;
   overflow-x: hidden;
+
 }
 
 .layout-sidebar {
@@ -1112,6 +1113,11 @@ a {
 
 .layout-topbar {
   margin-bottom: 2rem;
+  margin-top: 0; 
+  margin-left: 0; 
+  margin-right: 0;
+  width: 100%; 
+  padding: 0; 
   display: flex;
   justify-content: space-between;
   align-items: center;

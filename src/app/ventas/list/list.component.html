@@ -87,17 +87,19 @@
 
    <p-confirmDialog></p-confirmDialog>
   <p-toast></p-toast> 
-    <div *ngIf="showCreate" @collapse>
+  <div  *ngIf="showCreate" [@collapse]>
+ 
+ 
     <app-create (creado)="registroCreado()" (cancelar)="cancelCreate()" ></app-create>
-    </div>
+  </div>
   
-    <div *ngIf="showEdit" @collapse>
+    <div *ngIf="showEdit" [@collapse]>
      <app-edit [ventaId]="ventaSeleccionada" (creado)="registroActualizado()" (cancelar)="cancel(1)" ></app-edit> 
     </div>
-    <div *ngIf="showDetails" @collapse>
+    <div *ngIf="showDetails" [@collapse]>
         <app-details [ventaId]="ventaSeleccionada" (cancelar)="cancel(2)" ></app-details> 
     </div>
-    <div *ngIf="showFactura" @collapse>
+    <div *ngIf="showFactura" [@collapse]>
         <app-factura [ventaId]="ventaSeleccionada" (cancelar)="cancel(3)" ></app-factura> 
     </div>
  

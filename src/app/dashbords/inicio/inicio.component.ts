@@ -5,7 +5,7 @@ import {HttpClient} from '@angular/common/http';
 import {FormsModule} from '@angular/forms'
 import {CarouselModule} from 'primeng/carousel';
 import { environment } from 'src/enviroments/enviroment';
-
+import { TotalVentasyProductosComponent } from '../total-ventasy-productos/total-ventasy-productos.component';
 import { Tamano } from 'src/app/models/tamano.model';
 import { Combo } from 'src/app/models/combos.model'; 
 import { ComboDetalle } from 'src/app/models/comboDetalles.model';
@@ -13,12 +13,14 @@ import { ComboDetalle } from 'src/app/models/comboDetalles.model';
 @Component({
   selector: 'app-inicio',
   standalone: true,
-  imports: [CommonModule, FormsModule , CarouselModule],
+  imports: [CommonModule, FormsModule , CarouselModule,TotalVentasyProductosComponent],
   templateUrl: './inicio.component.html',
   styleUrl: './inicio.component.scss'
 })
 export class InicioComponent {
   private apiUrl = environment.apiUrl; 
+  router = inject(Router)
+
   productos2: any[] = [];
   http = inject(HttpClient);
   @Output() cancelar = new EventEmitter<void>();  
@@ -52,11 +54,12 @@ carouselResponsiveOptions: any[] = [
 ];
 
 customerCarousel: any[] = [];
-
+combo = new Combo();
 listarCombos(): void {
+  this.combo.comb_FechaCreacion = new Date();
 if(this.esAdmin == 'true')
 {
-  this.http.get(`${this.apiUrl}/Combo/MasVendido`)
+  this.http.post(`${this.apiUrl}/Combo/MasVendidoAdmin`, this.combo)
   .subscribe((res: any) => {
     this.combos = res.map((estado: any) => ({
       ...estado
@@ -66,13 +69,12 @@ if(this.esAdmin == 'true')
 else{
 
 }
-
+console.log(this.combos)
 
 }
 
 
 
-  router = inject(Router)
 
   
   ngOnInit(): void {

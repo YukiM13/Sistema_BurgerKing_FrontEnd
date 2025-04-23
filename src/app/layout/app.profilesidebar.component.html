@@ -1,5 +1,5 @@
 <p-sidebar [(visible)]="visible" position="right" [transitionOptions]="'.3s cubic-bezier(0, 0, 0.2, 1)'"
-    styleClass="layout-profile-sidebar w-full sm:w-28rem">
+    styleClass="layout-profile-sidebar w-full sm:w-28rem ">
 
     <div class="layout-rightmenu h-full overflow-y-auto overflow-x-hidden"
         [ngClass]="{'layout-rightmenu-active': layoutService.state.rightMenuActive}">
@@ -18,9 +18,7 @@
         </div>
        
         
-        <div>
-            <p-calendar [(ngModel)]="date" [inline]="true" styleClass="w-full p-0"></p-calendar>
-        </div>
+        
     </div>
 
 </p-sidebar>

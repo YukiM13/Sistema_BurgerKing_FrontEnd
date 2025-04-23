@@ -16,6 +16,8 @@ import { Table, TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
 import { FacturaComponent } from '../factura/factura.component';
 import { DetailsComponent } from '../details/details.component';
+import { PanelModule } from 'primeng/panel';
+import { AccordionModule } from 'primeng/accordion';
 import {
   trigger,
   state,
@@ -29,23 +31,11 @@ import { MenuItem } from 'primeng/api';
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [CommonModule,FacturaComponent,DetailsComponent,EditComponent, RouterModule, SplitButtonModule, ButtonModule,ConfirmDialogModule,ToastModule, TableModule, InputTextModule, VentaCreateComponent],
+  imports: [CommonModule,AccordionModule,FacturaComponent,DetailsComponent,EditComponent, RouterModule, SplitButtonModule, ButtonModule,ConfirmDialogModule,ToastModule, TableModule, InputTextModule, VentaCreateComponent],
   providers:[MessageService, ConfirmationService],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss',
-  animations: [
-    trigger('collapse', [
-      state('void', style({ height: '0px', opacity: 0 })),
-      state('*', style({ height: '*', opacity: 1 })),
-      transition(':enter', [
-        style({ height: '0px', opacity: 0 }),
-        animate('300ms ease-out')
-      ]),
-      transition(':leave', [
-        animate('300ms ease-in', style({ height: '0px', opacity: 0 }))
-      ])
-    ])
-  ]
+  
 })
 
 export class VentasListComponent implements OnInit {
