@@ -22,10 +22,9 @@ import { CategoriasListComponent } from './categorias/list/list.component';
 import { VentasListComponent } from './ventas/list/list.component';
 import { CombosListComponent } from './combos/list/list.component';
 import { LoginComponent } from './auth/login/login.component';
-import { VerificationEmailComponent } from './auth/verification-email/verification-email.component';
-import { VerificationCodComponent } from './auth/verification-cod/verification-cod.component';
-import { RestorePasswordComponent } from './auth/restore-password/restore-password.component';
+
 import { InicioComponent } from './dashbords/inicio/inicio.component'; 
+
 
 const routerOptions: ExtraOptions = {
     anchorScrolling: 'enabled'
@@ -72,5 +71,7 @@ const routes: Routes = [
 @NgModule({
     imports: [RouterModule.forRoot(routes, routerOptions)],
     exports: [RouterModule]
+
+    
 })
 export class AppRoutingModule { }
