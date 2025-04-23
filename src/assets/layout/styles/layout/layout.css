@@ -593,6 +593,10 @@ a {
   .layout-container.layout-horizontal .layout-menu .layout-root-menuitem > a .layout-menuitem-icon {
     font-size: 1rem;
   }
+  .button-orange {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+  }
   .layout-container.layout-horizontal .layout-menu .layout-root-menuitem > a .layout-menuitem-text {
     font-size: 0.875rem;
     display: block;
