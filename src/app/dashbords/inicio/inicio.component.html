@@ -25,6 +25,63 @@
             </ng-template>
         </p-carousel>
     </div>
+
+    <div class="grid">
+        <div class="col-12 md:col-4">
+            <div class="card relative h-6rem border-round-xl p-3">
+                <span class="text-sm font-medium line-height-1">
+                    Cantidad de Clientes
+                </span>
+                <div class="flex justify-content-between">
+                    <div class="flex justify-content-between align-items-center">
+                      
+                        <div class="line-height-4 text-4xl">{{cantidadClientes}}</div>
+                    </div>
+                </div>
+                <img class="absolute" style="bottom: 14px; right: 12px"
+                    src="assets/demo/images/ecommerce-dashboard/rate.svg" />
+            </div>
+        </div>
+
+        <div class="col-12 md:col-4">
+            <div class="card relative h-6rem border-round-xl p-3">
+                <span class="text-sm font-medium line-height-1">
+                    Cantidad de Clientes
+                </span>
+                <div class="flex justify-content-between">
+                    <div class="flex justify-content-between align-items-center">
+                      
+                        <div class="line-height-4 text-4xl">{{cantidadClientes}}</div>
+                    </div>
+                </div>
+                <img class="absolute" style="bottom: 14px; right: 12px"
+                    src="assets/demo/images/ecommerce-dashboard/rate.svg" />
+            </div>
+        </div>
+
+        <div class="col-12 md:col-4">
+            <div class="card relative h-6rem border-round-xl p-3">
+                <span class="text-sm font-medium line-height-1">
+                    Cantidad de Clientes
+                </span>
+                <div class="flex justify-content-between">
+                    <div class="flex justify-content-between align-items-center">
+                      
+                        <div class="line-height-4 text-4xl">{{cantidadClientes}}</div>
+                    </div>
+                </div>
+                <img class="absolute" style="bottom: 14px; right: 12px"
+                    src="assets/demo/images/ecommerce-dashboard/rate.svg" />
+            </div>
+        </div>
+    </div>
+
+    <div class="graph col-12 md:col-4">
+      
+
+        <p-chart #visitor type="bar" [data]="visitorChart"  [options]="visitorChartOptions"
+            id="visitor-chart"></p-chart>
+    </div>
     
   
 </div>

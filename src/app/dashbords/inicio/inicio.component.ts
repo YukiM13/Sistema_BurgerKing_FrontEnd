@@ -5,15 +5,17 @@ import {HttpClient} from '@angular/common/http';
 import {FormsModule} from '@angular/forms'
 import {CarouselModule} from 'primeng/carousel';
 import { environment } from 'src/enviroments/enviroment';
-
+import { Cliente } from 'src/app/models/clientes.model';
 import { Tamano } from 'src/app/models/tamano.model';
 import { Combo } from 'src/app/models/combos.model'; 
 import { ComboDetalle } from 'src/app/models/comboDetalles.model';
+import { ChartModule } from 'primeng/chart';
+
 
 @Component({
   selector: 'app-inicio',
   standalone: true,
-  imports: [CommonModule, FormsModule , CarouselModule],
+  imports: [CommonModule, FormsModule , CarouselModule, ChartModule],
   templateUrl: './inicio.component.html',
   styleUrl: './inicio.component.scss'
 })
@@ -53,22 +55,120 @@ carouselResponsiveOptions: any[] = [
 
 customerCarousel: any[] = [];
 
-listarCombos(): void {
-if(this.esAdmin == 'true')
-{
-  this.http.get(`${this.apiUrl}/Combo/MasVendido`)
-  .subscribe((res: any) => {
-    this.combos = res.map((estado: any) => ({
-      ...estado
-    }));
-  });
-}
-else{
+  listarCombos(): void {
+  if(this.esAdmin == 'true')
+  {
+    this.http.post<Combo[]>(`${this.apiUrl}/Combo/MasVendidoAdmin`, { comb_FechaCreacion: this.fecha })
+    .subscribe((res: any) => {
+      console.log(res);
+      this.combos = res.map((estado: any) => ({
+        ...estado
+      }));
 
+      this.initCharts();
+    });
+  }else{
+    this.http.post<Combo[]>(`${this.apiUrl}/Combo/MasVendidoEmpleado`, { comb_FechaCreacion: this.fecha, comb_Id: 1 })
+    .subscribe((res: any) => {
+      this.combos = res.map((estado: any) => ({
+        ...estado
+      }));
+
+      this.initCharts();
+    });
+   }
+
+  }
+
+  fecha = new Date();
+  cantidadClientes: number = 0;
+ 
+  listarCantidadClientes(): void {
+  if(this.esAdmin == 'true')
+  {
+    this.http.post<Cliente[]>(`${this.apiUrl}/Cliente/CantidadAdmin`, { clie_FechaDato: this.fecha })
+    .subscribe(
+      (response) => {
+        console.log('Respuesta del servidor:', response);
+        this.cantidadClientes = response[0].clie_Id;
+        console.log('Cantidad de clientes:', this.cantidadClientes);
+      },
+      (error) => {
+        console.error('Error al obtener la cantidad de clientes:', error);
+      }
+    );
+
+  }else{
+    this.http.post<Cliente[]>(`${this.apiUrl}/Cliente/CantidadEmpleado`, { clie_FechaDato: this.fecha, clie_Id: 1 })
+    .subscribe(
+      (response) => {
+        console.log('Respuesta del servidor:', response);
+        this.cantidadClientes = response[0].clie_Id;
+        console.log('Cantidad de clientes:', this.cantidadClientes);
+      },
+      (error) => {
+        console.error('Error al obtener la cantidad de clientes:', error);
+      }
+    );
+  }
 }
 
+  visitorChartOptions: any;
+  visitorChart: any;
 
-}
+  initCharts() {
+    const documentStyle = getComputedStyle(document.documentElement);
+    const textColor = documentStyle.getPropertyValue('--text-color');
+    const primaryColor = getComputedStyle(document.body).getPropertyValue('--primary-color');
+  
+    const labels = this.combos.map(combo => combo.comb_Descripcion);
+    const data = this.combos.map(combo => combo.comb_Precio);
+  
+    this.visitorChart = {
+      labels: labels,
+      datasets: [
+        {
+          label: 'Ventas por Combo',
+          data: data,
+          backgroundColor: primaryColor,
+          barPercentage: 0.5,
+        }
+      ]
+    };
+  
+    this.visitorChartOptions = {
+      plugins: {
+        legend: {
+          position: 'top',
+          align: 'end',
+          labels: {
+            color: textColor,
+          },
+        },
+      },
+      responsive: true,
+      scales: {
+        y: {
+          ticks: {
+            color: textColor,
+          },
+          beginAtZero: true,
+          grid: {
+            display: false,
+          },
+        },
+        x: {
+          ticks: {
+            color: textColor,
+          },
+          grid: {
+            display: false,
+          },
+        },
+      },
+    };
+  }
+  
 
 
 
@@ -76,9 +176,10 @@ else{
 
   
   ngOnInit(): void {
-
     this.listarCombos();
+    this.listarCantidadClientes();
 
+    
 
   }
   
