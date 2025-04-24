@@ -1,4 +1,5 @@
 export class ProductoPorTamano {
+    prTa_Id: number =0;
     prod_Id: number = 0;
     tama_Id: number = 0;
     tama_Descripcion: string = '';
