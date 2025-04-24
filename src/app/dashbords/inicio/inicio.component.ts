@@ -62,7 +62,7 @@ conteoCombos =0;
   {
     this.http.post<Combo[]>(`${this.apiUrl}/Combo/MasVendidoAdmin`, { comb_FechaCreacion: this.fecha })
     .subscribe((res: any) => {
-      console.log(res);
+
       this.combos = res.map((estado: any) => ({
         ...estado
       }));
@@ -91,7 +91,7 @@ conteoCombos =0;
       this.combos2 = res.map((estado: any) => ({
        
       }));
-      console.log(this.combos2);
+  
       this.conteoCombos = this.combos2.length;
     });
   }
@@ -101,9 +101,9 @@ conteoCombos =0;
     this.http.post<Cliente[]>(`${this.apiUrl}/Cliente/CantidadAdmin`, { clie_FechaDato: this.fecha })
     .subscribe(
       (response) => {
-        console.log('Respuesta del servidor:', response);
+ 
         this.cantidadClientes = response[0].clie_Id;
-        console.log('Cantidad de clientes:', this.cantidadClientes);
+     
       },
       (error) => {
         console.error('Error al obtener la cantidad de clientes:', error);
@@ -114,9 +114,9 @@ conteoCombos =0;
     this.http.post<Cliente[]>(`${this.apiUrl}/Cliente/CantidadEmpleado`, { clie_FechaDato: this.fecha, clie_Id:  Number(localStorage.getItem('sucursal_id')) })
     .subscribe(
       (response) => {
-        console.log('Respuesta del servidor:', response);
+
         this.cantidadClientes = response[0].clie_Id;
-        console.log('Cantidad de clientes:', this.cantidadClientes);
+    
       },
       (error) => {
         console.error('Error al obtener la cantidad de clientes:', error);

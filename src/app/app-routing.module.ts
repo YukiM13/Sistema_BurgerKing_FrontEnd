@@ -24,6 +24,7 @@ import { CombosListComponent } from './combos/list/list.component';
 import { LoginComponent } from './auth/login/login.component';
 
 import { InicioComponent } from './dashbords/inicio/inicio.component'; 
+import { AuthGuard } from './auth.guard';
 
 
 const routerOptions: ExtraOptions = {
@@ -39,25 +40,21 @@ const routes: Routes = [
     {
       path: '',component: AppLayoutComponent,
       children: [
-        {path: '', component:InicioComponent},
-        { path: 'departamento', component: DepaListComponent },
-        { path: 'departamento/crear', component: DepaCreateComponent },
-        { path: 'estadoCivil', component: EsCiListComponent },
-        { path: 'estadoCivil/crear', component: EsCiCreateComponent },
-        { path: 'usuario', component: UsuaListComponent },
-        { path: 'rol', component: RoleListComponent },
-        { path: 'municipio', component: MuniListComponent },
-        { path: 'empleado', component: EmpleListComponent },
-        { path: 'tamano', component: TamaListComponent },
-        { path: 'producto', component: ProduListComponent },
-        { path: 'cargo', component: CargosListComponent },
-        { path: 'cargo/crear', component: CargoCreateComponent },
-        { path: 'sucursal', component: SucursalListComponent },
-        { path: 'sucursal/crear', component: SucursalCreateComponent },
-        { path: 'cliente', component: ClienteListComponent },
-        { path: 'categoria', component: CategoriasListComponent },
-        { path: 'venta', component: VentasListComponent },
-        { path: 'combo', component: CombosListComponent },
+        {path: '', component:InicioComponent },
+        { path: 'departamento', component: DepaListComponent, canActivate: [AuthGuard]} ,
+        { path: 'estadoCivil', component: EsCiListComponent, canActivate: [AuthGuard] },
+        { path: 'usuario', component: UsuaListComponent, canActivate: [AuthGuard] },
+        { path: 'rol', component: RoleListComponent, canActivate: [AuthGuard]},
+        { path: 'municipio', component: MuniListComponent, canActivate: [AuthGuard]},
+        { path: 'empleado', component: EmpleListComponent, canActivate: [AuthGuard] },
+        { path: 'tamano', component: TamaListComponent, canActivate: [AuthGuard] },
+        { path: 'producto', component: ProduListComponent, canActivate: [AuthGuard] },
+        { path: 'cargo', component: CargosListComponent, canActivate: [AuthGuard] },
+        { path: 'sucursal', component: SucursalListComponent, canActivate: [AuthGuard] },
+        { path: 'cliente', component: ClienteListComponent, canActivate: [AuthGuard] },
+        { path: 'categoria', component: CategoriasListComponent, canActivate: [AuthGuard] },
+        { path: 'venta', component: VentasListComponent, canActivate: [AuthGuard] },
+        { path: 'combo', component: CombosListComponent, canActivate: [AuthGuard] },
       ]
 
   

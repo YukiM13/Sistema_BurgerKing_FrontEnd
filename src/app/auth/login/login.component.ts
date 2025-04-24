@@ -97,21 +97,7 @@ export class LoginComponent {
              
              
               console.log(localStorage.getItem('Admin'));
-            const rolId = localStorage.getItem('rol_id');
-          this.rol_Id.role_Id = rolId ? parseInt(rolId) : 0;
-            console.log(rolId);
-            this.http.post<Roles[]>(`${this.apiUrl}/RolPorPantallas/Buscar`, this.rol_Id).subscribe(data => {
-              console.log(data);
-              if (data ) {
-                for(let i = 0; i < data.length; i++){
-                  this.pantallas += data[i].pant_Descripcion + ',';
-
-                }
-                console.log(this.pantallas);
-                localStorage.setItem('pantallas', this.pantallas);
-              }
-            });
-            this.authService.notifySessionChange(); 
+     
             this.router.navigate(['/']);
 
             

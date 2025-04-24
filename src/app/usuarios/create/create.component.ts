@@ -29,6 +29,12 @@ export class UsuaCreateComponent {
       @Output() errorCrear = new EventEmitter<void>();
      cont = 0;
 
+
+     validarCorreo(correo: string): boolean {
+      const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return regex.test(correo);
+    }
+
       cancelarFormulario() {
         this.cancelar.emit();  
       }
@@ -49,6 +55,11 @@ export class UsuaCreateComponent {
         }
 
         this.usuario.usua_Creacion =  Number(localStorage.getItem('usuario_id'));
+        if(!this.validarCorreo(this.usuario.usua_Correo)){
+         
+          return;
+        }
+    
         const fecha = new Date();
         this.usuario.usua_FechaCreacion = fecha;  
         console.log(this.usuario);
