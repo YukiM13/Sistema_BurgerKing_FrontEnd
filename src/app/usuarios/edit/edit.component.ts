@@ -34,7 +34,10 @@ export class UsuarioEditComponent {
   cont = 0;
 
   constructor(private messageService: MessageService) { }
-
+  validarCorreo(correo: string): boolean {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(correo);
+  }
   EditarUsuario()  {
     this.cont = 1;
     if(!this.usuario.usua_Usuario.trim() || !this.usuario.usua_Correo.trim() || !this.usuario.empl_Id || !this.usuario.role_Id) 
@@ -46,7 +49,10 @@ export class UsuarioEditComponent {
         });
         return;
       }
-
+      if(!this.validarCorreo(this.usuario.usua_Correo)){
+         
+        return;
+      }
     this.usuario.usua_Modificacion = 2;
     this.usuario.usua_FechaModificacion = new Date;
     this.http.put(`${this.apiUrl}/Usuario/Actualizar`, this.usuario)

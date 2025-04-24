@@ -132,7 +132,7 @@ if(this.esAdmin == 'true')
   .subscribe((res: any) => {
     this.ventaDetalle3 = res.map((estado: any) => ({ ...estado }));
     for(let item of this.ventaDetalle3) {
-      console.log("Entro");
+
       this.ventaPorMeses.push(item.veDe_Precio);
       this.productoPorMeses.push(item.veDe_Cantidad);
       this.meses.push(item.mes)
@@ -151,12 +151,12 @@ else{
   this.http.post(`${this.apiUrl}/VentaDetalle/TotalVentayProductosPorAnioPorSucursal`, this.venta)
   .subscribe((res: any) => {
     this.ventaDetalle3 = res.map((estado: any) => ({ ...estado }));
-    console.log(this.ventaDetalle3);
+
     for(let item of this.ventaDetalle3) {
       this.ventaPorMeses.push(item.veDe_Precio);
       this.productoPorMeses.push(item.veDe_Cantidad);
       this.meses.push(item.mes)
-      console.log("Meses", this.meses);
+      
     }
     
 
@@ -267,14 +267,14 @@ initCharts() {
   };
   const nombres = ['Enero', 'Febrero', 'Marzo','Abril','Mayo', 'Junio', 'Julio','Agosto','Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
   const nombreMeses = []
-  console.log("Dentro",this.meses);
+  
   for(let item of this.meses)
   {
     var fecha = new Date(item);
 
-    console.log("Entro en for", fecha.getMonth());
+   
       nombreMeses.push(nombres[fecha.getMonth()])
-     console.log(nombreMeses);
+     
     
   }
  
