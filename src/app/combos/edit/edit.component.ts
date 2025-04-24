@@ -87,6 +87,7 @@ export class EditComponent {
     formData.append('imagen', this.selectedFile!);
     return this.http.post(`${this.apiUrl}/Producto/subirImagen`, formData);
   }
+  
   seleccionado: {
     prta_Id: number;
     cantidad:number;

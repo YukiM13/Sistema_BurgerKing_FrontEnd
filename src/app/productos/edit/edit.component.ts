@@ -46,12 +46,14 @@ export class EditarProductoComponent implements OnInit {
 
   producto = new Productos();
   producto2 = new Productos();
+  producto3 = new Productos();
   productoPorTamano = new ProductoPorTamano();
 
   categorias: any[] = [];
   tamanos: any[] = [];
   tamanosSeleccionadosConDescripcion: any[] = [];
   preciosPorTamano: { [key: number]: number } = {};
+  prTama:{ [key: number]: number } = {};
   modalVisible = false;
   url =  this.apiUrl;
 
@@ -66,6 +68,7 @@ export class EditarProductoComponent implements OnInit {
   constructor(private messageService: MessageService) {}
 
   ngOnInit(): void {
+    this.resetForm(); 
     this.listarCategoria();
     this.listarTamanos();
     this.obtenerProducto();
@@ -73,16 +76,25 @@ export class EditarProductoComponent implements OnInit {
 
   }
 
+  seleccionado: {
+    prta_Id: number;
+    cantidad:number;
+   
+  }[] = [];
+
   obtenerPreciosPorTamano() {
     
-    this.producto2.prod_Id = this.prodId;
+    this.producto3.prod_Id = this.prodId;
 
-    this.http.post<ProductoPorTamano[]>(`${this.apiUrl}/ProductoPorTamano/FindPrTa`, this.producto2).subscribe({
+    this.http.post<ProductoPorTamano[]>(`${this.apiUrl}/ProductoPorTamano/FindPrTa`, this.producto3).subscribe({
       next: (res) => {
-        //console.log("Respuesta API:", res);
+        console.log("Respuesta API:", res);
         res.forEach(item => {
           this.preciosPorTamano[item.tama_Id] = item.prTa_Precio;
+          this.prTama[item.prTa_Id] = item.prTa_Id;
         });
+
+        //console.log(this.prTama);
   
         this.tamanosSeleccionados = res.map(p => p.tama_Id);
         this.tamanosSeleccionadosConDescripcion = this.tamanos.filter(t => this.tamanosSeleccionados.includes(t.tama_Id));
@@ -124,22 +136,36 @@ export class EditarProductoComponent implements OnInit {
     });
   }
 
+  resetForm() {
+    this.producto = new Productos();
+    this.producto2 = new Productos();
+    this.producto3 = new Productos();
+    this.productoPorTamano = new ProductoPorTamano();
+    this.tamanosSeleccionados = [];
+    //this.tamanosSeleccionadosConDescripcion = [];
+    this.preciosPorTamano = {};
+    this.selectedFile = null;
+    this.nombreOriginal = '';
+  }
+
   editarProducto() {
     this.cont = 1;
     this.cont1 = 1;
     this.cont2 = 1;
+
+
     
 
     if (!this.producto.prod_Descripcion?.trim() || !this.producto.cate_Id || 
     this.tamanosSeleccionados.length === 0 || 
     !this.producto.prod_ImgUrl) {
-  this.messageService.add({
-    severity: 'warn',
-    summary: 'Advertencia',
-    detail: 'Por favor complete todos los campos obligatorios'
-  });
-  return;
-}
+    this.messageService.add({
+      severity: 'warn',
+      summary: 'Advertencia',
+      detail: 'Por favor complete todos los campos obligatorios'
+    });
+    return;
+  }
 
     this.producto.prod_Id = this.prodId;
     this.producto.usua_Modificacion =  Number(localStorage.getItem('usuario_id'));
@@ -149,15 +175,11 @@ export class EditarProductoComponent implements OnInit {
       this.http.put(`${this.apiUrl}/Producto/Actualizar`, this.producto)
       .subscribe({
         next: () => {
-
-        this.http.post(`${this.apiUrl}/ProductoPorTamano/Eliminar`, this.producto2 )
+          console.log("Producto a eliminar:",  { prod_Id: this.prodId });
+        this.http.post(`${this.apiUrl}/ProductoPorTamano/Eliminar`,  { prod_Id: this.prodId } )
         .subscribe(() => { 
-
-
           const fecha = new Date();
-          //this.productoPorTamano.usua_Modificacion = 2;
-          //this.productoPorTamano.prTa_FechaModificacion = fecha;
-
+          console.log("Producto a Entro a aactilisar:",  { prod_Id: this.prodId });
           console.log("Precios por tamaño a insertar:", this.preciosPorTamano);
           for (const id in this.preciosPorTamano) {
             const precio = this.preciosPorTamano[+id];
@@ -169,7 +191,7 @@ export class EditarProductoComponent implements OnInit {
               nuevoProductoPorTamano.usua_Creacion =  Number(localStorage.getItem('usuario_id'));
               nuevoProductoPorTamano.prTa_FechaCreacion = new Date();
           
-              //console.log(nuevoProductoPorTamano);
+              
               console.log("Insertando:", nuevoProductoPorTamano);
               this.http.post(`${this.apiUrl}/ProductoPorTamano/Insertar`, nuevoProductoPorTamano).subscribe({
                 next: () => {
@@ -214,16 +236,27 @@ export class EditarProductoComponent implements OnInit {
   }
 
   tamanosSeleccionados: number[] = [];
+
   onTamanoChange(event: any) {
-    const seleccionados = event.value;
+    const seleccionados: number[] = event.value;
+  
+  
     this.tamanosSeleccionadosConDescripcion = this.tamanos.filter(t => seleccionados.includes(t.tama_Id));
+    
+  
     this.tamanosSeleccionadosConDescripcion.forEach(t => {
-      if (!this.preciosPorTamano[t.tama_Id]) {
+      console.log(this.tamanosSeleccionadosConDescripcion);
+
+
+      if (this.preciosPorTamano[t.tama_Id] === undefined) {
         this.preciosPorTamano[t.tama_Id] = 0;
       }
     });
-    this.modalVisible = true;
+  
+    this.modalVisible = this.tamanosSeleccionadosConDescripcion.length > 0;
+   
   }
+  
 
   guardarPrecios() {
     const validos = this.tamanosSeleccionadosConDescripcion.every(t => this.preciosPorTamano[t.tama_Id] > 0);
@@ -239,9 +272,19 @@ export class EditarProductoComponent implements OnInit {
   }
 
   cancelarModal() {
-    this.tamanosSeleccionadosConDescripcion.forEach(t => delete this.preciosPorTamano[t.tama_Id]);
+   
+    this.tamanosSeleccionados.forEach(id => {
+      delete this.preciosPorTamano[id];
+    });
+  
+   
+    this.tamanosSeleccionados = [];
+    this.tamanosSeleccionadosConDescripcion = [];
+  
+   
     this.modalVisible = false;
   }
+  
 
  
 

@@ -128,6 +128,8 @@ export class CargosListComponent implements OnInit {
         message: '¿Estás seguro que deseas eliminar este Cargo?',
         header: 'Confirmar eliminación',
         icon: 'pi pi-exclamation-triangle',
+        rejectButtonStyleClass: 'btn btn-danger',
+        acceptButtonStyleClass: 'btn btn-success',
         acceptLabel: 'Sí',
         rejectLabel: 'No',
         accept: () => this.EliminarCargo(id),
