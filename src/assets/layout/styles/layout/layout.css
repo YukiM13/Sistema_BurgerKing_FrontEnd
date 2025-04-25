@@ -1125,6 +1125,13 @@ a {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  z-index: 100000000000 !important; 
+  position: fixed !important;
+ width: 76% !important;
+    height: 7% !important;
+    top: 0% !important;
+    background-color: #fd9214 !important ;
+    left: 22% !important;
 }
 .layout-topbar .topbar-start {
   display: flex;
@@ -1384,7 +1391,8 @@ a {
 }
 
 .layout-content-wrapper {
-  padding: 2rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
 }
 
 h1, h2, h3, h4, h5, h6 {

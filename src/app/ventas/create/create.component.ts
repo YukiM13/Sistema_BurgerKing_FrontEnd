@@ -52,7 +52,7 @@ private apiUrl = environment.apiUrl;
       @Output() creado = new EventEmitter<void>();
       @Output() errorCrear = new EventEmitter<void>();
       uploadedFiles: any[] = [];
-
+    ventaId: number = 0;
       constructor(
         private confirmationService: ConfirmationService,
         private messageService: MessageService
@@ -81,6 +81,14 @@ private apiUrl = environment.apiUrl;
         this.combos = res.map((estado: any) => ({
           ...estado
         }));
+        if(this.ventaId != 0)
+        {
+        var comboSele: any[] = [];
+         comboSele = this.combos.filter(combo => combo.comb_Id == this.ventaId);
+         console.log("comboSele",comboSele);
+         this.agregarCombo(comboSele[0]);
+          this.ventaId = 0;
+        }
       });
   }
   
@@ -117,6 +125,7 @@ private apiUrl = environment.apiUrl;
           if (data && Array.isArray(data) && data.length > 0) {
             const producto1 = data[0] as any; 
             this.ventaDetalle.vent_Id = producto1.vent_Id;
+            localStorage.setItem('venta_id', producto1.vent_Id.toString());
           }
     
           
@@ -135,7 +144,7 @@ private apiUrl = environment.apiUrl;
                           next: (response) => {
                           if (response && response.data.codeStatus >0) {
                             console.log(response)
-                            
+                            this.buscarVentas();
                             this.creado.emit();
                           } else {
                             this.errorCrear.emit();
@@ -159,7 +168,13 @@ private apiUrl = environment.apiUrl;
         this.venta.vent_Fecha = new Date();
         this.listarCombos();
         this.listarClientes();
-   
+        if(localStorage.getItem('agregarVenta'))
+        {
+          this.ventaId = Number(localStorage.getItem('agregarVenta'));
+          localStorage.removeItem('agregarVenta');
+          
+          console.log("ventaId",this.ventaId);
+        }
       }
       
       seleccionados: {
@@ -175,18 +190,21 @@ private apiUrl = environment.apiUrl;
       }
    
       agregarCombo(combo: any) {
-        
+        console.log("combo",combo);
         const existente = this.seleccionados.find(s => s.comb_Id === combo.comb_Id);
       
         if (existente) {
+          console.log("existente",existente);
           existente.cantidad += 1;
         } else {
+          console.log("nuevo",combo);
           this.seleccionados.push({
             comb_Id: combo.comb_Id,
             descripcion: combo.comb_Descripcion,
             precio: combo.comb_Precio,
             cantidad: 1
           });
+          console.log("seleccionados",this.seleccionados);
 
         }
         this.actualizarTotales();
@@ -260,7 +278,7 @@ registroCreado(){
     summary: 'Creado',
     detail: 'Cliente creado'
   });
-  this.buscarVentas();
+  
  
 }
 crearError(){
@@ -291,8 +309,8 @@ descripcion = "";
 iva = 0;
 
 buscarVentas(){
-  this.venta2.vent_Id = this.ventaDetalle.vent_Id;
-  this.ventaDetalle2.vent_Id = this.ventaDetalle.vent_Id;
+  this.venta2.vent_Id = Number(localStorage.getItem('venta_id'));
+  this.ventaDetalle2.vent_Id = Number(localStorage.getItem('venta_id'));
   this.http.post<Venta[]>(`${this.apiUrl}/Venta/Buscar`, this.venta2)
       .subscribe(data => {
         if (data && data.length > 0) {
@@ -300,7 +318,7 @@ buscarVentas(){
           this.ventasEntries = Object.entries(this.ventaAux);
           console.log("Entrada",this.ventasEntries);
           console.log("Respuesta API:", data); 
-          console.log("estadoCivilAuxiliar:", this.ventaAux); 
+          console.log("venta en el subscribe:", this.ventaAux); 
         } else {
           console.error("No se recibió una respuesta válida de la API");
         }
@@ -317,14 +335,15 @@ buscarVentas(){
         this.total = this.subtotal + this.iva;
         console.log("Entrada",this.ventaDetalleEntries);
         console.log("Respuesta API:", data); 
-        console.log("estadoCivilAuxiliar:", this.ventaDetalleAux); 
+        console.log("ventaDetalle en el subscribe:", this.ventaDetalleAux); 
       } else {
         console.error("No se recibió una respuesta válida de la API");
       }
+      this.imprimirFactura();
     }, error => {
       console.error("Error al cargar datos:", error);
     });
-    this.imprimirFactura();
+  
 }
 
 imprimirFactura() {

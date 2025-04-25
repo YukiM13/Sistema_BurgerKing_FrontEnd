@@ -76,6 +76,10 @@ export class VentasListComponent implements OnInit {
 
   ngOnInit(): void {
     this.listarVentas();
+    if(localStorage.getItem('agregarVenta')){
+      this.showCreate = true;
+      
+    }
   }
 
   listarVentas(): void {

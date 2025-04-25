@@ -13,12 +13,13 @@ import { ChartModule } from 'primeng/chart';
 import { TotalVentasyProductosComponent } from '../total-ventasy-productos/total-ventasy-productos.component';
 import { Venta } from 'src/app/models/ventas.model';
 import { VentaDetalle } from 'src/app/models/ventaDetalles';
+import { ButtonModule } from 'primeng/button';
 
 
 @Component({
   selector: 'app-inicio',
   standalone: true,
-  imports: [CommonModule, FormsModule , CarouselModule, ChartModule, TotalVentasyProductosComponent],
+  imports: [CommonModule,ButtonModule, FormsModule , CarouselModule, ChartModule, TotalVentasyProductosComponent],
   templateUrl: './inicio.component.html',
   styleUrl: './inicio.component.scss'
 })
@@ -285,7 +286,10 @@ listarVentasPorSexo(): void {
 
   }
 
-
+  agregarCombo(id: number): void {
+    localStorage.setItem('agregarVenta', id.toString());
+    this.router.navigate(['/venta']);
+  }
 
 
 
