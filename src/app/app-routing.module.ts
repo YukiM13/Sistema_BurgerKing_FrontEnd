@@ -25,6 +25,7 @@ import { LoginComponent } from './auth/login/login.component';
 
 import { InicioComponent } from './dashbords/inicio/inicio.component'; 
 import { AuthGuard } from './auth.guard';
+import { ListadoProductosComponent } from './reportes/listado-productos/listado-productos.component';
 
 
 const routerOptions: ExtraOptions = {
@@ -55,6 +56,7 @@ const routes: Routes = [
         { path: 'categoria', component: CategoriasListComponent, canActivate: [AuthGuard] },
         { path: 'venta', component: VentasListComponent, canActivate: [AuthGuard] },
         { path: 'combo', component: CombosListComponent, canActivate: [AuthGuard] },
+        {path: 'reporte-listadoProductos', component: ListadoProductosComponent}
       ]
 
   

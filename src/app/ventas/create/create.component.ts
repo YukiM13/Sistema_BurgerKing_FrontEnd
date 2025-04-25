@@ -166,7 +166,11 @@ private apiUrl = environment.apiUrl;
         precio: number;
         cantidad: number;
       }[] = [];
-      
+      actualizarTotales() {
+        this.subtotal = this.seleccionados.reduce((acc, item) => acc + (item.cantidad * item.precio), 0);
+        this.isv = this.subtotal * 0.15;
+        this.total = this.subtotal + this.isv;
+      }
       // Agregar combo
       agregarCombo(combo: any) {
         // `combo` debe tener comb_Id, comb_Descripcion, y comb_Precio
@@ -183,9 +187,7 @@ private apiUrl = environment.apiUrl;
           });
 
         }
-        this.subtotal += this.seleccionados.reduce((acc, item) => acc + (item.cantidad * item.precio), 0);
-        this.isv =this.subtotal * 0.15;
-        this.total = this.subtotal + this.isv;
+        this.actualizarTotales();
       }
       
       // Disminuir cantidad
@@ -199,6 +201,7 @@ private apiUrl = environment.apiUrl;
             this.seleccionados = this.seleccionados.filter(s => s.comb_Id !== comb_Id);
           }
         }
+        this.actualizarTotales();
       }
       getCantidadCombo(comb_Id: number): number {
         const seleccionado = this.seleccionados.find(s => s.comb_Id === comb_Id);

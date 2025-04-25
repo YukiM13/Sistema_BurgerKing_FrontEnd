@@ -297,7 +297,36 @@ export class AppMenuComponent implements OnInit {
                             }
                          
                         ]
-                    }
+                    },
+                    {
+                        label: 'Reportes',
+                        icon: 'pi pi-fw pi-cart-plus',
+                        items: [
+                            {
+                                label: 'Listado de Productos',
+                                icon: 'pi pi-fw pi-image',
+                                routerLink: ['/reporte-listadoProductos']
+                            },
+                            {
+                                label: 'Clientes Registrados',
+                                icon: 'pi pi-fw pi-pencil',
+                                routerLink: ['/categoria']
+                            },
+                            {
+                                label: 'Productos Vendidos',
+                                icon: 'pi pi-fw pi-list',
+                                routerLink: ['/producto']
+                            },
+                            {
+                                label: 'Ventas por sucursal',
+                                icon: 'pi pi-fw pi-comments',
+                                routerLink: ['/combo']
+
+                            }
+                         
+                        ]
+                    },
+                    
                 ]
             }
         ];

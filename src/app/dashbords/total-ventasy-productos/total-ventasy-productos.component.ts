@@ -8,6 +8,11 @@ import { environment } from 'src/enviroments/enviroment';
 import { Venta } from 'src/app/models/ventas.model';
 import { ChartModule } from 'primeng/chart';
 import { DropdownModule } from 'primeng/dropdown';
+import * as am5 from '@amcharts/amcharts5';
+import * as am5map from "@amcharts/amcharts5/map";
+import am5themes_Animated from '@amcharts/amcharts5/themes/Animated';
+import am5geodata_hondurasLow from "@amcharts/amcharts5-geodata/hondurasLow";
+import { VentaDetalle } from 'src/app/models/ventaDetalles';
 @Component({
   selector: 'app-total-ventasy-productos',
   standalone: true,
@@ -18,7 +23,6 @@ import { DropdownModule } from 'primeng/dropdown';
 export class TotalVentasyProductosComponent {
   private apiUrl = environment.apiUrl; 
   router = inject(Router)
-
   productos2: any[] = [];
   http = inject(HttpClient);
   @Output() cancelar = new EventEmitter<void>();  
@@ -418,15 +422,260 @@ this.revenueChartOptions2 = {
       }
     }
   };
-}
-
-
+  const departamentosData = {
+    "Francisco Morazán": { latitude: 14.0723, longitude: -87.1921 },
+    "Cortés": { latitude: 15.5050, longitude: -88.0250 },
+    "Atlántida": { latitude: 15.7631, longitude: -86.7964 },
+    "Choluteca": { latitude: 13.3007, longitude: -87.1908 },
+    "Colón": { latitude: 15.9167, longitude: -85.9500 },
+    "Comayagua": { latitude: 14.4513, longitude: -87.6376 },
+    "Copán": { latitude: 14.7667, longitude: -88.7833 },
+    "El Paraíso": { latitude: 13.9333, longitude: -86.8500 },
+    "Gracias a Dios": { latitude: 15.2000, longitude: -83.7833 },
+    "Intibucá": { latitude: 14.3000, longitude: -88.1833 },
+    "Islas de la Bahía": { latitude: 16.3333, longitude: -86.3333 },
+    "La Paz": { latitude: 14.2167, longitude: -87.8833 },
+    "Lempira": { latitude: 14.5833, longitude: -88.5833 },
+    "Ocotepeque": { latitude: 14.4333, longitude: -89.1833 },
+    "Olancho": { latitude: 14.6500, longitude: -86.2167 },
+    "Santa Bárbara": { latitude: 14.8667, longitude: -88.2333 },
+    "Valle": { latitude: 13.5333, longitude: -87.5000 },
+    "Yoro": { latitude: 15.0833, longitude: -87.4500 }
+  };
+  setTimeout(() => {
+    let markerRoot = am5.Root.new("chartdiv");
+    
+    markerRoot.setThemes([am5themes_Animated.new(markerRoot)]);
+    
+    let markerChart = markerRoot.container.children.push(
+      am5map.MapChart.new(markerRoot, {
+        panX: "none",
+        panY: "none",
+        opacity: 1,
+        projection: am5map.geoMercator(),
+      })
+    );
+    
+    markerChart.set("homeZoomLevel", 1.5);
+    markerChart.set("homeGeoPoint", { latitude: 14.6, longitude: -86.5 });
+    
+    // Crear la serie de polígonos con un campo de valor para colorear
+    var polygonSeries = markerChart.series.push(
+      am5map.MapPolygonSeries.new(markerRoot, {
+        geoJSON: am5geodata_hondurasLow,
+        valueField: "id"  // Usamos id para diferenciar departamentos
+      })
+    );
+    
+    // Configurar propiedades del template de polígonos
+    polygonSeries.mapPolygons.template.setAll({
+      tooltipText: "{name}",
+      interactive: true,
+      stroke: am5.color("#fff"),
+      strokeWidth: 1  // Mover strokeWidth aquí
+    });
+    
+    // Configurar colores para cada departamento
+    polygonSeries.mapPolygons.template.adapters.add("fill", function(fill, target) {
+      // Verificar si el target y dataItem existen
+      if (!target || !target.dataItem) return am5.color("#CCCCCC");
+      
+      // Obtener el ID del departamento
+      const id = String(target.dataItem.get("visible")); // Ensure id is a string
+      if (!id) return am5.color("#CCCCCC");
+      
+      // Mapeo de ID a colores específicos para cada departamento
+      const colorMap = {
+        "HN-FM": am5.color("#FF5733"),  // Francisco Morazán
+        "HN-CR": am5.color("#C70039"),  // Cortés
+        "HN-AT": am5.color("#900C3F"),  // Atlántida
+        "HN-CH": am5.color("#581845"),  // Choluteca
+        "HN-CL": am5.color("#FFC300"),  // Colón
+        "HN-CM": am5.color("#DAF7A6"),  // Comayagua
+        "HN-CP": am5.color("#7D6608"),  // Copán
+        "HN-EP": am5.color("#9A7D0A"),  // El Paraíso
+        "HN-GD": am5.color("#F7DC6F"),  // Gracias a Dios
+        "HN-IN": am5.color("#196F3D"),  // Intibucá
+        "HN-IB": am5.color("#0E6251"),  // Islas de la Bahía
+        "HN-LP": am5.color("#76D7C4"),  // La Paz
+        "HN-LE": am5.color("#2471A3"),  // Lempira
+        "HN-OC": am5.color("#154360"),  // Ocotepeque
+        "HN-OL": am5.color("#7FB3D5"),  // Olancho
+        "HN-SB": am5.color("#C39BD3"),  // Santa Bárbara
+        "HN-VA": am5.color("#D7BDE2"),  // Valle
+        "HN-YO": am5.color("#E8DAEF")   // Yoro
+      };
+      
+      // Verificar si existe este ID en nuestro mapa
+      return id && id in colorMap ? colorMap[id as keyof typeof colorMap] : am5.color("#CCCCCC");
+    });
   
+ 
+    // Hover sobre departamentos
+    polygonSeries.mapPolygons.template.states.create("hover", {
+      fill: am5.color("#64748B")
+    });
+    
+    // Ahora agregar la serie de puntos (tu código existente)
+    var pointSeries = markerChart.series.push(
+      am5map.MapPointSeries.new(markerRoot, {})
+    );
+    const self = this;
+    pointSeries.bullets.push(function (_root, _series, dataItem) {
+      const circle = am5.Circle.new(markerRoot, {
+        radius: 6,
+        stroke: am5.color("#red"),
+        strokeWidth: 5,
+        strokeOpacity: 0.5,
+        fill: am5.color("#861d1d"),
+        fillOpacity: 1,
+        tooltipText: "{dataContext.nombre}: L. {dataContext.precio}",
+        cursorOverStyle: "pointer",
+      });
+      interface DepartamentoData {
+        codigo: string;
+        nombre: string;
+        precio: number;
+      }
+      circle.events.on("click", function() {
+        const pointData = dataItem.dataContext as DepartamentoData;
+        self.VentasPorMunicipio(pointData.codigo)
+      
+      });
+      
+      return am5.Bullet.new(markerRoot, {
+        sprite: circle
+      });
+    });
+    
+   
+  
+    const codigos = Object.keys(this.departamentosAMostrar);
+
+    codigos.forEach(codigo => {
+      const nombreDepartamento = this.departamentosAMostrar[codigo].nombre;
+      
+      if (departamentosData[nombreDepartamento as keyof typeof departamentosData]) {
+        const coords = departamentosData[nombreDepartamento as keyof typeof departamentosData];
+        const precio = this.departamentosAMostrar[codigo].precio;
+        
+        // Crear el dataItem correctamente
+        const dataItem = {
+          latitude: coords.latitude,
+          longitude: coords.longitude
+        };
+        
+        // Añadirlo a la serie con los datos adicionales
+        const item = pointSeries.pushDataItem(dataItem);
+        item.dataContext = {
+          codigo: codigo,
+          nombre: nombreDepartamento,
+          precio: precio
+        };
+      } else {
+        console.warn(`Departamento no encontrado: ${nombreDepartamento}`);
+      }
+    });
+    
+  }, 0);
+}
+departamentosAMostrar: {
+  [codigo: string]: {
+    nombre: string;
+    precio: number;
+  }
+} = {};
+ventaDetalle4: VentaDetalle[] = [];
+ventasPorDepartamento: {[departamento: string]: number} = {};
+VentaPorDepartamento(){
+  this.http.post<VentaDetalle[]>(`${this.apiUrl}/VentaDetalle/VentasPorDepartamento`, this.venta)
+  .subscribe((res: any) => {
+    this.ventaDetalle4 = res.map((estado: any) => ({ ...estado }));
+    for(let item of this.ventaDetalle4) {
+      this.departamentosAMostrar[item.depa_Codigo]={nombre: item.depa_Descripcion, precio: item.veDe_Precio}
+      this.ventasPorDepartamento[item.depa_Descripcion] = item.veDe_Precio;
+    }
+    this.initCharts();
+  })
+}
+ventaPorMunicipio: any[] =[]
+ventaMuni = new Venta();
+VentasPorMunicipio(codigo:string): void {
+    console.log("entro");
+    this.ventaMuni.vent_Fecha = this.venta.vent_Fecha;
+    this.ventaMuni.depa_Descripcion = codigo;
+    
+    this.http.post<VentaDetalle[]>(`${this.apiUrl}/VentaDetalle/VentaPorMunicipio`, this.ventaMuni)
+    .subscribe((res: any) => {
+
+      this.ventaPorMunicipio = res.map((estado: any) => ({
+        ...estado
+      }));
+      console.log("entro al subscrie");
+      this.initCharts2();
+    });
+  }
+
+visitorChartOptions: any;
+visitorChart: any;
+
+initCharts2() {
+  const documentStyle = getComputedStyle(document.documentElement);
+  const textColor = documentStyle.getPropertyValue('--text-color');
+  const primaryColor = getComputedStyle(document.body).getPropertyValue('--primary-color');
+
+  const labels = this.ventaPorMunicipio.map(venta => venta.muni_Descripcion);
+  const data = this.ventaPorMunicipio.map(venta => venta.veDe_Precio);
+
+  this.visitorChart = {
+    labels: labels,
+    datasets: [
+      {
+        label: 'Ventas por Combo',
+        data: data,
+        backgroundColor: primaryColor,
+        barPercentage: 0.5,
+      }
+    ]
+  };
+
+  this.visitorChartOptions = {
+    plugins: {
+      legend: {
+        position: 'top',
+        align: 'end',
+        labels: {
+          color: textColor,
+        },
+      },
+    },
+    responsive: true,
+    scales: {
+      y: {
+        ticks: {
+          color: textColor,
+        },
+        beginAtZero: true,
+        grid: {
+          display: false,
+        },
+      },
+      x: {
+        ticks: {
+          color: textColor,
+        },
+        grid: {
+          display: false,
+        },
+      },
+    },
+  };
+}
   ngOnInit(): void {
 
     this.listarTotalVentas();
    this.listarVentasyProductosPorAño()
-
+   this.VentaPorDepartamento();
   }
   
 

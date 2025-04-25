@@ -11,6 +11,9 @@ export class VentaDetalle{
     usuaC_Nombre: string = ""; 
     usuaM_Nombre: string = ""; 
     comb_Descripcion: string = ""; 
+    depa_Descripcion: string = "";
+    muni_Descripcion: string = "";
+    depa_Codigo: string = "";
     mes: Date = new Date();
     codeStatus: number = 0;
     constructor(init?: Partial<VentaDetalle>) {
