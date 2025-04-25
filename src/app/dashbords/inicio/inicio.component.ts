@@ -11,6 +11,8 @@ import { Combo } from 'src/app/models/combos.model';
 import { ComboDetalle } from 'src/app/models/comboDetalles.model';
 import { ChartModule } from 'primeng/chart';
 import { TotalVentasyProductosComponent } from '../total-ventasy-productos/total-ventasy-productos.component';
+import { Venta } from 'src/app/models/ventas.model';
+import { VentaDetalle } from 'src/app/models/ventaDetalles';
 
 
 @Component({
@@ -125,8 +127,38 @@ conteoCombos =0;
   }
 }
 
+  //sexo: string = '';
+  ventasporsexo: any[] = [];
+listarVentasPorSexo(): void {
+  if(this.esAdmin == 'true')
+  {
+    this.http.post<VentaDetalle[]>(`https://localhost:7147/Venta/VentaPorSexoAdmin`, { vent_Fecha: this.fecha })
+    .subscribe((res: any) => {
+
+      this.ventasporsexo = res.map((estado: any) => ({
+        ...estado
+      }));
+      
+      this.initCharts();
+    });
+  }else{
+    this.http.post<VentaDetalle[]>(`https://localhost:7147/Venta/VentaPorSexoEmpleado`, { vent_Fecha: this.fecha, sucu_Id: Number(localStorage.getItem('sucursal_id')) })
+    .subscribe((res: any) => {
+      this.ventasporsexo = res.map((estado: any) => ({
+        ...estado
+      }));
+
+
+      this.initCharts();
+    });
+   }
+
+  }
+
   visitorChartOptions: any;
   visitorChart: any;
+  pieData: any;
+  pieOptions: any;
 
   initCharts() {
     const documentStyle = getComputedStyle(document.documentElement);
@@ -135,12 +167,18 @@ conteoCombos =0;
   
     const labels = this.combos.map(combo => combo.comb_Descripcion);
     const data = this.combos.map(combo => combo.comb_Precio);
+
+    const labelsventas = this.ventasporsexo.map(venta => venta.clie_Sexo == 'F' ? 'Femenino' : 'Masculino');
+    const dataporSexo = this.ventasporsexo.map(venta => venta.veDe_Precio);
+    console.log('labels ventas', labelsventas)
   
+    
+
     this.visitorChart = {
       labels: labels,
       datasets: [
         {
-          label: 'Ventas por Combo',
+          label: 'Ventas Registradas',
           data: data,
           backgroundColor: primaryColor,
           barPercentage: 0.5,
@@ -179,21 +217,62 @@ conteoCombos =0;
         },
       },
     };
+
+    this.pieData = {
+      labels: labelsventas,
+      datasets: [
+          {
+            data: dataporSexo,
+              backgroundColor: [
+                   documentStyle.getPropertyValue('--purple-500'),
+                  documentStyle.getPropertyValue('--indigo-500'),
+                 
+                 
+              ],
+              hoverBackgroundColor: [
+                 
+                  documentStyle.getPropertyValue('--purple-400'),
+                  documentStyle.getPropertyValue('--indigo-400'),
+                 
+              ]
+          }]
+  };
+
+  this.pieOptions = {
+      plugins: {
+          legend: {
+              labels: {
+                  usePointStyle: true,
+                  color: textColor
+              }
+          }
+      }
+  };
+
   }
   
 
 
 
   router = inject(Router)
-  ventas: any[] = [];
+  ventas: Venta[] = [];
   conteoVentas = 0;
   listarVentas(): void {
-    this.http.get(`${this.apiUrl}/Venta/Listar`)
-      .subscribe((res: any) => {
-        this.ventas = res.map((estado: any) => ({
+    this.http.get<Venta[]>(`${this.apiUrl}/Venta/Listar`)
+      .subscribe(data => {
+        this.ventas = data
+        console.log('ventas', this.ventas);
+        for (let index of this.ventas) {
+          var fechaventa = new Date(index.vent_Fecha)
           
-        }));
-        this.conteoVentas = this.ventas.length
+          //console.log(this.fecha.getMonth());
+          if(fechaventa.getMonth() == this.fecha.getMonth() && fechaventa.getFullYear() == this.fecha.getFullYear()){
+            this.conteoVentas++;
+          }
+          
+        }
+       
+       
       });
   }
   ngOnInit(): void {
@@ -201,10 +280,12 @@ conteoCombos =0;
     this.listarCantidadClientes();
     this.conteoCombo();
     this.listarVentas();
+    this.listarVentasPorSexo();
     
 
   }
-  
+
+
 
 
 
