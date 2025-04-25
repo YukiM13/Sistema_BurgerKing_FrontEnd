@@ -338,7 +338,7 @@ export class EditarProductoComponent implements OnInit {
                 detail: 'El tamaño fue eliminado correctamente.'
               });
   
-              // ✅ Eliminar de los seleccionados sólo si fue exitoso
+            
               this.tamanosSeleccionados = this.tamanosSeleccionados.filter(id => id !== tamaId);
               delete this.preciosPorTamano[tamaId];
               delete this.prTama[tamaId];
