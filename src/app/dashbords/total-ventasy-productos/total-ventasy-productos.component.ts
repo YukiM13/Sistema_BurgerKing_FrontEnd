@@ -23,7 +23,6 @@ import { VentaDetalle } from 'src/app/models/ventaDetalles';
 export class TotalVentasyProductosComponent {
   private apiUrl = environment.apiUrl; 
   router = inject(Router)
-
   productos2: any[] = [];
   http = inject(HttpClient);
   @Output() cancelar = new EventEmitter<void>();  
@@ -521,7 +520,7 @@ this.revenueChartOptions2 = {
     var pointSeries = markerChart.series.push(
       am5map.MapPointSeries.new(markerRoot, {})
     );
-    
+    const self = this;
     pointSeries.bullets.push(function (_root, _series, dataItem) {
       const circle = am5.Circle.new(markerRoot, {
         radius: 6,
@@ -530,21 +529,18 @@ this.revenueChartOptions2 = {
         strokeOpacity: 0.5,
         fill: am5.color("#861d1d"),
         fillOpacity: 1,
-        tooltipText: "{name}",
+        tooltipText: "{dataContext.nombre}: L. {dataContext.precio}",
         cursorOverStyle: "pointer",
       });
-      
-      // Agregar evento de clic
+      interface DepartamentoData {
+        codigo: string;
+        nombre: string;
+        precio: number;
+      }
       circle.events.on("click", function() {
-        // Acceder a los datos del punto
-        const pointData = dataItem.dataContext;
-        const departamento = (pointData as { name: string }).name;
-        
-        // Mostrar un alert con el nombre del departamento
-        alert("Has hecho clic en: " + departamento);
-        
-        // Alternativa: podrías usar una función personalizada en lugar de alert
-        // mostrarInfoDepartamento(departamento);
+        const pointData = dataItem.dataContext as DepartamentoData;
+        self.VentasPorMunicipio(pointData.codigo)
+      
       });
       
       return am5.Bullet.new(markerRoot, {
@@ -554,38 +550,132 @@ this.revenueChartOptions2 = {
     
    
   
-  // Añadir solo los puntos especificados en el arreglo
-  this.departamentosAMostrar.forEach(departamento => {
-    if (departamentosData[departamento as keyof typeof departamentosData]) {
-      const coords = departamentosData[departamento as keyof typeof departamentosData];
-      pointSeries.pushDataItem(
-        { latitude: coords.latitude, longitude: coords.longitude },
-        { name: departamento }
-      );
-    } else {
-      console.warn(`Departamento no encontrado: ${departamento}`);
-    }
-  });
+    const codigos = Object.keys(this.departamentosAMostrar);
+
+    codigos.forEach(codigo => {
+      const nombreDepartamento = this.departamentosAMostrar[codigo].nombre;
+      
+      if (departamentosData[nombreDepartamento as keyof typeof departamentosData]) {
+        const coords = departamentosData[nombreDepartamento as keyof typeof departamentosData];
+        const precio = this.departamentosAMostrar[codigo].precio;
+        
+        // Crear el dataItem correctamente
+        const dataItem = {
+          latitude: coords.latitude,
+          longitude: coords.longitude
+        };
+        
+        // Añadirlo a la serie con los datos adicionales
+        const item = pointSeries.pushDataItem(dataItem);
+        item.dataContext = {
+          codigo: codigo,
+          nombre: nombreDepartamento,
+          precio: precio
+        };
+      } else {
+        console.warn(`Departamento no encontrado: ${nombreDepartamento}`);
+      }
+    });
     
   }, 0);
 }
-departamentosAMostrar =[]
+departamentosAMostrar: {
+  [codigo: string]: {
+    nombre: string;
+    precio: number;
+  }
+} = {};
+ventaDetalle4: VentaDetalle[] = [];
+ventasPorDepartamento: {[departamento: string]: number} = {};
 VentaPorDepartamento(){
-  this.http.post<VentaDetalle[]>(`${this.apiUrl}/Venta/TotalVentayProductosPorDepartamento`, this.venta)
+  this.http.post<VentaDetalle[]>(`${this.apiUrl}/VentaDetalle/VentasPorDepartamento`, this.venta)
   .subscribe((res: any) => {
-    this.ventaDetalle = res.map((estado: any) => ({ ...estado }));
-    for(let item of this.ventaDetalle) {
-      this.departamentosAMostrar.push(item.depa_Descripcion);
+    this.ventaDetalle4 = res.map((estado: any) => ({ ...estado }));
+    for(let item of this.ventaDetalle4) {
+      this.departamentosAMostrar[item.depa_Codigo]={nombre: item.depa_Descripcion, precio: item.veDe_Precio}
+      this.ventasPorDepartamento[item.depa_Descripcion] = item.veDe_Precio;
     }
-    console.log(this.departamentosAMostrar)
+    this.initCharts();
   })
 }
-  
+ventaPorMunicipio: any[] =[]
+ventaMuni = new Venta();
+VentasPorMunicipio(codigo:string): void {
+    console.log("entro");
+    this.ventaMuni.vent_Fecha = this.venta.vent_Fecha;
+    this.ventaMuni.depa_Descripcion = codigo;
+    
+    this.http.post<VentaDetalle[]>(`${this.apiUrl}/VentaDetalle/VentaPorMunicipio`, this.ventaMuni)
+    .subscribe((res: any) => {
+
+      this.ventaPorMunicipio = res.map((estado: any) => ({
+        ...estado
+      }));
+      console.log("entro al subscrie");
+      this.initCharts2();
+    });
+  }
+
+visitorChartOptions: any;
+visitorChart: any;
+
+initCharts2() {
+  const documentStyle = getComputedStyle(document.documentElement);
+  const textColor = documentStyle.getPropertyValue('--text-color');
+  const primaryColor = getComputedStyle(document.body).getPropertyValue('--primary-color');
+
+  const labels = this.ventaPorMunicipio.map(venta => venta.muni_Descripcion);
+  const data = this.ventaPorMunicipio.map(venta => venta.veDe_Precio);
+
+  this.visitorChart = {
+    labels: labels,
+    datasets: [
+      {
+        label: 'Ventas por Combo',
+        data: data,
+        backgroundColor: primaryColor,
+        barPercentage: 0.5,
+      }
+    ]
+  };
+
+  this.visitorChartOptions = {
+    plugins: {
+      legend: {
+        position: 'top',
+        align: 'end',
+        labels: {
+          color: textColor,
+        },
+      },
+    },
+    responsive: true,
+    scales: {
+      y: {
+        ticks: {
+          color: textColor,
+        },
+        beginAtZero: true,
+        grid: {
+          display: false,
+        },
+      },
+      x: {
+        ticks: {
+          color: textColor,
+        },
+        grid: {
+          display: false,
+        },
+      },
+    },
+  };
+}
   ngOnInit(): void {
 
     this.listarTotalVentas();
    this.listarVentasyProductosPorAño()
-
+   this.VentaPorDepartamento();
   }
   
 

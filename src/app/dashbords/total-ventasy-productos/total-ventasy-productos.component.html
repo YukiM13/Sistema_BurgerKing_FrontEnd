@@ -60,13 +60,11 @@
             </div>
         </div>
     </div>
-    <div class="col-xl-7 col-xl-12">
+    <div class="col-xl-7 col-xl-12" *ngIf="esAdmin == 'true'">
         <div class="card card-height-100">
             <div class="card-header d-flex align-items-center">
-                <h5 class="card-title mb-0 flex-grow-1">Municipios con mas hoteles</h5>
-                <div class="flex-shrink-0">
-                    <button type="button" class="btn btn-subtle-primary btn-sm"><i class="bi bi-file-earmark-text me-1 align-baseline"></i> Reports</button>
-                </div>
+                <h5 class="card-title mb-0 flex-grow-1">Ventas Por Departamento y Municipio</h5>
+                
             </div>
             <!--end card-header-->
             <div class="card-body">
@@ -76,7 +74,13 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="mb-4">
-                        
+                         
+                                <div class="card">
+                                <p-chart #visitor type="bar" [data]="visitorChart"  [options]="visitorChartOptions"
+                                    id="visitor-chart"></p-chart>
+                                </div>
+            
+                        </div>
                     </div>
                 </div>
             </div>
