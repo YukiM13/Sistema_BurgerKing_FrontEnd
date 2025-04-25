@@ -13,6 +13,11 @@ import { ChartModule } from 'primeng/chart';
 import { TotalVentasyProductosComponent } from '../total-ventasy-productos/total-ventasy-productos.component';
 import { Venta } from 'src/app/models/ventas.model';
 import { VentaDetalle } from 'src/app/models/ventaDetalles';
+import ChartDataLabels from 'chartjs-plugin-datalabels'; // 👈 IMPORT
+import { Chart } from 'chart.js';
+//Chart.register(ChartDataLabels); // 👈 REGISTRO GLOBAL AQUÍ
+
+
 
 
 @Component({
@@ -23,6 +28,7 @@ import { VentaDetalle } from 'src/app/models/ventaDetalles';
   styleUrl: './inicio.component.scss'
 })
 export class InicioComponent {
+  pieChartPlugins = [ChartDataLabels];
   private apiUrl = environment.apiUrl; 
   productos2: any[] = [];
   http = inject(HttpClient);
@@ -239,15 +245,26 @@ listarVentasPorSexo(): void {
   };
 
   this.pieOptions = {
-      plugins: {
-          legend: {
-              labels: {
-                  usePointStyle: true,
-                  color: textColor
-              }
-          }
+    plugins: {
+      legend: {
+        labels: {
+          usePointStyle: true,
+          color: textColor
+        }
+      },
+      datalabels: {
+        color: '#fff',
+        font: {
+          weight: 'bold',
+          size: 14
+        },
+        formatter: (value: number) => {
+          return value; // o `${value} %` si estás mostrando porcentajes
+        }
       }
+    }
   };
+  
 
   }
   
