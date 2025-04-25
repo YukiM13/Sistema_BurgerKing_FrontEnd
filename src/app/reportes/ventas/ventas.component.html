@@ -1,0 +1,32 @@
+<h2>Reporte Ventas Generadas por Sucursal</h2>
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-3">
+                <label>Sucursal:</label>  <span class="text-red-400">*</span>
+                <br>
+                <p-dropdown [filter]="true"  [options]="sucursal" optionLabel="sucu_Descripcion" [(ngModel)]="venta.sucu_Id" 
+                placeholder="Seleccione una sucursal" [showClear]="true" optionValue="sucu_Id" name="sucu_Id" appendTo="body"></p-dropdown>            </div>
+            <div class="col-md-3">
+                <Label>Fecha Inicio</Label>  <br>
+                <p-calendar [showIcon]="true" name="vent_FechaCreacion" [(ngModel)] = "venta.vent_FechaCreacion"  inputId="icon" appendTo="body" ></p-calendar> 
+            </div>
+            <div class="col-md-3">
+                <Label>Fecha Fin</Label> <br>
+                <p-calendar [showIcon]="true" name="vent_FechaModificacion" [(ngModel)] = "venta.vent_FechaModificacion" inputId="icon" appendTo="body" ></p-calendar> 
+            </div>
+            
+            <div class="col-md-3">
+                <label for=""></label> <br>
+                <button type="button" (click)="listarClientes()" class="btn" style="background: rgb(255 135 50); color: white;"> <span ng-reflect-ng-class="[object Object]" data-pc-section="icon" class="pi pi-fw pi-file-pdf"></span> Generar PDF</button>
+            </div>
+        </div>
+        <br>
+       <div class="row">
+            <div class="cpl-md-12">
+                <iframe #pdfIframe width="100%" height="600px" style="border: none;"></iframe>
+            </div>
+       </div>
+       
+    </div>
+</div>

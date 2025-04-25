@@ -315,12 +315,12 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Productos Vendidos',
                                 icon: 'pi pi-fw pi-file-pdf',
-                                routerLink: ['/producto']
+                                routerLink: ['/ventarepo']
                             },
                             {
-                                label: 'Ventas por sucursal',
+                                label: 'Ventas por Sucursal',
                                 icon: 'pi pi-fw pi-file-pdf',
-                                routerLink: ['/combo']
+                                routerLink: ['/reporte-combosvendidos']
 
                             }
                          

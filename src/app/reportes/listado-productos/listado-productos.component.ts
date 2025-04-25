@@ -65,15 +65,16 @@ export class ListadoProductosComponent {
       
 
         doc.setFontSize(18);
-        doc.text('Listado de Productos', 20, 30);
+        doc.text('Listado de Productos',  75, 30);
         doc.setFontSize(12);
-        doc.text(`Fecha: ${formatoFecha(new Date())}`, 20, 40);
+        //doc.text(`Fecha: ${formatoFecha(new Date())}`, 20, 40);
       }
       agregarEncabezadoPie();
     function agregarPiePagina() {
         doc.setFontSize(10);
         doc.text(`Generado por: ${localStorage.getItem("usuario")} Correo: BurgerKing@whopper.com`, 15, 285);
-        doc.text(`Página ${pageCount}`, 180, 290);
+        doc.text(`Fecha: ${formatoFecha(new Date())}`,  120, 285);
+       doc.text(`Página ${pageCount}`,  180, 285);
     }
   
    
@@ -81,7 +82,7 @@ export class ListadoProductosComponent {
     const filas = this.combos.map(combo => [
         combo.id = cont,
         combo.comb_Descripcion,
-        combo.comb_Precio,
+        'L.' + combo.comb_Precio,
         combo.comb_ImgUrl,
         cont++
       
@@ -90,7 +91,7 @@ export class ListadoProductosComponent {
     autoTable(doc,{
         head: [['ID', 'Nombre', 'Precio', 'Imagen']],
         body: filas,
-        startY: 50,
+        startY: 40,
         theme: 'grid',
         styles: { fontSize: 9, cellPadding: 2 },
         columnStyles: { 0: { cellWidth: 15 }, 
