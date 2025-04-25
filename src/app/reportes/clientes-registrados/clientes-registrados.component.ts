@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, ViewChild, ElementRef, AfterViewInit, inject } from '@angular/core';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
+import { Cliente } from 'src/app/models/clientes.model';
 import { environment } from 'src/enviroments/enviroment';
 
 @Component({
@@ -18,19 +19,18 @@ export class ClientesRegistradosComponent {
     @ViewChild('pdfIframe') pdfIframe!: ElementRef;
   
     ngAfterViewInit() {
-      this.listarCombos();
+      this.listarClientes();
     }
   
   
     combos: any[] = [];
+    cliente = new Cliente
   
-  
-    listarCombos(): void {
-      this.http.get(`${this.apiUrl}/Combo/Listar`)
+    listarClientes(): void {
+      this.http.post(`${this.apiUrl}/Cliente/ClientesRegistrados`, this.cliente)
         .subscribe((res: any) => {
           this.combos = res.map((estado: any) => ({
-            ...estado,
-            comb_ImgUrl: `${this.apiUrl}/${estado.comb_ImgUrl}`
+            ...estado
           }));
   
           this.generarPDF();

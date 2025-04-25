@@ -1,1 +1,19 @@
-<p>clientes-registrados works!</p>
+<h2>Reporte</h2>
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <Label>Fecha Inicio</Label>
+                <p-calendar [showIcon]="true" name="empl_FechaNacimiento" [(ngModel)] = "empleado.empl_FechaNacimiento" inputId="icon" appendTo="body" ></p-calendar> 
+            </div>
+            <div class="col-md-6">
+                <Label>Fecha Fin</Label>
+                <p-calendar [showIcon]="true" name="empl_FechaNacimiento" [(ngModel)] = "empleado.empl_FechaNacimiento" inputId="icon" appendTo="body" ></p-calendar> 
+            </div>
+            <div class="col-md-6">
+                <button type="button"></button>
+            </div>
+        </div>
+        <iframe #pdfIframe width="100%" height="600px" style="border: none;"></iframe>
+    </div>
+</div>
