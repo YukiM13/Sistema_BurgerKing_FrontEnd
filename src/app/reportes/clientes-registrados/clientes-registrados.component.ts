@@ -4,11 +4,12 @@ import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { Cliente } from 'src/app/models/clientes.model';
 import { environment } from 'src/enviroments/enviroment';
+import { CalendarModule } from 'primeng/calendar';
 
 @Component({
   selector: 'app-clientes-registrados',
   standalone: true,
-  imports: [],
+  imports: [CalendarModule],
   templateUrl: './clientes-registrados.component.html',
   styleUrl: './clientes-registrados.component.scss'
 })
