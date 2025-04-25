@@ -13,9 +13,10 @@
             
             <div class="col-md-4">
                 <label for=""></label> <br>
-                <button type="button" (click)="listarClientes()" class="btn btn-primary">Generar pdf</button>
+                <button type="button" (click)="listarClientes()" class="btn" style="background: rgb(255 135 50); color: white;"> <span ng-reflect-ng-class="[object Object]" data-pc-section="icon" class="pi pi-fw pi-file-pdf"></span> Generar PDF</button>
             </div>
         </div>
+        <br>
        <div class="row">
             <div class="cpl-md-12">
                 <iframe #pdfIframe width="100%" height="600px" style="border: none;"></iframe>
