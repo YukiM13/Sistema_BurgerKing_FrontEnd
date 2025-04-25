@@ -1,19 +1,26 @@
-<h2>Reporte</h2>
+<h2>Reporte Registro de Clientes</h2>
 <div class="card">
     <div class="card-body">
         <div class="row">
-            <div class="col-md-6">
-                <Label>Fecha Inicio</Label>
-                <p-calendar [showIcon]="true" name="empl_FechaNacimiento"  inputId="icon" appendTo="body" ></p-calendar> 
+            <div class="col-md-4">
+                <Label>Fecha Inicio</Label>  <br>
+                <p-calendar [showIcon]="true" name="clie_FechaCreacion" [(ngModel)] = "cliente.clie_FechaCreacion"  inputId="icon" appendTo="body" ></p-calendar> 
             </div>
-            <div class="col-md-6">
-                <Label>Fecha Fin</Label>
-                <p-calendar [showIcon]="true" name="empl_FechaNacimiento" inputId="icon" appendTo="body" ></p-calendar> 
+            <div class="col-md-4">
+                <Label>Fecha Fin</Label> <br>
+                <p-calendar [showIcon]="true" name="clie_FechaModificacion" [(ngModel)] = "cliente.clie_FechaModificacion" inputId="icon" appendTo="body" ></p-calendar> 
             </div>
-            <div class="col-md-6">
-                <button type="button"></button>
+            
+            <div class="col-md-4">
+                <label for=""></label> <br>
+                <button type="button" (click)="listarClientes()" class="btn btn-primary">Generar pdf</button>
             </div>
         </div>
-        <iframe #pdfIframe width="100%" height="600px" style="border: none;"></iframe>
+       <div class="row">
+            <div class="cpl-md-12">
+                <iframe #pdfIframe width="100%" height="600px" style="border: none;"></iframe>
+            </div>
+       </div>
+       
     </div>
 </div>

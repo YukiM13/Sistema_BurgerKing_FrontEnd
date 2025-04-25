@@ -255,7 +255,7 @@ export class AppMenuComponent implements OnInit {
                             },
                             {
                                 label: 'Sucursales',
-                                icon: 'pi pi-fw pi-shop',
+                                icon: 'pi pi-fw pi-building-columns',
                                 routerLink: ['/sucursal']
                             },
                             {
@@ -292,7 +292,7 @@ export class AppMenuComponent implements OnInit {
                             },
                             {
                                 label: 'Ventas',
-                                icon: 'pi pi-fw pi-list',
+                                icon: 'pi pi-fw pi-shopping-cart',
                                 routerLink: ['/venta']
                             }
                          
@@ -300,26 +300,26 @@ export class AppMenuComponent implements OnInit {
                     },
                     {
                         label: 'Reportes',
-                        icon: 'pi pi-fw pi-cart-plus',
+                        icon: 'pi pi-fw pi-file',
                         items: [
                             {
                                 label: 'Listado de Productos',
-                                icon: 'pi pi-fw pi-image',
+                                icon: 'pi pi-fw pi-file-pdf',
                                 routerLink: ['/reporte-listadoProductos']
                             },
                             {
                                 label: 'Clientes Registrados',
-                                icon: 'pi pi-fw pi-pencil',
-                                routerLink: ['/categoria']
+                                icon: 'pi pi-fw pi-file-pdf',
+                                routerLink: ['/reporte-clienteRegistrado']
                             },
                             {
                                 label: 'Productos Vendidos',
-                                icon: 'pi pi-fw pi-list',
+                                icon: 'pi pi-fw pi-file-pdf',
                                 routerLink: ['/producto']
                             },
                             {
                                 label: 'Ventas por sucursal',
-                                icon: 'pi pi-fw pi-comments',
+                                icon: 'pi pi-fw pi-file-pdf',
                                 routerLink: ['/combo']
 
                             }

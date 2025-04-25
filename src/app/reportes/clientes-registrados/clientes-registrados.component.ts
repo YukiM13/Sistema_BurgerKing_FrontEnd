@@ -5,11 +5,13 @@ import autoTable from 'jspdf-autotable';
 import { Cliente } from 'src/app/models/clientes.model';
 import { environment } from 'src/enviroments/enviroment';
 import { CalendarModule } from 'primeng/calendar';
+import {CommonModule, NgFor} from '@angular/common';
+import {FormsModule} from '@angular/forms'
 
 @Component({
   selector: 'app-clientes-registrados',
   standalone: true,
-  imports: [CalendarModule],
+  imports: [CommonModule,CalendarModule, FormsModule],
   templateUrl: './clientes-registrados.component.html',
   styleUrl: './clientes-registrados.component.scss'
 })
@@ -20,7 +22,7 @@ export class ClientesRegistradosComponent {
     @ViewChild('pdfIframe') pdfIframe!: ElementRef;
   
     ngAfterViewInit() {
-      this.listarClientes();
+     
     }
   
   
@@ -28,12 +30,13 @@ export class ClientesRegistradosComponent {
     cliente = new Cliente
   
     listarClientes(): void {
-      this.http.post(`${this.apiUrl}/Cliente/ClientesRegistrados`, this.cliente)
+      console.log(this.cliente)
+      this.http.post<Cliente[]>(`${this.apiUrl}/Cliente/ClientesRegistrados`, this.cliente)
         .subscribe((res: any) => {
           this.combos = res.map((estado: any) => ({
             ...estado
           }));
-  
+          console.log(this.combos);
           this.generarPDF();
         });
     }
@@ -82,15 +85,15 @@ export class ClientesRegistradosComponent {
     
       const filas = this.combos.map(combo => [
           combo.id = cont,
-          combo.comb_Descripcion,
-          combo.comb_Precio,
-          combo.comb_ImgUrl,
+          combo.clie_Identidad_Rtn,
+          combo.clie_Nombre + '' + combo.clie_Apellido,
+          combo.clie_Sexo,
           cont++
         
       ]);
     
       autoTable(doc,{
-          head: [['ID', 'Nombre', 'Precio', 'Imagen']],
+          head: [['ID', 'Identidad', 'Nombre', 'Sexo']],
           body: filas,
           startY: 50,
           theme: 'grid',
