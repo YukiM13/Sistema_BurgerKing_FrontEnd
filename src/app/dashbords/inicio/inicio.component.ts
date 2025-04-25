@@ -132,7 +132,7 @@ conteoCombos =0;
 listarVentasPorSexo(): void {
   if(this.esAdmin == 'true')
   {
-    this.http.post<VentaDetalle[]>(`https://localhost:7147/Venta/VentaPorSexoAdmin`, { vent_Fecha: this.fecha })
+    this.http.post<VentaDetalle[]>(`${this.apiUrl}/Venta/VentaPorSexoAdmin`, { vent_Fecha: this.fecha })
     .subscribe((res: any) => {
 
       this.ventasporsexo = res.map((estado: any) => ({
@@ -142,7 +142,7 @@ listarVentasPorSexo(): void {
       this.initCharts();
     });
   }else{
-    this.http.post<VentaDetalle[]>(`https://localhost:7147/Venta/VentaPorSexoEmpleado`, { vent_Fecha: this.fecha, sucu_Id: Number(localStorage.getItem('sucursal_id')) })
+    this.http.post<VentaDetalle[]>(`${this.apiUrl}/Venta/VentaPorSexoEmpleado`, { vent_Fecha: this.fecha, sucu_Id: Number(localStorage.getItem('sucursal_id')) })
     .subscribe((res: any) => {
       this.ventasporsexo = res.map((estado: any) => ({
         ...estado

@@ -14,6 +14,7 @@ import { environment } from 'src/enviroments/enviroment';
 import { Productos } from 'src/app/models/producto.model';
 import { Tamano } from 'src/app/models/tamano.model';
 import { ProductoPorTamano } from 'src/app/models/productoPorTamano.model';
+import { Respuesta } from 'src/app/models/respuesta.model';
 
 @Component({
   selector: 'app-edit',
@@ -82,6 +83,8 @@ export class EditarProductoComponent implements OnInit {
    
   }[] = [];
 
+  tamanosOriginales: number[] = [];
+
   obtenerPreciosPorTamano() {
     
     this.producto3.prod_Id = this.prodId;
@@ -91,12 +94,13 @@ export class EditarProductoComponent implements OnInit {
         console.log("Respuesta API:", res);
         res.forEach(item => {
           this.preciosPorTamano[item.tama_Id] = item.prTa_Precio;
-          this.prTama[item.prTa_Id] = item.prTa_Id;
+          this.prTama[item.tama_Id] = item.prTa_Id;
         });
 
         //console.log(this.prTama);
   
         this.tamanosSeleccionados = res.map(p => p.tama_Id);
+        this.tamanosOriginales = [...this.tamanosSeleccionados];
         this.tamanosSeleccionadosConDescripcion = this.tamanos.filter(t => this.tamanosSeleccionados.includes(t.tama_Id));
       },
       error: () => {
@@ -108,7 +112,109 @@ export class EditarProductoComponent implements OnInit {
       }
     });
   }
+
+  eliminarTamanosDeseleccionados() {
+    const tamanosEliminados = this.tamanosOriginales.filter(
+      original => !this.tamanosSeleccionados.includes(original)
+    );
   
+    for (const tamaId of tamanosEliminados) {
+      const prTa_Id = this.prTama[tamaId]; // 👈 Este es el ID real de la relación Producto-Tamaño
+      console.log('Tamaños eliminados detectados:', tamanosEliminados);
+      console.log(' detectados:', prTa_Id);
+      this.http.post<Respuesta<ProductoPorTamano>>(`${this.apiUrl}/ProductoPorTamano/Eliminar`, { prTa_Id: prTa_Id })
+        .subscribe({
+          next: (response) => {
+            console.log('res', response);
+            if (response && response.data.codeStatus >0) {
+              this.messageService.add({
+                
+                severity: 'success',
+                summary: 'Tamaño eliminado',
+                detail: 'El tamaño fue eliminado correctamente.'
+              });
+            } else {
+              console.log('Entro al else');
+              // Restaurar el tamaño si no se pudo eliminar
+              if (!this.tamanosSeleccionados.includes(tamaId)) {
+                this.tamanosSeleccionados.push(tamaId);
+              }
+  
+              this.tamanosSeleccionadosConDescripcion = this.tamanos.filter(t =>
+                this.tamanosSeleccionados.includes(t.tama_Id)
+              );
+  
+              this.messageService.add({
+                
+                severity: 'warn',
+                summary: 'No se puede eliminar',
+                detail: 'Este tamaño está en uso y no puede eliminarse.'
+              });
+
+              console.log('Entro al else2222222');
+              return;
+            }
+          },
+          error: () => {
+            if (!this.tamanosSeleccionados.includes(tamaId)) {
+              this.tamanosSeleccionados.push(tamaId);
+            }
+  
+            this.tamanosSeleccionadosConDescripcion = this.tamanos.filter(t =>
+              this.tamanosSeleccionados.includes(t.tama_Id)
+            );
+  
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: 'Ocurrió un error al intentar eliminar el tamaño.'
+            });
+          }
+        });
+    }
+  }
+  
+  
+  
+  
+  
+  
+  actualizarOInsertarPreciosPorTamano() {
+    const fecha = new Date();
+  
+    for (const tamaIdStr of Object.keys(this.preciosPorTamano)) {
+      const tamaId = +tamaIdStr;
+      const precio = this.preciosPorTamano[tamaId];
+  
+      const prTa_IdExistente = this.prTama[tamaId];
+  
+      const productoPorTamano = new ProductoPorTamano();
+      productoPorTamano.prod_Id = this.producto.prod_Id!;
+      productoPorTamano.tama_Id = tamaId;
+      productoPorTamano.prTa_Precio = precio;
+  
+      if (prTa_IdExistente) {
+        // Ya existe, actualizar
+        productoPorTamano.prTa_Id = +prTa_IdExistente;
+        productoPorTamano.usua_Modificacion = Number(localStorage.getItem('usuario_id'));
+        productoPorTamano.prTa_FechaModificacion = fecha;
+  
+        this.http.put(`https://localhost:7147/ProductoPorTamano/Actualizar`, productoPorTamano).subscribe({
+          next: () => console.log("Actualizado:", productoPorTamano),
+          error: err => console.error("Error al actualizar:", err)
+        });
+      } else {
+        // No existe, insertar
+        productoPorTamano.usua_Creacion = Number(localStorage.getItem('usuario_id'));
+        productoPorTamano.prTa_FechaCreacion = fecha;
+  
+        this.http.post(`https://localhost:7147/ProductoPorTamano/Insertar`, productoPorTamano).subscribe({
+          next: () => console.log("Insertado:", productoPorTamano),
+          error: err => console.error("Error al insertar:", err)
+        });
+      }
+    }
+  }
   
   
 
@@ -142,7 +248,7 @@ export class EditarProductoComponent implements OnInit {
     this.producto3 = new Productos();
     this.productoPorTamano = new ProductoPorTamano();
     this.tamanosSeleccionados = [];
-    //this.tamanosSeleccionadosConDescripcion = [];
+    this.tamanosSeleccionadosConDescripcion = [];
     this.preciosPorTamano = {};
     this.selectedFile = null;
     this.nombreOriginal = '';
@@ -152,68 +258,42 @@ export class EditarProductoComponent implements OnInit {
     this.cont = 1;
     this.cont1 = 1;
     this.cont2 = 1;
-
-
-    
-
+  
     if (!this.producto.prod_Descripcion?.trim() || !this.producto.cate_Id || 
-    this.tamanosSeleccionados.length === 0 || 
-    !this.producto.prod_ImgUrl) {
-    this.messageService.add({
-      severity: 'warn',
-      summary: 'Advertencia',
-      detail: 'Por favor complete todos los campos obligatorios'
-    });
-    return;
-  }
-
+        this.tamanosSeleccionados.length === 0 || 
+        !this.producto.prod_ImgUrl) {
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Advertencia',
+        detail: 'Por favor complete todos los campos obligatorios'
+      });
+      return;
+    }
+  
     this.producto.prod_Id = this.prodId;
-    this.producto.usua_Modificacion =  Number(localStorage.getItem('usuario_id'));
+    this.producto.usua_Modificacion = Number(localStorage.getItem('usuario_id'));
     this.producto.prod_FechaModificacion = new Date();
     this.producto2.prod_Id = this.prodId;
+  
     this.uploadImage().then(() => {
       this.http.put(`${this.apiUrl}/Producto/Actualizar`, this.producto)
-      .subscribe({
-        next: () => {
-          console.log("Producto a eliminar:",  { prod_Id: this.prodId });
-        this.http.post(`${this.apiUrl}/ProductoPorTamano/Eliminar`,  { prod_Id: this.prodId } )
-        .subscribe(() => { 
-          const fecha = new Date();
-          console.log("Producto a Entro a aactilisar:",  { prod_Id: this.prodId });
-          console.log("Precios por tamaño a insertar:", this.preciosPorTamano);
-          for (const id in this.preciosPorTamano) {
-            const precio = this.preciosPorTamano[+id];
-            if (precio > 0) {
-              const nuevoProductoPorTamano = new ProductoPorTamano();
-              nuevoProductoPorTamano.prod_Id = this.producto.prod_Id!;
-              nuevoProductoPorTamano.tama_Id = +id;
-              nuevoProductoPorTamano.prTa_Precio = precio;
-              nuevoProductoPorTamano.usua_Creacion =  Number(localStorage.getItem('usuario_id'));
-              nuevoProductoPorTamano.prTa_FechaCreacion = new Date();
-          
-              
-              console.log("Insertando:", nuevoProductoPorTamano);
-              this.http.post(`${this.apiUrl}/ProductoPorTamano/Insertar`, nuevoProductoPorTamano).subscribe({
-                next: () => {
-                  console.log("Insertado correctamente", nuevoProductoPorTamano);
-                },
-                error: (err) => {
-                  console.error("Error al insertar ProductoPorTamano:", err);
-                }
-              });
-            }
+        .subscribe({
+          next: () => {
+            this.actualizarOInsertarPreciosPorTamano();
+            //this.eliminarTamanosDeseleccionados(); 
+            this.actualizado.emit();
+          },
+          error: () => {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: 'Error al actualizar el producto'
+            });
           }
-          
-          //return;
-
         });
-       
-          this.actualizado.emit();
-        },
-       
-      });
     });
   }
+  
 
   uploadImage(): Promise<void> {
     return new Promise((resolve, reject) => {
@@ -238,24 +318,75 @@ export class EditarProductoComponent implements OnInit {
   tamanosSeleccionados: number[] = [];
 
   onTamanoChange(event: any) {
-    const seleccionados: number[] = event.value;
+    const nuevosSeleccionados = [...event.value];
+    const tamanosEliminados = this.tamanosSeleccionados.filter(id => !nuevosSeleccionados.includes(id));
+    const nuevosAgregados = nuevosSeleccionados.filter(id => !this.tamanosSeleccionados.includes(id));
   
+    // Procesar eliminados de forma segura
+    const eliminacionesPendientes = [...tamanosEliminados];
   
-    this.tamanosSeleccionadosConDescripcion = this.tamanos.filter(t => seleccionados.includes(t.tama_Id));
-    
+    eliminacionesPendientes.forEach(tamaId => {
+      const prTa_Id = this.prTama[tamaId];
   
-    this.tamanosSeleccionadosConDescripcion.forEach(t => {
-      console.log(this.tamanosSeleccionadosConDescripcion);
-
-
-      if (this.preciosPorTamano[t.tama_Id] === undefined) {
-        this.preciosPorTamano[t.tama_Id] = 0;
+      this.http.post<Respuesta<ProductoPorTamano>>(`${this.apiUrl}/ProductoPorTamano/Eliminar`, { prTa_Id: prTa_Id })
+        .subscribe({
+          next: (response) => {
+            if (response && response.data.codeStatus > 0) {
+              this.messageService.add({
+                severity: 'success',
+                summary: 'Tamaño eliminado',
+                detail: 'El tamaño fue eliminado correctamente.'
+              });
+  
+              // ✅ Eliminar de los seleccionados sólo si fue exitoso
+              this.tamanosSeleccionados = this.tamanosSeleccionados.filter(id => id !== tamaId);
+              delete this.preciosPorTamano[tamaId];
+              delete this.prTama[tamaId];
+            } else {
+              this.messageService.add({
+                severity: 'warn',
+                summary: 'No se puede eliminar',
+                detail: 'Este tamaño está en uso y no puede eliminarse.'
+              });
+            }
+  
+          this.actualizarVistaDeTamanos();
+          },
+          error: () => {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: 'Error al intentar eliminar el tamaño.'
+            });
+  
+          this.actualizarVistaDeTamanos();
+          }
+        });
+    });
+  
+    // Agregar nuevos seleccionados
+    nuevosAgregados.forEach(id => {
+      if (!this.tamanosSeleccionados.includes(id)) {
+        this.tamanosSeleccionados.push(id);
+      }
+  
+      if (this.preciosPorTamano[id] === undefined) {
+        this.preciosPorTamano[id] = 0;
       }
     });
   
-    this.modalVisible = this.tamanosSeleccionadosConDescripcion.length > 0;
-   
+   this.actualizarVistaDeTamanos();
   }
+  
+  actualizarVistaDeTamanos() {
+    this.tamanosSeleccionadosConDescripcion = this.tamanos.filter(t =>
+      this.tamanosSeleccionados.includes(t.tama_Id)
+    );
+  
+    this.modalVisible = this.tamanosSeleccionadosConDescripcion.length > 0;
+  }
+  
+  
   
 
   guardarPrecios() {
